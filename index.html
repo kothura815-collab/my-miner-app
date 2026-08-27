@@ -1,137 +1,211 @@
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alta Ads Miner</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    body { background: #0f172a; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
-    .card { background: #1e293b; padding: 25px 20px; border-radius: 16px; max-width: 400px; margin: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-    h2 { font-size: 22px; margin-bottom: 5px; color: #ffffff; letter-spacing: 1px; }
-    #balance { font-size: 42px; color: #f59e0b; margin: 10px 0; font-weight: bold; }
-    
-    /* Logo Box Design */
-    .logo-container { margin: 25px 0; }
-    .logo-btn {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background: #0f172a;
-      border: 4px solid #3b82f6;
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-      cursor: pointer;
-      object-fit: cover;
-      transition: transform 0.1s, box-shadow 0.1s;
-    }
-    .logo-btn:active {
-      transform: scale(0.92);
-      box-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta Ads Miner</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(23, 32, 54, 0.8);
+            --accent-color: #00f2fe;
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --btn-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --text-color: #ffffff;
+            --subtext-color: #8a99ad;
+        }
 
-    .btn { background: #22c55e; color: white; padding: 14px 24px; border: none; border-radius: 10px; width: 100%; font-size: 16px; cursor: pointer; font-weight: bold; margin-top: 15px; }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
-    .modal-content { background: #1e293b; padding: 20px; margin: 20% auto; width: 85%; max-width: 320px; border-radius: 12px; text-align: left; }
-    input { width: 100%; padding: 12px; margin: 8px 0 15px 0; border-radius: 6px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
-  </style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            font-size: 12px;
+            color: #38ef7d;
+            background: rgba(56, 239, 125, 0.1);
+            padding: 4px 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .balance-box {
+            margin: 15px 0;
+        }
+
+        .balance-amount {
+            font-size: 42px;
+            font-weight: 700;
+            color: #ffb703;
+            text-shadow: 0 0 15px rgba(255, 183, 3, 0.3);
+        }
+
+        .logo-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 20px auto;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background: radial-gradient(circle, rgba(79,172,254,0.2) 0%, rgba(0,0,0,0) 70%);
+            transition: transform 0.1s ease;
+        }
+
+        .logo-container:active {
+            transform: scale(0.95);
+        }
+
+        .logo-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
+            border: 3px solid var(--accent-color);
+        }
+
+        .tap-instruction {
+            font-size: 14px;
+            color: var(--subtext-color);
+            margin-bottom: 25px;
+        }
+
+        .btn-withdraw {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            background: var(--btn-gradient);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(56, 239, 125, 0.3);
+            transition: opacity 0.2s;
+        }
+
+        .btn-withdraw:active {
+            opacity: 0.8;
+        }
+
+        .rules-info {
+            margin-top: 20px;
+            font-size: 11px;
+            color: var(--subtext-color);
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 12px;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="card">
-    <h2>ALTA ADS MINER</h2>
-    <div id="balance">4.80</div>
-    <p style="color: #4ade80; font-size: 14px; margin-top: -5px;">System: Operational</p>
-    
-    <!-- Alta Logo Center Button -->
-    <div class="logo-container">
-      <img src="alta-logo.png" alt="Alta Logo" class="logo-btn" onclick="minePoint()">
+<div class="container">
+    <div class="header-title">ALTA ADS MINER</div>
+    <div class="status-badge"> System: Operational</div>
+
+    <div class="balance-box">
+        <div class="balance-amount" id="balance">0.00</div>
     </div>
-    
-    <p style="color: #94a3b8; font-size: 14px; margin-top: 0;">Tap Logo to Mine ALTA</p>
 
-    <button class="btn" onclick="openModal()">💳 Withdraw ALTA</button>
-  </div>
-
-  <!-- Withdraw Modal -->
-  <div id="withdrawModal" class="modal">
-    <div class="modal-content">
-      <h3 style="margin-top:0; color:#f59e0b;">ALTA Payout Request</h3>
-      
-      <label style="font-size: 12px; color: #94a3b8;">Telegram Username</label>
-      <input type="text" id="username" placeholder="@username">
-      
-      <label style="font-size: 12px; color: #94a3b8;">Amount (ALTA)</label>
-      <input type="number" id="amount" placeholder="Amount to withdraw">
-      
-      <label style="font-size: 12px; color: #94a3b8;">TON Wallet Address</label>
-      <input type="text" id="wallet" placeholder="TON Wallet Address">
-      
-      <button class="btn" onclick="submitWithdrawal()" style="background:#22c55e;">SUBMIT REQUEST</button>
-      <p style="text-align: center; cursor: pointer; color: #94a3b8; margin-top: 15px; font-size: 14px;" onclick="closeModal()">Cancel</p>
+    <!-- Clickable Logo -->
+    <div class="logo-container" id="mineBtn">
+        <img src="https://via.placeholder.com/140" alt="Alta Hub Logo" class="logo-img">
     </div>
-  </div>
 
-  <script>
-    let points = 4.80;
-    const tg = window.Telegram.WebApp;
-    if(tg) tg.expand();
+    <div class="tap-instruction">Tap to mine Alta</div>
 
-    // Telegram Bot Token နှင့် Channel Settings
-    const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; // BotFather ကရတဲ့ Token ထည့်ပါ
-    const CHANNEL_ID = "@AltaHub_ads_withdraw_history"; 
+    <!-- Withdraw Button -->
+    <button class="btn-withdraw" id="withdrawBtn"> Withdraw Alta</button>
 
-    function minePoint() {
-      points += 0.10;
-      document.getElementById('balance').innerText = points.toFixed(2);
-    }
+    <!-- Rules & Limits Info -->
+    <div class="rules-info">
+        <span>Min Withdraw: 100 ALTA</span>
+        <span>Fee: 2%</span>
+        <span>Daily Limit: 1000 ALTA</span>
+    </div>
+</div>
 
-    function openModal() { 
-      document.getElementById('withdrawModal').style.display = 'block'; 
-    }
-    
-    function closeModal() { 
-      document.getElementById('withdrawModal').style.display = 'none'; 
-    }
+<script>
+    let currentBalance = 0.00;
+    let dailyMined = 0;
+    const DAILY_LIMIT = 1000;
+    const MIN_WITHDRAW = 100;
+    const FEE_PERCENT = 2;
 
-    async function submitWithdrawal() {
-      const username = document.getElementById('username').value;
-      const amount = parseFloat(document.getElementById('amount').value);
-      const wallet = document.getElementById('wallet').value;
+    const balanceEl = document.getElementById('balance');
+    const mineBtn = document.getElementById('mineBtn');
+    const withdrawBtn = document.getElementById('withdrawBtn');
 
-      if(!username || !amount || !wallet) {
-        alert("ကျေးဇူးပြု၍ အချက်အလက်များကို ပြည့်စုံစွာဖြည့်ပါ။");
-        return;
-      }
+    // Tap to mine with Random Gift (1 to 10 Alta)
+    mineBtn.addEventListener('click', () => {
+        if (dailyMined >= DAILY_LIMIT) {
+            alert("Today's limit reached! (Max 1000 ALTA/day)");
+            return;
+        }
 
-      if (amount > points) {
-        alert("သင့်တွင် ထုတ်ယူရန် Balance မလုံလောက်ပါ။");
-        return;
-      }
+        // Generate Random Reward Score between 1 and 10
+        let reward = (Math.random() * (10 - 1) + 1);
+        
+        // Cap reward if it exceeds daily limit
+        if (dailyMined + reward > DAILY_LIMIT) {
+            reward = DAILY_LIMIT - dailyMined;
+        }
 
-      // Point လျော့သွားစေရန် ပြုလုပ်ခြင်း
-      points -= amount;
-      document.getElementById('balance').innerText = points.toFixed(2);
+        currentBalance += reward;
+        dailyMined += reward;
+        balanceEl.innerText = currentBalance.toFixed(2);
+    });
 
-      // Channel သို့ Withdraw Message ပို့ခြင်း
-      const text = `🚀 **New ALTA Withdrawal Request**\n\n👤 User: ${username}\n💰 Amount: ${amount} ALTA\n💎 Wallet: \`${wallet}\``;
-      
-      try {
-        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: CHANNEL_ID,
-            text: text,
-            parse_mode: 'Markdown'
-          })
-        });
-      } catch (e) {
-        console.log("Channel notification error:", e);
-      }
+    // Withdraw Logic
+    withdrawBtn.addEventListener('click', () => {
+        if (currentBalance < MIN_WITHDRAW) {
+            alert(`Minimum withdraw amount is ${MIN_WITHDRAW} ALTA.`);
+            return;
+        }
 
-      alert("Withdrawal Request Sent Successfully!");
-      closeModal();
-    }
-  </script>
+        const fee = (currentBalance * FEE_PERCENT) / 100;
+        const netAmount = currentBalance - fee;
+
+        alert(`Withdrawal Request Success!\n\nRequested: ${currentBalance.toFixed(2)} ALTA\nFee (2%): ${fee.toFixed(2)} ALTA\nYou will receive: ${netAmount.toFixed(2)} ALTA`);
+        
+        currentBalance = 0;
+        balanceEl.innerText = "0.00";
+    });
+</script>
+
 </body>
 </html>
