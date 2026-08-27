@@ -270,17 +270,23 @@
 
         // Withdraw Logic
         withdrawBtn.addEventListener('click', () => {
-            const WITHDRAW_LIMIT = 100;
-            const FEE_PERCENT = 10;
+    const FEE_PERCENT = 10;
 
-            if (currentAlta < WITHDRAW_LIMIT) {
-                alert(`Withdraw ပြုလုပ်ရန် အနည်းဆုံး ${WITHDRAW_LIMIT} Alta ရှိရပါမည်။`);
-            } else {
-                let fee = (currentAlta * FEE_PERCENT) / 100;
-                let netAmount = currentAlta - fee;
-                alert(`Withdraw တောင်းဆိုမှု အောင်မြင်ပါသည်။\nထုတ်ယူငွေ: ${currentAlta} ALTA\nFee (10%): ${fee} ALTA\nလက်ခံရရှိမည်: ${netAmount} ALTA`);
-            }
-        });
+    if (currentAlta <= 0) {
+        alert("ထုတ်ယူရန် Alta လက်ကျန်မရှိပါ။");
+        return;
+    }
+
+    let fee = (currentAlta * FEE_PERCENT) / 100;
+    let netAmount = currentAlta - fee;
+    
+    alert(`Withdraw တောင်းဆိုမှု အောင်မြင်ပါသည်။\nထုတ်ယူငွေ: ${currentAlta.toFixed(2)} ALTA\nFee (10%): ${fee.toFixed(2)} ALTA\nလက်ခံရရှိမည်: ${netAmount.toFixed(2)} ALTA`);
+    
+    // ထုတ်ယူပြီးပါက Balance ကို 0 ပြန်လုပ်လိုပါက အောက်ပါလိုင်းကို ဖွင့်ပေးပါ
+    // currentAlta = 0;
+    // balanceEl.innerText = "0.00";
+});
+
     </script>
 </body>
 </html>
