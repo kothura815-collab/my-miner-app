@@ -58,19 +58,19 @@
         .status {
             font-size: 13px;
             color: #2ec4b6;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
-        /* Animated Glowing & Pulsing Logo */
+        /* Animated Glowing & Rotating Coin Logo */
         .logo-container {
             width: 170px;
             height: 170px;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 15px auto;
             border-radius: 50%;
-            background: linear-gradient(145deg, #0088cc, #f39c12);
             padding: 5px;
-            box-shadow: 0 0 20px rgba(0, 136, 204, 0.4);
             cursor: pointer;
+            position: relative;
+            box-shadow: 0 0 20px rgba(243, 156, 18, 0.4);
             animation: pulse-glow 2s infinite ease-in-out;
         }
 
@@ -80,42 +80,21 @@
             100% { box-shadow: 0 0 15px rgba(0, 136, 204, 0.4); transform: scale(1); }
         }
 
-        .logo-inner {
+        .coin-img {
             width: 100%;
             height: 100%;
-            background-color: #0b0e14;
             border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            object-fit: cover;
+            transition: transform 0.3s ease;
         }
 
-        /* Styling for 'A' Logo Icon */
-        .logo-icon {
-            font-size: 65px;
-            font-weight: 900;
-            line-height: 1;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(180deg, #0088cc, #f39c12);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: lightning-shake 1.5s infinite;
+        .logo-container.mining .coin-img {
+            animation: spin-coin 3s linear infinite;
         }
 
-        @keyframes lightning-shake {
-            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
-            20% { transform: scale(1.1) rotate(-5deg); opacity: 0.8; }
-            40% { transform: scale(0.95) rotate(5deg); opacity: 1; }
-            60% { transform: scale(1.15) rotate(-3deg); filter: drop-shadow(0 0 8px #f39c12); }
-            80% { transform: scale(1) rotate(0deg); opacity: 0.9; }
-        }
-
-        .logo-text {
-            font-size: 14px;
-            font-weight: bold;
-            color: var(--accent-blue);
-            margin-top: 5px;
+        @keyframes spin-coin {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
         }
 
         .tap-instruction {
@@ -136,11 +115,11 @@
             cursor: pointer;
         }
 
-        /* Modal Overlay for Payout Request & Ads */
+        /* Modal Overlays */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.8);
             display: none;
             align-items: center;
             justify-content: center;
@@ -213,7 +192,7 @@
             display: none;
         }
 
-        /* Ads Modal Style */
+        /* Ads Modal */
         .ad-modal-card {
             background: #161b22;
             border: 2px solid var(--accent-blue);
@@ -225,10 +204,39 @@
         }
 
         .ad-timer {
-            font-size: 36px;
+            font-size: 38px;
             font-weight: bold;
             color: var(--primary-gold);
             margin: 15px 0;
+        }
+
+        /* Withdrawal History Section */
+        .history-section {
+            margin-top: 15px;
+            text-align: left;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 10px;
+        }
+
+        .history-title {
+            font-size: 12px;
+            color: #8b949e;
+            margin-bottom: 5px;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            background: #090d14;
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+
+        .badge-pending {
+            color: #f39c12;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -236,25 +244,30 @@
 
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
-        <div class="balance-display" id="altaBalance">1.00</div>
+        <div class="balance-display" id="altaBalance">0.00</div>
         <div class="status" id="systemStatus">System: Operational</div>
 
         <div class="logo-container" id="tapBtn">
-            <div class="logo-inner">
-                <div class="logo-icon">A</div>
-                <div class="logo-text">ALTA HUB</div>
-            </div>
+            <img src="alta-coin.png" alt="Alta Coin" class="coin-img">
         </div>
 
-        <div class="tap-instruction">Tap to mine Alta</div>
+        <div class="tap-instruction" id="tapInstruction">Tap to start mining Alta</div>
         <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta</button>
+
+        <!-- Withdrawal History List -->
+        <div class="history-section">
+            <div class="history-title">Withdrawal History</div>
+            <div id="historyList">
+                <div style="font-size: 11px; color: #555; text-align: center;">No withdrawal requests yet</div>
+            </div>
+        </div>
     </div>
 
     <!-- Ads Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-modal-card">
-            <h3 style="color: var(--accent-blue); margin: 0;">Watching Sponsor Ad</h3>
-            <p style="font-size: 13px; color: #8b949e; margin-top: 5px;">Please wait until the timer finishes...</p>
+            <h3 style="color: var(--accent-blue); margin: 0;">Sponsor Ad</h3>
+            <p style="font-size: 13px; color: #8b949e; margin-top: 5px;">Ad is playing. Please wait...</p>
             <div class="ad-timer" id="adTimer">15</div>
         </div>
     </div>
@@ -286,17 +299,19 @@
         const tg = window.Telegram?.WebApp;
         if(tg) tg.expand();
 
-        let currentAlta = 1.00;
-        let isAnimating = false;
+        let currentAlta = 0.00;
+        let isMining = false;
         let isAdShowing = false;
-        let lastTapTime = 0;
+        let withdrawalHistory = [];
 
         const balanceEl = document.getElementById('altaBalance');
         const tapBtn = document.getElementById('tapBtn');
+        const tapInstruction = document.getElementById('tapInstruction');
         const systemStatus = document.getElementById('systemStatus');
         const payoutModal = document.getElementById('payoutModal');
         const adModal = document.getElementById('adModal');
         const adTimerEl = document.getElementById('adTimer');
+        const historyListEl = document.getElementById('historyList');
         
         const openWithdrawModalBtn = document.getElementById('openWithdrawModal');
         const closeModalBtn = document.getElementById('closeModal');
@@ -307,15 +322,15 @@
         const tonAddressInput = document.getElementById('tonAddress');
         const addressError = document.getElementById('addressError');
 
-        // Auto Username fetch from Telegram if available
+        // Fetch Telegram Username
         if (tg && tg.initDataUnsafe?.user?.username) {
             usernameInput.value = "@" + tg.initDataUnsafe.user.username;
         }
 
-        // Check Online/Offline Status
+        // Network Status Check
         function checkNetworkStatus() {
             if (!navigator.onLine) {
-                systemStatus.innerText = "System: Offline (Mining Paused)";
+                systemStatus.innerText = "System: Offline (Mining Disabled)";
                 systemStatus.style.color = "#e74c3c";
                 return false;
             } else {
@@ -327,7 +342,7 @@
         window.addEventListener('online', checkNetworkStatus);
         window.addEventListener('offline', checkNetworkStatus);
 
-        // 15 Seconds Ad Trigger Function
+        // 15-second Ad Logic
         function trigger15SecAd(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
@@ -346,52 +361,58 @@
             }, 1000);
         }
 
-        // Tap Logic with Auto-Clicker Protection & 15s Ads Execution
+        // Tap & Mining Logic (0.00 to +1.00 over 10 Seconds)
         tapBtn.addEventListener('click', (e) => {
-            // Block if Offline
             if (!checkNetworkStatus()) {
-                alert("You are currently offline. Internet connection is required to mine!");
+                alert("Internet connection required!");
                 return;
             }
 
-            if (isAnimating || isAdShowing) return;
+            if (isMining || isAdShowing) return;
 
-            // Anti-Auto-Clicker Checks
-            const now = Date.now();
+            // Anti-Auto Clicker Security
             if (e.isTrusted === false) {
                 alert("Automated clicks detected!");
                 return;
             }
-            if (now - lastTapTime < 500) { // Fast tap limit protection
-                return;
-            }
-            lastTapTime = now;
 
-            isAnimating = true;
+            isMining = true;
+            tapBtn.classList.add('mining');
+            tapInstruction.innerText = "Mining Alta in progress...";
 
-            // Trigger Ad and increase balance after completion
-            trigger15SecAd(() => {
-                let targetAlta = currentAlta + 1.00;
-                let step = 0.05;
+            let targetAlta = currentAlta + 1.00;
+            let totalSteps = 20; // 0.05 step -> 20 increments per +1.00 ALTA
+            let stepInterval = 10000 / totalSteps; // 10,000ms (10sec) / 20 = 500ms per step
 
-                let interval = setInterval(() => {
-                    currentAlta = parseFloat((currentAlta + step).toFixed(2));
+            let stepCount = 0;
+            let interval = setInterval(() => {
+                stepCount++;
+                currentAlta = parseFloat((currentAlta + 0.05).toFixed(2));
+                balanceEl.innerText = currentAlta.toFixed(2);
+
+                if (stepCount >= totalSteps) {
+                    clearInterval(interval);
+                    currentAlta = parseFloat(targetAlta.toFixed(2));
                     balanceEl.innerText = currentAlta.toFixed(2);
+                    tapBtn.classList.remove('mining');
+                    isMining = false;
 
-                    if (currentAlta >= targetAlta) {
-                        clearInterval(interval);
-                        currentAlta = targetAlta;
-                        balanceEl.innerText = currentAlta.toFixed(2);
-                        isAnimating = false;
-                    }
-                }, 40);
-            });
+                    // Trigger 15 Sec Ad right after completing 1.00 ALTA increment
+                    trigger15SecAd(() => {
+                        tapInstruction.innerText = "Tap to mine Alta again!";
+                    });
+                }
+            }, stepInterval);
         });
 
-        // Open Modal
+        // Open Withdrawal Modal
         openWithdrawModalBtn.addEventListener('click', () => {
             if (!checkNetworkStatus()) {
                 alert("Internet connection required!");
+                return;
+            }
+            if (currentAlta <= 0) {
+                alert("Your balance is 0. Please mine Alta first.");
                 return;
             }
             altaAmountInput.value = currentAlta.toFixed(2);
@@ -404,12 +425,26 @@
             payoutModal.style.display = 'none';
         });
 
-        // TON Address Validation & Submit
+        // Update Withdrawal History UI
+        function updateHistoryUI() {
+            if (withdrawalHistory.length === 0) {
+                historyListEl.innerHTML = `<div style="font-size: 11px; color: #555; text-align: center;">No withdrawal requests yet</div>`;
+                return;
+            }
+
+            historyListEl.innerHTML = withdrawalHistory.map(item => `
+                <div class="history-item">
+                    <span>${item.amount} ALTA</span>
+                    <span class="badge-pending">Pending</span>
+                </div>
+            `).join('');
+        }
+
+        // Submit Payout Request
         submitPayoutBtn.addEventListener('click', () => {
             const address = tonAddressInput.value.trim();
             const username = usernameInput.value.trim();
 
-            // TON Address format check (UQ... or EQ... with 48 chars length)
             const tonRegex = /^(UQ|EQ)[a-zA-Z0-9_-]{46}$/;
 
             if (!tonRegex.test(address)) {
@@ -418,9 +453,31 @@
             }
 
             addressError.style.display = 'none';
-            alert(`Payout Request Successful!\nUser: ${username}\nAmount: ${currentAlta} ALTA\nAddress: ${address}`);
+            let withdrawAmount = currentAlta;
+
+            // Deduct Points
+            currentAlta = 0.00;
+            balanceEl.innerText = "0.00";
+
+            // Save to History
+            withdrawalHistory.unshift({
+                amount: withdrawAmount.toFixed(2),
+                address: address,
+                status: 'Pending'
+            });
+            updateHistoryUI();
+
+            // Alert Notification & Telegram Admin Target Redirection
+            alert(`Payout Request Sent Successfully!\n\nUser: ${username}\nAmount: ${withdrawAmount.toFixed(2)} ALTA\nStatus: Pending\n\nRedirecting to Telegram Channel: @AltaHub_ads_withdraw_history`);
             
             payoutModal.style.display = 'none';
+
+            // Open Withdrawal History Telegram Channel
+            if (tg) {
+                tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
+            } else {
+                window.open("https://t.me/AltaHub_ads_withdraw_history", "_blank");
+            }
         });
     </script>
 </body>
