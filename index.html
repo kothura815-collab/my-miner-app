@@ -22,7 +22,6 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
@@ -45,9 +44,7 @@
         .title {
             font-size: 24px;
             font-weight: 800;
-            letter-spacing: 1px;
             margin-bottom: 5px;
-            color: #ffffff;
         }
 
         .balance-display {
@@ -64,7 +61,7 @@
             margin-bottom: 25px;
         }
 
-        /* Animated Glowing Logo Frame */
+        /* Animated Glowing & Pulsing Logo */
         .logo-container {
             width: 170px;
             height: 170px;
@@ -74,11 +71,13 @@
             padding: 5px;
             box-shadow: 0 0 20px rgba(0, 136, 204, 0.4);
             cursor: pointer;
-            transition: transform 0.1s ease;
+            animation: pulse-glow 2s infinite ease-in-out;
         }
 
-        .logo-container:active {
-            transform: scale(0.95);
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 15px rgba(0, 136, 204, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 30px rgba(243, 156, 18, 0.8); transform: scale(1.03); }
+            100% { box-shadow: 0 0 15px rgba(0, 136, 204, 0.4); transform: scale(1); }
         }
 
         .logo-inner {
@@ -92,9 +91,19 @@
             justify-content: center;
         }
 
+        /* Lightning Animation */
         .logo-icon {
             font-size: 60px;
             line-height: 1;
+            animation: lightning-shake 1.5s infinite;
+        }
+
+        @keyframes lightning-shake {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            20% { transform: scale(1.1) rotate(-5deg); opacity: 0.8; }
+            40% { transform: scale(0.95) rotate(5deg); opacity: 1; }
+            60% { transform: scale(1.15) rotate(-3deg); filter: drop-shadow(0 0 8px #f39c12); }
+            80% { transform: scale(1) rotate(0deg); opacity: 0.9; }
         }
 
         .logo-text {
@@ -102,7 +111,6 @@
             font-weight: bold;
             color: var(--accent-blue);
             margin-top: 5px;
-            letter-spacing: 1px;
         }
 
         .tap-instruction {
@@ -121,172 +129,202 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
         }
 
-        /* Ads Overlay Modal */
-        .ads-overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(13, 17, 23, 0.95);
-            border-radius: 20px;
+        /* Modal Overlay for Payout Request */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
             display: none;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 10;
+            z-index: 100;
         }
 
-        .timer-circle {
-            font-size: 36px;
-            font-weight: bold;
+        .payout-card {
+            background: #121824;
+            border: 2px solid var(--primary-gold);
+            border-radius: 16px;
+            padding: 20px;
+            width: 85%;
+            max-width: 320px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        .payout-card h3 {
             color: var(--primary-gold);
-            margin-top: 15px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: left;
         }
 
-        .offline-banner {
-            display: none;
-            background-color: #e74c3c;
+        .input-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #2a3547;
+            background: #090d14;
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: #27ae60;
+            border: none;
+            border-radius: 8px;
             color: white;
-            font-size: 12px;
-            padding: 5px;
-            position: fixed;
-            top: 0; width: 100%;
-            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            border: none;
+            color: #8b949e;
+            margin-top: 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .error-msg {
+            color: #e74c3c;
+            font-size: 11px;
+            margin-top: 4px;
+            display: none;
         }
     </style>
 </head>
 <body>
-
-    <div class="offline-banner" id="offlineBanner">⚠️ အင်တာနက် လိုင်းမရှိပါ။ Tap နှိပ်၍ မရပါ။</div>
 
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">1.00</div>
         <div class="status">System: Operational</div>
 
-        <!-- Custom Logo Design -->
         <div class="logo-container" id="tapBtn">
             <div class="logo-inner">
-                <div class="logo-icon">⚡</div>
+                <div class="logo-icon"></div>
                 <div class="logo-text">ALTA HUB</div>
             </div>
         </div>
 
         <div class="tap-instruction">Tap to mine Alta</div>
-        <button class="btn-withdraw" id="withdrawBtn">💳 Withdraw Alta</button>
+        <button class="btn-withdraw" id="openWithdrawModal"> Withdraw Alta</button>
+    </div>
 
-        <!-- Ads Display Screen -->
-        <div class="ads-overlay" id="adsOverlay">
-            <h3>📺 Sponsor Ad Loading...</h3>
-            <p style="font-size: 12px; color: #8b949e; width: 80%;">ကျေးဇူးပြု၍ ၁၅ စက္ကန့် စောင့်ပေးပါ...</p>
-            <div class="timer-circle" id="adsTimer">15</div>
+    <!-- Payout Request Modal -->
+    <div class="modal-overlay" id="payoutModal">
+        <div class="payout-card">
+            <h3>Payout Request</h3>
+            
+            <div class="input-group">
+                <input type="text" id="username" placeholder="@username">
+            </div>
+
+            <div class="input-group">
+                <input type="number" id="altaAmount" placeholder="Alta point အရေအတွက်" readonly>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="tonAddress" placeholder="Ton Address">
+                <div class="error-msg" id="addressError">Invalid TON Address! Must start with UQ or EQ.</div>
+            </div>
+
+            <button class="btn-submit" id="submitPayout">SUBMIT REQUEST</button>
+            <center><button class="btn-cancel" id="closeModal">Cancel</button></center>
         </div>
     </div>
 
     <script>
-        // Telegram WebApp Init
         const tg = window.Telegram?.WebApp;
         if(tg) tg.expand();
 
-        // Variables Setup
         let currentAlta = 1.00;
-        let lastTapTime = 0;
-        const MIN_TAP_INTERVAL = 120; // Anti-Auto Clicker (120ms ထက် မြန်ရင် ငြင်းမည်)
-        const DAILY_LIMIT = 1000;
-        let todayMined = 0;
+        let isAnimating = false;
 
         const balanceEl = document.getElementById('altaBalance');
         const tapBtn = document.getElementById('tapBtn');
-        const adsOverlay = document.getElementById('adsOverlay');
-        const adsTimerEl = document.getElementById('adsTimer');
-        const withdrawBtn = document.getElementById('withdrawBtn');
-        const offlineBanner = document.getElementById('offlineBanner');
+        const payoutModal = document.getElementById('payoutModal');
+        const openWithdrawModalBtn = document.getElementById('openWithdrawModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const submitPayoutBtn = document.getElementById('submitPayout');
+        
+        const usernameInput = document.getElementById('username');
+        const altaAmountInput = document.getElementById('altaAmount');
+        const tonAddressInput = document.getElementById('tonAddress');
+        const addressError = document.getElementById('addressError');
 
-        // Internet Connection Check
-        function updateOnlineStatus() {
-            if (!navigator.onLine) {
-                offlineBanner.style.display = 'block';
-            } else {
-                offlineBanner.style.display = 'none';
-            }
+        // Auto Username fetch from Telegram if available
+        if (tg && tg.initDataUnsafe?.user?.username) {
+            usernameInput.value = "@" + tg.initDataUnsafe.user.username;
         }
-        window.addEventListener('online', updateOnlineStatus);
-        window.addEventListener('offline', updateOnlineStatus);
 
-        // Tap Logic with Ads trigger
-        tapBtn.addEventListener('click', (e) => {
-            // 1. Internet Check
-            if (!navigator.onLine) {
-                alert("အင်တာနက်မရှိသေးပါ။ ချက်ချင်းပြန်မရသေးပါ။");
-                return;
-            }
+        // Tap Logic: Smooth animation from current number to +1 (0.05 step interval)
+        tapBtn.addEventListener('click', () => {
+            if (isAnimating) return;
+            isAnimating = true;
 
-            // 2. Anti-Auto Clicker Check
-            const now = Date.now();
-            if (now - lastTapTime < MIN_TAP_INTERVAL) {
-                console.warn("Auto clicker detected!");
-                return; 
-            }
-            lastTapTime = now;
+            let targetAlta = currentAlta + 1.00;
+            let step = 0.05;
 
-            // 3. Daily Limit Check
-            if (todayMined >= DAILY_LIMIT) {
-                alert("ဒီနေ့အတွက် One Day Limit (1000 ALTA) ပြည့်သွားပါပြီ။");
-                return;
-            }
+            let interval = setInterval(() => {
+                currentAlta = parseFloat((currentAlta + step).toFixed(2));
+                balanceEl.innerText = currentAlta.toFixed(2);
 
-            // 4. Increment by 0.05
-            currentAlta = parseFloat((currentAlta + 0.05).toFixed(2));
-            todayMined += 0.05;
-            balanceEl.innerText = currentAlta.toFixed(2);
-
-            // 5. Check integer complete (e.g., 2.00, 3.00, etc.) to show 15 sec Ads
-            // Checking if decimal part is zero or target whole number reached
-            if (Math.abs(currentAlta % 1) < 0.01) {
-                triggerAds();
-            }
+                if (currentAlta >= targetAlta) {
+                    clearInterval(interval);
+                    currentAlta = targetAlta;
+                    balanceEl.innerText = currentAlta.toFixed(2);
+                    isAnimating = false;
+                }
+            }, 40); // 40ms speed for smooth increment
         });
 
-        // 15 Sec Ads Logic
-        function triggerAds() {
-            adsOverlay.style.display = 'flex';
-            let timeLeft = 15;
-            adsTimerEl.innerText = timeLeft;
+        // Open Modal
+        openWithdrawModalBtn.addEventListener('click', () => {
+            altaAmountInput.value = currentAlta.toFixed(2);
+            addressError.style.display = 'none';
+            payoutModal.style.display = 'flex';
+        });
 
-            const countdown = setInterval(() => {
-                timeLeft--;
-                adsTimerEl.innerText = timeLeft;
-                if (timeLeft <= 0) {
-                    clearInterval(countdown);
-                    adsOverlay.style.display = 'none';
-                    
-                    // Random Gift Code Award (1 to 10 score)
-                    let giftScore = Math.floor(Math.random() * 10) + 1;
-                    alert(`Ads ကြည့်ပြီးသည့်အတွက် Gift Bonus (Score: ${giftScore}/10) ရရှိပါသည်။`);
-                }
-            }, 1000);
-        }
+        // Close Modal
+        closeModalBtn.addEventListener('click', () => {
+            payoutModal.style.display = 'none';
+        });
 
-        // Withdraw Logic
-        withdrawBtn.addEventListener('click', () => {
-    const FEE_PERCENT = 10;
+        // TON Address Validation & Submit
+        submitPayoutBtn.addEventListener('click', () => {
+            const address = tonAddressInput.value.trim();
+            const username = usernameInput.value.trim();
 
-    if (currentAlta <= 0) {
-        alert("ထုတ်ယူရန် Alta လက်ကျန်မရှိပါ။");
-        return;
-    }
+            // TON Address format check (UQ... or EQ... with 48 chars length)
+            const tonRegex = /^(UQ|EQ)[a-zA-Z0-9_-]{46}$/;
 
-    let fee = (currentAlta * FEE_PERCENT) / 100;
-    let netAmount = currentAlta - fee;
-    
-    alert(`Withdraw တောင်းဆိုမှု အောင်မြင်ပါသည်။\nထုတ်ယူငွေ: ${currentAlta.toFixed(2)} ALTA\nFee (10%): ${fee.toFixed(2)} ALTA\nလက်ခံရရှိမည်: ${netAmount.toFixed(2)} ALTA`);
-    
-    // ထုတ်ယူပြီးပါက Balance ကို 0 ပြန်လုပ်လိုပါက အောက်ပါလိုင်းကို ဖွင့်ပေးပါ
-    // currentAlta = 0;
-    // balanceEl.innerText = "0.00";
-});
+            if (!tonRegex.test(address)) {
+                addressError.style.display = 'block';
+                return;
+            }
 
+            addressError.style.display = 'none';
+            alert(`Payout Request အောင်မြင်ပါသည်။\nUser: ${username}\nAmount: ${currentAlta} ALTA\nAddress: ${address}`);
+            
+            payoutModal.style.display = 'none';
+        });
     </script>
 </body>
 </html>
