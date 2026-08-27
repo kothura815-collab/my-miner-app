@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -91,10 +91,15 @@
             justify-content: center;
         }
 
-        /* Lightning Animation */
+        /* Styling for 'A' Logo Icon */
         .logo-icon {
-            font-size: 60px;
+            font-size: 65px;
+            font-weight: 900;
             line-height: 1;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(180deg, #0088cc, #f39c12);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             animation: lightning-shake 1.5s infinite;
         }
 
@@ -131,11 +136,11 @@
             cursor: pointer;
         }
 
-        /* Modal Overlay for Payout Request */
+        /* Modal Overlay for Payout Request & Ads */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             display: none;
             align-items: center;
             justify-content: center;
@@ -207,6 +212,24 @@
             margin-top: 4px;
             display: none;
         }
+
+        /* Ads Modal Style */
+        .ad-modal-card {
+            background: #161b22;
+            border: 2px solid var(--accent-blue);
+            border-radius: 16px;
+            padding: 30px 20px;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .ad-timer {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--primary-gold);
+            margin: 15px 0;
+        }
     </style>
 </head>
 <body>
@@ -214,17 +237,26 @@
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">1.00</div>
-        <div class="status">System: Operational</div>
+        <div class="status" id="systemStatus">System: Operational</div>
 
         <div class="logo-container" id="tapBtn">
             <div class="logo-inner">
-                <div class="logo-icon"></div>
+                <div class="logo-icon">A</div>
                 <div class="logo-text">ALTA HUB</div>
             </div>
         </div>
 
         <div class="tap-instruction">Tap to mine Alta</div>
-        <button class="btn-withdraw" id="openWithdrawModal"> Withdraw Alta</button>
+        <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta</button>
+    </div>
+
+    <!-- Ads Modal -->
+    <div class="modal-overlay" id="adModal">
+        <div class="ad-modal-card">
+            <h3 style="color: var(--accent-blue); margin: 0;">Watching Sponsor Ad</h3>
+            <p style="font-size: 13px; color: #8b949e; margin-top: 5px;">Please wait until the timer finishes...</p>
+            <div class="ad-timer" id="adTimer">15</div>
+        </div>
     </div>
 
     <!-- Payout Request Modal -->
@@ -237,11 +269,11 @@
             </div>
 
             <div class="input-group">
-                <input type="number" id="altaAmount" placeholder="Alta point အရေအတွက်" readonly>
+                <input type="number" id="altaAmount" placeholder="Alta Points Amount" readonly>
             </div>
 
             <div class="input-group">
-                <input type="text" id="tonAddress" placeholder="Ton Address">
+                <input type="text" id="tonAddress" placeholder="TON Address">
                 <div class="error-msg" id="addressError">Invalid TON Address! Must start with UQ or EQ.</div>
             </div>
 
@@ -256,10 +288,16 @@
 
         let currentAlta = 1.00;
         let isAnimating = false;
+        let isAdShowing = false;
+        let lastTapTime = 0;
 
         const balanceEl = document.getElementById('altaBalance');
         const tapBtn = document.getElementById('tapBtn');
+        const systemStatus = document.getElementById('systemStatus');
         const payoutModal = document.getElementById('payoutModal');
+        const adModal = document.getElementById('adModal');
+        const adTimerEl = document.getElementById('adTimer');
+        
         const openWithdrawModalBtn = document.getElementById('openWithdrawModal');
         const closeModalBtn = document.getElementById('closeModal');
         const submitPayoutBtn = document.getElementById('submitPayout');
@@ -274,29 +312,88 @@
             usernameInput.value = "@" + tg.initDataUnsafe.user.username;
         }
 
-        // Tap Logic: Smooth animation from current number to +1 (0.05 step interval)
-        tapBtn.addEventListener('click', () => {
-            if (isAnimating) return;
+        // Check Online/Offline Status
+        function checkNetworkStatus() {
+            if (!navigator.onLine) {
+                systemStatus.innerText = "System: Offline (Mining Paused)";
+                systemStatus.style.color = "#e74c3c";
+                return false;
+            } else {
+                systemStatus.innerText = "System: Operational";
+                systemStatus.style.color = "#2ec4b6";
+                return true;
+            }
+        }
+        window.addEventListener('online', checkNetworkStatus);
+        window.addEventListener('offline', checkNetworkStatus);
+
+        // 15 Seconds Ad Trigger Function
+        function trigger15SecAd(onComplete) {
+            isAdShowing = true;
+            adModal.style.display = 'flex';
+            let timeLeft = 15;
+            adTimerEl.innerText = timeLeft;
+
+            let adInterval = setInterval(() => {
+                timeLeft--;
+                adTimerEl.innerText = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(adInterval);
+                    adModal.style.display = 'none';
+                    isAdShowing = false;
+                    onComplete();
+                }
+            }, 1000);
+        }
+
+        // Tap Logic with Auto-Clicker Protection & 15s Ads Execution
+        tapBtn.addEventListener('click', (e) => {
+            // Block if Offline
+            if (!checkNetworkStatus()) {
+                alert("You are currently offline. Internet connection is required to mine!");
+                return;
+            }
+
+            if (isAnimating || isAdShowing) return;
+
+            // Anti-Auto-Clicker Checks
+            const now = Date.now();
+            if (e.isTrusted === false) {
+                alert("Automated clicks detected!");
+                return;
+            }
+            if (now - lastTapTime < 500) { // Fast tap limit protection
+                return;
+            }
+            lastTapTime = now;
+
             isAnimating = true;
 
-            let targetAlta = currentAlta + 1.00;
-            let step = 0.05;
+            // Trigger Ad and increase balance after completion
+            trigger15SecAd(() => {
+                let targetAlta = currentAlta + 1.00;
+                let step = 0.05;
 
-            let interval = setInterval(() => {
-                currentAlta = parseFloat((currentAlta + step).toFixed(2));
-                balanceEl.innerText = currentAlta.toFixed(2);
-
-                if (currentAlta >= targetAlta) {
-                    clearInterval(interval);
-                    currentAlta = targetAlta;
+                let interval = setInterval(() => {
+                    currentAlta = parseFloat((currentAlta + step).toFixed(2));
                     balanceEl.innerText = currentAlta.toFixed(2);
-                    isAnimating = false;
-                }
-            }, 40); // 40ms speed for smooth increment
+
+                    if (currentAlta >= targetAlta) {
+                        clearInterval(interval);
+                        currentAlta = targetAlta;
+                        balanceEl.innerText = currentAlta.toFixed(2);
+                        isAnimating = false;
+                    }
+                }, 40);
+            });
         });
 
         // Open Modal
         openWithdrawModalBtn.addEventListener('click', () => {
+            if (!checkNetworkStatus()) {
+                alert("Internet connection required!");
+                return;
+            }
             altaAmountInput.value = currentAlta.toFixed(2);
             addressError.style.display = 'none';
             payoutModal.style.display = 'flex';
@@ -321,7 +418,7 @@
             }
 
             addressError.style.display = 'none';
-            alert(`Payout Request အောင်မြင်ပါသည်။\nUser: ${username}\nAmount: ${currentAlta} ALTA\nAddress: ${address}`);
+            alert(`Payout Request Successful!\nUser: ${username}\nAmount: ${currentAlta} ALTA\nAddress: ${address}`);
             
             payoutModal.style.display = 'none';
         });
