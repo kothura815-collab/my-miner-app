@@ -58,7 +58,7 @@
         .status {
             font-size: 13px;
             color: #2ec4b6;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         /* Animated Glowing & Rotating Coin Logo */
@@ -209,35 +209,6 @@
             color: var(--primary-gold);
             margin: 15px 0;
         }
-
-        /* Withdrawal History Section */
-        .history-section {
-            margin-top: 15px;
-            text-align: left;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 10px;
-        }
-
-        .history-title {
-            font-size: 12px;
-            color: #8b949e;
-            margin-bottom: 5px;
-        }
-
-        .history-item {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            background: #090d14;
-            padding: 8px 10px;
-            border-radius: 6px;
-            margin-bottom: 5px;
-        }
-
-        .badge-pending {
-            color: #f39c12;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
@@ -253,14 +224,6 @@
 
         <div class="tap-instruction" id="tapInstruction">Tap to start mining Alta</div>
         <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta</button>
-
-        <!-- Withdrawal History List -->
-        <div class="history-section">
-            <div class="history-title">Withdrawal History</div>
-            <div id="historyList">
-                <div style="font-size: 11px; color: #555; text-align: center;">No withdrawal requests yet</div>
-            </div>
-        </div>
     </div>
 
     <!-- Ads Modal -->
@@ -299,10 +262,13 @@
         const tg = window.Telegram?.WebApp;
         if(tg) tg.expand();
 
+        //  Replace with your Telegram Bot Token
+        const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
+        const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
+
         let currentAlta = 0.00;
         let isMining = false;
         let isAdShowing = false;
-        let withdrawalHistory = [];
 
         const balanceEl = document.getElementById('altaBalance');
         const tapBtn = document.getElementById('tapBtn');
@@ -311,7 +277,6 @@
         const payoutModal = document.getElementById('payoutModal');
         const adModal = document.getElementById('adModal');
         const adTimerEl = document.getElementById('adTimer');
-        const historyListEl = document.getElementById('historyList');
         
         const openWithdrawModalBtn = document.getElementById('openWithdrawModal');
         const closeModalBtn = document.getElementById('closeModal');
@@ -381,8 +346,8 @@
             tapInstruction.innerText = "Mining Alta in progress...";
 
             let targetAlta = currentAlta + 1.00;
-            let totalSteps = 20; // 0.05 step -> 20 increments per +1.00 ALTA
-            let stepInterval = 10000 / totalSteps; // 10,000ms (10sec) / 20 = 500ms per step
+            let totalSteps = 20; 
+            let stepInterval = 10000 / totalSteps;
 
             let stepCount = 0;
             let interval = setInterval(() => {
@@ -397,7 +362,6 @@
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
-                    // Trigger 15 Sec Ad right after completing 1.00 ALTA increment
                     trigger15SecAd(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                     });
@@ -425,23 +389,33 @@
             payoutModal.style.display = 'none';
         });
 
-        // Update Withdrawal History UI
-        function updateHistoryUI() {
-            if (withdrawalHistory.length === 0) {
-                historyListEl.innerHTML = `<div style="font-size: 11px; color: #555; text-align: center;">No withdrawal requests yet</div>`;
-                return;
-            }
+        // Send Payout Request to Telegram Channel API
+        async function sendToTelegramChannel(username, amount, address) {
+            const message = ` <b>New Payout Request</b>\n\n` +
+                            ` <b>User:</b> ${username}\n` +
+                            ` <b>Amount:</b> ${amount} ALTA\n` +
+                            ` <b>TON Address:</b> <code>${address}</code>\n` +
+                            ` <b>Status:</b>  Pending`;
 
-            historyListEl.innerHTML = withdrawalHistory.map(item => `
-                <div class="history-item">
-                    <span>${item.amount} ALTA</span>
-                    <span class="badge-pending">Pending</span>
-                </div>
-            `).join('');
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+            try {
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHANNEL_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+            } catch (error) {
+                console.error("Error sending notification to Telegram Channel:", error);
+            }
         }
 
         // Submit Payout Request
-        submitPayoutBtn.addEventListener('click', () => {
+        submitPayoutBtn.addEventListener('click', async () => {
             const address = tonAddressInput.value.trim();
             const username = usernameInput.value.trim();
 
@@ -453,22 +427,16 @@
             }
 
             addressError.style.display = 'none';
-            let withdrawAmount = currentAlta;
+            let withdrawAmount = currentAlta.toFixed(2);
 
             // Deduct Points
             currentAlta = 0.00;
             balanceEl.innerText = "0.00";
 
-            // Save to History
-            withdrawalHistory.unshift({
-                amount: withdrawAmount.toFixed(2),
-                address: address,
-                status: 'Pending'
-            });
-            updateHistoryUI();
+            // Send notification directly to Telegram Channel
+            await sendToTelegramChannel(username, withdrawAmount, address);
 
-            // Alert Notification & Telegram Admin Target Redirection
-            alert(`Payout Request Sent Successfully!\n\nUser: ${username}\nAmount: ${withdrawAmount.toFixed(2)} ALTA\nStatus: Pending\n\nRedirecting to Telegram Channel: @AltaHub_ads_withdraw_history`);
+            alert(`Payout Request Sent Successfully!\n\nUser: ${username}\nAmount: ${withdrawAmount} ALTA\nStatus: Pending`);
             
             payoutModal.style.display = 'none';
 
