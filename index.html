@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Alta Ads Miner</title>
 
-    <!-- Adsterra Active Ads Scripts (Popunder & Social Bar) -->
+    <!-- Adsterra Monetization Scripts -->
     <script src="https://pl31061771.profitableratecpmnetwork.com/fd/70/b7/fd70b725a39e47afacb097f9e85d8686.js"></script>
     <script src="https://pl31061772.profitableratecpmnetwork.com/03/56/27/035627b96d5624664694e5fe7a705c05.js"></script>
 
@@ -22,7 +22,7 @@
 
         body {
             margin: 0;
-            padding: 15px 0;
+            padding: 10px 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -36,6 +36,21 @@
             -webkit-user-select: none;
         }
 
+        /* Top & Bottom Banner Ad Areas */
+        .ad-banner-top, .ad-banner-bottom {
+            width: 100%;
+            max-width: 380px;
+            min-height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(22, 27, 34, 0.6);
+            border: 1px dashed rgba(255,255,255,0.15);
+            border-radius: 10px;
+            margin: 5px 0;
+            overflow: hidden;
+        }
+
         .miner-card {
             background: var(--card-bg);
             border-radius: 20px;
@@ -46,7 +61,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.05);
             position: relative;
-            margin: auto 0;
         }
 
         .title {
@@ -121,16 +135,16 @@
             cursor: pointer;
         }
 
-        /* 15 Sec Fullscreen Sponsor Modal */
+        /* Fullscreen Sponsor Ad Modal (Matching Image 2) */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(13, 17, 23, 0.95);
+            background: #0d1117;
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            padding: 20px;
+            padding: 20px 15px;
             box-sizing: border-box;
             z-index: 1000;
         }
@@ -138,27 +152,40 @@
         .ad-timer-badge {
             background: #1c2738;
             color: #0088cc;
-            padding: 6px 18px;
+            padding: 6px 20px;
             border-radius: 20px;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 15px;
             border: 1px solid rgba(0, 136, 204, 0.3);
         }
 
         .ad-modal-content {
             width: 100%;
-            max-width: 350px;
+            max-width: 340px;
             background: #161b22;
             border-radius: 16px;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
             text-align: center;
             box-shadow: 0 0 20px rgba(0,0,0,0.8);
             border: 1px solid #21262d;
         }
 
+        .ad-box-frame {
+            width: 100%;
+            min-height: 220px;
+            background: #0d1117;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
         .btn-continue {
             width: 100%;
+            max-width: 340px;
             padding: 14px;
             background: #234b6e;
             border: none;
@@ -211,6 +238,9 @@
 </head>
 <body>
 
+    <!-- Top Banner Ad Area -->
+    <div class="ad-banner-top" id="topAdSlot"></div>
+
     <!-- Main Miner Card -->
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
@@ -225,15 +255,21 @@
         <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta</button>
     </div>
 
-    <!-- 15 Sec Sponsor Ad Modal -->
+    <!-- Bottom Banner Ad Area -->
+    <div class="ad-banner-bottom" id="bottomAdSlot"></div>
+
+    <!-- 15 Sec Sponsor Ad Fullscreen Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-timer-badge">
             <span id="adTimer">00:15</span>
         </div>
 
         <div class="ad-modal-content">
-            <h3 style="margin: 0 0 10px 0; color: #0088cc;">Sponsor Advertisement</h3>
-            <p style="font-size: 13px; color: #8b949e; margin: 0 0 10px 0;">Ads are active. Please interact or wait to claim rewards.</p>
+            <div class="ad-box-frame" id="adBoxContainer">
+                <!-- Adsterra script will trigger ads here -->
+            </div>
+            <h4 style="margin: 5px 0; color: #fff; font-size: 16px;">Never Miss an Update</h4>
+            <p style="font-size: 12px; color: #8b949e; margin: 0 0 10px 0;">Get the latest updates and important alerts directly.</p>
         </div>
 
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait...</button>
@@ -247,7 +283,7 @@
             <div class="input-group"><input type="number" id="altaAmount" placeholder="Alta Points" readonly></div>
             <div class="input-group">
                 <input type="text" id="tonAddress" placeholder="TON Address">
-                <div style="color: #e74c3c; font-size: 11px; display: none;" id="addressError">Invalid TON Address!</div>
+                <div style="color: #e74c3c; font-size: 11px; display: none;" id="addressError">Invalid TON Address! Must start with UQ or EQ.</div>
             </div>
             <button class="btn-submit" id="submitPayout">SUBMIT REQUEST</button>
             <center><button style="background:none; border:none; color:#8b949e; margin-top:10px;" id="closeModal">Cancel</button></center>
@@ -268,12 +304,26 @@
         const balanceEl = document.getElementById('altaBalance');
         const tapBtn = document.getElementById('tapBtn');
         const tapInstruction = document.getElementById('tapInstruction');
+        const systemStatus = document.getElementById('systemStatus');
         const payoutModal = document.getElementById('payoutModal');
         const adModal = document.getElementById('adModal');
         const adTimerEl = document.getElementById('adTimer');
         const continueAdBtn = document.getElementById('continueAdBtn');
 
-        // 15-second Ad Logic
+        const openWithdrawModalBtn = document.getElementById('openWithdrawModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const submitPayoutBtn = document.getElementById('submitPayout');
+        
+        const usernameInput = document.getElementById('username');
+        const altaAmountInput = document.getElementById('altaAmount');
+        const tonAddressInput = document.getElementById('tonAddress');
+        const addressError = document.getElementById('addressError');
+
+        if (tg && tg.initDataUnsafe?.user?.username) {
+            usernameInput.value = "@" + tg.initDataUnsafe.user.username;
+        }
+
+        // 15-second Ad Timer Logic
         function trigger15SecAd(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
@@ -309,6 +359,11 @@
         tapBtn.addEventListener('click', (e) => {
             if (isMining || isAdShowing) return;
 
+            if (e.isTrusted === false) {
+                alert("Automated clicks detected!");
+                return;
+            }
+
             isMining = true;
             tapBtn.classList.add('mining');
             tapInstruction.innerText = "Mining Alta in progress...";
@@ -337,15 +392,57 @@
             }, stepInterval);
         });
 
-        // Withdraw Logic
-        document.getElementById('openWithdrawModal').addEventListener('click', () => {
-            if (currentAlta <= 0) { alert("Balance is 0!"); return; }
-            document.getElementById('altaAmount').value = currentAlta.toFixed(2);
+        // Withdrawal Modal Logic
+        openWithdrawModalBtn.addEventListener('click', () => {
+            if (currentAlta <= 0) {
+                alert("Your balance is 0. Please mine Alta first.");
+                return;
+            }
+            altaAmountInput.value = currentAlta.toFixed(2);
+            addressError.style.display = 'none';
             payoutModal.style.display = 'flex';
         });
 
-        document.getElementById('closeModal').addEventListener('click', () => {
+        closeModalBtn.addEventListener('click', () => {
             payoutModal.style.display = 'none';
+        });
+
+        // Submit Payout Request
+        submitPayoutBtn.addEventListener('click', async () => {
+            const address = tonAddressInput.value.trim();
+            const username = usernameInput.value.trim();
+            const tonRegex = /^(UQ|EQ)[a-zA-Z0-9_-]{46}$/;
+
+            if (!tonRegex.test(address)) {
+                addressError.style.display = 'block';
+                return;
+            }
+
+            addressError.style.display = 'none';
+            let withdrawAmount = currentAlta.toFixed(2);
+
+            currentAlta = 0.00;
+            balanceEl.innerText = "0.00";
+
+            const message = `<b>New Payout Request</b>\n\n` +
+                            `<b>User:</b> ${username}\n` +
+                            `<b>Amount:</b> ${withdrawAmount} ALTA\n` +
+                            `<b>TON Address:</b> <code>${address}</code>\n` +
+                            `<b>Status:</b> Pending`;
+
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CHANNEL_ID, text: message, parse_mode: 'HTML' })
+                });
+            } catch (err) { console.error(err); }
+
+            alert(`Payout Request Sent Successfully!\nAmount: ${withdrawAmount} ALTA`);
+            payoutModal.style.display = 'none';
+
+            if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
+            else window.open("https://t.me/AltaHub_ads_withdraw_history", "_blank");
         });
     </script>
 </body>
