@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="d7dedb781df963c4402f727c16e00b1d1c1a6fab" content="d7dedb781df963c4402f727c16e00b1d1c1a6fab" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Alta Ads Miner</title>
 
-    <!-- Adsterra Monetization Scripts -->
+    <!-- HilltopAds Site Verification Meta Tag -->
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <meta name="hilltopads-site-verification" content="d7dedb781df963c4402f727c16e00b1d1c1a6fab" />
+
+    <!-- Adsterra Scripts -->
     <script src="https://pl31061771.profitableratecpmnetwork.com/fd/70/b7/fd70b725a39e47afacb097f9e85d8686.js"></script>
     <script src="https://pl31061772.profitableratecpmnetwork.com/03/56/27/035627b96d5624664694e5fe7a705c05.js"></script>
 
@@ -37,17 +40,17 @@
             -webkit-user-select: none;
         }
 
-        /* Top & Bottom Banner Ad Areas */
+        /* Top & Bottom Ad Containers */
         .ad-banner-top, .ad-banner-bottom {
-            width: 100%;
+            width: 90%;
             max-width: 380px;
-            min-height: 50px;
+            min-height: 60px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(22, 27, 34, 0.6);
-            border: 1px dashed rgba(255,255,255,0.15);
-            border-radius: 10px;
+            background: rgba(22, 27, 34, 0.7);
+            border: 1px dashed rgba(255,255,255,0.2);
+            border-radius: 12px;
             margin: 5px 0;
             overflow: hidden;
         }
@@ -64,11 +67,7 @@
             position: relative;
         }
 
-        .title {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
+        .title { font-size: 22px; font-weight: 800; margin-bottom: 5px; }
 
         .balance-display {
             font-size: 40px;
@@ -78,15 +77,11 @@
             text-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
         }
 
-        .status {
-            font-size: 13px;
-            color: #2ec4b6;
-            margin-bottom: 15px;
-        }
+        .status { font-size: 13px; color: #2ec4b6; margin-bottom: 15px; }
 
         .logo-container {
-            width: 150px;
-            height: 150px;
+            width: 140px;
+            height: 140px;
             margin: 0 auto 15px auto;
             border-radius: 50%;
             padding: 5px;
@@ -102,27 +97,16 @@
             100% { box-shadow: 0 0 15px rgba(0, 136, 204, 0.4); transform: scale(1); }
         }
 
-        .coin-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+        .coin-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
-        .logo-container.mining .coin-img {
-            animation: spin-coin 3s linear infinite;
-        }
+        .logo-container.mining .coin-img { animation: spin-coin 3s linear infinite; }
 
         @keyframes spin-coin {
             0% { transform: rotateY(0deg); }
             100% { transform: rotateY(360deg); }
         }
 
-        .tap-instruction {
-            font-size: 13px;
-            color: #8b949e;
-            margin-bottom: 15px;
-        }
+        .tap-instruction { font-size: 13px; color: #8b949e; margin-bottom: 15px; }
 
         .btn-withdraw {
             width: 100%;
@@ -136,7 +120,7 @@
             cursor: pointer;
         }
 
-        /* Fullscreen Sponsor Ad Modal (Matching Image 2) */
+        /* 15 Sec Modal Ad Overlay */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -174,14 +158,15 @@
 
         .ad-box-frame {
             width: 100%;
-            min-height: 220px;
-            background: #0d1117;
+            min-height: 250px;
+            background: #090d14;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 10px;
             overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .btn-continue {
@@ -239,8 +224,21 @@
 </head>
 <body>
 
-    <!-- Top Banner Ad Area -->
-    <div class="ad-banner-top" id="topAdSlot"></div>
+    <!-- စကရင်အပေါ်ပိုင်း Banner Ad -->
+    <div class="ad-banner-top" id="topAdSlot">
+        <script>
+        (function(ohcms){
+        var d = document,
+            s = d.createElement('script'),
+            l = d.scripts[d.scripts.length - 1];
+        s.settings = ohcms || {};
+        s.src = "\/\/wise-belt.com\/b.XKVdsMdmG\/lg0UYqW\/cf\/Eeem\/9ouWZsUglokFP\/T\/cfzUN\/joEd5gMFDUUFtyNuzKM\/2aM\/T-k\/wGOWQS";
+        s.async = true;
+        s.referrerPolicy = 'no-referrer-when-downgrade';
+        l.parentNode.insertBefore(s, l);
+        })({})
+        </script>
+    </div>
 
     <!-- Main Miner Card -->
     <div class="miner-card">
@@ -256,10 +254,23 @@
         <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta</button>
     </div>
 
-    <!-- Bottom Banner Ad Area -->
-    <div class="ad-banner-bottom" id="bottomAdSlot"></div>
+    <!-- စကရင်အောက်ပိုင်း Banner Ad -->
+    <div class="ad-banner-bottom" id="bottomAdSlot">
+        <script>
+        (function(ohcms){
+        var d = document,
+            s = d.createElement('script'),
+            l = d.scripts[d.scripts.length - 1];
+        s.settings = ohcms || {};
+        s.src = "\/\/wise-belt.com\/b.XKVdsMdmG\/lg0UYqW\/cf\/Eeem\/9ouWZsUglokFP\/T\/cfzUN\/joEd5gMFDUUFtyNuzKM\/2aM\/T-k\/wGOWQS";
+        s.async = true;
+        s.referrerPolicy = 'no-referrer-when-downgrade';
+        l.parentNode.insertBefore(s, l);
+        })({})
+        </script>
+    </div>
 
-    <!-- 15 Sec Sponsor Ad Fullscreen Modal -->
+    <!-- 15 Sec Sponsor Ad Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-timer-badge">
             <span id="adTimer">00:15</span>
@@ -267,7 +278,19 @@
 
         <div class="ad-modal-content">
             <div class="ad-box-frame" id="adBoxContainer">
-                <!-- Adsterra script will trigger ads here -->
+                <!-- HilltopAds In-Modal Script -->
+                <script>
+                (function(ohcms){
+                var d = document,
+                    s = d.createElement('script'),
+                    l = d.scripts[d.scripts.length - 1];
+                s.settings = ohcms || {};
+                s.src = "\/\/wise-belt.com\/b.XKVdsMdmG\/lg0UYqW\/cf\/Eeem\/9ouWZsUglokFP\/T\/cfzUN\/joEd5gMFDUUFtyNuzKM\/2aM\/T-k\/wGOWQS";
+                s.async = true;
+                s.referrerPolicy = 'no-referrer-when-downgrade';
+                l.parentNode.insertBefore(s, l);
+                })({})
+                </script>
             </div>
             <h4 style="margin: 5px 0; color: #fff; font-size: 16px;">Never Miss an Update</h4>
             <p style="font-size: 12px; color: #8b949e; margin: 0 0 10px 0;">Get the latest updates and important alerts directly.</p>
@@ -305,7 +328,6 @@
         const balanceEl = document.getElementById('altaBalance');
         const tapBtn = document.getElementById('tapBtn');
         const tapInstruction = document.getElementById('tapInstruction');
-        const systemStatus = document.getElementById('systemStatus');
         const payoutModal = document.getElementById('payoutModal');
         const adModal = document.getElementById('adModal');
         const adTimerEl = document.getElementById('adTimer');
@@ -359,11 +381,6 @@
         // Tap & Mining Logic
         tapBtn.addEventListener('click', (e) => {
             if (isMining || isAdShowing) return;
-
-            if (e.isTrusted === false) {
-                alert("Automated clicks detected!");
-                return;
-            }
 
             isMining = true;
             tapBtn.classList.add('mining');
