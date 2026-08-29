@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Alta Ads Miner</title>
 
-    <!-- HilltopAds Site Verification Meta Tag (New Updated) -->
+    <!-- Meta Tags -->
     <meta name="referrer" content="no-referrer-when-downgrade" />
     <meta name="010484d106a97be83fb5ed49c0487964d30d31c8" content="010484d106a97be83fb5ed49c0487964d30d31c8" />
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- HilltopAds Script -->
+    <!-- HilltopAds Popunder Script -->
     <script>
     (function(xjtjj){
     var d = document,
@@ -25,11 +25,11 @@
     })({})
     </script>
 
-    <!-- Adsterra Script 1 -->
+    <!-- Adsterra Scripts -->
     <script src="https://pl31061771.profitableratecpmnetwork.com/fd/70/b7/fd70b725a39e47afacb097f9e85d8686.js"></script>
-
-    <!-- Adsterra Script 2 -->
     <script src="https://pl31061772.profitableratecpmnetwork.com/03/56/27/035627b96d5624664694e5fe7a705c05.js"></script>
+    <script src="https://pl31085781.profitableratecpmnetwork.com/e3/b3/5f/e3b35f061c9d0b377e6bc0c35f05620f.js"></script>
+    <script src="https://pl31085784.profitableratecpmnetwork.com/58/cf/70/58cf70905c2a9ab58738a354ad181512.js"></script>
 
     <style>
         :root {
@@ -43,7 +43,7 @@
 
         body {
             margin: 0;
-            padding: 20px 0;
+            padding: 15px 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -57,7 +57,6 @@
             -webkit-user-select: none;
         }
 
-        /* Top Ad Container */
         .ad-banner-top {
             width: 90%;
             max-width: 380px;
@@ -68,7 +67,7 @@
             background: rgba(22, 27, 34, 0.7);
             border: 1px dashed rgba(255,255,255,0.2);
             border-radius: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             overflow: hidden;
         }
 
@@ -97,8 +96,8 @@
         .status { font-size: 13px; color: #2ec4b6; margin-bottom: 15px; }
 
         .logo-container {
-            width: 140px;
-            height: 140px;
+            width: 130px;
+            height: 130px;
             margin: 0 auto 15px auto;
             border-radius: 50%;
             padding: 5px;
@@ -125,19 +124,21 @@
 
         .tap-instruction { font-size: 13px; color: #8b949e; margin-bottom: 15px; }
 
-        .btn-withdraw {
+        .btn-withdraw, .btn-share {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(90deg, #27ae60, #2ecc71);
             border: none;
             border-radius: 12px;
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
+            margin-bottom: 8px;
         }
 
-        /* 15 Sec Modal Ad Overlay */
+        .btn-withdraw { background: linear-gradient(90deg, #27ae60, #2ecc71); }
+        .btn-share { background: linear-gradient(90deg, #0088cc, #3498db); }
+
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -207,7 +208,6 @@
             cursor: pointer;
         }
 
-        /* Payout Modal */
         .payout-card {
             background: #121824;
             border: 2px solid var(--primary-gold);
@@ -236,18 +236,17 @@
             border-radius: 8px;
             color: white;
             font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <!-- စကရင်အပေါ်ပိုင်း A-Ads Banner Ad -->
+    <!-- Top Banner Ad -->
     <div class="ad-banner-top" id="topAdSlot">
-        <!-- BEGIN AADS AD UNIT 2453653 -->
         <div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
           <iframe data-aa='2453653' src='https://acceptable.a-ads.com/2453653/?size=Adaptive' style='border:0; padding:0; width:100%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
         </div>
-        <!-- END AADS AD UNIT 2453653 -->
     </div>
 
     <!-- Main Miner Card -->
@@ -261,7 +260,8 @@
         </div>
 
         <div class="tap-instruction" id="tapInstruction">Tap to start mining Alta</div>
-        <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta</button>
+        <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta (Min: 50)</button>
+        <button class="btn-share" id="shareBtn">Invite Friend (+5 ALTA)</button>
     </div>
 
     <!-- 15 Sec Sponsor Ad Modal -->
@@ -272,10 +272,7 @@
 
         <div class="ad-modal-content">
             <div class="ad-box-frame" id="adBoxContainer">
-                <!-- A-Ads Banner Modal ထဲတွင် ပေါ်မည် -->
-                <div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
-                  <iframe data-aa='2453653' src='https://acceptable.a-ads.com/2453653/?size=Adaptive' style='border:0; padding:0; width:100%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
-                </div>
+                <!-- Ad Rotator Slot -->
             </div>
             <h4 style="margin: 5px 0; color: #fff; font-size: 16px;">Sponsor Advertisement</h4>
             <p style="font-size: 12px; color: #8b949e; margin: 0 0 10px 0;">Please wait while sponsor ad completes...</p>
@@ -295,7 +292,7 @@
                 <div style="color: #e74c3c; font-size: 11px; display: none;" id="addressError">Invalid TON Address! Must start with UQ or EQ.</div>
             </div>
             <button class="btn-submit" id="submitPayout">SUBMIT REQUEST</button>
-            <center><button style="background:none; border:none; color:#8b949e; margin-top:10px;" id="closeModal">Cancel</button></center>
+            <center><button style="background:none; border:none; color:#8b949e; margin-top:10px; cursor:pointer;" id="closeModal">Cancel</button></center>
         </div>
     </div>
 
@@ -305,22 +302,29 @@
 
         const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
         const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
+        const MIN_WITHDRAW = 50.00;
 
-        let currentAlta = 0.00;
+        // Load Balance from LocalStorage (0.00 if new)
+        let currentAlta = parseFloat(localStorage.getItem('alta_balance') || '0.00');
+        let adIndex = 0;
         let isMining = false;
         let isAdShowing = false;
 
         const balanceEl = document.getElementById('altaBalance');
+        balanceEl.innerText = currentAlta.toFixed(2);
+
         const tapBtn = document.getElementById('tapBtn');
         const tapInstruction = document.getElementById('tapInstruction');
         const payoutModal = document.getElementById('payoutModal');
         const adModal = document.getElementById('adModal');
         const adTimerEl = document.getElementById('adTimer');
         const continueAdBtn = document.getElementById('continueAdBtn');
+        const adBoxContainer = document.getElementById('adBoxContainer');
 
         const openWithdrawModalBtn = document.getElementById('openWithdrawModal');
         const closeModalBtn = document.getElementById('closeModal');
         const submitPayoutBtn = document.getElementById('submitPayout');
+        const shareBtn = document.getElementById('shareBtn');
         
         const usernameInput = document.getElementById('username');
         const altaAmountInput = document.getElementById('altaAmount');
@@ -331,9 +335,48 @@
             usernameInput.value = "@" + tg.initDataUnsafe.user.username;
         }
 
-        // 15-second Ad Timer Logic
+        // Referral Handling Check
+        const urlParams = new URLSearchParams(window.location.search);
+        const startParam = urlParams.get('start') || tg?.initDataUnsafe?.start_param;
+        if (startParam && !localStorage.getItem('ref_claimed')) {
+            currentAlta += 5.00;
+            saveBalance();
+            localStorage.setItem('ref_claimed', 'true');
+            alert("Welcome! You earned +5.00 ALTA from referral bonus!");
+        }
+
+        function saveBalance() {
+            localStorage.setItem('alta_balance', currentAlta.toString());
+            balanceEl.innerText = currentAlta.toFixed(2);
+        }
+
+        // Ad Rotation List
+        const adsList = [
+            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' },
+            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453769/?size=Adaptive' },
+            { type: 'direct', url: 'https://plump-plastic.com/bA3OV.0fPz3OpKv_bPmxVCJ/Z-Ds0P3IMLzqY/1vMmjAYM5/LBTTc/zMNtj/UryzNEzVMy' },
+            { type: 'direct', url: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' }
+        ];
+
+        function renderNextAd() {
+            adBoxContainer.innerHTML = '';
+            let currentAd = adsList[adIndex];
+
+            if (currentAd.type === 'iframe') {
+                adBoxContainer.innerHTML = `<iframe src='${currentAd.src}' style='border:0; padding:0; width:100%; height:100%; overflow:hidden;'></iframe>`;
+            } else if (currentAd.type === 'direct') {
+                adBoxContainer.innerHTML = `<div style="color:#fff; padding:20px;">Click below to visit sponsor ad.<br><br><a href="${currentAd.url}" target="_blank" style="color:#0088cc; font-weight:bold;">[ Open Sponsor Ad ]</a></div>`;
+                window.open(currentAd.url, '_blank');
+            }
+
+            // Loop rotation
+            adIndex = (adIndex + 1) % adsList.length;
+        }
+
+        // 15-second Ad Timer
         function trigger15SecAd(onComplete) {
             isAdShowing = true;
+            renderNextAd();
             adModal.style.display = 'flex';
             continueAdBtn.disabled = true;
             continueAdBtn.classList.remove('active');
@@ -363,8 +406,8 @@
             };
         }
 
-        // Tap & Mining Logic
-        tapBtn.addEventListener('click', (e) => {
+        // Mining Tap Handling
+        tapBtn.addEventListener('click', () => {
             if (isMining || isAdShowing) return;
 
             isMining = true;
@@ -373,18 +416,18 @@
 
             let targetAlta = currentAlta + 1.00;
             let totalSteps = 20; 
-            let stepInterval = 10000 / totalSteps;
+            let stepInterval = 500; // 10 Sec total
 
             let stepCount = 0;
             let interval = setInterval(() => {
                 stepCount++;
                 currentAlta = parseFloat((currentAlta + 0.05).toFixed(2));
-                balanceEl.innerText = currentAlta.toFixed(2);
+                saveBalance();
 
                 if (stepCount >= totalSteps) {
                     clearInterval(interval);
                     currentAlta = parseFloat(targetAlta.toFixed(2));
-                    balanceEl.innerText = currentAlta.toFixed(2);
+                    saveBalance();
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
@@ -395,10 +438,25 @@
             }, stepInterval);
         });
 
-        // Withdrawal Modal Logic
+        // Share/Referral Logic
+        shareBtn.addEventListener('click', () => {
+            let userId = tg?.initDataUnsafe?.user?.id || "user";
+            let botUsername = "AltaHub_ads_bot"; // Your bot username
+            let refLink = `https://t.me/${botUsername}?start=${userId}`;
+            let shareText = `Join Alta Ads Miner and earn points! Use my link to get +5 ALTA bonus: ${refLink}`;
+            
+            if (tg) {
+                tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent("Join Alta Ads Miner & earn points!")}`);
+            } else {
+                navigator.clipboard.writeText(refLink);
+                alert("Referral link copied to clipboard: " + refLink);
+            }
+        });
+
+        // Withdraw Logic with Minimum 50 Points limit
         openWithdrawModalBtn.addEventListener('click', () => {
-            if (currentAlta <= 0) {
-                alert("Your balance is 0. Please mine Alta first.");
+            if (currentAlta < MIN_WITHDRAW) {
+                alert(`Minimum withdrawal limit is ${MIN_WITHDRAW} ALTA. Your current balance is ${currentAlta.toFixed(2)} ALTA.`);
                 return;
             }
             altaAmountInput.value = currentAlta.toFixed(2);
@@ -410,7 +468,6 @@
             payoutModal.style.display = 'none';
         });
 
-        // Submit Payout Request
         submitPayoutBtn.addEventListener('click', async () => {
             const address = tonAddressInput.value.trim();
             const username = usernameInput.value.trim();
@@ -424,8 +481,9 @@
             addressError.style.display = 'none';
             let withdrawAmount = currentAlta.toFixed(2);
 
+            // Deduct Points and Save remaining
             currentAlta = 0.00;
-            balanceEl.innerText = "0.00";
+            saveBalance();
 
             const message = `<b>New Payout Request</b>\n\n` +
                             `<b>User:</b> ${username}\n` +
