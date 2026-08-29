@@ -176,7 +176,7 @@
 
         .ad-box-frame {
             width: 100%;
-            min-height: 200px;
+            min-height: 220px;
             background: #090d14;
             border-radius: 12px;
             display: flex;
@@ -239,7 +239,6 @@
             cursor: pointer;
         }
 
-        /* Custom In-App Toast Popup (Replaces Browser Alert) */
         .toast-popup {
             position: fixed;
             bottom: 30px;
@@ -330,7 +329,6 @@
         </div>
     </div>
 
-    <!-- Custom In-App Toast -->
     <div class="toast-popup" id="customToast"></div>
 
     <script>
@@ -374,7 +372,6 @@
             usernameInput.value = "@" + tg.initDataUnsafe.user.username;
         }
 
-        // Custom Notification without Browser Alert
         function showNotification(msg) {
             customToast.innerText = msg;
             customToast.style.display = 'block';
@@ -386,7 +383,6 @@
             balanceEl.innerText = currentAlta.toFixed(2);
         }
 
-        // Referral System
         const urlParams = new URLSearchParams(window.location.search);
         const startParam = urlParams.get('start') || tg?.initDataUnsafe?.start_param;
         if (startParam && !localStorage.getItem('ref_claimed')) {
@@ -399,35 +395,28 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     chat_id: startParam, 
-                    text: "🎉 Referral Reward! A new user joined via your link. You received +5.00 ALTA!" 
+                    text: " Referral Reward! A new user joined via your link. You received +5.00 ALTA!" 
                 })
             }).catch(e => console.log(e));
 
             showNotification("Welcome! You & your inviter received +5.00 ALTA bonus!");
         }
 
-        // Safe High-CPM Non-18+ Ad Streams
+        // Ads list configured to bypass Pop-up Blocker
         const adsList = [
             { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' },
             { type: 'iframe', src: 'https://acceptable.a-ads.com/2453769/?size=Adaptive' },
-            { type: 'popup', url: 'https://plump-plastic.com/bA3OV.0fPz3OpKv_bPmxVCJ/Z-Ds0P3IMLzqY/1vMmjAYM5/LBTTc/zMNtj/UryzNEzVMy' },
-            { type: 'popup', url: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' }
+            { type: 'direct_embed', url: 'https://plump-plastic.com/bA3OV.0fPz3OpKv_bPmxVCJ/Z-Ds0P3IMLzqY/1vMmjAYM5/LBTTc/zMNtj/UryzNEzVMy' },
+            { type: 'direct_embed', url: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' }
         ];
 
+        // Safe auto-rendering without triggering browser popup blocker
         function renderNextAd() {
             adBoxContainer.innerHTML = '';
             let currentAd = adsList[adIndex];
 
-            if (currentAd.type === 'iframe') {
-                adBoxContainer.innerHTML = `<iframe src='${currentAd.src}' style='border:0; padding:0; width:100%; height:100%; overflow:hidden;'></iframe>`;
-            } else if (currentAd.type === 'popup') {
-                adBoxContainer.innerHTML = `
-                    <div style="color:#fff; padding:15px;">
-                        <h4 style="color:#2fa65a; margin:0 0 10px 0;">Premium Sponsor Offer</h4>
-                        <p style="font-size:12px; color:#8b949e;">Tap below to view high reward partner campaigns.</p>
-                        <a href="${currentAd.url}" target="_blank" style="display:inline-block; margin-top:5px; padding:8px 15px; background:#0088cc; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">[ Open Offer ]</a>
-                    </div>`;
-                window.open(currentAd.url, '_blank');
+            if (currentAd.type === 'iframe' || currentAd.type === 'direct_embed') {
+                adBoxContainer.innerHTML = `<iframe src='${currentAd.src || currentAd.url}' style='border:0; padding:0; width:100%; height:100%; overflow:hidden;'></iframe>`;
             }
 
             adIndex = (adIndex + 1) % adsList.length;
@@ -477,7 +466,6 @@
             };
         }
 
-        // Tap Handling
         tapBtn.addEventListener('click', (e) => {
             if (!navigator.onLine) {
                 showNotification("Internet connection required to mine!");
@@ -542,7 +530,6 @@
             }
         });
 
-        // Withdrawal & Strict Account Validation
         openWithdrawModalBtn.addEventListener('click', () => {
             if (currentAlta < MIN_WITHDRAW) {
                 showNotification(`Minimum withdrawal limit is ${MIN_WITHDRAW} ALTA. Your balance: ${currentAlta.toFixed(2)} ALTA`);
@@ -567,7 +554,6 @@
 
             let isValid = true;
 
-            // Telegram Username Verification
             if (!userRegex.test(username)) {
                 userError.style.display = 'block';
                 isValid = false;
@@ -575,7 +561,6 @@
                 userError.style.display = 'none';
             }
 
-            // TON Address Format Verification
             if (!tonRegex.test(address)) {
                 addressError.style.display = 'block';
                 isValid = false;
@@ -607,7 +592,6 @@
             showNotification(`Withdrawal requested: ${withdrawAmount} ALTA`);
             payoutModal.style.display = 'none';
 
-            // Navigate to History Channel upon Valid Submission
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
             else window.open("https://t.me/AltaHub_ads_withdraw_history", "_blank");
         });
