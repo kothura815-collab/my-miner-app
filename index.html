@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Alta Ads Miner</title>
 
+    <!-- Meta Tags & Referrer Policy -->
     <meta name="referrer" content="no-referrer-when-downgrade" />
     <meta name="010484d106a97be83fb5ed49c0487964d30d31c8" content="010484d106a97be83fb5ed49c0487964d30d31c8" />
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
+    <!-- High-CPM Popunder Script -->
     <script>
     (function(xjtjj){
     var d = document,
@@ -23,6 +25,7 @@
     })({})
     </script>
 
+    <!-- High-CPM Adsterra Networks (Non-18+) -->
     <script src="https://pl31061771.profitableratecpmnetwork.com/fd/70/b7/fd70b725a39e47afacb097f9e85d8686.js"></script>
     <script src="https://pl31061772.profitableratecpmnetwork.com/03/56/27/035627b96d5624664694e5fe7a705c05.js"></script>
     <script src="https://pl31085781.profitableratecpmnetwork.com/e3/b3/5f/e3b35f061c9d0b377e6bc0c35f05620f.js"></script>
@@ -139,7 +142,7 @@
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #0d1117;
+            background: rgba(13, 17, 23, 0.95);
             display: none;
             flex-direction: column;
             align-items: center;
@@ -222,7 +225,7 @@
             background: #090d14;
             color: #fff;
             box-sizing: border-box;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .btn-submit {
@@ -235,16 +238,45 @@
             font-weight: bold;
             cursor: pointer;
         }
+
+        /* Custom In-App Toast Popup (Replaces Browser Alert) */
+        .toast-popup {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f293d;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid var(--primary-gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            display: none;
+            z-index: 2000;
+            text-align: center;
+        }
+
+        .error-msg {
+            color: #e74c3c;
+            font-size: 11px;
+            margin-bottom: 8px;
+            display: none;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Top Banner Slot -->
     <div class="ad-banner-top" id="topAdSlot">
         <div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
           <iframe data-aa='2453653' src='https://acceptable.a-ads.com/2453653/?size=Adaptive' style='border:0; padding:0; width:100%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
         </div>
     </div>
 
+    <!-- Main Miner Card -->
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -259,34 +291,47 @@
         <button class="btn-share" id="shareBtn">Invite Friend (+5 ALTA Each)</button>
     </div>
 
+    <!-- Continuous Sponsor Ads Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-timer-badge">
             <span id="adTimer">00:15</span>
         </div>
 
         <div class="ad-modal-content">
-            <div class="ad-box-frame" id="adBoxContainer">
-                </div>
+            <div class="ad-box-frame" id="adBoxContainer"></div>
             <h4 style="margin: 5px 0; color: #fff; font-size: 16px;">Sponsor Advertisement</h4>
-            <p style="font-size: 12px; color: #8b949e; margin: 0 0 10px 0;">Ads are actively rotating... High CPM Stream.</p>
+            <p style="font-size: 12px; color: #8b949e; margin: 0 0 10px 0;">Ads updating continuously...</p>
         </div>
 
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait...</button>
     </div>
 
+    <!-- Payout Request Modal -->
     <div class="modal-overlay" id="payoutModal" style="justify-content: center;">
         <div class="payout-card">
-            <h3 style="color: var(--primary-gold); margin-top:0;">Payout Request</h3>
-            <div class="input-group"><input type="text" id="username" placeholder="@username"></div>
-            <div class="input-group"><input type="number" id="altaAmount" placeholder="Alta Points" readonly></div>
+            <h3 style="color: var(--primary-gold); margin-top:0; text-align:center;">Withdrawal Request</h3>
+            
             <div class="input-group">
-                <input type="text" id="tonAddress" placeholder="TON Address">
-                <div style="color: #e74c3c; font-size: 11px; display: none;" id="addressError">Invalid TON Address! Must start with UQ or EQ.</div>
+                <input type="text" id="username" placeholder="Telegram Username (@user)">
+                <div class="error-msg" id="userError">Valid Telegram username required (@username)!</div>
             </div>
-            <button class="btn-submit" id="submitPayout">SUBMIT REQUEST</button>
+
+            <div class="input-group">
+                <input type="number" id="altaAmount" placeholder="Alta Points" readonly>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="tonAddress" placeholder="TON Wallet Address">
+                <div class="error-msg" id="addressError">Invalid TON address! Must start with UQ or EQ.</div>
+            </div>
+
+            <button class="btn-submit" id="submitPayout">SUBMIT WITHDRAWAL</button>
             <center><button style="background:none; border:none; color:#8b949e; margin-top:10px; cursor:pointer;" id="closeModal">Cancel</button></center>
         </div>
     </div>
+
+    <!-- Custom In-App Toast -->
+    <div class="toast-popup" id="customToast"></div>
 
     <script>
         const tg = window.Telegram?.WebApp;
@@ -322,9 +367,18 @@
         const altaAmountInput = document.getElementById('altaAmount');
         const tonAddressInput = document.getElementById('tonAddress');
         const addressError = document.getElementById('addressError');
+        const userError = document.getElementById('userError');
+        const customToast = document.getElementById('customToast');
 
         if (tg && tg.initDataUnsafe?.user?.username) {
             usernameInput.value = "@" + tg.initDataUnsafe.user.username;
+        }
+
+        // Custom Notification without Browser Alert
+        function showNotification(msg) {
+            customToast.innerText = msg;
+            customToast.style.display = 'block';
+            setTimeout(() => { customToast.style.display = 'none'; }, 3000);
         }
 
         function saveBalance() {
@@ -332,7 +386,7 @@
             balanceEl.innerText = currentAlta.toFixed(2);
         }
 
-        // Dual Referral Bonus (+5 for New User & Inviter)
+        // Referral System
         const urlParams = new URLSearchParams(window.location.search);
         const startParam = urlParams.get('start') || tg?.initDataUnsafe?.start_param;
         if (startParam && !localStorage.getItem('ref_claimed')) {
@@ -340,20 +394,19 @@
             saveBalance();
             localStorage.setItem('ref_claimed', 'true');
             
-            // Notify Inviter via Bot API
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     chat_id: startParam, 
-                    text: "🎉 ဝမ်းသာစရာ သတင်းပါ။ သင့် Invite Link ဖြင့် သူငယ်ချင်းတစ်ဦး ဝင်ရောက်လာသောကြောင့် +5.00 ALTA Bonus ရရှိပါပြီ။" 
+                    text: "🎉 Referral Reward! A new user joined via your link. You received +5.00 ALTA!" 
                 })
             }).catch(e => console.log(e));
 
-            alert("ကြိုဆိုပါတယ်! Referral Bonus အဖြစ် +5.00 ALTA ရရှိပြီး သင်နှင့် ဖိတ်ခေါ်သူ နှစ်ဦးလုံး Bonus ရရှိပါပြီ။");
+            showNotification("Welcome! You & your inviter received +5.00 ALTA bonus!");
         }
 
-        // Non-18+ Clean Ads & Direct Links (Games, Finance, Loans)
+        // Safe High-CPM Non-18+ Ad Streams
         const adsList = [
             { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' },
             { type: 'iframe', src: 'https://acceptable.a-ads.com/2453769/?size=Adaptive' },
@@ -361,7 +414,6 @@
             { type: 'popup', url: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' }
         ];
 
-        // Trigger Popups/Ads continuously to increase CPM
         function renderNextAd() {
             adBoxContainer.innerHTML = '';
             let currentAd = adsList[adIndex];
@@ -371,18 +423,16 @@
             } else if (currentAd.type === 'popup') {
                 adBoxContainer.innerHTML = `
                     <div style="color:#fff; padding:15px;">
-                        <h4 style="color:#2fa65a; margin:0 0 10px 0;">Special Offer Available!</h4>
-                        <p style="font-size:12px; color:#8b949e;">Check out the latest sponsor offers (Games / Rewards).</p>
+                        <h4 style="color:#2fa65a; margin:0 0 10px 0;">Premium Sponsor Offer</h4>
+                        <p style="font-size:12px; color:#8b949e;">Tap below to view high reward partner campaigns.</p>
                         <a href="${currentAd.url}" target="_blank" style="display:inline-block; margin-top:5px; padding:8px 15px; background:#0088cc; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">[ Open Offer ]</a>
                     </div>`;
-                // Open Pop-up window automatically
                 window.open(currentAd.url, '_blank');
             }
 
             adIndex = (adIndex + 1) % adsList.length;
         }
 
-        // 15-Second Ad Stream with 5-Second Interval Rotation
         function trigger15SecAdStream(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
@@ -395,9 +445,8 @@
             adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
 
             let adInterval = setInterval(() => {
-                // Offline Check
                 if (!navigator.onLine) {
-                    alert("အင်တာနက် လိုင်းကျသွားသဖြင့် Ad Stream ရပ်တန့်သွားပါပြီ။");
+                    showNotification("Internet disconnected! Ad stream paused.");
                     clearInterval(adInterval);
                     adModal.style.display = 'none';
                     isAdShowing = false;
@@ -407,7 +456,6 @@
                 timeLeft--;
                 adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
                 
-                // Rotate every 5 seconds
                 if (timeLeft % 5 === 0 && timeLeft > 0) {
                     renderNextAd();
                 }
@@ -429,17 +477,16 @@
             };
         }
 
-        // Tap Logic with Anti-Auto Clicker & Offline Protection
+        // Tap Handling
         tapBtn.addEventListener('click', (e) => {
             if (!navigator.onLine) {
-                alert("Point များ မိုင်းလုပ်ရန် အင်တာနက်လိုင်း ချိတ်ဆက်ထားရန် လိုအပ်ပါသည်။");
+                showNotification("Internet connection required to mine!");
                 return;
             }
 
-            // Anti-Auto Clicker (under 300ms or programmatic triggers)
             const currentTime = new Date().getTime();
             if ((currentTime - lastTapTime < 300) || !e.isTrusted) {
-                alert("Auto-Clicker အသုံးပြုခွင့် မရှိပါ။ လက်ဖြင့်သာ နှိပ်ပေးပါ။");
+                showNotification("Auto-Clicker detected! Manual tap required.");
                 return;
             }
             lastTapTime = currentTime;
@@ -452,7 +499,7 @@
 
             let targetAlta = currentAlta + 1.00;
             let totalSteps = 20; 
-            let stepInterval = 500; // 10 Sec duration
+            let stepInterval = 500;
 
             let stepCount = 0;
             let interval = setInterval(() => {
@@ -460,7 +507,7 @@
                     clearInterval(interval);
                     tapBtn.classList.remove('mining');
                     isMining = false;
-                    alert("အင်တာနက်ပြတ်သွားသဖြင့် Mining ရပ်တန့်သွားပါပြီ။");
+                    showNotification("Internet lost! Mining stopped.");
                     return;
                 }
 
@@ -475,7 +522,6 @@
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
-                    // Trigger Ad Loop Stream
                     trigger15SecAdStream(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                     });
@@ -483,28 +529,28 @@
             }, stepInterval);
         });
 
-        // Share & Invite Logic
         shareBtn.addEventListener('click', () => {
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let botUsername = "AltaHub_ads_bot";
             let refLink = `https://t.me/${botUsername}?start=${userId}`;
             
             if (tg) {
-                tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent("Alta Miner တွင် ပါဝင်ပြီး +5 ALTA Bonus ရယူလိုက်ပါ!")}`);
+                tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent("Join Alta Ads Miner & claim +5 ALTA bonus!")}`);
             } else {
                 navigator.clipboard.writeText(refLink);
-                alert("Invite Link ကူးယူပြီးပါပြီ- " + refLink);
+                showNotification("Referral link copied: " + refLink);
             }
         });
 
-        // Withdraw Request Handling (Min 50 Limit)
+        // Withdrawal & Strict Account Validation
         openWithdrawModalBtn.addEventListener('click', () => {
             if (currentAlta < MIN_WITHDRAW) {
-                alert(`အနည်းဆုံး ထုတ်ယူနိုင်သည့် ပမာဏမှာ ${MIN_WITHDRAW} ALTA ဖြစ်ပါသည်။ လက်ရှိလက်ကျန်: ${currentAlta.toFixed(2)} ALTA`);
+                showNotification(`Minimum withdrawal limit is ${MIN_WITHDRAW} ALTA. Your balance: ${currentAlta.toFixed(2)} ALTA`);
                 return;
             }
             altaAmountInput.value = currentAlta.toFixed(2);
             addressError.style.display = 'none';
+            userError.style.display = 'none';
             payoutModal.style.display = 'flex';
         });
 
@@ -515,17 +561,32 @@
         submitPayoutBtn.addEventListener('click', async () => {
             const address = tonAddressInput.value.trim();
             const username = usernameInput.value.trim();
-            const tonRegex = /^(UQ|EQ)[a-zA-Z0-9_-]{46}$/;
 
-            if (!tonRegex.test(address)) {
-                addressError.style.display = 'block';
-                return;
+            const tonRegex = /^(UQ|EQ)[a-zA-Z0-9_-]{46}$/;
+            const userRegex = /^@[a-zA-Z0-9_]{3,32}$/;
+
+            let isValid = true;
+
+            // Telegram Username Verification
+            if (!userRegex.test(username)) {
+                userError.style.display = 'block';
+                isValid = false;
+            } else {
+                userError.style.display = 'none';
             }
 
-            addressError.style.display = 'none';
+            // TON Address Format Verification
+            if (!tonRegex.test(address)) {
+                addressError.style.display = 'block';
+                isValid = false;
+            } else {
+                addressError.style.display = 'none';
+            }
+
+            if (!isValid) return;
+
             let withdrawAmount = currentAlta.toFixed(2);
 
-            // Deduct balance and save
             currentAlta = 0.00;
             saveBalance();
 
@@ -543,9 +604,10 @@
                 });
             } catch (err) { console.error(err); }
 
-            alert(`Payout Request ပေးပို့ပြီးပါပြီ!\nထုတ်ယူပမာဏ: ${withdrawAmount} ALTA`);
+            showNotification(`Withdrawal requested: ${withdrawAmount} ALTA`);
             payoutModal.style.display = 'none';
 
+            // Navigate to History Channel upon Valid Submission
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
             else window.open("https://t.me/AltaHub_ads_withdraw_history", "_blank");
         });
