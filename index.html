@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Alta Ads Miner</title>
 
-    <!-- Meta Tags -->
     <meta name="referrer" content="no-referrer-when-downgrade" />
     <meta name="010484d106a97be83fb5ed49c0487964d30d31c8" content="010484d106a97be83fb5ed49c0487964d30d31c8" />
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- HilltopAds Popunder Script -->
     <script>
     (function(xjtjj){
     var d = document,
@@ -25,7 +23,6 @@
     })({})
     </script>
 
-    <!-- Adsterra Scripts -->
     <script src="https://pl31061771.profitableratecpmnetwork.com/fd/70/b7/fd70b725a39e47afacb097f9e85d8686.js"></script>
     <script src="https://pl31061772.profitableratecpmnetwork.com/03/56/27/035627b96d5624664694e5fe7a705c05.js"></script>
     <script src="https://pl31085781.profitableratecpmnetwork.com/e3/b3/5f/e3b35f061c9d0b377e6bc0c35f05620f.js"></script>
@@ -242,14 +239,12 @@
 </head>
 <body>
 
-    <!-- Top Banner Ad -->
     <div class="ad-banner-top" id="topAdSlot">
         <div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
           <iframe data-aa='2453653' src='https://acceptable.a-ads.com/2453653/?size=Adaptive' style='border:0; padding:0; width:100%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
         </div>
     </div>
 
-    <!-- Main Miner Card -->
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -264,7 +259,6 @@
         <button class="btn-share" id="shareBtn">Invite Friend (+5 ALTA Each)</button>
     </div>
 
-    <!-- 15 Sec Continuous Sponsor Ads Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-timer-badge">
             <span id="adTimer">00:15</span>
@@ -272,16 +266,14 @@
 
         <div class="ad-modal-content">
             <div class="ad-box-frame" id="adBoxContainer">
-                <!-- Dynamic Rotating Ads Slot -->
-            </div>
+                </div>
             <h4 style="margin: 5px 0; color: #fff; font-size: 16px;">Sponsor Advertisement</h4>
-            <p style="font-size: 12px; color: #8b949e; margin: 0 0 10px 0;">Ads are rotating... Please wait.</p>
+            <p style="font-size: 12px; color: #8b949e; margin: 0 0 10px 0;">Ads are actively rotating... High CPM Stream.</p>
         </div>
 
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait...</button>
     </div>
 
-    <!-- Payout Request Modal -->
     <div class="modal-overlay" id="payoutModal" style="justify-content: center;">
         <div class="payout-card">
             <h3 style="color: var(--primary-gold); margin-top:0;">Payout Request</h3>
@@ -348,43 +340,49 @@
             saveBalance();
             localStorage.setItem('ref_claimed', 'true');
             
-            // Notify Bot API to reward Inviter
+            // Notify Inviter via Bot API
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     chat_id: startParam, 
-                    text: "🎉 Congratulations! Someone joined using your invite link. You received +5.00 ALTA Bonus!" 
+                    text: "🎉 ဝမ်းသာစရာ သတင်းပါ။ သင့် Invite Link ဖြင့် သူငယ်ချင်းတစ်ဦး ဝင်ရောက်လာသောကြောင့် +5.00 ALTA Bonus ရရှိပါပြီ။" 
                 })
             }).catch(e => console.log(e));
 
-            alert("Welcome! You and your inviter earned +5.00 ALTA bonus each!");
+            alert("ကြိုဆိုပါတယ်! Referral Bonus အဖြစ် +5.00 ALTA ရရှိပြီး သင်နှင့် ဖိတ်ခေါ်သူ နှစ်ဦးလုံး Bonus ရရှိပါပြီ။");
         }
 
-        // Rotating Ads List (Including Loans, Games & Myanmar Target Ads)
+        // Non-18+ Clean Ads & Direct Links (Games, Finance, Loans)
         const adsList = [
             { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' },
             { type: 'iframe', src: 'https://acceptable.a-ads.com/2453769/?size=Adaptive' },
-            { type: 'direct', url: 'https://plump-plastic.com/bA3OV.0fPz3OpKv_bPmxVCJ/Z-Ds0P3IMLzqY/1vMmjAYM5/LBTTc/zMNtj/UryzNEzVMy' }, // Game/Loan Direct Link
-            { type: 'direct', url: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' } // Finance/Loan Direct Link
+            { type: 'popup', url: 'https://plump-plastic.com/bA3OV.0fPz3OpKv_bPmxVCJ/Z-Ds0P3IMLzqY/1vMmjAYM5/LBTTc/zMNtj/UryzNEzVMy' },
+            { type: 'popup', url: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' }
         ];
 
+        // Trigger Popups/Ads continuously to increase CPM
         function renderNextAd() {
             adBoxContainer.innerHTML = '';
             let currentAd = adsList[adIndex];
 
             if (currentAd.type === 'iframe') {
                 adBoxContainer.innerHTML = `<iframe src='${currentAd.src}' style='border:0; padding:0; width:100%; height:100%; overflow:hidden;'></iframe>`;
-            } else if (currentAd.type === 'direct') {
-                adBoxContainer.innerHTML = `<div style="color:#fff; padding:20px;">Click to view Sponsor Ad (Game/Loan Offer)<br><br><a href="${currentAd.url}" target="_blank" style="color:#0088cc; font-weight:bold;">[ View Offer Ad ]</a></div>`;
+            } else if (currentAd.type === 'popup') {
+                adBoxContainer.innerHTML = `
+                    <div style="color:#fff; padding:15px;">
+                        <h4 style="color:#2fa65a; margin:0 0 10px 0;">Special Offer Available!</h4>
+                        <p style="font-size:12px; color:#8b949e;">Check out the latest sponsor offers (Games / Rewards).</p>
+                        <a href="${currentAd.url}" target="_blank" style="display:inline-block; margin-top:5px; padding:8px 15px; background:#0088cc; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">[ Open Offer ]</a>
+                    </div>`;
+                // Open Pop-up window automatically
                 window.open(currentAd.url, '_blank');
             }
 
-            // Loop Next Ad
             adIndex = (adIndex + 1) % adsList.length;
         }
 
-        // Continuous Ad Rotation System (Changes Ad Every 5 Seconds in 15s Window)
+        // 15-Second Ad Stream with 5-Second Interval Rotation
         function trigger15SecAdStream(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
@@ -397,9 +395,9 @@
             adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
 
             let adInterval = setInterval(() => {
-                // Offline Check during Ads
+                // Offline Check
                 if (!navigator.onLine) {
-                    alert("Internet connection lost! Ad stream paused.");
+                    alert("အင်တာနက် လိုင်းကျသွားသဖြင့် Ad Stream ရပ်တန့်သွားပါပြီ။");
                     clearInterval(adInterval);
                     adModal.style.display = 'none';
                     isAdShowing = false;
@@ -409,7 +407,7 @@
                 timeLeft--;
                 adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
                 
-                // Continuous Ad Stream Switch every 5 Seconds
+                // Rotate every 5 seconds
                 if (timeLeft % 5 === 0 && timeLeft > 0) {
                     renderNextAd();
                 }
@@ -431,18 +429,17 @@
             };
         }
 
-        // Tap Handling (With Anti-Auto Clicker & Offline Check)
+        // Tap Logic with Anti-Auto Clicker & Offline Protection
         tapBtn.addEventListener('click', (e) => {
-            // 1. Internet Check
             if (!navigator.onLine) {
-                alert("Internet connection required to mine points!");
+                alert("Point များ မိုင်းလုပ်ရန် အင်တာနက်လိုင်း ချိတ်ဆက်ထားရန် လိုအပ်ပါသည်။");
                 return;
             }
 
-            // 2. Anti Auto-Clicker Protection (Blocks clicks under 300ms interval or non-trusted events)
+            // Anti-Auto Clicker (under 300ms or programmatic triggers)
             const currentTime = new Date().getTime();
             if ((currentTime - lastTapTime < 300) || !e.isTrusted) {
-                alert("Auto-Clicker Detected! Please tap manually.");
+                alert("Auto-Clicker အသုံးပြုခွင့် မရှိပါ။ လက်ဖြင့်သာ နှိပ်ပေးပါ။");
                 return;
             }
             lastTapTime = currentTime;
@@ -455,16 +452,15 @@
 
             let targetAlta = currentAlta + 1.00;
             let totalSteps = 20; 
-            let stepInterval = 500; // 10 Sec Mining Duration
+            let stepInterval = 500; // 10 Sec duration
 
             let stepCount = 0;
             let interval = setInterval(() => {
-                // Stop mining if internet drops mid-way
                 if (!navigator.onLine) {
                     clearInterval(interval);
                     tapBtn.classList.remove('mining');
                     isMining = false;
-                    alert("Internet lost! Mining stopped.");
+                    alert("အင်တာနက်ပြတ်သွားသဖြင့် Mining ရပ်တန့်သွားပါပြီ။");
                     return;
                 }
 
@@ -479,7 +475,7 @@
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
-                    // Immediately trigger continuous Ads Stream after Tap
+                    // Trigger Ad Loop Stream
                     trigger15SecAdStream(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                     });
@@ -494,17 +490,17 @@
             let refLink = `https://t.me/${botUsername}?start=${userId}`;
             
             if (tg) {
-                tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent("Join Alta Ads Miner & both get +5 ALTA bonus!")}`);
+                tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent("Alta Miner တွင် ပါဝင်ပြီး +5 ALTA Bonus ရယူလိုက်ပါ!")}`);
             } else {
                 navigator.clipboard.writeText(refLink);
-                alert("Referral link copied: " + refLink);
+                alert("Invite Link ကူးယူပြီးပါပြီ- " + refLink);
             }
         });
 
-        // Withdraw Request Handling
+        // Withdraw Request Handling (Min 50 Limit)
         openWithdrawModalBtn.addEventListener('click', () => {
             if (currentAlta < MIN_WITHDRAW) {
-                alert(`Minimum withdrawal limit is ${MIN_WITHDRAW} ALTA. Your current balance is ${currentAlta.toFixed(2)} ALTA.`);
+                alert(`အနည်းဆုံး ထုတ်ယူနိုင်သည့် ပမာဏမှာ ${MIN_WITHDRAW} ALTA ဖြစ်ပါသည်။ လက်ရှိလက်ကျန်: ${currentAlta.toFixed(2)} ALTA`);
                 return;
             }
             altaAmountInput.value = currentAlta.toFixed(2);
@@ -529,6 +525,7 @@
             addressError.style.display = 'none';
             let withdrawAmount = currentAlta.toFixed(2);
 
+            // Deduct balance and save
             currentAlta = 0.00;
             saveBalance();
 
@@ -546,7 +543,7 @@
                 });
             } catch (err) { console.error(err); }
 
-            alert(`Payout Request Sent Successfully!\nAmount: ${withdrawAmount} ALTA`);
+            alert(`Payout Request ပေးပို့ပြီးပါပြီ!\nထုတ်ယူပမာဏ: ${withdrawAmount} ALTA`);
             payoutModal.style.display = 'none';
 
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
