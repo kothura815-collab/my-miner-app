@@ -10,9 +10,10 @@
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- High Revenue Ads & Direct Link Scripts -->
+    <!-- 1. Plump Plastic / HilltopAds Script 1 -->
     <script src="https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB"></script>
 
+    <!-- 2. Relieved Understanding Popunder Script -->
     <script>
     (function(nwkc){
     var d = document,
@@ -26,6 +27,7 @@
     })({})
     </script>
 
+    <!-- 3. ProfitableRate CPM Scripts -->
     <script src="https://pl31100179.profitableratecpmnetwork.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js"></script>
     <script src="https://pl31100181.profitableratecpmnetwork.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js"></script>
     <script async="async" data-cfasync="false" src="https://pl31100182.profitableratecpmnetwork.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
@@ -42,18 +44,28 @@
 
         body {
             margin: 0;
-            padding: 20px 0;
+            padding: 15px 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             min-height: 100vh;
             box-sizing: border-box;
             user-select: none;
             -webkit-user-select: none;
+        }
+
+        .ad-banner-top {
+            width: 90%;
+            max-width: 400px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .miner-card {
@@ -66,7 +78,6 @@
             box-shadow: 0 12px 30px rgba(0,0,0,0.6);
             border: 1px solid rgba(255,255,255,0.08);
             position: relative;
-            margin-bottom: 20px;
         }
 
         .title { font-size: 24px; font-weight: 800; margin-bottom: 5px; color: #fff; }
@@ -101,6 +112,7 @@
         }
 
         .coin-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
         .logo-container.mining .coin-img { animation: spin-coin 2.5s linear infinite; }
 
         @keyframes spin-coin {
@@ -124,56 +136,10 @@
         }
 
         .btn-withdraw:active, .btn-share:active { transform: scale(0.98); }
+
         .btn-withdraw { background: linear-gradient(135deg, #27ae60, #2ecc71); }
         .btn-share { background: linear-gradient(135deg, #0088cc, #3498db); }
 
-        /* Double Ads Section */
-        .double-ads-wrapper {
-            width: 85%;
-            max-width: 380px;
-            margin-bottom: 20px;
-        }
-
-        .double-ads-header {
-            font-size: 18px;
-            font-weight: 800;
-            color: #f39c12;
-            text-align: center;
-            margin-bottom: 12px;
-            text-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
-        }
-
-        .double-ads-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .ad-item {
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            text-align: center;
-            transition: transform 0.2s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-        }
-
-        .ad-item:active { transform: scale(0.97); }
-        .ad-item img { width: 100%; height: 160px; object-fit: cover; display: block; }
-        .ad-item p { margin: 12px 0; font-weight: 700; font-size: 14px; color: #fff; }
-
-        .ad-banner-bottom {
-            width: 90%;
-            max-width: 380px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        /* Modal Overlay */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -307,7 +273,16 @@
 </head>
 <body>
 
-    <!-- Main Miner Card (Top Ad Completely Removed) -->
+    <!-- BEGIN AADS AD UNIT 2453868 -->
+    <div class="ad-banner-top">
+        <div id="frame" style="width: 100%; margin: auto; position: relative; z-index: 99998;">
+            <iframe data-aa='2453868' src='//acceptable.a-ads.com/2453868/?size=Adaptive'
+                    style='border:0; padding:0; width:100%; height:90px; overflow:hidden; display: block; margin: auto;'></iframe>
+        </div>
+    </div>
+    <!-- END AADS AD UNIT 2453868 -->
+
+    <!-- Main Miner Card -->
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -318,51 +293,14 @@
         </div>
 
         <div class="tap-instruction" id="tapInstruction">Tap to start mining Alta</div>
-        <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta (Min: 150)</button>
+        <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta (Max: 1000/Day)</button>
         <button class="btn-share" id="shareBtn">Invite Friend (+5 ALTA Each)</button>
     </div>
 
-    <!-- Double Ads Section (5 Ads - High CPM Links) -->
-    <div class="double-ads-wrapper">
-        <div class="double-ads-header">Double Ads ⬇️</div>
-        <div class="double-ads-container">
-            
-            <div class="ad-item" onclick="handleAdClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a')">
-                <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=500" alt="Football">
-                <p>Watch Football For FREE</p>
-            </div>
+    <!-- Adsterra Container Ad Slot -->
+    <div id="container-1cec679dbd5cf50d60afe3c148706d87" style="margin-top: 15px;"></div>
 
-            <div class="ad-item" onclick="handleAdClick('https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB')">
-                <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=500" alt="Slot">
-                <p>Real win. No streamer fake. Spin</p>
-            </div>
-
-            <div class="ad-item" onclick="handleAdClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a')">
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Crypto Bonus">
-                <p>Claim $500 Crypto Welcome Bonus Instantly</p>
-            </div>
-
-            <div class="ad-item" onclick="handleAdClick('https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB')">
-                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=500" alt="Instant Loan">
-                <p>Get Instant Cash Loan - 0% Interest First Month</p>
-            </div>
-
-            <div class="ad-item" onclick="handleAdClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a')">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500" alt="Models">
-                <p>Chat with Instagram models</p>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Bottom Banner Area -->
-    <div class="ad-banner-bottom">
-        <a href="https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB" target="_blank">
-            <img src="https://media.tenor.com/g_m6R94R954AAAAC/anime-dance.gif" alt="Special Ad" style="width: 100%; border-radius: 12px; display: block;">
-        </a>
-    </div>
-
-    <!-- Video Ad Stream Modal -->
+    <!-- Continuous Auto-Rotating Ads Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-timer-badge">
             <span id="adTimer">00:15</span>
@@ -386,7 +324,7 @@
             </div>
 
             <div class="input-group">
-                <input type="number" id="altaAmount" placeholder="Alta Points (Min: 150)">
+                <input type="number" id="altaAmount" placeholder="Alta Points (Min: 50, Max: 1000)">
             </div>
 
             <div class="input-group">
@@ -407,22 +345,15 @@
 
         const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
         const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
-        const MIN_WITHDRAW = 150.00;
-        const RESERVE_REQUIREMENT = 150.00;
+        const MIN_WITHDRAW = 50.00;
+        const DAILY_MAX_WITHDRAW = 1000.00;
 
         let currentAlta = parseFloat(localStorage.getItem('alta_balance') || '0.00');
-        let hasWithdrawnBefore = localStorage.getItem('has_withdrawn_before') === 'true';
-        
         let adIndex = 0;
         let isMining = false;
         let isAdShowing = false;
         let lastTapTime = 0;
         let autoRotateTimeout = null;
-
-        // Double Ads Verification State
-        let pendingAdClick = false;
-        let adClickTime = 0;
-        let requiredWaitSeconds = 0;
 
         const balanceEl = document.getElementById('altaBalance');
         balanceEl.innerText = currentAlta.toFixed(2);
@@ -462,7 +393,29 @@
             balanceEl.innerText = currentAlta.toFixed(2);
         }
 
-        // Ads List for Modal Auto-Rotation
+        function getTodayDateString() {
+            const today = new Date();
+            return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+        }
+
+        function getDailyWithdrawnAmount() {
+            const savedData = JSON.parse(localStorage.getItem('daily_withdraw_tracker') || '{}');
+            if (savedData.date === getTodayDateString()) {
+                return savedData.amount || 0;
+            }
+            return 0;
+        }
+
+        function addDailyWithdrawnAmount(amount) {
+            const todayStr = getTodayDateString();
+            const currentDaily = getDailyWithdrawnAmount();
+            localStorage.setItem('daily_withdraw_tracker', JSON.stringify({
+                date: todayStr,
+                amount: currentDaily + amount
+            }));
+        }
+
+        // High Revenue Ads List (Auto-Rotation)
         const adsList = [
             { type: 'iframe', src: 'https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a' },
             { type: 'iframe', src: '//acceptable.a-ads.com/2453868/?size=Adaptive' },
@@ -484,9 +437,10 @@
             adIndex = (adIndex + 1) % adsList.length;
         }
 
+        // Auto Rotation with Random Duration (10s to 15s)
         function startAdRotationLoop() {
             renderNextAd();
-            const randomTime = Math.floor(Math.random() * (12000 - 8000 + 1)) + 8000;
+            const randomTime = Math.floor(Math.random() * (15000 - 10000 + 1)) + 10000; // 10000ms - 15000ms
             autoRotateTimeout = setTimeout(() => {
                 if (isAdShowing) {
                     startAdRotationLoop();
@@ -494,7 +448,7 @@
             }, randomTime);
         }
 
-        // 10s Ad Prep + 15s Video Stream Logic
+        // 15-Sec Countdown Video Ad Stream
         function trigger15SecAdStream(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
@@ -538,7 +492,6 @@
             };
         }
 
-        // Tap Mining Logic
         tapBtn.addEventListener('click', (e) => {
             if (!navigator.onLine) {
                 showNotification("Internet connection required!");
@@ -558,10 +511,9 @@
             tapBtn.classList.add('mining');
             tapInstruction.innerText = "Mining Alta in progress...";
 
-            // 10 sec Initial Tap Animation / Ad Stream Phase
             let targetAlta = currentAlta + 1.00;
             let totalSteps = 20; 
-            let stepInterval = 500; // 10s duration
+            let stepInterval = 250;
 
             let stepCount = 0;
             let interval = setInterval(() => {
@@ -584,7 +536,6 @@
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
-                    // Trigger 15s Video Stream Modal
                     trigger15SecAdStream(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                     });
@@ -592,30 +543,6 @@
             }, stepInterval);
         });
 
-        // Double Ads Verification (Random 15s to 20s Wait Check)
-        function handleAdClick(adUrl) {
-            pendingAdClick = true;
-            adClickTime = Date.now();
-            requiredWaitSeconds = Math.floor(Math.random() * 6) + 15; // 15s to 20s Random
-            window.open(adUrl, '_blank');
-        }
-
-        window.addEventListener('focus', () => {
-            if (pendingAdClick) {
-                pendingAdClick = false;
-                const timeSpent = Math.floor((Date.now() - adClickTime) / 1000);
-
-                if (timeSpent >= requiredWaitSeconds) {
-                    currentAlta += 0.50;
-                    saveBalance();
-                    showNotification(`Ad Verified! +0.50 ALTA added.`);
-                } else {
-                    showNotification(`Must stay at least ${requiredWaitSeconds}s on ad page! (You stayed: ${timeSpent}s)`);
-                }
-            }
-        });
-
-        // Referral Sharing Logic
         shareBtn.addEventListener('click', () => {
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let botUsername = "AltaHub_ads_bot";
@@ -629,22 +556,21 @@
             }
         });
 
-        // Withdrawal Logic Checks
         openWithdrawModalBtn.addEventListener('click', () => {
-            if (hasWithdrawnBefore) {
-                if (currentAlta < (MIN_WITHDRAW + RESERVE_REQUIREMENT)) {
-                    showNotification(`Minimum 300 ALTA needed (150 Withdraw + 150 Reserve required in bot)!`);
-                    return;
-                }
-            } else {
-                if (currentAlta < MIN_WITHDRAW) {
-                    showNotification(`Minimum withdrawal is ${MIN_WITHDRAW} ALTA.`);
-                    return;
-                }
+            const todayWithdrawn = getDailyWithdrawnAmount();
+
+            if (todayWithdrawn >= DAILY_MAX_WITHDRAW) {
+                showNotification("Daily withdrawal limit reached (1000 ALTA)!");
+                return;
             }
 
-            let maxWithdrawable = hasWithdrawnBefore ? (currentAlta - RESERVE_REQUIREMENT) : currentAlta;
-            altaAmountInput.value = maxWithdrawable.toFixed(2);
+            if (currentAlta < MIN_WITHDRAW) {
+                showNotification(`Minimum withdrawal is ${MIN_WITHDRAW} ALTA.`);
+                return;
+            }
+
+            let maxPossibleWithdraw = Math.min(currentAlta, DAILY_MAX_WITHDRAW - todayWithdrawn);
+            altaAmountInput.value = maxPossibleWithdraw.toFixed(2);
 
             addressError.style.display = 'none';
             userError.style.display = 'none';
@@ -659,6 +585,7 @@
             const address = tonAddressInput.value.trim();
             const username = usernameInput.value.trim();
             const withdrawAmount = parseFloat(altaAmountInput.value);
+            const todayWithdrawn = getDailyWithdrawnAmount();
 
             const tonRegex = /^(UQ|EQ)[a-zA-Z0-9_-]{46}$/;
             const userRegex = /^@[a-zA-Z0-9_]{3,32}$/;
@@ -684,27 +611,24 @@
                 isValid = false;
             }
 
-            if (hasWithdrawnBefore) {
-                if ((currentAlta - withdrawAmount) < RESERVE_REQUIREMENT) {
-                    showNotification(`Must keep at least ${RESERVE_REQUIREMENT} ALTA in bot balance!`);
-                    isValid = false;
-                }
-            } else {
-                if (withdrawAmount > currentAlta) {
-                    showNotification("Insufficient balance!");
-                    isValid = false;
-                }
+            if (withdrawAmount > currentAlta) {
+                showNotification("Insufficient balance!");
+                isValid = false;
+            }
+
+            if ((todayWithdrawn + withdrawAmount) > DAILY_MAX_WITHDRAW) {
+                showNotification(`Exceeds daily max limit! Remaining daily limit: ${(DAILY_MAX_WITHDRAW - todayWithdrawn).toFixed(2)} ALTA.`);
+                isValid = false;
             }
 
             if (!isValid) return;
 
+            // Balance ထဲမှ ထုတ်ယူမည့် ပမာဏကို နှုတ်ယူခြင်း
             currentAlta -= withdrawAmount;
+            if (currentAlta < 0) currentAlta = 0;
             saveBalance();
 
-            if (!hasWithdrawnBefore) {
-                hasWithdrawnBefore = true;
-                localStorage.setItem('has_withdrawn_before', 'true');
-            }
+            addDailyWithdrawnAmount(withdrawAmount);
 
             const message = `<b>New Payout Request</b>\n\n` +
                             `<b>User:</b> ${username}\n` +
