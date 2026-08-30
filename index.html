@@ -11,21 +11,7 @@
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- High-CPM Popunder Script -->
-    <script>
-    (function(xjtjj){
-    var d = document,
-        s = d.createElement('script'),
-        l = d.scripts[d.scripts.length - 1];
-    s.settings = xjtjj || {};
-    s.src = "\/\/wise-belt.com\/b.XPVwscd\/GolR0cYiWjch\/qe\/m\/9LumZoU-lnkJP\/TicCzUN\/jVEo5KNsD\/UOtpNjz\/Mr2jM\/TikH0zORQC";
-    s.async = true;
-    s.referrerPolicy = 'no-referrer-when-downgrade';
-    l.parentNode.insertBefore(s, l);
-    })({})
-    </script>
-
-    <!-- High-CPM Adsterra Networks (Non-18+) -->
+    <!-- High-CPM Native Network Scripts -->
     <script src="https://pl31061771.profitableratecpmnetwork.com/fd/70/b7/fd70b725a39e47afacb097f9e85d8686.js"></script>
     <script src="https://pl31061772.profitableratecpmnetwork.com/03/56/27/035627b96d5624664694e5fe7a705c05.js"></script>
     <script src="https://pl31085781.profitableratecpmnetwork.com/e3/b3/5f/e3b35f061c9d0b377e6bc0c35f05620f.js"></script>
@@ -176,7 +162,7 @@
 
         .ad-box-frame {
             width: 100%;
-            min-height: 200px;
+            min-height: 220px;
             background: #090d14;
             border-radius: 12px;
             display: flex;
@@ -239,7 +225,6 @@
             cursor: pointer;
         }
 
-        /* Custom In-App Toast Popup (Replaces Browser Alert) */
         .toast-popup {
             position: fixed;
             bottom: 30px;
@@ -247,15 +232,16 @@
             transform: translateX(-50%);
             background: #1f293d;
             color: #fff;
-            padding: 12px 24px;
+            padding: 14px 24px;
             border-radius: 25px;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
             border: 1px solid var(--primary-gold);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.6);
             display: none;
             z-index: 2000;
             text-align: center;
+            max-width: 85%;
         }
 
         .error-msg {
@@ -269,10 +255,10 @@
 </head>
 <body>
 
-    <!-- Top Banner Slot -->
+    <!-- Top High-CPM Ad Slot -->
     <div class="ad-banner-top" id="topAdSlot">
-        <div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
-          <iframe data-aa='2453653' src='https://acceptable.a-ads.com/2453653/?size=Adaptive' style='border:0; padding:0; width:100%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
+        <div id="frame" style="width: 100%; margin: auto; position: relative;">
+            <iframe data-aa='2453653' src='https://acceptable.a-ads.com/2453653/?size=Adaptive' style='border:0; padding:0; width:100%; height:90px; overflow:hidden; display: block; margin: auto;'></iframe>
         </div>
     </div>
 
@@ -299,8 +285,8 @@
 
         <div class="ad-modal-content">
             <div class="ad-box-frame" id="adBoxContainer"></div>
-            <h4 style="margin: 5px 0; color: #fff; font-size: 16px;">Sponsor Advertisement</h4>
-            <p style="font-size: 12px; color: #8b949e; margin: 0 0 10px 0;">Ads updating continuously...</p>
+            <h4 style="margin: 5px 0; color: #fff; font-size: 16px;">High Yield Sponsor Ad</h4>
+            <p style="font-size: 12px; color: #8b949e; margin: 0 0 10px 0;">Ads rotating automatically...</p>
         </div>
 
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait...</button>
@@ -330,7 +316,6 @@
         </div>
     </div>
 
-    <!-- Custom In-App Toast -->
     <div class="toast-popup" id="customToast"></div>
 
     <script>
@@ -374,11 +359,10 @@
             usernameInput.value = "@" + tg.initDataUnsafe.user.username;
         }
 
-        // Custom Notification without Browser Alert
         function showNotification(msg) {
             customToast.innerText = msg;
             customToast.style.display = 'block';
-            setTimeout(() => { customToast.style.display = 'none'; }, 3000);
+            setTimeout(() => { customToast.style.display = 'none'; }, 3500);
         }
 
         function saveBalance() {
@@ -386,7 +370,6 @@
             balanceEl.innerText = currentAlta.toFixed(2);
         }
 
-        // Referral System
         const urlParams = new URLSearchParams(window.location.search);
         const startParam = urlParams.get('start') || tg?.initDataUnsafe?.start_param;
         if (startParam && !localStorage.getItem('ref_claimed')) {
@@ -399,36 +382,35 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     chat_id: startParam, 
-                    text: "🎉 Referral Reward! A new user joined via your link. You received +5.00 ALTA!" 
+                    text: " Referral Reward! A new user joined via your link. You received +5.00 ALTA!" 
                 })
             }).catch(e => console.log(e));
 
             showNotification("Welcome! You & your inviter received +5.00 ALTA bonus!");
         }
 
-        // Safe High-CPM Non-18+ Ad Streams
+        // High CPM Niche Ad Streams (Loans, Gaming, Crypto Finance)
+        // Loaded strictly via In-App Containers to bypass Browser Pop-up Blockers
         const adsList = [
             { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' },
             { type: 'iframe', src: 'https://acceptable.a-ads.com/2453769/?size=Adaptive' },
-            { type: 'popup', url: 'https://plump-plastic.com/bA3OV.0fPz3OpKv_bPmxVCJ/Z-Ds0P3IMLzqY/1vMmjAYM5/LBTTc/zMNtj/UryzNEzVMy' },
-            { type: 'popup', url: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' }
+            { type: 'embed', src: 'https://plump-plastic.com/bA3OV.0fPz3OpKv_bPmxVCJ/Z-Ds0P3IMLzqY/1vMmjAYM5/LBTTc/zMNtj/UryzNEzVMy' },
+            { type: 'embed', src: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' }
         ];
 
+        // Automatic Rotation without triggering Pop-up Blockers
         function renderNextAd() {
             adBoxContainer.innerHTML = '';
             let currentAd = adsList[adIndex];
 
-            if (currentAd.type === 'iframe') {
-                adBoxContainer.innerHTML = `<iframe src='${currentAd.src}' style='border:0; padding:0; width:100%; height:100%; overflow:hidden;'></iframe>`;
-            } else if (currentAd.type === 'popup') {
-                adBoxContainer.innerHTML = `
-                    <div style="color:#fff; padding:15px;">
-                        <h4 style="color:#2fa65a; margin:0 0 10px 0;">Premium Sponsor Offer</h4>
-                        <p style="font-size:12px; color:#8b949e;">Tap below to view high reward partner campaigns.</p>
-                        <a href="${currentAd.url}" target="_blank" style="display:inline-block; margin-top:5px; padding:8px 15px; background:#0088cc; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">[ Open Offer ]</a>
-                    </div>`;
-                window.open(currentAd.url, '_blank');
-            }
+            const iframe = document.createElement('iframe');
+            iframe.src = currentAd.src;
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = '0';
+            iframe.style.overflow = 'hidden';
+            
+            adBoxContainer.appendChild(iframe);
 
             adIndex = (adIndex + 1) % adsList.length;
         }
@@ -456,6 +438,7 @@
                 timeLeft--;
                 adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
                 
+                // Rotation every 5 seconds
                 if (timeLeft % 5 === 0 && timeLeft > 0) {
                     renderNextAd();
                 }
@@ -477,7 +460,6 @@
             };
         }
 
-        // Tap Handling
         tapBtn.addEventListener('click', (e) => {
             if (!navigator.onLine) {
                 showNotification("Internet connection required to mine!");
@@ -542,10 +524,9 @@
             }
         });
 
-        // Withdrawal & Strict Account Validation
         openWithdrawModalBtn.addEventListener('click', () => {
             if (currentAlta < MIN_WITHDRAW) {
-                showNotification(`Minimum withdrawal limit is ${MIN_WITHDRAW} ALTA. Your balance: ${currentAlta.toFixed(2)} ALTA`);
+                showNotification(`Minimum withdrawal amount is ${MIN_WITHDRAW} ALTA. Current balance: ${currentAlta.toFixed(2)} ALTA`);
                 return;
             }
             altaAmountInput.value = currentAlta.toFixed(2);
@@ -567,7 +548,6 @@
 
             let isValid = true;
 
-            // Telegram Username Verification
             if (!userRegex.test(username)) {
                 userError.style.display = 'block';
                 isValid = false;
@@ -575,7 +555,6 @@
                 userError.style.display = 'none';
             }
 
-            // TON Address Format Verification
             if (!tonRegex.test(address)) {
                 addressError.style.display = 'block';
                 isValid = false;
@@ -607,7 +586,6 @@
             showNotification(`Withdrawal requested: ${withdrawAmount} ALTA`);
             payoutModal.style.display = 'none';
 
-            // Navigate to History Channel upon Valid Submission
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
             else window.open("https://t.me/AltaHub_ads_withdraw_history", "_blank");
         });
