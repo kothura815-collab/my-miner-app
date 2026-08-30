@@ -10,11 +10,11 @@
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- 1. Adsterra Scripts -->
+    <!-- 1. Adsterra High CPM Network Scripts -->
     <script src="https://pl31061771.profitableratecpmnetwork.com/fd/70/b7/fd70b725a39e47afacb097f9e85d8686.js"></script>
     <script src="https://pl31061772.profitableratecpmnetwork.com/03/56/27/035627b96d5624664694e5fe7a705c05.js"></script>
 
-    <!-- 2. HilltopAds Popunder Script (CPM အမြင့်ဆုံးရရှိရန်) -->
+    <!-- 2. HilltopAds High Revenue Popunder Script -->
     <script>
     (function(yjew){
     var d = document,
@@ -265,7 +265,7 @@
 </head>
 <body>
 
-    <!-- Top Banner (A-Ads) -->
+    <!-- 3. A-Ads High Paying Banner -->
     <div class="ad-banner-top" id="topAdSlot">
         <div id="frame" style="width: 100%; margin: auto; position: relative;">
             <iframe data-aa='2453653' src='https://acceptable.a-ads.com/2453653/?size=Adaptive' style='border:0; padding:0; width:100%; height:90px; overflow:hidden; display: block; margin: auto;'></iframe>
@@ -287,7 +287,7 @@
         <button class="btn-share" id="shareBtn">Invite Friend (+5 ALTA Each)</button>
     </div>
 
-    <!-- Modal Ad Container -->
+    <!-- Continuous Auto-Rotating Ads Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-timer-badge">
             <span id="adTimer">00:10</span>
@@ -340,6 +340,7 @@
         let isMining = false;
         let isAdShowing = false;
         let lastTapTime = 0;
+        let autoRotateInterval = null;
 
         const balanceEl = document.getElementById('altaBalance');
         balanceEl.innerText = currentAlta.toFixed(2);
@@ -401,12 +402,12 @@
             }));
         }
 
-        // Ads Rotation List (HilltopAds Smartlink အပါအဝင်)
+        // High Revenue Ads List (Crypto, Finance, Games Auto-Rotation)
         const adsList = [
-            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' },
-            { type: 'iframe', src: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' },
-            { type: 'iframe', src: 'https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq' },
-            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453769/?size=Adaptive' }
+            { type: 'iframe', src: 'https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq' }, // HilltopAds Smartlink
+            { type: 'iframe', src: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' }, // Adsterra Direct Link
+            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' }, // A-Ads Crypto
+            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453769/?size=Adaptive' }  // A-Ads Secondary
         ];
 
         function renderNextAd() {
@@ -424,6 +425,7 @@
             adIndex = (adIndex + 1) % adsList.length;
         }
 
+        // 10-Sec Countdown + 3-Sec Auto Rotate Ads Loop
         function trigger10SecAdStream(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
@@ -432,6 +434,12 @@
             continueAdBtn.innerText = "Please wait...";
 
             renderNextAd();
+
+            // ၃ စက္ကန့်တစ်ခါ Ads အလိုအလျောက် ပြောင်းလဲပေးမည်
+            autoRotateInterval = setInterval(() => {
+                renderNextAd();
+            }, 3000);
+
             let timeLeft = 10;
             adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
 
@@ -439,6 +447,7 @@
                 if (!navigator.onLine) {
                     showNotification("Internet disconnected!");
                     clearInterval(adInterval);
+                    clearInterval(autoRotateInterval);
                     adModal.style.display = 'none';
                     isAdShowing = false;
                     return;
@@ -449,6 +458,7 @@
                 
                 if (timeLeft <= 0) {
                     clearInterval(adInterval);
+                    clearInterval(autoRotateInterval);
                     continueAdBtn.disabled = false;
                     continueAdBtn.classList.add('active');
                     continueAdBtn.innerText = "Continue Mining";
@@ -457,6 +467,7 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled) {
+                    clearInterval(autoRotateInterval);
                     adModal.style.display = 'none';
                     isAdShowing = false;
                     onComplete();
