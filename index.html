@@ -11,7 +11,7 @@
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- High-CPM Native Network Scripts -->
+    <!-- High-CPM Adsterra & Banner Networks -->
     <script src="https://pl31061771.profitableratecpmnetwork.com/fd/70/b7/fd70b725a39e47afacb097f9e85d8686.js"></script>
     <script src="https://pl31061772.profitableratecpmnetwork.com/03/56/27/035627b96d5624664694e5fe7a705c05.js"></script>
     <script src="https://pl31085781.profitableratecpmnetwork.com/e3/b3/5f/e3b35f061c9d0b377e6bc0c35f05620f.js"></script>
@@ -162,7 +162,7 @@
 
         .ad-box-frame {
             width: 100%;
-            min-height: 220px;
+            height: 250px;
             background: #090d14;
             border-radius: 12px;
             display: flex;
@@ -273,20 +273,20 @@
         </div>
 
         <div class="tap-instruction" id="tapInstruction">Tap to start mining Alta</div>
-        <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta (Min: 50)</button>
+        <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta (Max: 1000/Day)</button>
         <button class="btn-share" id="shareBtn">Invite Friend (+5 ALTA Each)</button>
     </div>
 
     <!-- Continuous Sponsor Ads Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-timer-badge">
-            <span id="adTimer">00:15</span>
+            <span id="adTimer">00:20</span>
         </div>
 
         <div class="ad-modal-content">
             <div class="ad-box-frame" id="adBoxContainer"></div>
-            <h4 style="margin: 5px 0; color: #fff; font-size: 16px;">High Yield Sponsor Ad</h4>
-            <p style="font-size: 12px; color: #8b949e; margin: 0 0 10px 0;">Ads rotating automatically...</p>
+            <h4 style="margin: 5px 0; color: #fff; font-size: 16px;">High Yield Premium Ad</h4>
+            <p style="font-size: 12px; color: #8b949e; margin: 0 0 10px 0;">Auto-rotating every 20 seconds...</p>
         </div>
 
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait...</button>
@@ -303,7 +303,7 @@
             </div>
 
             <div class="input-group">
-                <input type="number" id="altaAmount" placeholder="Alta Points" readonly>
+                <input type="number" id="altaAmount" placeholder="Alta Points (Max 1000)" readonly>
             </div>
 
             <div class="input-group">
@@ -325,6 +325,7 @@
         const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
         const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
         const MIN_WITHDRAW = 50.00;
+        const DAILY_MAX_WITHDRAW = 1000.00;
 
         let currentAlta = parseFloat(localStorage.getItem('alta_balance') || '0.00');
         let adIndex = 0;
@@ -370,27 +371,30 @@
             balanceEl.innerText = currentAlta.toFixed(2);
         }
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const startParam = urlParams.get('start') || tg?.initDataUnsafe?.start_param;
-        if (startParam && !localStorage.getItem('ref_claimed')) {
-            currentAlta += 5.00;
-            saveBalance();
-            localStorage.setItem('ref_claimed', 'true');
-            
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    chat_id: startParam, 
-                    text: " Referral Reward! A new user joined via your link. You received +5.00 ALTA!" 
-                })
-            }).catch(e => console.log(e));
-
-            showNotification("Welcome! You & your inviter received +5.00 ALTA bonus!");
+        // Daily Limit Helper Functions
+        function getTodayDateString() {
+            const today = new Date();
+            return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
         }
 
-        // High CPM Niche Ad Streams (Loans, Gaming, Crypto Finance)
-        // Loaded strictly via In-App Containers to bypass Browser Pop-up Blockers
+        function getDailyWithdrawnAmount() {
+            const savedData = JSON.parse(localStorage.getItem('daily_withdraw_tracker') || '{}');
+            if (savedData.date === getTodayDateString()) {
+                return savedData.amount || 0;
+            }
+            return 0;
+        }
+
+        function addDailyWithdrawnAmount(amount) {
+            const todayStr = getTodayDateString();
+            const currentDaily = getDailyWithdrawnAmount();
+            localStorage.setItem('daily_withdraw_tracker', JSON.stringify({
+                date: todayStr,
+                amount: currentDaily + amount
+            }));
+        }
+
+        // High-Paying Gaming, Casino & Crypto Ads List (Ordered by CPM Income)
         const adsList = [
             { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' },
             { type: 'iframe', src: 'https://acceptable.a-ads.com/2453769/?size=Adaptive' },
@@ -398,7 +402,6 @@
             { type: 'embed', src: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' }
         ];
 
-        // Automatic Rotation without triggering Pop-up Blockers
         function renderNextAd() {
             adBoxContainer.innerHTML = '';
             let currentAd = adsList[adIndex];
@@ -411,11 +414,11 @@
             iframe.style.overflow = 'hidden';
             
             adBoxContainer.appendChild(iframe);
-
             adIndex = (adIndex + 1) % adsList.length;
         }
 
-        function trigger15SecAdStream(onComplete) {
+        // 20-Second Continuous Stream & Auto-Rotation Cycle
+        function trigger20SecAdStream(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
             continueAdBtn.disabled = true;
@@ -423,7 +426,7 @@
             continueAdBtn.innerText = "Please wait...";
 
             renderNextAd();
-            let timeLeft = 15;
+            let timeLeft = 20;
             adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
 
             let adInterval = setInterval(() => {
@@ -438,8 +441,8 @@
                 timeLeft--;
                 adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
                 
-                // Rotation every 5 seconds
-                if (timeLeft % 5 === 0 && timeLeft > 0) {
+                // Auto rotate ad every 20 seconds loop trigger
+                if (timeLeft % 20 === 0 && timeLeft > 0) {
                     renderNextAd();
                 }
 
@@ -447,7 +450,7 @@
                     clearInterval(adInterval);
                     continueAdBtn.disabled = false;
                     continueAdBtn.classList.add('active');
-                    continueAdBtn.innerText = "Continue";
+                    continueAdBtn.innerText = "Continue Mining";
                 }
             }, 1000);
 
@@ -504,7 +507,7 @@
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
-                    trigger15SecAdStream(() => {
+                    trigger20SecAdStream(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                     });
                 }
@@ -525,11 +528,21 @@
         });
 
         openWithdrawModalBtn.addEventListener('click', () => {
+            const todayWithdrawn = getDailyWithdrawnAmount();
+
+            if (todayWithdrawn >= DAILY_MAX_WITHDRAW) {
+                showNotification("Daily withdrawal limit reached (1000 ALTA/day). Try again tomorrow!");
+                return;
+            }
+
             if (currentAlta < MIN_WITHDRAW) {
                 showNotification(`Minimum withdrawal amount is ${MIN_WITHDRAW} ALTA. Current balance: ${currentAlta.toFixed(2)} ALTA`);
                 return;
             }
-            altaAmountInput.value = currentAlta.toFixed(2);
+
+            let availableWithdraw = Math.min(currentAlta, DAILY_MAX_WITHDRAW - todayWithdrawn);
+            altaAmountInput.value = availableWithdraw.toFixed(2);
+
             addressError.style.display = 'none';
             userError.style.display = 'none';
             payoutModal.style.display = 'flex';
@@ -564,14 +577,17 @@
 
             if (!isValid) return;
 
-            let withdrawAmount = currentAlta.toFixed(2);
+            let withdrawAmount = parseFloat(altaAmountInput.value);
 
-            currentAlta = 0.00;
+            currentAlta -= withdrawAmount;
+            if (currentAlta < 0) currentAlta = 0;
             saveBalance();
+
+            addDailyWithdrawnAmount(withdrawAmount);
 
             const message = `<b>New Payout Request</b>\n\n` +
                             `<b>User:</b> ${username}\n` +
-                            `<b>Amount:</b> ${withdrawAmount} ALTA\n` +
+                            `<b>Amount:</b> ${withdrawAmount.toFixed(2)} ALTA\n` +
                             `<b>TON Address:</b> <code>${address}</code>\n` +
                             `<b>Status:</b> Pending`;
 
@@ -583,7 +599,7 @@
                 });
             } catch (err) { console.error(err); }
 
-            showNotification(`Withdrawal requested: ${withdrawAmount} ALTA`);
+            showNotification(`Requested: ${withdrawAmount.toFixed(2)} ALTA. Daily limit updated.`);
             payoutModal.style.display = 'none';
 
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
