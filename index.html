@@ -10,6 +10,7 @@
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
+    <!-- High Revenue Ads & Direct Link Scripts -->
     <script src="https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB"></script>
 
     <script>
@@ -41,7 +42,7 @@
 
         body {
             margin: 0;
-            padding: 15px 0 30px 0;
+            padding: 20px 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -55,39 +56,6 @@
             -webkit-user-select: none;
         }
 
-        /* Top Static Banner */
-        .top-fixed-banner {
-            width: 85%;
-            max-width: 380px;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            border: 1px solid #3b82f6;
-            border-radius: 16px;
-            padding: 12px;
-            box-sizing: border-box;
-            text-align: center;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.2);
-            cursor: pointer;
-        }
-
-        .top-fixed-banner p {
-            margin: 0 0 6px 0;
-            font-size: 13px;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .top-fixed-banner button {
-            background: #f1c40f;
-            color: #000;
-            border: none;
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 800;
-            cursor: pointer;
-        }
-
         .miner-card {
             background: var(--card-bg);
             border-radius: 24px;
@@ -98,7 +66,6 @@
             box-shadow: 0 12px 30px rgba(0,0,0,0.6);
             border: 1px solid rgba(255,255,255,0.08);
             position: relative;
-            box-sizing: border-box;
             margin-bottom: 20px;
         }
 
@@ -134,7 +101,6 @@
         }
 
         .coin-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-
         .logo-container.mining .coin-img { animation: spin-coin 2.5s linear infinite; }
 
         @keyframes spin-coin {
@@ -161,11 +127,11 @@
         .btn-withdraw { background: linear-gradient(135deg, #27ae60, #2ecc71); }
         .btn-share { background: linear-gradient(135deg, #0088cc, #3498db); }
 
-        /* Double Ads List */
+        /* Double Ads Section */
         .double-ads-wrapper {
             width: 85%;
             max-width: 380px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .double-ads-header {
@@ -173,14 +139,14 @@
             font-weight: 800;
             color: #f39c12;
             text-align: center;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             text-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
         }
 
         .double-ads-container {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 15px;
         }
 
         .ad-item {
@@ -190,30 +156,22 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             cursor: pointer;
             text-align: center;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: transform 0.2s;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
-        .ad-item:active { transform: scale(0.98); border-color: var(--primary-gold); }
+        .ad-item:active { transform: scale(0.97); }
         .ad-item img { width: 100%; height: 160px; object-fit: cover; display: block; }
         .ad-item p { margin: 12px 0; font-weight: 700; font-size: 14px; color: #fff; }
 
-        /* Auto-Rotating CPM Banner at the Bottom */
-        .cpm-rotate-card {
-            width: 85%;
+        .ad-banner-bottom {
+            width: 90%;
             max-width: 380px;
-            background: var(--card-bg);
-            border-radius: 16px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            margin-bottom: 15px;
-            cursor: pointer;
-            text-align: center;
         }
-
-        .cpm-rotate-card img { width: 100%; height: 160px; object-fit: cover; display: block; }
-        .cpm-rotate-card p { margin: 10px 0; font-weight: 700; font-size: 13px; color: #38bdf8; }
 
         /* Modal Overlay */
         .modal-overlay {
@@ -224,7 +182,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            padding: 20px 15px;
+            padding: 25px 15px;
             box-sizing: border-box;
             z-index: 1000;
         }
@@ -244,31 +202,18 @@
             max-width: 360px;
             background: #161b22;
             border-radius: 20px;
-            padding: 12px;
+            padding: 15px;
             box-sizing: border-box;
             text-align: center;
             box-shadow: 0 0 25px rgba(0,0,0,0.8);
             border: 1px solid #21262d;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
         }
-
-        .modal-gif-banner {
-            width: 100%;
-            height: 90px;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .modal-gif-banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .ad-box-frame {
             width: 100%;
-            height: 230px;
+            height: 300px;
             background: #090d14;
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -280,12 +225,12 @@
         .btn-continue {
             width: 100%;
             max-width: 360px;
-            padding: 14px;
+            padding: 15px;
             background: #234b6e;
             border: none;
             border-radius: 14px;
             color: #ffffff;
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 700;
             cursor: not-allowed;
             opacity: 0.6;
@@ -362,11 +307,7 @@
 </head>
 <body>
 
-    <div class="top-fixed-banner" onclick="window.open('https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB', '_blank')">
-        <p>Advertise In This Ad Space</p>
-        <button>Get started</button>
-    </div>
-
+    <!-- Main Miner Card (Top Ad Completely Removed) -->
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -376,66 +317,65 @@
             <img src="alta-coin.png" alt="Alta Coin" class="coin-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/6001/6001368.png'">
         </div>
 
-        <div class="tap-instruction" id="tapInstruction">Tap to mine Alta again!</div>
-        <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta (Max: 1000/Day)</button>
+        <div class="tap-instruction" id="tapInstruction">Tap to start mining Alta</div>
+        <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta (Min: 150)</button>
         <button class="btn-share" id="shareBtn">Invite Friend (+5 ALTA Each)</button>
     </div>
 
+    <!-- Double Ads Section (5 Ads - High CPM Links) -->
     <div class="double-ads-wrapper">
-        <div class="double-ads-header">Double Ads 15s ⬇️</div>
+        <div class="double-ads-header">Double Ads ⬇️</div>
         <div class="double-ads-container">
             
             <div class="ad-item" onclick="handleAdClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a')">
-                <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=500&auto=format&fit=crop&q=80" alt="Football Live" onerror="this.src='https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500'">
+                <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=500" alt="Football">
                 <p>Watch Football For FREE</p>
             </div>
 
             <div class="ad-item" onclick="handleAdClick('https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB')">
-                <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=500&auto=format&fit=crop&q=80" alt="Slots Game">
+                <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=500" alt="Slot">
                 <p>Real win. No streamer fake. Spin</p>
             </div>
 
             <div class="ad-item" onclick="handleAdClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a')">
-                <img src="https://images.unsplash.com/photo-1622979135225-d2ba269bc1df?w=500&auto=format&fit=crop&q=80" alt="Crypto Bonus">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Crypto Bonus">
                 <p>Claim $500 Crypto Welcome Bonus Instantly</p>
             </div>
 
             <div class="ad-item" onclick="handleAdClick('https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB')">
-                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=500&auto=format&fit=crop&q=80" alt="Instant Loan">
+                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=500" alt="Instant Loan">
                 <p>Get Instant Cash Loan - 0% Interest First Month</p>
             </div>
 
             <div class="ad-item" onclick="handleAdClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a')">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80" alt="Chat Models">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500" alt="Models">
                 <p>Chat with Instagram models</p>
             </div>
 
         </div>
     </div>
 
-    <div class="cpm-rotate-card" id="cpmCard" onclick="handleAdClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a')">
-        <img id="cpmImg" src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500" alt="Movie Ad">
-        <p id="cpmTitle">The Devil Wears Prada 2: Watch in HD for FREE</p>
+    <!-- Bottom Banner Area -->
+    <div class="ad-banner-bottom">
+        <a href="https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB" target="_blank">
+            <img src="https://media.tenor.com/g_m6R94R954AAAAC/anime-dance.gif" alt="Special Ad" style="width: 100%; border-radius: 12px; display: block;">
+        </a>
     </div>
 
-    <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
-
+    <!-- Video Ad Stream Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-timer-badge">
             <span id="adTimer">00:15</span>
         </div>
 
         <div class="ad-modal-content">
-            <div class="modal-gif-banner" onclick="window.open('https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB', '_blank')">
-                <img src="https://media.tenor.com/g_m6R94R954AAAAC/anime-dance.gif" alt="Dynamic Video Ad">
-            </div>
-
             <div class="ad-box-frame" id="adBoxContainer"></div>
         </div>
 
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait...</button>
     </div>
 
+    <!-- Payout Request Modal -->
     <div class="modal-overlay" id="payoutModal" style="justify-content: center;">
         <div class="payout-card">
             <h3 style="color: var(--primary-gold); margin-top:0; text-align:center;">Withdrawal Request</h3>
@@ -446,7 +386,7 @@
             </div>
 
             <div class="input-group">
-                <input type="number" id="altaAmount" placeholder="Alta Points (Min: 50, Max: 1000)">
+                <input type="number" id="altaAmount" placeholder="Alta Points (Min: 150)">
             </div>
 
             <div class="input-group">
@@ -467,17 +407,19 @@
 
         const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
         const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
-        const MIN_WITHDRAW = 50.00;
-        const DAILY_MAX_WITHDRAW = 1000.00;
+        const MIN_WITHDRAW = 150.00;
+        const RESERVE_REQUIREMENT = 150.00;
 
         let currentAlta = parseFloat(localStorage.getItem('alta_balance') || '0.00');
+        let hasWithdrawnBefore = localStorage.getItem('has_withdrawn_before') === 'true';
+        
         let adIndex = 0;
         let isMining = false;
         let isAdShowing = false;
         let lastTapTime = 0;
         let autoRotateTimeout = null;
 
-        // Double Ads Verification Parameters
+        // Double Ads Verification State
         let pendingAdClick = false;
         let adClickTime = 0;
         let requiredWaitSeconds = 0;
@@ -520,49 +462,7 @@
             balanceEl.innerText = currentAlta.toFixed(2);
         }
 
-        function getTodayDateString() {
-            const today = new Date();
-            return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-        }
-
-        function getDailyWithdrawnAmount() {
-            const savedData = JSON.parse(localStorage.getItem('daily_withdraw_tracker') || '{}');
-            if (savedData.date === getTodayDateString()) {
-                return savedData.amount || 0;
-            }
-            return 0;
-        }
-
-        function addDailyWithdrawnAmount(amount) {
-            const todayStr = getTodayDateString();
-            const currentDaily = getDailyWithdrawnAmount();
-            localStorage.setItem('daily_withdraw_tracker', JSON.stringify({
-                date: todayStr,
-                amount: currentDaily + amount
-            }));
-        }
-
-        // Bottom Continuous CPM Rotating Ads List
-        const rotatingCpmList = [
-            { img: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500', title: 'The Devil Wears Prada 2: Watch in HD for FREE' },
-            { img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=500', title: 'Claim Cloud Miner Bonus - Start Earning Today' },
-            { img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500', title: 'Play & Win Real USDT - Instant Deposit & Payout' }
-        ];
-
-        let cpmIndex = 0;
-        function updateBottomCpmAd() {
-            cpmIndex = (cpmIndex + 1) % rotatingCpmList.length;
-            const item = rotatingCpmList[cpmIndex];
-            const cpmImg = document.getElementById('cpmImg');
-            const cpmTitle = document.getElementById('cpmTitle');
-            if (cpmImg && cpmTitle) {
-                cpmImg.src = item.img;
-                cpmTitle.innerText = item.title;
-            }
-        }
-        setInterval(updateBottomCpmAd, 12000); // Rotate every 12 seconds
-
-        // Modal Ads Rotation Feed
+        // Ads List for Modal Auto-Rotation
         const adsList = [
             { type: 'iframe', src: 'https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a' },
             { type: 'iframe', src: '//acceptable.a-ads.com/2453868/?size=Adaptive' },
@@ -586,7 +486,7 @@
 
         function startAdRotationLoop() {
             renderNextAd();
-            const randomTime = Math.floor(Math.random() * (15000 - 10000 + 1)) + 10000;
+            const randomTime = Math.floor(Math.random() * (12000 - 8000 + 1)) + 8000;
             autoRotateTimeout = setTimeout(() => {
                 if (isAdShowing) {
                     startAdRotationLoop();
@@ -594,7 +494,7 @@
             }, randomTime);
         }
 
-        // 15-Sec Countdown Video Ad Stream Modal
+        // 10s Ad Prep + 15s Video Stream Logic
         function trigger15SecAdStream(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
@@ -638,7 +538,7 @@
             };
         }
 
-        // Tap Mining Logic (10s Mine Stream -> 15s Video Modal)
+        // Tap Mining Logic
         tapBtn.addEventListener('click', (e) => {
             if (!navigator.onLine) {
                 showNotification("Internet connection required!");
@@ -658,9 +558,10 @@
             tapBtn.classList.add('mining');
             tapInstruction.innerText = "Mining Alta in progress...";
 
+            // 10 sec Initial Tap Animation / Ad Stream Phase
             let targetAlta = currentAlta + 1.00;
             let totalSteps = 20; 
-            let stepInterval = 500; // 10s tap period
+            let stepInterval = 500; // 10s duration
 
             let stepCount = 0;
             let interval = setInterval(() => {
@@ -683,6 +584,7 @@
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
+                    // Trigger 15s Video Stream Modal
                     trigger15SecAdStream(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                     });
@@ -690,11 +592,11 @@
             }, stepInterval);
         });
 
-        // Double Ads Verification Logic (15s to 20s Random Delay)
+        // Double Ads Verification (Random 15s to 20s Wait Check)
         function handleAdClick(adUrl) {
             pendingAdClick = true;
             adClickTime = Date.now();
-            requiredWaitSeconds = Math.floor(Math.random() * 6) + 15; // 15 to 20 seconds
+            requiredWaitSeconds = Math.floor(Math.random() * 6) + 15; // 15s to 20s Random
             window.open(adUrl, '_blank');
         }
 
@@ -708,11 +610,12 @@
                     saveBalance();
                     showNotification(`Ad Verified! +0.50 ALTA added.`);
                 } else {
-                    showNotification(`Must stay at least ${requiredWaitSeconds}s on ad page! (Stayed: ${timeSpent}s)`);
+                    showNotification(`Must stay at least ${requiredWaitSeconds}s on ad page! (You stayed: ${timeSpent}s)`);
                 }
             }
         });
 
+        // Referral Sharing Logic
         shareBtn.addEventListener('click', () => {
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let botUsername = "AltaHub_ads_bot";
@@ -726,21 +629,22 @@
             }
         });
 
+        // Withdrawal Logic Checks
         openWithdrawModalBtn.addEventListener('click', () => {
-            const todayWithdrawn = getDailyWithdrawnAmount();
-
-            if (todayWithdrawn >= DAILY_MAX_WITHDRAW) {
-                showNotification("Daily withdrawal limit reached (1000 ALTA)!");
-                return;
+            if (hasWithdrawnBefore) {
+                if (currentAlta < (MIN_WITHDRAW + RESERVE_REQUIREMENT)) {
+                    showNotification(`Minimum 300 ALTA needed (150 Withdraw + 150 Reserve required in bot)!`);
+                    return;
+                }
+            } else {
+                if (currentAlta < MIN_WITHDRAW) {
+                    showNotification(`Minimum withdrawal is ${MIN_WITHDRAW} ALTA.`);
+                    return;
+                }
             }
 
-            if (currentAlta < MIN_WITHDRAW) {
-                showNotification(`Minimum withdrawal is ${MIN_WITHDRAW} ALTA.`);
-                return;
-            }
-
-            let maxPossibleWithdraw = Math.min(currentAlta, DAILY_MAX_WITHDRAW - todayWithdrawn);
-            altaAmountInput.value = maxPossibleWithdraw.toFixed(2);
+            let maxWithdrawable = hasWithdrawnBefore ? (currentAlta - RESERVE_REQUIREMENT) : currentAlta;
+            altaAmountInput.value = maxWithdrawable.toFixed(2);
 
             addressError.style.display = 'none';
             userError.style.display = 'none';
@@ -755,7 +659,6 @@
             const address = tonAddressInput.value.trim();
             const username = usernameInput.value.trim();
             const withdrawAmount = parseFloat(altaAmountInput.value);
-            const todayWithdrawn = getDailyWithdrawnAmount();
 
             const tonRegex = /^(UQ|EQ)[a-zA-Z0-9_-]{46}$/;
             const userRegex = /^@[a-zA-Z0-9_]{3,32}$/;
@@ -781,23 +684,27 @@
                 isValid = false;
             }
 
-            if (withdrawAmount > currentAlta) {
-                showNotification("Insufficient balance!");
-                isValid = false;
-            }
-
-            if ((todayWithdrawn + withdrawAmount) > DAILY_MAX_WITHDRAW) {
-                showNotification(`Exceeds daily max limit! Remaining limit: ${(DAILY_MAX_WITHDRAW - todayWithdrawn).toFixed(2)} ALTA.`);
-                isValid = false;
+            if (hasWithdrawnBefore) {
+                if ((currentAlta - withdrawAmount) < RESERVE_REQUIREMENT) {
+                    showNotification(`Must keep at least ${RESERVE_REQUIREMENT} ALTA in bot balance!`);
+                    isValid = false;
+                }
+            } else {
+                if (withdrawAmount > currentAlta) {
+                    showNotification("Insufficient balance!");
+                    isValid = false;
+                }
             }
 
             if (!isValid) return;
 
             currentAlta -= withdrawAmount;
-            if (currentAlta < 0) currentAlta = 0;
             saveBalance();
 
-            addDailyWithdrawnAmount(withdrawAmount);
+            if (!hasWithdrawnBefore) {
+                hasWithdrawnBefore = true;
+                localStorage.setItem('has_withdrawn_before', 'true');
+            }
 
             const message = `<b>New Payout Request</b>\n\n` +
                             `<b>User:</b> ${username}\n` +
