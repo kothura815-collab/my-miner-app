@@ -396,4 +396,430 @@
             </div>
 
             <div class="ad-item" onclick="handleAdClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a')">
-                <img src="https://images.unsplash.com/photo-1622979135225-d2ba269bc1df?w=500&auto=format&fit=crop&q=80" alt="Crypto
+                <img src="https://images.unsplash.com/photo-1622979135225-d2ba269bc1df?w=500&auto=format&fit=crop&q=80" alt="Crypto Bonus">
+                <p>Claim $500 Crypto Welcome Bonus Instantly</p>
+            </div>
+
+            <div class="ad-item" onclick="handleAdClick('https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB')">
+                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=500&auto=format&fit=crop&q=80" alt="Instant Loan">
+                <p>Get Instant Cash Loan - 0% Interest First Month</p>
+            </div>
+
+            <div class="ad-item" onclick="handleAdClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a')">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80" alt="Chat Models">
+                <p>Chat with Instagram models</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="cpm-rotate-card" id="cpmCard" onclick="handleAdClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a')">
+        <img id="cpmImg" src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500" alt="Movie Ad">
+        <p id="cpmTitle">The Devil Wears Prada 2: Watch in HD for FREE</p>
+    </div>
+
+    <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
+
+    <div class="modal-overlay" id="adModal">
+        <div class="ad-timer-badge">
+            <span id="adTimer">00:15</span>
+        </div>
+
+        <div class="ad-modal-content">
+            <div class="modal-gif-banner" onclick="window.open('https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB', '_blank')">
+                <img src="https://media.tenor.com/g_m6R94R954AAAAC/anime-dance.gif" alt="Dynamic Video Ad">
+            </div>
+
+            <div class="ad-box-frame" id="adBoxContainer"></div>
+        </div>
+
+        <button class="btn-continue" id="continueAdBtn" disabled>Please wait...</button>
+    </div>
+
+    <div class="modal-overlay" id="payoutModal" style="justify-content: center;">
+        <div class="payout-card">
+            <h3 style="color: var(--primary-gold); margin-top:0; text-align:center;">Withdrawal Request</h3>
+            
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Telegram Username (@user)">
+                <div class="error-msg" id="userError">Valid Telegram username required (@username)!</div>
+            </div>
+
+            <div class="input-group">
+                <input type="number" id="altaAmount" placeholder="Alta Points (Min: 50, Max: 1000)">
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="tonAddress" placeholder="TON Wallet Address">
+                <div class="error-msg" id="addressError">Invalid TON address! Must start with UQ or EQ.</div>
+            </div>
+
+            <button class="btn-submit" id="submitPayout">SUBMIT WITHDRAWAL</button>
+            <center><button style="background:none; border:none; color:#8b949e; margin-top:12px; cursor:pointer;" id="closeModal">Cancel</button></center>
+        </div>
+    </div>
+
+    <div class="toast-popup" id="customToast"></div>
+
+    <script>
+        const tg = window.Telegram?.WebApp;
+        if(tg) tg.expand();
+
+        const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
+        const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
+        const MIN_WITHDRAW = 50.00;
+        const DAILY_MAX_WITHDRAW = 1000.00;
+
+        let currentAlta = parseFloat(localStorage.getItem('alta_balance') || '0.00');
+        let adIndex = 0;
+        let isMining = false;
+        let isAdShowing = false;
+        let lastTapTime = 0;
+        let autoRotateTimeout = null;
+
+        // Double Ads Verification Parameters
+        let pendingAdClick = false;
+        let adClickTime = 0;
+        let requiredWaitSeconds = 0;
+
+        const balanceEl = document.getElementById('altaBalance');
+        balanceEl.innerText = currentAlta.toFixed(2);
+
+        const tapBtn = document.getElementById('tapBtn');
+        const tapInstruction = document.getElementById('tapInstruction');
+        const payoutModal = document.getElementById('payoutModal');
+        const adModal = document.getElementById('adModal');
+        const adTimerEl = document.getElementById('adTimer');
+        const continueAdBtn = document.getElementById('continueAdBtn');
+        const adBoxContainer = document.getElementById('adBoxContainer');
+
+        const openWithdrawModalBtn = document.getElementById('openWithdrawModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const submitPayoutBtn = document.getElementById('submitPayout');
+        const shareBtn = document.getElementById('shareBtn');
+        
+        const usernameInput = document.getElementById('username');
+        const altaAmountInput = document.getElementById('altaAmount');
+        const tonAddressInput = document.getElementById('tonAddress');
+        const addressError = document.getElementById('addressError');
+        const userError = document.getElementById('userError');
+        const customToast = document.getElementById('customToast');
+
+        if (tg && tg.initDataUnsafe?.user?.username) {
+            usernameInput.value = "@" + tg.initDataUnsafe.user.username;
+        }
+
+        function showNotification(msg) {
+            customToast.innerText = msg;
+            customToast.style.display = 'block';
+            setTimeout(() => { customToast.style.display = 'none'; }, 3500);
+        }
+
+        function saveBalance() {
+            localStorage.setItem('alta_balance', currentAlta.toString());
+            balanceEl.innerText = currentAlta.toFixed(2);
+        }
+
+        function getTodayDateString() {
+            const today = new Date();
+            return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+        }
+
+        function getDailyWithdrawnAmount() {
+            const savedData = JSON.parse(localStorage.getItem('daily_withdraw_tracker') || '{}');
+            if (savedData.date === getTodayDateString()) {
+                return savedData.amount || 0;
+            }
+            return 0;
+        }
+
+        function addDailyWithdrawnAmount(amount) {
+            const todayStr = getTodayDateString();
+            const currentDaily = getDailyWithdrawnAmount();
+            localStorage.setItem('daily_withdraw_tracker', JSON.stringify({
+                date: todayStr,
+                amount: currentDaily + amount
+            }));
+        }
+
+        // Bottom Continuous CPM Rotating Ads List
+        const rotatingCpmList = [
+            { img: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500', title: 'The Devil Wears Prada 2: Watch in HD for FREE' },
+            { img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=500', title: 'Claim Cloud Miner Bonus - Start Earning Today' },
+            { img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500', title: 'Play & Win Real USDT - Instant Deposit & Payout' }
+        ];
+
+        let cpmIndex = 0;
+        function updateBottomCpmAd() {
+            cpmIndex = (cpmIndex + 1) % rotatingCpmList.length;
+            const item = rotatingCpmList[cpmIndex];
+            const cpmImg = document.getElementById('cpmImg');
+            const cpmTitle = document.getElementById('cpmTitle');
+            if (cpmImg && cpmTitle) {
+                cpmImg.src = item.img;
+                cpmTitle.innerText = item.title;
+            }
+        }
+        setInterval(updateBottomCpmAd, 12000); // Rotate every 12 seconds
+
+        // Modal Ads Rotation Feed
+        const adsList = [
+            { type: 'iframe', src: 'https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a' },
+            { type: 'iframe', src: '//acceptable.a-ads.com/2453868/?size=Adaptive' },
+            { type: 'iframe', src: 'https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB' }
+        ];
+
+        function renderNextAd() {
+            adBoxContainer.innerHTML = '';
+            let currentAd = adsList[adIndex];
+
+            const iframe = document.createElement('iframe');
+            iframe.src = currentAd.src;
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = '0';
+            iframe.style.overflow = 'hidden';
+            
+            adBoxContainer.appendChild(iframe);
+            adIndex = (adIndex + 1) % adsList.length;
+        }
+
+        function startAdRotationLoop() {
+            renderNextAd();
+            const randomTime = Math.floor(Math.random() * (15000 - 10000 + 1)) + 10000;
+            autoRotateTimeout = setTimeout(() => {
+                if (isAdShowing) {
+                    startAdRotationLoop();
+                }
+            }, randomTime);
+        }
+
+        // 15-Sec Countdown Video Ad Stream Modal
+        function trigger15SecAdStream(onComplete) {
+            isAdShowing = true;
+            adModal.style.display = 'flex';
+            continueAdBtn.disabled = true;
+            continueAdBtn.classList.remove('active');
+            continueAdBtn.innerText = "Please wait...";
+
+            startAdRotationLoop();
+
+            let timeLeft = 15;
+            adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
+
+            let adInterval = setInterval(() => {
+                if (!navigator.onLine) {
+                    showNotification("Internet disconnected!");
+                    clearInterval(adInterval);
+                    clearTimeout(autoRotateTimeout);
+                    adModal.style.display = 'none';
+                    isAdShowing = false;
+                    return;
+                }
+
+                timeLeft--;
+                adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(adInterval);
+                    continueAdBtn.disabled = false;
+                    continueAdBtn.classList.add('active');
+                    continueAdBtn.innerText = "Continue Mining";
+                }
+            }, 1000);
+
+            continueAdBtn.onclick = () => {
+                if (!continueAdBtn.disabled) {
+                    clearTimeout(autoRotateTimeout);
+                    adModal.style.display = 'none';
+                    isAdShowing = false;
+                    onComplete();
+                }
+            };
+        }
+
+        // Tap Mining Logic (10s Mine Stream -> 15s Video Modal)
+        tapBtn.addEventListener('click', (e) => {
+            if (!navigator.onLine) {
+                showNotification("Internet connection required!");
+                return;
+            }
+
+            const currentTime = new Date().getTime();
+            if ((currentTime - lastTapTime < 300) || !e.isTrusted) {
+                showNotification("Auto-Clicker detected!");
+                return;
+            }
+            lastTapTime = currentTime;
+
+            if (isMining || isAdShowing) return;
+
+            isMining = true;
+            tapBtn.classList.add('mining');
+            tapInstruction.innerText = "Mining Alta in progress...";
+
+            let targetAlta = currentAlta + 1.00;
+            let totalSteps = 20; 
+            let stepInterval = 500; // 10s tap period
+
+            let stepCount = 0;
+            let interval = setInterval(() => {
+                if (!navigator.onLine) {
+                    clearInterval(interval);
+                    tapBtn.classList.remove('mining');
+                    isMining = false;
+                    showNotification("Internet lost!");
+                    return;
+                }
+
+                stepCount++;
+                currentAlta = parseFloat((currentAlta + 0.05).toFixed(2));
+                saveBalance();
+
+                if (stepCount >= totalSteps) {
+                    clearInterval(interval);
+                    currentAlta = parseFloat(targetAlta.toFixed(2));
+                    saveBalance();
+                    tapBtn.classList.remove('mining');
+                    isMining = false;
+
+                    trigger15SecAdStream(() => {
+                        tapInstruction.innerText = "Tap to mine Alta again!";
+                    });
+                }
+            }, stepInterval);
+        });
+
+        // Double Ads Verification Logic (15s to 20s Random Delay)
+        function handleAdClick(adUrl) {
+            pendingAdClick = true;
+            adClickTime = Date.now();
+            requiredWaitSeconds = Math.floor(Math.random() * 6) + 15; // 15 to 20 seconds
+            window.open(adUrl, '_blank');
+        }
+
+        window.addEventListener('focus', () => {
+            if (pendingAdClick) {
+                pendingAdClick = false;
+                const timeSpent = Math.floor((Date.now() - adClickTime) / 1000);
+
+                if (timeSpent >= requiredWaitSeconds) {
+                    currentAlta += 0.50;
+                    saveBalance();
+                    showNotification(`Ad Verified! +0.50 ALTA added.`);
+                } else {
+                    showNotification(`Must stay at least ${requiredWaitSeconds}s on ad page! (Stayed: ${timeSpent}s)`);
+                }
+            }
+        });
+
+        shareBtn.addEventListener('click', () => {
+            let userId = tg?.initDataUnsafe?.user?.id || "user";
+            let botUsername = "AltaHub_ads_bot";
+            let refLink = `https://t.me/${botUsername}?start=${userId}`;
+            
+            if (tg) {
+                tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent("Join Alta Ads Miner & claim +5 ALTA bonus!")}`);
+            } else {
+                navigator.clipboard.writeText(refLink);
+                showNotification("Referral link copied: " + refLink);
+            }
+        });
+
+        openWithdrawModalBtn.addEventListener('click', () => {
+            const todayWithdrawn = getDailyWithdrawnAmount();
+
+            if (todayWithdrawn >= DAILY_MAX_WITHDRAW) {
+                showNotification("Daily withdrawal limit reached (1000 ALTA)!");
+                return;
+            }
+
+            if (currentAlta < MIN_WITHDRAW) {
+                showNotification(`Minimum withdrawal is ${MIN_WITHDRAW} ALTA.`);
+                return;
+            }
+
+            let maxPossibleWithdraw = Math.min(currentAlta, DAILY_MAX_WITHDRAW - todayWithdrawn);
+            altaAmountInput.value = maxPossibleWithdraw.toFixed(2);
+
+            addressError.style.display = 'none';
+            userError.style.display = 'none';
+            payoutModal.style.display = 'flex';
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            payoutModal.style.display = 'none';
+        });
+
+        submitPayoutBtn.addEventListener('click', async () => {
+            const address = tonAddressInput.value.trim();
+            const username = usernameInput.value.trim();
+            const withdrawAmount = parseFloat(altaAmountInput.value);
+            const todayWithdrawn = getDailyWithdrawnAmount();
+
+            const tonRegex = /^(UQ|EQ)[a-zA-Z0-9_-]{46}$/;
+            const userRegex = /^@[a-zA-Z0-9_]{3,32}$/;
+
+            let isValid = true;
+
+            if (!userRegex.test(username)) {
+                userError.style.display = 'block';
+                isValid = false;
+            } else {
+                userError.style.display = 'none';
+            }
+
+            if (!tonRegex.test(address)) {
+                addressError.style.display = 'block';
+                isValid = false;
+            } else {
+                addressError.style.display = 'none';
+            }
+
+            if (isNaN(withdrawAmount) || withdrawAmount < MIN_WITHDRAW) {
+                showNotification(`Minimum withdrawal is ${MIN_WITHDRAW} ALTA.`);
+                isValid = false;
+            }
+
+            if (withdrawAmount > currentAlta) {
+                showNotification("Insufficient balance!");
+                isValid = false;
+            }
+
+            if ((todayWithdrawn + withdrawAmount) > DAILY_MAX_WITHDRAW) {
+                showNotification(`Exceeds daily max limit! Remaining limit: ${(DAILY_MAX_WITHDRAW - todayWithdrawn).toFixed(2)} ALTA.`);
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            currentAlta -= withdrawAmount;
+            if (currentAlta < 0) currentAlta = 0;
+            saveBalance();
+
+            addDailyWithdrawnAmount(withdrawAmount);
+
+            const message = `<b>New Payout Request</b>\n\n` +
+                            `<b>User:</b> ${username}\n` +
+                            `<b>Amount:</b> ${withdrawAmount.toFixed(2)} ALTA\n` +
+                            `<b>Remaining Balance:</b> ${currentAlta.toFixed(2)} ALTA\n` +
+                            `<b>TON Address:</b> <code>${address}</code>\n` +
+                            `<b>Status:</b> Pending`;
+
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CHANNEL_ID, text: message, parse_mode: 'HTML' })
+                });
+            } catch (err) { console.error(err); }
+
+            showNotification(`Successfully requested: ${withdrawAmount.toFixed(2)} ALTA.`);
+            payoutModal.style.display = 'none';
+
+            if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
+            else window.open("https://t.me/AltaHub_ads_withdraw_history", "_blank");
+        });
+    </script>
+</body>
+</html>
