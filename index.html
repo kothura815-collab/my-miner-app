@@ -10,11 +10,11 @@
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- 1. Adsterra Scripts -->
+    <!-- 1. Adsterra High CPM Network Scripts -->
     <script src="https://pl31061771.profitableratecpmnetwork.com/fd/70/b7/fd70b725a39e47afacb097f9e85d8686.js"></script>
     <script src="https://pl31061772.profitableratecpmnetwork.com/03/56/27/035627b96d5624664694e5fe7a705c05.js"></script>
 
-    <!-- 2. HilltopAds Popunder Script -->
+    <!-- 2. HilltopAds High Revenue Popunder Script -->
     <script>
     (function(yjew){
     var d = document,
@@ -121,7 +121,7 @@
 
         .tap-instruction { font-size: 13px; color: #8b949e; margin-bottom: 15px; }
 
-        .btn-withdraw, .btn-share, .btn-boost {
+        .btn-withdraw, .btn-share {
             width: 100%;
             padding: 12px;
             border: none;
@@ -133,7 +133,6 @@
             margin-bottom: 8px;
         }
 
-        .btn-boost { background: linear-gradient(90deg, #e67e22, #f1c40f); }
         .btn-withdraw { background: linear-gradient(90deg, #27ae60, #2ecc71); }
         .btn-share { background: linear-gradient(90deg, #0088cc, #3498db); }
 
@@ -266,7 +265,7 @@
 </head>
 <body>
 
-    <!-- Top Banner (A-Ads) -->
+    <!-- 3. A-Ads High Paying Banner -->
     <div class="ad-banner-top" id="topAdSlot">
         <div id="frame" style="width: 100%; margin: auto; position: relative;">
             <iframe data-aa='2453653' src='https://acceptable.a-ads.com/2453653/?size=Adaptive' style='border:0; padding:0; width:100%; height:90px; overflow:hidden; display: block; margin: auto;'></iframe>
@@ -284,17 +283,14 @@
         </div>
 
         <div class="tap-instruction" id="tapInstruction">Tap to start mining Alta</div>
-        
-        <!-- Direct Link Claim Button (Authentic Engagement) -->
-        <button class="btn-boost" id="boostBtn">⚡ Claim Bonus +2.0 ALTA (Watch Ad)</button>
         <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta (Max: 1000/Day)</button>
         <button class="btn-share" id="shareBtn">Invite Friend (+5 ALTA Each)</button>
     </div>
 
-    <!-- Modal Ad Container -->
+    <!-- Continuous Auto-Rotating Ads Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-timer-badge">
-            <span id="adTimer">00:30</span>
+            <span id="adTimer">00:10</span>
         </div>
 
         <div class="ad-modal-content">
@@ -350,7 +346,6 @@
         balanceEl.innerText = currentAlta.toFixed(2);
 
         const tapBtn = document.getElementById('tapBtn');
-        const boostBtn = document.getElementById('boostBtn');
         const tapInstruction = document.getElementById('tapInstruction');
         const payoutModal = document.getElementById('payoutModal');
         const adModal = document.getElementById('adModal');
@@ -407,18 +402,12 @@
             }));
         }
 
-        // Direct Links List
-        const directLinks = [
-            'https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq',
-            'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43'
-        ];
-
-        // Frame Ads Rotating List
+        // High Revenue Ads List (Crypto, Finance, Games Auto-Rotation)
         const adsList = [
-            { type: 'iframe', src: 'https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq' },
-            { type: 'iframe', src: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' },
-            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' },
-            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453769/?size=Adaptive' }
+            { type: 'iframe', src: 'https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq' }, // HilltopAds Smartlink
+            { type: 'iframe', src: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' }, // Adsterra Direct Link
+            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' }, // A-Ads Crypto
+            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453769/?size=Adaptive' }  // A-Ads Secondary
         ];
 
         function renderNextAd() {
@@ -436,8 +425,8 @@
             adIndex = (adIndex + 1) % adsList.length;
         }
 
-        // Optimized Ad Stream (15 Seconds Refresh Interval)
-        function triggerAdStream(onComplete) {
+        // 10-Sec Countdown + 3-Sec Auto Rotate Ads Loop
+        function trigger10SecAdStream(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
             continueAdBtn.disabled = true;
@@ -446,12 +435,12 @@
 
             renderNextAd();
 
-            // Set Auto-Rotate Interval to 15 seconds (15000ms) to ensure valid CPM impressions
+            // ၃ စက္ကန့်တစ်ခါ Ads အလိုအလျောက် ပြောင်းလဲပေးမည်
             autoRotateInterval = setInterval(() => {
                 renderNextAd();
-            }, 15000);
+            }, 3000);
 
-            let timeLeft = 30; // 30 seconds total view requirement
+            let timeLeft = 10;
             adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
 
             let adInterval = setInterval(() => {
@@ -486,25 +475,6 @@
             };
         }
 
-        // Direct Link Action on Intentional User Action
-        boostBtn.addEventListener('click', () => {
-            if (!navigator.onLine) {
-                showNotification("Internet connection required!");
-                return;
-            }
-
-            try {
-                let randomDirectLink = directLinks[Math.floor(Math.random() * directLinks.length)];
-                window.open(randomDirectLink, '_blank');
-                
-                // Reward user for authentic click
-                currentAlta = parseFloat((currentAlta + 2.00).toFixed(2));
-                saveBalance();
-                showNotification("Bonus Claimed! +2.0 ALTA added.");
-            } catch(err) { console.log(err); }
-        });
-
-        // Tap Click event for Mining
         tapBtn.addEventListener('click', (e) => {
             if (!navigator.onLine) {
                 showNotification("Internet connection required!");
@@ -549,7 +519,7 @@
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
-                    triggerAdStream(() => {
+                    trigger10SecAdStream(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                     });
                 }
