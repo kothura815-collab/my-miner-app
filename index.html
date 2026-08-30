@@ -265,7 +265,7 @@
 </head>
 <body>
 
-    <!-- 3. A-Ads High Paying Banner -->
+    <!-- 3. A-Ads Banner -->
     <div class="ad-banner-top" id="topAdSlot">
         <div id="frame" style="width: 100%; margin: auto; position: relative;">
             <iframe data-aa='2453653' src='https://acceptable.a-ads.com/2453653/?size=Adaptive' style='border:0; padding:0; width:100%; height:90px; overflow:hidden; display: block; margin: auto;'></iframe>
@@ -283,7 +283,7 @@
         </div>
 
         <div class="tap-instruction" id="tapInstruction">Tap to start mining Alta</div>
-        <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta (Max: 1000/Day)</button>
+        <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta (Min: 50 | Max: 1000/Day)</button>
         <button class="btn-share" id="shareBtn">Invite Friend (+5 ALTA Each)</button>
     </div>
 
@@ -307,16 +307,16 @@
             
             <div class="input-group">
                 <input type="text" id="username" placeholder="Telegram Username (@user)">
-                <div class="error-msg" id="userError">Valid Telegram username required (@username)!</div>
+                <div class="error-msg" id="userError">Valid Username required (e.g., @username)!</div>
             </div>
 
             <div class="input-group">
-                <input type="number" id="altaAmount" placeholder="Alta Points (Max 1000)" readonly>
+                <input type="number" id="altaAmount" placeholder="Amount (Min 50 ALTA)">
             </div>
 
             <div class="input-group">
                 <input type="text" id="tonAddress" placeholder="TON Wallet Address">
-                <div class="error-msg" id="addressError">Invalid TON address! Must start with UQ or EQ.</div>
+                <div class="error-msg" id="addressError">Invalid TON address! Must start with UQ or EQ (48 chars).</div>
             </div>
 
             <button class="btn-submit" id="submitPayout">SUBMIT WITHDRAWAL</button>
@@ -340,7 +340,7 @@
         let isMining = false;
         let isAdShowing = false;
         let lastTapTime = 0;
-        let autoRotateInterval = null;
+        let autoRotateTimeout = null;
 
         const balanceEl = document.getElementById('altaBalance');
         balanceEl.innerText = currentAlta.toFixed(2);
@@ -402,12 +402,12 @@
             }));
         }
 
-        // High Revenue Ads List (Crypto, Finance, Games Auto-Rotation)
+        // High Revenue Rotating Ads Network
         const adsList = [
-            { type: 'iframe', src: 'https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq' }, // HilltopAds Smartlink
-            { type: 'iframe', src: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' }, // Adsterra Direct Link
-            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' }, // A-Ads Crypto
-            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453769/?size=Adaptive' }  // A-Ads Secondary
+            { type: 'iframe', src: 'https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq' },
+            { type: 'iframe', src: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' },
+            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' },
+            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453769/?size=Adaptive' }
         ];
 
         function renderNextAd() {
@@ -425,7 +425,19 @@
             adIndex = (adIndex + 1) % adsList.length;
         }
 
-        // 10-Sec Countdown + 3-Sec Auto Rotate Ads Loop
+        // Auto Rotate Ads between 3sec to 7sec dynamically
+        function startDynamicAdRotation() {
+            renderNextAd();
+            const nextRotateTime = Math.floor(Math.random() * (7000 - 3000 + 1)) + 3000; // 3000ms - 7000ms
+            
+            autoRotateTimeout = setTimeout(() => {
+                if (isAdShowing) {
+                    startDynamicAdRotation();
+                }
+            }, nextRotateTime);
+        }
+
+        // 10-Sec Stream Timer
         function trigger10SecAdStream(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
@@ -433,12 +445,7 @@
             continueAdBtn.classList.remove('active');
             continueAdBtn.innerText = "Please wait...";
 
-            renderNextAd();
-
-            // ၃ စက္ကန့်တစ်ခါ Ads အလိုအလျောက် ပြောင်းလဲပေးမည်
-            autoRotateInterval = setInterval(() => {
-                renderNextAd();
-            }, 3000);
+            startDynamicAdRotation();
 
             let timeLeft = 10;
             adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
@@ -447,7 +454,7 @@
                 if (!navigator.onLine) {
                     showNotification("Internet disconnected!");
                     clearInterval(adInterval);
-                    clearInterval(autoRotateInterval);
+                    clearTimeout(autoRotateTimeout);
                     adModal.style.display = 'none';
                     isAdShowing = false;
                     return;
@@ -458,7 +465,6 @@
                 
                 if (timeLeft <= 0) {
                     clearInterval(adInterval);
-                    clearInterval(autoRotateInterval);
                     continueAdBtn.disabled = false;
                     continueAdBtn.classList.add('active');
                     continueAdBtn.innerText = "Continue Mining";
@@ -467,7 +473,7 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled) {
-                    clearInterval(autoRotateInterval);
+                    clearTimeout(autoRotateTimeout);
                     adModal.style.display = 'none';
                     isAdShowing = false;
                     onComplete();
@@ -539,21 +545,22 @@
             }
         });
 
+        // Withdraw Validation Checks
         openWithdrawModalBtn.addEventListener('click', () => {
             const todayWithdrawn = getDailyWithdrawnAmount();
 
             if (todayWithdrawn >= DAILY_MAX_WITHDRAW) {
-                showNotification("Daily withdrawal limit reached!");
+                showNotification(`Daily withdrawal limit of ${DAILY_MAX_WITHDRAW} ALTA reached!`);
                 return;
             }
 
             if (currentAlta < MIN_WITHDRAW) {
-                showNotification(`Minimum withdrawal is ${MIN_WITHDRAW} ALTA.`);
+                showNotification(`Minimum withdrawal requires ${MIN_WITHDRAW} ALTA. (Current: ${currentAlta.toFixed(2)})`);
                 return;
             }
 
-            let availableWithdraw = Math.min(currentAlta, DAILY_MAX_WITHDRAW - todayWithdrawn);
-            altaAmountInput.value = availableWithdraw.toFixed(2);
+            let maxPossible = Math.min(currentAlta, DAILY_MAX_WITHDRAW - todayWithdrawn);
+            altaAmountInput.value = maxPossible.toFixed(2);
 
             addressError.style.display = 'none';
             userError.style.display = 'none';
@@ -567,6 +574,8 @@
         submitPayoutBtn.addEventListener('click', async () => {
             const address = tonAddressInput.value.trim();
             const username = usernameInput.value.trim();
+            const withdrawAmount = parseFloat(altaAmountInput.value);
+            const todayWithdrawn = getDailyWithdrawnAmount();
 
             const tonRegex = /^(UQ|EQ)[a-zA-Z0-9_-]{46}$/;
             const userRegex = /^@[a-zA-Z0-9_]{3,32}$/;
@@ -587,11 +596,25 @@
                 addressError.style.display = 'none';
             }
 
+            if (isNaN(withdrawAmount) || withdrawAmount < MIN_WITHDRAW) {
+                showNotification(`Minimum withdrawal amount is ${MIN_WITHDRAW} ALTA.`);
+                return;
+            }
+
+            if (withdrawAmount > currentAlta) {
+                showNotification("Insufficient balance!");
+                return;
+            }
+
+            if ((todayWithdrawn + withdrawAmount) > DAILY_MAX_WITHDRAW) {
+                showNotification(`Exceeds daily limit! Remaining today: ${(DAILY_MAX_WITHDRAW - todayWithdrawn).toFixed(2)} ALTA.`);
+                return;
+            }
+
             if (!isValid) return;
 
-            let withdrawAmount = parseFloat(altaAmountInput.value);
-
-            currentAlta -= withdrawAmount;
+            // Point နှုတ်ခြင်းနှင့် တကယ့် Remaining Balance သိမ်းဆည်းခြင်း
+            currentAlta = parseFloat((currentAlta - withdrawAmount).toFixed(2));
             if (currentAlta < 0) currentAlta = 0;
             saveBalance();
 
@@ -600,6 +623,7 @@
             const message = `<b>New Payout Request</b>\n\n` +
                             `<b>User:</b> ${username}\n` +
                             `<b>Amount:</b> ${withdrawAmount.toFixed(2)} ALTA\n` +
+                            `<b>Remaining Balance:</b> ${currentAlta.toFixed(2)} ALTA\n` +
                             `<b>TON Address:</b> <code>${address}</code>\n` +
                             `<b>Status:</b> Pending`;
 
@@ -611,7 +635,7 @@
                 });
             } catch (err) { console.error(err); }
 
-            showNotification(`Requested: ${withdrawAmount.toFixed(2)} ALTA.`);
+            showNotification(`Successfully requested: ${withdrawAmount.toFixed(2)} ALTA.`);
             payoutModal.style.display = 'none';
 
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
