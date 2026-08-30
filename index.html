@@ -42,7 +42,7 @@
 
         body {
             margin: 0;
-            padding: 20px 0;
+            padding: 15px 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -56,6 +56,18 @@
             -webkit-user-select: none;
         }
 
+        /* Top Fixed A-Ads Banner Space */
+        .ad-banner-top {
+            width: 90%;
+            max-width: 380px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 10;
+        }
+
         .miner-card {
             background: var(--card-bg);
             border-radius: 24px;
@@ -67,6 +79,7 @@
             border: 1px solid rgba(255,255,255,0.08);
             position: relative;
             margin-bottom: 20px;
+            z-index: 1;
         }
 
         .title { font-size: 24px; font-weight: 800; margin-bottom: 5px; color: #fff; }
@@ -161,16 +174,20 @@
         }
 
         .ad-item:active { transform: scale(0.97); }
-        .ad-item img { width: 100%; height: 160px; object-fit: cover; display: block; }
+        .ad-item img { width: 100%; height: 180px; object-fit: cover; display: block; }
         .ad-item p { margin: 12px 0; font-weight: 700; font-size: 14px; color: #fff; }
 
+        /* High-Income Bottom Ads */
         .ad-banner-bottom {
             width: 90%;
             max-width: 380px;
             margin-top: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             border-radius: 12px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         /* Modal Overlay */
@@ -307,7 +324,15 @@
 </head>
 <body>
 
-    <!-- Main Miner Card (Top Ad Completely Removed) -->
+    <!-- TOP FIXED AD BANNER (A-Ads Unit Always Visible on Top) -->
+    <div class="ad-banner-top">
+        <div id="frame" style="width: 100%; margin: auto; position: relative;">
+            <iframe data-aa='2453868' src='//acceptable.a-ads.com/2453868/?size=Adaptive'
+                    style='border:0; padding:0; width:100%; height:90px; overflow:hidden; display: block; margin: auto;'></iframe>
+        </div>
+    </div>
+
+    <!-- Main Miner Card -->
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -322,43 +347,43 @@
         <button class="btn-share" id="shareBtn">Invite Friend (+5 ALTA Each)</button>
     </div>
 
-    <!-- Double Ads Section (5 Ads - High CPM Links) -->
+    <!-- Double Ads 15s Section -->
     <div class="double-ads-wrapper">
-        <div class="double-ads-header">Double Ads ⬇️</div>
+        <div class="double-ads-header">Double Ads 15s ⬇️</div>
         <div class="double-ads-container">
             
             <div class="ad-item" onclick="handleAdClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a')">
-                <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=500" alt="Football">
+                <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=600&auto=format&fit=crop" alt="Watch Football">
                 <p>Watch Football For FREE</p>
             </div>
 
             <div class="ad-item" onclick="handleAdClick('https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB')">
-                <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=500" alt="Slot">
+                <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?q=80&w=600&auto=format&fit=crop" alt="Slot">
                 <p>Real win. No streamer fake. Spin</p>
             </div>
 
             <div class="ad-item" onclick="handleAdClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a')">
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Crypto Bonus">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop" alt="Crypto Bonus">
                 <p>Claim $500 Crypto Welcome Bonus Instantly</p>
             </div>
 
             <div class="ad-item" onclick="handleAdClick('https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB')">
-                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=500" alt="Instant Loan">
+                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop" alt="Instant Loan">
                 <p>Get Instant Cash Loan - 0% Interest First Month</p>
             </div>
 
             <div class="ad-item" onclick="handleAdClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a')">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500" alt="Models">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop" alt="Models">
                 <p>Chat with Instagram models</p>
             </div>
 
         </div>
     </div>
 
-    <!-- Bottom Banner Area -->
+    <!-- HIGH INCOME BOTTOM ADS AREA -->
     <div class="ad-banner-bottom">
         <a href="https://plump-plastic.com/ba3EV.0/P/3DpLvCbKm/VjJPZ/Dg0K3lMhzHYT3_M/zUAS1sL/TYcaz/NAjJcMz_M/DykB" target="_blank">
-            <img src="https://media.tenor.com/g_m6R94R954AAAAC/anime-dance.gif" alt="Special Ad" style="width: 100%; border-radius: 12px; display: block;">
+            <img src="https://media.tenor.com/g_m6R94R954AAAAC/anime-dance.gif" alt="High CPM Ad" style="width: 100%; border-radius: 12px; display: block;">
         </a>
     </div>
 
@@ -462,7 +487,7 @@
             balanceEl.innerText = currentAlta.toFixed(2);
         }
 
-        // Ads List for Modal Auto-Rotation
+        // High CPM Ads Rotation for Modal Video Stream
         const adsList = [
             { type: 'iframe', src: 'https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a' },
             { type: 'iframe', src: '//acceptable.a-ads.com/2453868/?size=Adaptive' },
@@ -494,7 +519,7 @@
             }, randomTime);
         }
 
-        // 10s Ad Prep + 15s Video Stream Logic
+        // Modal Stream Logic
         function trigger15SecAdStream(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
@@ -558,10 +583,9 @@
             tapBtn.classList.add('mining');
             tapInstruction.innerText = "Mining Alta in progress...";
 
-            // 10 sec Initial Tap Animation / Ad Stream Phase
             let targetAlta = currentAlta + 1.00;
             let totalSteps = 20; 
-            let stepInterval = 500; // 10s duration
+            let stepInterval = 500; // 10s Mining Phase
 
             let stepCount = 0;
             let interval = setInterval(() => {
@@ -584,7 +608,6 @@
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
-                    // Trigger 15s Video Stream Modal
                     trigger15SecAdStream(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                     });
@@ -592,11 +615,11 @@
             }, stepInterval);
         });
 
-        // Double Ads Verification (Random 15s to 20s Wait Check)
+        // Double Ads Verification (Random 15s to 20s Waiting Check)
         function handleAdClick(adUrl) {
             pendingAdClick = true;
             adClickTime = Date.now();
-            requiredWaitSeconds = Math.floor(Math.random() * 6) + 15; // 15s to 20s Random
+            requiredWaitSeconds = Math.floor(Math.random() * 6) + 15; // 15s - 20s
             window.open(adUrl, '_blank');
         }
 
@@ -615,7 +638,7 @@
             }
         });
 
-        // Referral Sharing Logic
+        // Invite Friend Share Logic
         shareBtn.addEventListener('click', () => {
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let botUsername = "AltaHub_ads_bot";
