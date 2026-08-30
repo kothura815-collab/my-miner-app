@@ -5,15 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Alta Ads Miner</title>
 
-    <!-- Meta Tags & Referrer Policy -->
     <meta name="referrer" content="no-referrer-when-downgrade" />
     <meta name="010484d106a97be83fb5ed49c0487964d30d31c8" content="010484d106a97be83fb5ed49c0487964d30d31c8" />
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Adsterra Direct Links / Scripts -->
+    <!-- 1. Adsterra Scripts -->
     <script src="https://pl31061771.profitableratecpmnetwork.com/fd/70/b7/fd70b725a39e47afacb097f9e85d8686.js"></script>
     <script src="https://pl31061772.profitableratecpmnetwork.com/03/56/27/035627b96d5624664694e5fe7a705c05.js"></script>
+
+    <!-- 2. HilltopAds Popunder Script (CPM အမြင့်ဆုံးရရှိရန်) -->
+    <script>
+    (function(yjew){
+    var d = document,
+        s = d.createElement('script'),
+        l = d.scripts[d.scripts.length - 1];
+    s.settings = yjew || {};
+    s.src = "//relieved-understanding.com/b/X_VnsFd.Gwlf0WY/WmcT/oePmB9Du/Z/UjlSkmP/THcHztNDj/cHznMKTCMjt/NCzOMd2vN-zUMIxUNSwy";
+    s.async = true;
+    s.referrerPolicy = 'no-referrer-when-downgrade';
+    l.parentNode.insertBefore(s, l);
+    })({})
+    </script>
 
     <style>
         :root {
@@ -252,7 +265,7 @@
 </head>
 <body>
 
-    <!-- Top Ad Slot (A-Ads) -->
+    <!-- Top Banner (A-Ads) -->
     <div class="ad-banner-top" id="topAdSlot">
         <div id="frame" style="width: 100%; margin: auto; position: relative;">
             <iframe data-aa='2453653' src='https://acceptable.a-ads.com/2453653/?size=Adaptive' style='border:0; padding:0; width:100%; height:90px; overflow:hidden; display: block; margin: auto;'></iframe>
@@ -274,7 +287,7 @@
         <button class="btn-share" id="shareBtn">Invite Friend (+5 ALTA Each)</button>
     </div>
 
-    <!-- Continuous Sponsor Ads Modal -->
+    <!-- Modal Ad Container -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-timer-badge">
             <span id="adTimer">00:10</span>
@@ -388,18 +401,11 @@
             }));
         }
 
-        // Ads List containing Network Links (HilltopAds, A-Ads, Adsterra)
+        // Ads Rotation List (HilltopAds Smartlink အပါအဝင်)
         const adsList = [
-            // 1. A-Ads
             { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' },
-            
-            // 2. Adsterra Direct Link
             { type: 'iframe', src: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' },
-            
-            // 3. HilltopAds Direct Link (HilltopAds Dashboard မှ Direct Link/Smartlink ကို ဤနေရာတွင် ထည့်ပါ)
-            { type: 'iframe', src: '<meta name="dafab48aa79b8e9d9ea5790e1f62ff7d81d7434e" content="dafab48aa79b8e9d9ea5790e1f62ff7d81d7434e" />' },
-
-            // 4. A-Ads Second Slot
+            { type: 'iframe', src: 'https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq' },
             { type: 'iframe', src: 'https://acceptable.a-ads.com/2453769/?size=Adaptive' }
         ];
 
@@ -418,7 +424,6 @@
             adIndex = (adIndex + 1) % adsList.length;
         }
 
-        // 10-Second Continuous Stream & Auto-Rotation Cycle
         function trigger10SecAdStream(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
@@ -432,7 +437,7 @@
 
             let adInterval = setInterval(() => {
                 if (!navigator.onLine) {
-                    showNotification("Internet disconnected! Ad stream paused.");
+                    showNotification("Internet disconnected!");
                     clearInterval(adInterval);
                     adModal.style.display = 'none';
                     isAdShowing = false;
@@ -461,13 +466,13 @@
 
         tapBtn.addEventListener('click', (e) => {
             if (!navigator.onLine) {
-                showNotification("Internet connection required to mine!");
+                showNotification("Internet connection required!");
                 return;
             }
 
             const currentTime = new Date().getTime();
             if ((currentTime - lastTapTime < 300) || !e.isTrusted) {
-                showNotification("Auto-Clicker detected! Manual tap required.");
+                showNotification("Auto-Clicker detected!");
                 return;
             }
             lastTapTime = currentTime;
@@ -488,7 +493,7 @@
                     clearInterval(interval);
                     tapBtn.classList.remove('mining');
                     isMining = false;
-                    showNotification("Internet lost! Mining stopped.");
+                    showNotification("Internet lost!");
                     return;
                 }
 
@@ -527,12 +532,12 @@
             const todayWithdrawn = getDailyWithdrawnAmount();
 
             if (todayWithdrawn >= DAILY_MAX_WITHDRAW) {
-                showNotification("Daily withdrawal limit reached (1000 ALTA/day). Try again tomorrow!");
+                showNotification("Daily withdrawal limit reached!");
                 return;
             }
 
             if (currentAlta < MIN_WITHDRAW) {
-                showNotification(`Minimum withdrawal amount is ${MIN_WITHDRAW} ALTA. Current balance: ${currentAlta.toFixed(2)} ALTA`);
+                showNotification(`Minimum withdrawal is ${MIN_WITHDRAW} ALTA.`);
                 return;
             }
 
@@ -595,7 +600,7 @@
                 });
             } catch (err) { console.error(err); }
 
-            showNotification(`Requested: ${withdrawAmount.toFixed(2)} ALTA. Daily limit updated.`);
+            showNotification(`Requested: ${withdrawAmount.toFixed(2)} ALTA.`);
             payoutModal.style.display = 'none';
 
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
