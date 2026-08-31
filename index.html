@@ -1,408 +1,793 @@
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alta Rewards & Ads Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Alta Ads Miner</title>
+
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <meta name="010484d106a97be83fb5ed49c0487964d30d31c8" content="010484d106a97be83fb5ed49c0487964d30d31c8" />
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <script src="https://pl31061771.profitableratecpmnetwork.com/fd/70/b7/fd70b725a39e47afacb097f9e85d8686.js"></script>
+    <script src="https://pl31061772.profitableratecpmnetwork.com/03/56/27/035627b96d5624664694e5fe7a705c05.js"></script>
+
+    <script>
+    (function(yjew){
+    var d = document,
+        s = d.createElement('script'),
+        l = d.scripts[d.scripts.length - 1];
+    s.settings = yjew || {};
+    s.src = "//relieved-understanding.com/b/X_VnsFd.Gwlf0WY/WmcT/oePmB9Du/Z/UjlSkmP/THcHztNDj/cHznMKTCMjt/NCzOMd2vN-zUMIxUNSwy";
+    s.async = true;
+    s.referrerPolicy = 'no-referrer-when-downgrade';
+    l.parentNode.insertBefore(s, l);
+    })({})
+    </script>
+
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --text: #f8fafc;
-            --accent: #22c55e;
-            --warning: #ef4444;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --primary-gold: #f39c12;
+            --accent-blue: #0088cc;
+            --btn-green: #2fa65a;
+            --text-color: #ffffff;
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
+            margin: 0;
+            padding: 15px 0 30px 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 10px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 480px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            min-height: 100vh;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         /* Top Video Banner */
-        .top-video-banner {
-            width: 100%;
-            height: 180px;
+        .video-banner-top {
+            width: 90%;
+            max-width: 380px;
+            height: 130px;
             border-radius: 12px;
             overflow: hidden;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
             background: #000;
-            position: relative;
-            border: 1px solid #334155;
         }
 
-        .top-video-banner video {
+        .video-banner-top video {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        /* Balance & Stats Card */
-        .stats-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #334155;
-        }
-
-        .balance-box h3 {
-            font-size: 14px;
-            color: #94a3b8;
-        }
-
-        .balance-box .points {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--accent);
-        }
-
-        /* Double Ads 15s Button */
-        .action-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
+        .miner-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            width: 85%;
+            max-width: 380px;
             text-align: center;
-            border: 1px solid #334155;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
         }
 
-        .btn-double-ads {
-            background: linear-gradient(135deg, #e11d48, #be123c);
-            color: white;
-            border: none;
-            padding: 14px 20px;
-            font-size: 16px;
+        .title { font-size: 22px; font-weight: 800; margin-bottom: 5px; }
+
+        .balance-display {
+            font-size: 38px;
             font-weight: bold;
-            border-radius: 8px;
-            width: 100%;
+            color: var(--primary-gold);
+            margin: 5px 0;
+            text-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
+        }
+
+        .status { font-size: 13px; color: #2ec4b6; margin-bottom: 12px; }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 12px auto;
+            border-radius: 50%;
+            padding: 5px;
             cursor: pointer;
-            transition: 0.3s;
+            position: relative;
+            box-shadow: 0 0 20px rgba(243, 156, 18, 0.4);
+            animation: pulse-glow 2s infinite ease-in-out;
         }
 
-        .btn-double-ads:hover {
-            opacity: 0.9;
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 15px rgba(0, 136, 204, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 30px rgba(243, 156, 18, 0.8); transform: scale(1.03); }
+            100% { box-shadow: 0 0 15px rgba(0, 136, 204, 0.4); transform: scale(1); }
         }
 
-        .btn-double-ads:disabled {
-            background: #475569;
-            cursor: not-allowed;
+        .coin-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+        .logo-container.mining .coin-img { animation: spin-coin 3s linear infinite; }
+
+        @keyframes spin-coin {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
         }
 
-        .timer-display {
-            margin-top: 10px;
-            font-size: 14px;
-            color: #fbbf24;
-            font-weight: bold;
-        }
+        .tap-instruction { font-size: 13px; color: #8b949e; margin-bottom: 15px; }
 
-        /* Auto Rotating Ads Section */
-        .rotating-ads-box {
-            background: #111827;
-            border: 1px dashed #6366f1;
+        .btn-action {
+            width: 100%;
             padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 14px;
-            min-height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* High-Income Ads Scroll Section */
-        .scroll-ads-container {
-            background-color: var(--card-bg);
+            border: none;
             border-radius: 12px;
-            padding: 12px;
-            border: 1px solid #334155;
-        }
-
-        .scroll-ads-title {
+            color: white;
             font-size: 14px;
-            margin-bottom: 8px;
-            color: #cbd5e1;
             font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 8px;
+            transition: opacity 0.2s;
         }
 
-        .scroll-ads-list {
+        .btn-double-ads { background: linear-gradient(90deg, #e67e22, #d35400); }
+        .btn-withdraw { background: linear-gradient(90deg, #27ae60, #2ecc71); }
+        .btn-share { background: linear-gradient(90deg, #0088cc, #3498db); }
+
+        /* High Income Horizontal Ads Section */
+        .high-income-section {
+            width: 85%;
+            max-width: 380px;
+            margin-top: 15px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            color: #8b949e;
+            margin-bottom: 8px;
+            text-align: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .high-ads-scroll {
             display: flex;
             gap: 10px;
             overflow-x: auto;
             padding-bottom: 5px;
+            scrollbar-width: thin;
         }
 
-        .scroll-ad-item {
+        .high-ad-item {
             min-width: 140px;
-            background: #0f172a;
-            border: 1px solid #334155;
+            background: #161b22;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
             padding: 10px;
-            border-radius: 8px;
             text-align: center;
-            cursor: pointer;
             flex-shrink: 0;
-        }
-
-        .scroll-ad-item p {
-            font-size: 12px;
-            color: #94a3b8;
-        }
-
-        .scroll-ad-item .reward {
-            font-size: 12px;
-            color: var(--accent);
-            font-weight: bold;
-            margin-top: 4px;
-        }
-
-        /* Withdrawal Section */
-        .withdraw-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
-            border: 1px solid #334155;
-        }
-
-        .withdraw-card h3 {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .withdraw-input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #475569;
-            background: #0f172a;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-
-        .btn-withdraw {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 6px;
-            width: 100%;
-            font-weight: bold;
             cursor: pointer;
         }
 
-        .rules-text {
-            font-size: 12px;
-            color: #94a3b8;
-            margin-top: 8px;
+        .high-ad-item .ad-title { font-size: 12px; font-weight: bold; color: #fff; }
+        .high-ad-item .ad-cpm { font-size: 11px; color: #2ecc71; margin-top: 4px; }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(13, 17, 23, 0.95);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 15px;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        .ad-timer-badge {
+            background: #1c2738;
+            color: #0088cc;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 15px;
+            border: 1px solid rgba(0, 136, 204, 0.3);
+        }
+
+        .ad-modal-content {
+            width: 100%;
+            max-width: 340px;
+            background: #161b22;
+            border-radius: 16px;
+            padding: 15px;
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            border: 1px solid #21262d;
+        }
+
+        .ad-box-frame {
+            width: 100%;
+            height: 280px;
+            background: #090d14;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .btn-continue {
+            width: 100%;
+            max-width: 340px;
+            padding: 14px;
+            background: #234b6e;
+            border: none;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: not-allowed;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .btn-continue.active {
+            background: #0088cc;
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .payout-card {
+            background: #121824;
+            border: 2px solid var(--primary-gold);
+            border-radius: 16px;
+            padding: 20px;
+            width: 85%;
+            max-width: 320px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #2a3547;
+            background: #090d14;
+            color: #fff;
+            box-sizing: border-box;
+            margin-bottom: 8px;
+        }
+
+        .rules-note {
+            font-size: 11px;
+            color: #8b949e;
+            text-align: left;
+            margin-bottom: 12px;
             line-height: 1.4;
+        }
+
+        .toast-popup {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f293d;
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid var(--primary-gold);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+            display: none;
+            z-index: 2000;
+            text-align: center;
+            max-width: 85%;
+        }
+
+        .error-msg {
+            color: #e74c3c;
+            font-size: 11px;
+            margin-bottom: 8px;
+            display: none;
+            text-align: left;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="top-video-banner">
+    <div class="video-banner-top">
         <video autoplay muted loop playsinline>
             <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-            Video tag not supported.
         </video>
     </div>
 
-    <div class="stats-card">
-        <div class="balance-box">
-            <h3>လက်ကျန် Alta Point</h3>
-            <div class="points" id="altaBalance">0.00</div>
+    <div class="miner-card">
+        <div class="title">Alta Ads Miner</div>
+        <div class="balance-display" id="altaBalance">0.00</div>
+        <div class="status" id="systemStatus">System: Operational</div>
+
+        <div class="logo-container" id="tapBtn">
+            <img src="alta-coin.png" alt="Alta Coin" class="coin-img">
         </div>
-        <div style="text-align: right;">
-            <p style="font-size: 12px; color: #94a3b8;">ထုတ်ယူမှုအကြိမ်</p>
-            <p style="font-size: 16px; font-weight: bold;" id="withdrawCountText">0 ကြိမ်</p>
-        </div>
+
+        <div class="tap-instruction" id="tapInstruction">Tap to start mining Alta</div>
+
+        <button class="btn-action btn-double-ads" id="doubleAdsBtn">Double Ads 15s (+0.5 ALTA)</button>
+
+        <button class="btn-action btn-withdraw" id="openWithdrawModal">Withdraw Alta</button>
+        <button class="btn-action btn-share" id="shareBtn">Invite Friend (+5 ALTA Each)</button>
     </div>
 
-    <div class="action-card">
-        <button class="btn-double-ads" id="doubleAdsBtn" onclick="startDoubleAds()">Double Ads 15s (+0.5 Alta)</button>
-        <div class="timer-display" id="timerDisplay" style="display: none;">ကြော်ငြာပြီးဆုံးရန်: <span id="secondsLeft">15</span>s</div>
-    </div>
-
-    <div class="rotating-ads-box" id="rotatingAdText">
-        Sponsored: Premium Trading Platform - High Return!
-    </div>
-
-    <div class="scroll-ads-container">
-        <div class="scroll-ads-title">🔥 High Income Ads (Scroll to view)</div>
-        <div class="scroll-ads-list">
-            <div class="scroll-ad-item" onclick="openHighIncomeAd('https://example.com/ad1')">
-                <p>Crypto Staking</p>
-                <div class="reward">High Income</div>
+    <div class="high-income-section">
+        <div class="section-label">High Income Ads</div>
+        <div class="high-ads-scroll">
+            <div class="high-ad-item" onclick="openHighCpmAd('https://acceptable.a-ads.com/2453653/?size=Adaptive')">
+                <div class="ad-title">A-Ads Direct</div>
+                <div class="ad-cpm">High CPM ★★★</div>
             </div>
-            <div class="scroll-ad-item" onclick="openHighIncomeAd('https://example.com/ad2')">
-                <p>Forex Trading</p>
-                <div class="reward">High Yield</div>
+            <div class="high-ad-item" onclick="openHighCpmAd('https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq')">
+                <div class="ad-title">Smart Stream</div>
+                <div class="ad-cpm">Top Tier Ad ★★★</div>
             </div>
-            <div class="scroll-ad-item" onclick="openHighIncomeAd('https://example.com/ad3')">
-                <p>Gaming Token</p>
-                <div class="reward">Bonus +20%</div>
-            </div>
-            <div class="scroll-ad-item" onclick="openHighIncomeAd('https://example.com/ad4')">
-                <p>Cloud Mining</p>
-                <div class="reward">Daily Payout</div>
+            <div class="high-ad-item" onclick="openHighCpmAd('https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43')">
+                <div class="ad-title">Revenue Booster</div>
+                <div class="ad-cpm">Ultra Yield ★★★</div>
             </div>
         </div>
     </div>
 
-    <div class="withdraw-card">
-        <h3>Alta Point ထုတ်ယူရန်</h3>
-        <input type="number" id="withdrawAmount" class="withdraw-input" placeholder="ထုတ်ယူမည့် ပမာဏ ရိုက်ထည့်ပါ">
-        <button class="btn-withdraw" onclick="processWithdrawal()">ငွေထုတ်ယူမည်</button>
-        <div class="rules-text">
-            * ပထမအကြိမ်: အနည်းဆုံး Min 50 Alta ဖြင့် စတင်ထုတ်ယူနိုင်သည်။<br>
-            * ဒုတိယအကြိမ်မှစ၍: အကောင့်ထဲတွင် Alta 150 Balance အဖြစ် ချန်ထားရမည်ဖြစ်ပြီး ပိုလျှံငွေထဲမှ Min 50 စတင်ထုတ်ယူနိုင်သည်။
+    <div class="modal-overlay" id="adModal">
+        <div class="ad-timer-badge">
+            <span id="adTimer">00:10</span>
+        </div>
+
+        <div class="ad-modal-content">
+            <div class="ad-box-frame" id="adBoxContainer"></div>
+        </div>
+
+        <button class="btn-continue" id="continueAdBtn" disabled>Please wait...</button>
+    </div>
+
+    <div class="modal-overlay" id="payoutModal" style="justify-content: center;">
+        <div class="payout-card">
+            <h3 style="color: var(--primary-gold); margin-top:0; text-align:center;">Withdrawal Request</h3>
+            
+            <div class="rules-note" id="withdrawRulesNotice">
+                • ပထမအကြိမ်: Min 50 ALTA စတင်ထုတ်ယူနိုင်သည်။<br>
+                • ဒုတိယအကြိမ်မှစ၍: 150 ALTA ချန်ထားရမည်ဖြစ်ပြီး ပိုလျှံငွေထဲမှ Min 50 ထုတ်ယူနိုင်သည်။
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Telegram Username (@user)">
+                <div class="error-msg" id="userError">Valid Username required (e.g., @username)!</div>
+            </div>
+
+            <div class="input-group">
+                <input type="number" id="altaAmount" placeholder="Amount">
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="tonAddress" placeholder="TON Wallet Address">
+                <div class="error-msg" id="addressError">Invalid TON address! Must start with UQ or EQ (48 chars).</div>
+            </div>
+
+            <button class="btn-action btn-withdraw" id="submitPayout">SUBMIT WITHDRAWAL</button>
+            <center><button style="background:none; border:none; color:#8b949e; margin-top:10px; cursor:pointer;" id="closeModal">Cancel</button></center>
         </div>
     </div>
-</div>
 
-<script>
-    let altaPoints = 50.0; // စမ်းသပ်ရန် Balance အစပြုတန်ဖိုး
-    let withdrawCount = 0;
-    let isAdRunning = false;
-    let timerInterval = null;
+    <div class="toast-popup" id="customToast"></div>
 
-    // Load Local Storage (Optional UI State)
-    function updateUI() {
-        document.getElementById('altaBalance').innerText = altaPoints.toFixed(2);
-        document.getElementById('withdrawCountText').innerText = withdrawCount + " ကြိမ်";
-    }
-    updateUI();
+    <script>
+        const tg = window.Telegram?.WebApp;
+        if(tg) tg.expand();
 
-    // Double Ads 15s Logic
-    function startDoubleAds() {
-        if (isAdRunning) return;
+        const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
+        const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
+        const DAILY_MAX_WITHDRAW = 1000.00;
 
-        // Ads link ဖွင့်ပေးခြင်း
-        const adUrls = [
-            "https://www.google.com",
-            "https://www.bing.com",
-            "https://www.wikipedia.org"
+        let currentAlta = parseFloat(localStorage.getItem('alta_balance') || '0.00');
+        let withdrawCount = parseInt(localStorage.getItem('alta_withdraw_count') || '0');
+        
+        let adIndex = 0;
+        let isMining = false;
+        let isAdShowing = false;
+        let isDoubleAdRunning = false;
+        let lastTapTime = 0;
+        let autoRotateTimeout = null;
+
+        const balanceEl = document.getElementById('altaBalance');
+        balanceEl.innerText = currentAlta.toFixed(2);
+
+        const tapBtn = document.getElementById('tapBtn');
+        const tapInstruction = document.getElementById('tapInstruction');
+        const payoutModal = document.getElementById('payoutModal');
+        const adModal = document.getElementById('adModal');
+        const adTimerEl = document.getElementById('adTimer');
+        const continueAdBtn = document.getElementById('continueAdBtn');
+        const adBoxContainer = document.getElementById('adBoxContainer');
+        const doubleAdsBtn = document.getElementById('doubleAdsBtn');
+
+        const openWithdrawModalBtn = document.getElementById('openWithdrawModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const submitPayoutBtn = document.getElementById('submitPayout');
+        const shareBtn = document.getElementById('shareBtn');
+        
+        const usernameInput = document.getElementById('username');
+        const altaAmountInput = document.getElementById('altaAmount');
+        const tonAddressInput = document.getElementById('tonAddress');
+        const addressError = document.getElementById('addressError');
+        const userError = document.getElementById('userError');
+        const customToast = document.getElementById('customToast');
+
+        if (tg && tg.initDataUnsafe?.user?.username) {
+            usernameInput.value = "@" + tg.initDataUnsafe.user.username;
+        }
+
+        function showNotification(msg) {
+            customToast.innerText = msg;
+            customToast.style.display = 'block';
+            setTimeout(() => { customToast.style.display = 'none'; }, 3500);
+        }
+
+        function saveBalance() {
+            localStorage.setItem('alta_balance', currentAlta.toString());
+            localStorage.setItem('alta_withdraw_count', withdrawCount.toString());
+            balanceEl.innerText = currentAlta.toFixed(2);
+        }
+
+        function getTodayDateString() {
+            const today = new Date();
+            return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+        }
+
+        function getDailyWithdrawnAmount() {
+            const savedData = JSON.parse(localStorage.getItem('daily_withdraw_tracker') || '{}');
+            if (savedData.date === getTodayDateString()) {
+                return savedData.amount || 0;
+            }
+            return 0;
+        }
+
+        function addDailyWithdrawnAmount(amount) {
+            const todayStr = getTodayDateString();
+            const currentDaily = getDailyWithdrawnAmount();
+            localStorage.setItem('daily_withdraw_tracker', JSON.stringify({
+                date: todayStr,
+                amount: currentDaily + amount
+            }));
+        }
+
+        function openHighCpmAd(url) {
+            window.open(url, '_blank');
+        }
+
+        // Ads Network Rotating List
+        const adsList = [
+            { type: 'iframe', src: 'https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq' },
+            { type: 'iframe', src: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' },
+            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' },
+            { type: 'iframe', src: 'https://acceptable.a-ads.com/2453769/?size=Adaptive' }
         ];
-        const randomAd = adUrls[Math.floor(Math.random() * adUrls.length)];
-        window.open(randomAd, '_blank');
 
-        // Timer စတင်ခြင်း
-        isAdRunning = true;
-        let timeLeft = 15;
-        const btn = document.getElementById('doubleAdsBtn');
-        const timerDisplay = document.getElementById('timerDisplay');
-        const secondsText = document.getElementById('secondsLeft');
+        function renderNextAd() {
+            adBoxContainer.innerHTML = '';
+            let currentAd = adsList[adIndex];
 
-        btn.disabled = true;
-        timerDisplay.style.display = "block";
-        secondsText.innerText = timeLeft;
-
-        timerInterval = setInterval(() => {
-            timeLeft--;
-            secondsText.innerText = timeLeft;
-
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                altaPoints += 0.5;
-                updateUI();
-                alert("ဂုဏ်ယူပါတယ်! Alta +0.5 ရရှိပါပြီ။");
-                btn.disabled = false;
-                timerDisplay.style.display = "none";
-                isAdRunning = false;
-            }
-        }, 1000);
-    }
-
-    // Auto-Rotating Ads Logic
-    const rotatingAdsList = [
-        "Sponsored: Premium Trading Platform - High Return!",
-        "Hot Deal: E-Commerce 50% Off Voucher Today!",
-        "Invest: Fast Cloud Mining Pool Available!",
-        "Gaming: Play & Earn Daily Crypto Rewards!"
-    ];
-    let currentAdIndex = 0;
-    setInterval(() => {
-        currentAdIndex = (currentAdIndex + 1) % rotatingAdsList.length;
-        document.getElementById('rotatingAdText').innerText = rotatingAdsList[currentAdIndex];
-    }, 4000);
-
-    // High Income Ads Click
-    function openHighIncomeAd(url) {
-        window.open(url, '_blank');
-    }
-
-    // Withdraw Validation Logic
-    function processWithdrawal() {
-        const amount = parseFloat(document.getElementById('withdrawAmount').value);
-
-        if (isNaN(amount) || amount <= 0) {
-            alert("ထုတ်ယူမည့် ပမာဏကို မှန်ကန်စွာ ဖြည့်သွင်းပါ။");
-            return;
+            const iframe = document.createElement('iframe');
+            iframe.src = currentAd.src;
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = '0';
+            iframe.style.overflow = 'hidden';
+            
+            adBoxContainer.appendChild(iframe);
+            adIndex = (adIndex + 1) % adsList.length;
         }
 
-        // စည်းကမ်းသတ်မှတ်ချက်များ
-        if (withdrawCount === 0) {
-            // ပထမအကြိမ်ထုတ်ယူခြင်း
-            if (amount < 50) {
-                alert("ပထမအကြိမ်အတွက် အနည်းဆုံး 50 Alta ထုတ်ယူရပါမည်။");
-                return;
-            }
-            if (amount > altaPoints) {
-                alert("လက်ကျန် Alta Point မလုံလောက်ပါ။");
-                return;
-            }
-
-            altaPoints -= amount;
-            withdrawCount++;
-            alert("ပထမအကြိမ် ငွေထုတ်ယူမှု အောင်မြင်ပါသည်။ ပမာဏ: " + amount + " Alta");
-        } else {
-            // ဒုတိယအကြိမ်နှင့် နောက်ပိုင်းထုတ်ယူခြင်း
-            const availableToWithdraw = altaPoints - 150;
-
-            if (availableToWithdraw < 50) {
-                alert("ဒုတိယအကြိမ်မှစ၍ Alta 150 ချန်ထားရမည်ဖြစ်ပြီး ပိုလျှံငွေ အနည်းဆုံး 50 Alta ရှိမှသာ ထုတ်ယူနိုင်ပါမည်။");
-                return;
-            }
-
-            if (amount < 50) {
-                alert("အနည်းဆုံး 50 Alta စတင်ထုတ်ယူရပါမည်။");
-                return;
-            }
-
-            if (amount > availableToWithdraw) {
-                alert("ထုတ်ယူနိုင်သော ပမာဏထက် ကျော်လွန်နေပါသည်။ (150 Alta ချန်ထားရမည်ဖြစ်သဖြင့် အများဆုံးထုတ်နိုင်သောပမာဏ: " + availableToWithdraw.toFixed(2) + " Alta)");
-                return;
-            }
-
-            altaPoints -= amount;
-            withdrawCount++;
-            alert("ငွေထုတ်ယူမှု အောင်မြင်ပါသည်။ ပမာဏ: " + amount + " Alta");
+        function startDynamicAdRotation() {
+            renderNextAd();
+            const nextRotateTime = Math.floor(Math.random() * (7000 - 3000 + 1)) + 3000;
+            
+            autoRotateTimeout = setTimeout(() => {
+                if (isAdShowing) {
+                    startDynamicAdRotation();
+                }
+            }, nextRotateTime);
         }
 
-        document.getElementById('withdrawAmount').value = "";
-        updateUI();
-    }
-</script>
+        // 10s Timer for Standard Mining
+        function trigger10SecAdStream(onComplete) {
+            isAdShowing = true;
+            adModal.style.display = 'flex';
+            continueAdBtn.disabled = true;
+            continueAdBtn.classList.remove('active');
+            continueAdBtn.innerText = "Please wait...";
 
+            startDynamicAdRotation();
+
+            let timeLeft = 10;
+            adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
+
+            let adInterval = setInterval(() => {
+                if (!navigator.onLine) {
+                    showNotification("Internet disconnected!");
+                    clearInterval(adInterval);
+                    clearTimeout(autoRotateTimeout);
+                    adModal.style.display = 'none';
+                    isAdShowing = false;
+                    return;
+                }
+
+                timeLeft--;
+                adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(adInterval);
+                    continueAdBtn.disabled = false;
+                    continueAdBtn.classList.add('active');
+                    continueAdBtn.innerText = "Continue Mining";
+                }
+            }, 1000);
+
+            continueAdBtn.onclick = () => {
+                if (!continueAdBtn.disabled) {
+                    clearTimeout(autoRotateTimeout);
+                    adModal.style.display = 'none';
+                    isAdShowing = false;
+                    onComplete();
+                }
+            };
+        }
+
+        // Double Ads 15s Feature
+        doubleAdsBtn.addEventListener('click', () => {
+            if (isDoubleAdRunning || isMining || isAdShowing) return;
+
+            // Open High Revenue Ad in New Tab
+            const adUrls = [
+                'https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq',
+                'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43'
+            ];
+            const targetAd = adUrls[Math.floor(Math.random() * adUrls.length)];
+            window.open(targetAd, '_blank');
+
+            // Open In-App Modal with 15s Timer
+            isDoubleAdRunning = true;
+            isAdShowing = true;
+            adModal.style.display = 'flex';
+            continueAdBtn.disabled = true;
+            continueAdBtn.classList.remove('active');
+            continueAdBtn.innerText = "Viewing Ad (15s)...";
+
+            startDynamicAdRotation();
+
+            let timeLeft = 15;
+            adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
+
+            let dblInterval = setInterval(() => {
+                if (!navigator.onLine) {
+                    showNotification("Internet disconnected!");
+                    clearInterval(dblInterval);
+                    clearTimeout(autoRotateTimeout);
+                    adModal.style.display = 'none';
+                    isAdShowing = false;
+                    isDoubleAdRunning = false;
+                    return;
+                }
+
+                timeLeft--;
+                adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(dblInterval);
+                    continueAdBtn.disabled = false;
+                    continueAdBtn.classList.add('active');
+                    continueAdBtn.innerText = "Claim +0.5 ALTA";
+                }
+            }, 1000);
+
+            continueAdBtn.onclick = () => {
+                if (!continueAdBtn.disabled) {
+                    clearTimeout(autoRotateTimeout);
+                    adModal.style.display = 'none';
+                    isAdShowing = false;
+                    isDoubleAdRunning = false;
+                    
+                    // Reward only after 15s completion
+                    currentAlta = parseFloat((currentAlta + 0.5).toFixed(2));
+                    saveBalance();
+                    showNotification("Reward Added: +0.50 ALTA!");
+                }
+            };
+        });
+
+        // Mining Tap Handler
+        tapBtn.addEventListener('click', (e) => {
+            if (!navigator.onLine) {
+                showNotification("Internet connection required!");
+                return;
+            }
+
+            const currentTime = new Date().getTime();
+            if ((currentTime - lastTapTime < 300) || !e.isTrusted) {
+                showNotification("Auto-Clicker detected!");
+                return;
+            }
+            lastTapTime = currentTime;
+
+            if (isMining || isAdShowing || isDoubleAdRunning) return;
+
+            isMining = true;
+            tapBtn.classList.add('mining');
+            tapInstruction.innerText = "Mining Alta in progress...";
+
+            let targetAlta = currentAlta + 1.00;
+            let totalSteps = 20; 
+            let stepInterval = 500;
+
+            let stepCount = 0;
+            let interval = setInterval(() => {
+                if (!navigator.onLine) {
+                    clearInterval(interval);
+                    tapBtn.classList.remove('mining');
+                    isMining = false;
+                    showNotification("Internet lost!");
+                    return;
+                }
+
+                stepCount++;
+                currentAlta = parseFloat((currentAlta + 0.05).toFixed(2));
+                saveBalance();
+
+                if (stepCount >= totalSteps) {
+                    clearInterval(interval);
+                    currentAlta = parseFloat(targetAlta.toFixed(2));
+                    saveBalance();
+                    tapBtn.classList.remove('mining');
+                    isMining = false;
+
+                    trigger10SecAdStream(() => {
+                        tapInstruction.innerText = "Tap to mine Alta again!";
+                    });
+                }
+            }, stepInterval);
+        });
+
+        shareBtn.addEventListener('click', () => {
+            let userId = tg?.initDataUnsafe?.user?.id || "user";
+            let botUsername = "AltaHub_ads_bot";
+            let refLink = `https://t.me/${botUsername}?start=${userId}`;
+            
+            if (tg) {
+                tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent("Join Alta Ads Miner & claim +5 ALTA bonus!")}`);
+            } else {
+                navigator.clipboard.writeText(refLink);
+                showNotification("Referral link copied: " + refLink);
+            }
+        });
+
+        // Withdraw Validation Rules
+        openWithdrawModalBtn.addEventListener('click', () => {
+            const todayWithdrawn = getDailyWithdrawnAmount();
+
+            if (todayWithdrawn >= DAILY_MAX_WITHDRAW) {
+                showNotification(`Daily limit reached (${DAILY_MAX_WITHDRAW} ALTA)!`);
+                return;
+            }
+
+            if (withdrawCount === 0) {
+                if (currentAlta < 50.00) {
+                    showNotification(`ပထမအကြိမ်အတွက် အနည်းဆုံး 50 ALTA လိုအပ်ပါသည်။ (လက်ရှိ: ${currentAlta.toFixed(2)})`);
+                    return;
+                }
+                altaAmountInput.value = Math.min(currentAlta, DAILY_MAX_WITHDRAW - todayWithdrawn).toFixed(2);
+            } else {
+                const availableToWithdraw = currentAlta - 150.00;
+                if (availableToWithdraw < 50.00) {
+                    showNotification(`ဒုတိယအကြိမ်မှစ၍ 150 ALTA ချန်ထားရမည်ဖြစ်ပြီး ပိုလျှံငွေ Min 50 ရှိမှ ထုတ်ယူနိုင်ပါမည်။`);
+                    return;
+                }
+                altaAmountInput.value = Math.min(availableToWithdraw, DAILY_MAX_WITHDRAW - todayWithdrawn).toFixed(2);
+            }
+
+            addressError.style.display = 'none';
+            userError.style.display = 'none';
+            payoutModal.style.display = 'flex';
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            payoutModal.style.display = 'none';
+        });
+
+        submitPayoutBtn.addEventListener('click', async () => {
+            const address = tonAddressInput.value.trim();
+            const username = usernameInput.value.trim();
+            const withdrawAmount = parseFloat(altaAmountInput.value);
+            const todayWithdrawn = getDailyWithdrawnAmount();
+
+            const tonRegex = /^(UQ|EQ)[a-zA-Z0-9_-]{46}$/;
+            const userRegex = /^@[a-zA-Z0-9_]{3,32}$/;
+
+            let isValid = true;
+
+            if (!userRegex.test(username)) {
+                userError.style.display = 'block';
+                isValid = false;
+            } else {
+                userError.style.display = 'none';
+            }
+
+            if (!tonRegex.test(address)) {
+                addressError.style.display = 'block';
+                isValid = false;
+            } else {
+                addressError.style.display = 'none';
+            }
+
+            if (isNaN(withdrawAmount) || withdrawAmount < 50.00) {
+                showNotification(`အနည်းဆုံး 50 ALTA စတင်ထုတ်ယူရပါမည်။`);
+                return;
+            }
+
+            // Rules Calculation
+            if (withdrawCount === 0) {
+                if (withdrawAmount > currentAlta) {
+                    showNotification("လက်ကျန် ALTA မလုံလောက်ပါ။");
+                    return;
+                }
+            } else {
+                const maxAllowed = currentAlta - 150.00;
+                if (withdrawAmount > maxAllowed) {
+                    showNotification(`150 ALTA ချန်ထားရမည်ဖြစ်သဖြင့် အများဆုံးထုတ်နိုင်သောပမာဏမှာ ${maxAllowed.toFixed(2)} ALTA ဖြစ်ပါသည်။`);
+                    return;
+                }
+            }
+
+            if ((todayWithdrawn + withdrawAmount) > DAILY_MAX_WITHDRAW) {
+                showNotification(`Daily limit ကျော်လွန်နေပါသည်။ ယနေ့ကျန်ရှိသော limit: ${(DAILY_MAX_WITHDRAW - todayWithdrawn).toFixed(2)} ALTA`);
+                return;
+            }
+
+            if (!isValid) return;
+
+            // Deduct Points
+            currentAlta = parseFloat((currentAlta - withdrawAmount).toFixed(2));
+            withdrawCount++;
+            saveBalance();
+            addDailyWithdrawnAmount(withdrawAmount);
+
+            const message = `<b>New Payout Request</b>\n\n` +
+                            `<b>User:</b> ${username}\n` +
+                            `<b>Amount:</b> ${withdrawAmount.toFixed(2)} ALTA\n` +
+                            `<b>Withdraw Count:</b> ${withdrawCount} ကြိမ်မြောက်\n` +
+                            `<b>Remaining Balance:</b> ${currentAlta.toFixed(2)} ALTA\n` +
+                            `<b>TON Address:</b> <code>${address}</code>\n` +
+                            `<b>Status:</b> Pending`;
+
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CHANNEL_ID, text: message, parse_mode: 'HTML' })
+                });
+            } catch (err) { console.error(err); }
+
+            showNotification(`ထုတ်ယူမှု တင်ပြပြီးပါပြီ: ${withdrawAmount.toFixed(2)} ALTA`);
+            payoutModal.style.display = 'none';
+
+            if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
+            else window.open("https://t.me/AltaHub_ads_withdraw_history", "_blank");
+        });
+    </script>
 </body>
 </html>
