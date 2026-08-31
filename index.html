@@ -40,7 +40,7 @@
             -webkit-user-select: none;
         }
 
-        /* Top Video Ads (10s - 15s Auto Rotation) */
+        /* Top Video Ads (Auto Rotating Continuously) */
         .ad-video-banner-top {
             width: 90%;
             max-width: 380px;
@@ -219,10 +219,51 @@
         .ad-badge {
             background: #27ae60;
             color: #fff;
-            padding: 4px 8px;
+            padding: 6px 10px;
             border-radius: 6px;
             font-size: 11px;
             font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Native Impression Feed Ads Below List */
+        .native-feed-container {
+            width: 85%;
+            max-width: 380px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .native-ad-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .native-ad-card:active {
+            transform: scale(0.98);
+        }
+
+        .native-ad-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .native-ad-title {
+            padding: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+            text-align: center;
+            background: #161b22;
         }
 
         /* Modal Overlay */
@@ -239,16 +280,6 @@
             z-index: 1000;
         }
 
-        .ad-timer-badge {
-            background: #1c2738;
-            color: var(--primary-gold);
-            padding: 8px 24px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 16px;
-            border: 1px solid rgba(243, 156, 18, 0.4);
-        }
-
         .ad-modal-content {
             width: 100%;
             max-width: 340px;
@@ -258,6 +289,7 @@
             box-sizing: border-box;
             text-align: center;
             border: 1px solid #21262d;
+            margin: auto 0;
         }
 
         .ad-box-frame {
@@ -355,7 +387,7 @@
 </head>
 <body>
 
-    <!-- Top Auto-Rotating Video Ads Banner (10s - 15s) -->
+    <!-- Top Auto-Rotating Video Ads Banner (Continuous Rotation) -->
     <div class="ad-video-banner-top">
         <video id="topBannerVideo" autoplay muted loop playsinline></video>
         <div class="video-tag">High Revenue Ad</div>
@@ -371,10 +403,10 @@
             <img src="alta-coin.png" alt="Alta Coin" class="coin-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/6001/6001368.png'">
         </div>
 
-        <div class="tap-instruction" id="tapInstruction">Tap to start mining Alta</div>
+        <div class="tap-instruction" id="tapInstruction">Tap to mine Alta again!</div>
 
         <!-- Double Ads 15s Main Action -->
-        <button class="btn-double-ad-main" id="doubleAdsBtn" onclick="triggerDoubleAdsAction('https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq')">
+        <button class="btn-double-ad-main" id="doubleAdsBtn" onclick="triggerDirectLinkAction('https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq', this)">
             <span>⚡ Double Ads 15s (+0.5 ALTA)</span>
         </button>
 
@@ -386,31 +418,30 @@
     <div class="section-container">
         <div class="section-header">
             <span>🚀 Double Ads List (+0.5 ALTA / 15s)</span>
-            <span style="font-size: 11px; color:#27ae60;">Auto-Rotating CPM</span>
         </div>
         <div class="scroll-roll" id="doubleAdsScrollList">
-            <div class="ad-item-row" onclick="triggerDoubleAdsAction('https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq')">
+            <div class="ad-item-row" onclick="triggerDirectLinkAction('https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq', this)">
                 <div class="ad-info">
                     <div class="ad-title">High Revenue Offer #1</div>
                     <div class="ad-desc">Must view full 15s to claim reward</div>
                 </div>
                 <div class="ad-badge">+0.5 ALTA</div>
             </div>
-            <div class="ad-item-row" onclick="triggerDoubleAdsAction('https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43')">
+            <div class="ad-item-row" onclick="triggerDirectLinkAction('https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43', this)">
                 <div class="ad-info">
                     <div class="ad-title">High Revenue Offer #2</div>
                     <div class="ad-desc">Must view full 15s to claim reward</div>
                 </div>
                 <div class="ad-badge">+0.5 ALTA</div>
             </div>
-            <div class="ad-item-row" onclick="triggerDoubleAdsAction('https://acceptable.a-ads.com/2453653/?size=Adaptive')">
+            <div class="ad-item-row" onclick="triggerDirectLinkAction('https://acceptable.a-ads.com/2453653/?size=Adaptive', this)">
                 <div class="ad-info">
                     <div class="ad-title">High Revenue Offer #3</div>
                     <div class="ad-desc">Must view full 15s to claim reward</div>
                 </div>
                 <div class="ad-badge">+0.5 ALTA</div>
             </div>
-            <div class="ad-item-row" onclick="triggerDoubleAdsAction('https://acceptable.a-ads.com/2453769/?size=Adaptive')">
+            <div class="ad-item-row" onclick="triggerDirectLinkAction('https://acceptable.a-ads.com/2453769/?size=Adaptive', this)">
                 <div class="ad-info">
                     <div class="ad-title">High Revenue Offer #4</div>
                     <div class="ad-desc">Must view full 15s to claim reward</div>
@@ -420,16 +451,31 @@
         </div>
     </div>
 
+    <!-- Impression Feed Ads Below Double Ads List (10s - 15s Auto Rotation) -->
+    <div class="native-feed-container" id="nativeFeedContainer">
+        <div class="native-ad-card" onclick="openDirectLink('https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq')">
+            <img src="" id="nativeImg1" class="native-ad-img" alt="Impression Ad">
+            <div class="native-ad-title" id="nativeTitle1">Watch Football For FREE</div>
+        </div>
+        <div class="native-ad-card" onclick="openDirectLink('https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43')">
+            <img src="" id="nativeImg2" class="native-ad-img" alt="Impression Ad">
+            <div class="native-ad-title" id="nativeTitle2">Real win. No streamer fake. Spin</div>
+        </div>
+        <div class="native-ad-card" onclick="openDirectLink('https://acceptable.a-ads.com/2453653/?size=Adaptive')">
+            <img src="" id="nativeImg3" class="native-ad-img" alt="Impression Ad">
+            <div class="native-ad-title" id="nativeTitle3">Chat with Instagram models</div>
+        </div>
+        <div class="native-ad-card" onclick="openDirectLink('https://acceptable.a-ads.com/2453769/?size=Adaptive')">
+            <img src="" id="nativeImg4" class="native-ad-img" alt="Impression Ad">
+            <div class="native-ad-title" id="nativeTitle4">The Devil Wears Prada 2: Watch in HD for FREE</div>
+        </div>
+    </div>
+
     <!-- 15s Rotating Ad Stream Modal -->
     <div class="modal-overlay" id="adModal">
-        <div class="ad-timer-badge">
-            <span id="adTimer">00:15</span>
-        </div>
-
         <div class="ad-modal-content">
             <div class="ad-box-frame" id="adBoxContainer"></div>
         </div>
-
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait 15s...</button>
     </div>
 
@@ -466,9 +512,8 @@
         const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
         const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
         
-        // Revised Withdrawal Rules
         const MIN_WITHDRAW = 150.00;
-        const KEEP_RESERVE_BALANCE = 300.00; // 300 ALTA reserve on 2nd+ withdrawals
+        const KEEP_RESERVE_BALANCE = 300.00;
 
         let currentAlta = parseFloat(localStorage.getItem('alta_balance') || '0.00');
         let withdrawCount = parseInt(localStorage.getItem('alta_withdraw_count') || '0');
@@ -476,7 +521,7 @@
         let adIndex = 0;
         let isMining = false;
         let isAdShowing = false;
-        let isDoubleAdRunning = false;
+        let activeDirectLinkTimer = null;
         let lastTapTime = 0;
         let autoRotateTimeout = null;
 
@@ -487,7 +532,6 @@
         const tapInstruction = document.getElementById('tapInstruction');
         const payoutModal = document.getElementById('payoutModal');
         const adModal = document.getElementById('adModal');
-        const adTimerEl = document.getElementById('adTimer');
         const continueAdBtn = document.getElementById('continueAdBtn');
         const adBoxContainer = document.getElementById('adBoxContainer');
 
@@ -519,7 +563,6 @@
             balanceEl.innerText = currentAlta.toFixed(2);
         }
 
-        // Network Connectivity Protection
         function checkNetworkConnection() {
             if (!navigator.onLine) {
                 showNotification("Internet connection disconnected! Operations halted.");
@@ -532,7 +575,7 @@
             showNotification("Internet connection lost!");
         });
 
-        // 1. Top Video Banner Auto Rotation (10s - 15s)
+        // 1. Top Video Banner Auto Rotation (Continuous Loop)
         const topVideoList = [
             "https://www.w3schools.com/html/mov_bbb.mp4",
             "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm",
@@ -552,7 +595,7 @@
         }
         rotateTopBannerVideo();
 
-        // 2. High CPM Auto-Rotating Ads Array (Used in Modal & Double Ads Stream)
+        // 2. High CPM Auto-Rotating Ads Array
         const highCPMAdsList = [
             { type: 'iframe', src: 'https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq' },
             { type: 'iframe', src: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' },
@@ -577,7 +620,7 @@
 
         function startModalAdRotation() {
             renderNextModalAd();
-            const nextRotateTime = Math.floor(Math.random() * (15000 - 10000 + 1)) + 10000; // 10s - 15s
+            const nextRotateTime = Math.floor(Math.random() * (15000 - 10000 + 1)) + 10000;
             
             autoRotateTimeout = setTimeout(() => {
                 if (isAdShowing && checkNetworkConnection()) {
@@ -586,7 +629,34 @@
             }, nextRotateTime);
         }
 
-        // 3. Tap Mining Flow (Strict Auto-Clicker & Network Checks)
+        // 3. Native Impression Feed Ads Auto Rotation (10s - 15s)
+        const feedImages = [
+            "https://picsum.photos/400/220?random=1",
+            "https://picsum.photos/400/220?random=2",
+            "https://picsum.photos/400/220?random=3",
+            "https://picsum.photos/400/220?random=4",
+            "https://picsum.photos/400/220?random=5"
+        ];
+
+        function rotateNativeFeedAds() {
+            if (checkNetworkConnection()) {
+                for (let i = 1; i <= 4; i++) {
+                    const imgEl = document.getElementById(`nativeImg${i}`);
+                    const randomIndex = Math.floor(Math.random() * feedImages.length);
+                    imgEl.src = feedImages[randomIndex] + "&t=" + new Date().getTime() + i;
+                }
+            }
+            const duration = Math.floor(Math.random() * (15000 - 10000 + 1)) + 10000;
+            setTimeout(rotateNativeFeedAds, duration);
+        }
+        rotateNativeFeedAds();
+
+        function openDirectLink(url) {
+            if (!checkNetworkConnection()) return;
+            window.open(url, '_blank');
+        }
+
+        // 4. Tap Mining Flow
         tapBtn.addEventListener('click', (e) => {
             if (!checkNetworkConnection()) return;
 
@@ -597,7 +667,7 @@
             }
             lastTapTime = currentTime;
 
-            if (isMining || isAdShowing || isDoubleAdRunning) return;
+            if (isMining || isAdShowing || activeDirectLinkTimer) return;
 
             isMining = true;
             tapBtn.classList.add('mining');
@@ -644,7 +714,6 @@
             startModalAdRotation();
 
             let timeLeft = 15;
-            adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
 
             let adInterval = setInterval(() => {
                 if (!checkNetworkConnection()) {
@@ -656,7 +725,6 @@
                 }
 
                 timeLeft--;
-                adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
                 
                 if (timeLeft <= 0) {
                     clearInterval(adInterval);
@@ -672,52 +740,67 @@
                     adModal.style.display = 'none';
                     isAdShowing = false;
 
-                    // Click new sponsored link and return
                     window.open('https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq', '_blank');
                     onComplete();
                 }
             };
         }
 
-        // 4. Double Ads 15s Action (Strict 15s verification for +0.5 ALTA)
-        function triggerDoubleAdsAction(adUrl) {
+        // 5. Direct Link Action (Strict 15s Verified View with Tab Focus Verification)
+        function triggerDirectLinkAction(adUrl, element) {
             if (!checkNetworkConnection()) return;
-            if (isDoubleAdRunning || isAdShowing || isMining) return;
+            if (activeDirectLinkTimer || isAdShowing || isMining) return;
 
             window.open(adUrl, '_blank');
-            isDoubleAdRunning = true;
 
-            const doubleBtn = document.getElementById('doubleAdsBtn');
-            doubleBtn.disabled = true;
+            let timeWatched = 0;
+            let totalRequiredTime = 15;
+            let targetBadge = element.querySelector('.ad-badge');
+            let isMainBtn = element.classList.contains('btn-double-ad-main');
 
-            let remainingTime = 15;
-            doubleBtn.innerHTML = `<span>⏳ Verifying Ad Stream (${remainingTime}s)...</span>`;
+            const originalText = isMainBtn ? element.innerHTML : (targetBadge ? targetBadge.innerText : '');
 
-            let timer = setInterval(() => {
+            element.style.pointerEvents = 'none';
+
+            activeDirectLinkTimer = setInterval(() => {
                 if (!checkNetworkConnection()) {
-                    clearInterval(timer);
-                    doubleBtn.disabled = false;
-                    doubleBtn.innerHTML = `<span>⚡ Double Ads 15s (+0.5 ALTA)</span>`;
-                    isDoubleAdRunning = false;
+                    clearInterval(activeDirectLinkTimer);
+                    activeDirectLinkTimer = null;
+                    element.style.pointerEvents = 'auto';
+                    if (isMainBtn) element.innerHTML = originalText;
+                    else if (targetBadge) targetBadge.innerText = originalText;
                     return;
                 }
 
-                remainingTime--;
-                doubleBtn.innerHTML = `<span>⏳ Verifying Ad Stream (${remainingTime}s)...</span>`;
+                // Verify user actually spent time watching/interacting
+                if (document.visibilityState === 'visible' || document.hasFocus()) {
+                    timeWatched++;
+                }
 
-                if (remainingTime <= 0) {
-                    clearInterval(timer);
+                let remaining = totalRequiredTime - timeWatched;
+
+                if (isMainBtn) {
+                    element.innerHTML = `<span>⏳ Verifying Ad (${remaining}s)...</span>`;
+                } else if (targetBadge) {
+                    targetBadge.innerText = `⏳ ${remaining}s`;
+                }
+
+                if (timeWatched >= totalRequiredTime) {
+                    clearInterval(activeDirectLinkTimer);
+                    activeDirectLinkTimer = null;
+
                     currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
                     saveBalance();
-                    showNotification("Full 15s completed! +0.50 ALTA added to balance!");
-                    doubleBtn.disabled = false;
-                    doubleBtn.innerHTML = `<span>⚡ Double Ads 15s (+0.5 ALTA)</span>`;
-                    isDoubleAdRunning = false;
+                    showNotification("15s Verified! +0.50 ALTA added to balance!");
+
+                    element.style.pointerEvents = 'auto';
+                    if (isMainBtn) element.innerHTML = originalText;
+                    else if (targetBadge) targetBadge.innerText = originalText;
                 }
             }, 1000);
         }
 
-        // 5. Share Button
+        // 6. Share Button
         shareBtn.addEventListener('click', () => {
             if (!checkNetworkConnection()) return;
             let userId = tg?.initDataUnsafe?.user?.id || "user";
@@ -732,7 +815,7 @@
             }
         });
 
-        // 6. Withdraw Logic (Rule: 1st time Min 150, 2nd time keep 300 ALTA)
+        // 7. Withdraw Logic
         openWithdrawModalBtn.addEventListener('click', () => {
             if (!checkNetworkConnection()) return;
 
@@ -806,7 +889,6 @@
 
             if (!isValid) return;
 
-            // Balance Deduction & Preserving Remaining Balance
             currentAlta = parseFloat((currentAlta - withdrawAmount).toFixed(2));
             withdrawCount += 1;
             saveBalance();
