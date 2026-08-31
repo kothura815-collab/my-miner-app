@@ -10,6 +10,7 @@
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
+    <!-- High Revenue CPM Network Scripts -->
     <script src="https://pl31061771.profitableratecpmnetwork.com/fd/70/b7/fd70b725a39e47afacb097f9e85d8686.js"></script>
     <script src="https://pl31061772.profitableratecpmnetwork.com/03/56/27/035627b96d5624664694e5fe7a705c05.js"></script>
 
@@ -39,11 +40,11 @@
             -webkit-user-select: none;
         }
 
-        /* 1. Top Rotating Video Banner (10s to 15s) */
+        /* Top Video Ads (10s - 15s Auto Rotation) */
         .ad-video-banner-top {
             width: 90%;
             max-width: 380px;
-            height: 130px;
+            height: 140px;
             background: #000000;
             border-radius: 14px;
             margin-bottom: 15px;
@@ -71,7 +72,7 @@
             border: 1px solid rgba(243, 156, 18, 0.4);
         }
 
-        /* Main Miner Card */
+        /* Main Card */
         .miner-card {
             background: var(--card-bg);
             border-radius: 20px;
@@ -133,7 +134,7 @@
             color: #fff;
             border: none;
             border-radius: 12px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             margin-bottom: 10px;
@@ -161,7 +162,7 @@
         .btn-withdraw { background: linear-gradient(90deg, #27ae60, #2ecc71); }
         .btn-share { background: linear-gradient(90deg, #0088cc, #3498db); }
 
-        /* Scrollable Roll Lists for High CPM Ads & Double Ads */
+        /* Scroll Roll Containers */
         .section-container {
             width: 85%;
             max-width: 380px;
@@ -187,18 +188,13 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            max-height: 240px;
+            max-height: 250px;
             overflow-y: auto;
             padding-right: 4px;
         }
 
-        .scroll-roll::-webkit-scrollbar {
-            width: 4px;
-        }
-        .scroll-roll::-webkit-scrollbar-thumb {
-            background: #2a3547;
-            border-radius: 4px;
-        }
+        .scroll-roll::-webkit-scrollbar { width: 4px; }
+        .scroll-roll::-webkit-scrollbar-thumb { background: #2a3547; border-radius: 4px; }
 
         .ad-item-row {
             display: flex;
@@ -229,7 +225,7 @@
             font-weight: bold;
         }
 
-        /* 15s Video Stream Rotating Ads Modal */
+        /* Modal Overlay */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -297,7 +293,7 @@
             cursor: pointer;
         }
 
-        /* Payout Request Modal */
+        /* Payout Form Card */
         .payout-card {
             background: #121824;
             border: 2px solid var(--primary-gold);
@@ -359,11 +355,13 @@
 </head>
 <body>
 
+    <!-- Top Auto-Rotating Video Ads Banner (10s - 15s) -->
     <div class="ad-video-banner-top">
         <video id="topBannerVideo" autoplay muted loop playsinline></video>
-        <div class="video-tag">Sponsored Video</div>
+        <div class="video-tag">High Revenue Ad</div>
     </div>
 
+    <!-- Main Miner Card -->
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -375,74 +373,54 @@
 
         <div class="tap-instruction" id="tapInstruction">Tap to start mining Alta</div>
 
+        <!-- Double Ads 15s Main Action -->
         <button class="btn-double-ad-main" id="doubleAdsBtn" onclick="triggerDoubleAdsAction('https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq')">
             <span>⚡ Double Ads 15s (+0.5 ALTA)</span>
         </button>
 
-        <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta (Min: 50 ALTA)</button>
+        <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta (Min: 150 ALTA)</button>
         <button class="btn-share" id="shareBtn">Invite Friend (+5 ALTA Each)</button>
     </div>
 
+    <!-- Double Ads Scroll Roll List -->
     <div class="section-container">
         <div class="section-header">
-            <span>🔥 High Income Ads (CPM Roll)</span>
-            <span style="font-size: 11px; color:#8b949e;">Auto-Refresh</span>
+            <span>🚀 Double Ads List (+0.5 ALTA / 15s)</span>
+            <span style="font-size: 11px; color:#27ae60;">Auto-Rotating CPM</span>
         </div>
-        <div class="scroll-roll">
-            <div class="ad-item-row" onclick="openRollAd('https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43')">
-                <div class="ad-info">
-                    <div class="ad-title">Direct High CPM Offer</div>
-                    <div class="ad-desc">Top Earning Campaign • Adsterra</div>
-                </div>
-                <div class="ad-badge">Max CPM</div>
-            </div>
-            <div class="ad-item-row" onclick="openRollAd('https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq')">
-                <div class="ad-info">
-                    <div class="ad-title">HilltopAds Premium Network</div>
-                    <div class="ad-desc">Global Multi-Tag Monetization</div>
-                </div>
-                <div class="ad-badge">High Yield</div>
-            </div>
-            <div class="ad-item-row" onclick="openRollAd('https://acceptable.a-ads.com/2453653/?size=Adaptive')">
-                <div class="ad-info">
-                    <div class="ad-title">Crypto Daily Sponsor Banner</div>
-                    <div class="ad-desc">A-Ads Blockchain Protocol</div>
-                </div>
-                <div class="ad-badge">Instant</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-container">
-        <div class="section-header">
-            <span>🚀 Double Ads List (+0.5 ALTA/15s)</span>
-            <span style="font-size: 11px; color:#27ae60;">Active Rewards</span>
-        </div>
-        <div class="scroll-roll">
+        <div class="scroll-roll" id="doubleAdsScrollList">
             <div class="ad-item-row" onclick="triggerDoubleAdsAction('https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq')">
                 <div class="ad-info">
-                    <div class="ad-title">Double Ad Stream #1</div>
-                    <div class="ad-desc">Watch 15s to claim reward</div>
+                    <div class="ad-title">High Revenue Offer #1</div>
+                    <div class="ad-desc">Must view full 15s to claim reward</div>
                 </div>
                 <div class="ad-badge">+0.5 ALTA</div>
             </div>
             <div class="ad-item-row" onclick="triggerDoubleAdsAction('https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43')">
                 <div class="ad-info">
-                    <div class="ad-title">Double Ad Stream #2</div>
-                    <div class="ad-desc">Watch 15s to claim reward</div>
+                    <div class="ad-title">High Revenue Offer #2</div>
+                    <div class="ad-desc">Must view full 15s to claim reward</div>
+                </div>
+                <div class="ad-badge">+0.5 ALTA</div>
+            </div>
+            <div class="ad-item-row" onclick="triggerDoubleAdsAction('https://acceptable.a-ads.com/2453653/?size=Adaptive')">
+                <div class="ad-info">
+                    <div class="ad-title">High Revenue Offer #3</div>
+                    <div class="ad-desc">Must view full 15s to claim reward</div>
                 </div>
                 <div class="ad-badge">+0.5 ALTA</div>
             </div>
             <div class="ad-item-row" onclick="triggerDoubleAdsAction('https://acceptable.a-ads.com/2453769/?size=Adaptive')">
                 <div class="ad-info">
-                    <div class="ad-title">Double Ad Stream #3</div>
-                    <div class="ad-desc">Watch 15s to claim reward</div>
+                    <div class="ad-title">High Revenue Offer #4</div>
+                    <div class="ad-desc">Must view full 15s to claim reward</div>
                 </div>
                 <div class="ad-badge">+0.5 ALTA</div>
             </div>
         </div>
     </div>
 
+    <!-- 15s Rotating Ad Stream Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-timer-badge">
             <span id="adTimer">00:15</span>
@@ -455,6 +433,7 @@
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait 15s...</button>
     </div>
 
+    <!-- Payout Request Modal -->
     <div class="modal-overlay" id="payoutModal" style="justify-content: center;">
         <div class="payout-card">
             <h3 style="color: var(--primary-gold); margin-top:0; text-align:center;">Withdrawal Request</h3>
@@ -465,7 +444,7 @@
             </div>
 
             <div class="input-group">
-                <input type="number" id="altaAmount" placeholder="Amount (Min 50 ALTA)">
+                <input type="number" id="altaAmount" placeholder="Amount (Min 150 ALTA)">
             </div>
 
             <div class="input-group">
@@ -486,8 +465,10 @@
 
         const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
         const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
-        const MIN_WITHDRAW = 50.00;
-        const KEEP_RESERVE_BALANCE = 150.00; // ဒုတိယအကြိမ်မှစ၍ အကောင့်ထဲချန်ထားရမည့် ပမာဏ
+        
+        // Revised Withdrawal Rules
+        const MIN_WITHDRAW = 150.00;
+        const KEEP_RESERVE_BALANCE = 300.00; // 300 ALTA reserve on 2nd+ withdrawals
 
         let currentAlta = parseFloat(localStorage.getItem('alta_balance') || '0.00');
         let withdrawCount = parseInt(localStorage.getItem('alta_withdraw_count') || '0');
@@ -538,7 +519,20 @@
             balanceEl.innerText = currentAlta.toFixed(2);
         }
 
-        // --- 1. Top Video Banner Auto Rotation (10s to 15s) ---
+        // Network Connectivity Protection
+        function checkNetworkConnection() {
+            if (!navigator.onLine) {
+                showNotification("Internet connection disconnected! Operations halted.");
+                return false;
+            }
+            return true;
+        }
+
+        window.addEventListener('offline', () => {
+            showNotification("Internet connection lost!");
+        });
+
+        // 1. Top Video Banner Auto Rotation (10s - 15s)
         const topVideoList = [
             "https://www.w3schools.com/html/mov_bbb.mp4",
             "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm",
@@ -548,6 +542,7 @@
         const topVideoPlayer = document.getElementById('topBannerVideo');
 
         function rotateTopBannerVideo() {
+            if (!checkNetworkConnection()) return;
             topVideoPlayer.src = topVideoList[currentVideoIndex];
             topVideoPlayer.play().catch(()=>{});
             currentVideoIndex = (currentVideoIndex + 1) % topVideoList.length;
@@ -557,8 +552,8 @@
         }
         rotateTopBannerVideo();
 
-        // --- 2. 15s Rotating Ads Modal Array ---
-        const adsList = [
+        // 2. High CPM Auto-Rotating Ads Array (Used in Modal & Double Ads Stream)
+        const highCPMAdsList = [
             { type: 'iframe', src: 'https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq' },
             { type: 'iframe', src: 'https://www.profitableratecpmnetwork.com/x18ziza6?key=b5e077d7dc21f4b333cf83484676dc43' },
             { type: 'iframe', src: 'https://acceptable.a-ads.com/2453653/?size=Adaptive' },
@@ -567,7 +562,7 @@
 
         function renderNextModalAd() {
             adBoxContainer.innerHTML = '';
-            let currentAd = adsList[adIndex];
+            let currentAd = highCPMAdsList[adIndex];
 
             const iframe = document.createElement('iframe');
             iframe.src = currentAd.src;
@@ -577,7 +572,7 @@
             iframe.style.overflow = 'hidden';
             
             adBoxContainer.appendChild(iframe);
-            adIndex = (adIndex + 1) % adsList.length;
+            adIndex = (adIndex + 1) % highCPMAdsList.length;
         }
 
         function startModalAdRotation() {
@@ -585,22 +580,19 @@
             const nextRotateTime = Math.floor(Math.random() * (15000 - 10000 + 1)) + 10000; // 10s - 15s
             
             autoRotateTimeout = setTimeout(() => {
-                if (isAdShowing) {
+                if (isAdShowing && checkNetworkConnection()) {
                     startModalAdRotation();
                 }
             }, nextRotateTime);
         }
 
-        // --- 3. Tap Mining Flow (15s Ad Stream Completion) ---
+        // 3. Tap Mining Flow (Strict Auto-Clicker & Network Checks)
         tapBtn.addEventListener('click', (e) => {
-            if (!navigator.onLine) {
-                showNotification("Internet connection required!");
-                return;
-            }
+            if (!checkNetworkConnection()) return;
 
             const currentTime = new Date().getTime();
-            if ((currentTime - lastTapTime < 300) || !e.isTrusted) {
-                showNotification("Auto-Clicker detected!");
+            if ((currentTime - lastTapTime < 350) || !e.isTrusted) {
+                showNotification("Auto-Clicker detected! Tap ignored.");
                 return;
             }
             lastTapTime = currentTime;
@@ -617,11 +609,10 @@
             let stepCount = 0;
 
             let interval = setInterval(() => {
-                if (!navigator.onLine) {
+                if (!checkNetworkConnection()) {
                     clearInterval(interval);
                     tapBtn.classList.remove('mining');
                     isMining = false;
-                    showNotification("Internet lost!");
                     return;
                 }
 
@@ -656,8 +647,7 @@
             adTimerEl.innerText = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
 
             let adInterval = setInterval(() => {
-                if (!navigator.onLine) {
-                    showNotification("Internet disconnected!");
+                if (!checkNetworkConnection()) {
                     clearInterval(adInterval);
                     clearTimeout(autoRotateTimeout);
                     adModal.style.display = 'none';
@@ -677,20 +667,21 @@
             }, 1000);
 
             continueAdBtn.onclick = () => {
-                if (!continueAdBtn.disabled) {
+                if (!continueAdBtn.disabled && checkNetworkConnection()) {
                     clearTimeout(autoRotateTimeout);
                     adModal.style.display = 'none';
                     isAdShowing = false;
 
-                    // Click new link and return flow
+                    // Click new sponsored link and return
                     window.open('https://plump-plastic.com/b/3xV.0pPh3Jphv/bcmIVIJbZZD/0K3zM_zlY/3gMLz-As1DL/T/cpzMNfj/cuzBM/Dnkq', '_blank');
                     onComplete();
                 }
             };
         }
 
-        // --- 4. Double Ads 15s Logic (+0.5 Alta only if 15s completed) ---
+        // 4. Double Ads 15s Action (Strict 15s verification for +0.5 ALTA)
         function triggerDoubleAdsAction(adUrl) {
+            if (!checkNetworkConnection()) return;
             if (isDoubleAdRunning || isAdShowing || isMining) return;
 
             window.open(adUrl, '_blank');
@@ -700,17 +691,25 @@
             doubleBtn.disabled = true;
 
             let remainingTime = 15;
-            doubleBtn.innerHTML = `<span>⏳ Verifying Ads (${remainingTime}s)...</span>`;
+            doubleBtn.innerHTML = `<span>⏳ Verifying Ad Stream (${remainingTime}s)...</span>`;
 
             let timer = setInterval(() => {
+                if (!checkNetworkConnection()) {
+                    clearInterval(timer);
+                    doubleBtn.disabled = false;
+                    doubleBtn.innerHTML = `<span>⚡ Double Ads 15s (+0.5 ALTA)</span>`;
+                    isDoubleAdRunning = false;
+                    return;
+                }
+
                 remainingTime--;
-                doubleBtn.innerHTML = `<span>⏳ Verifying Ads (${remainingTime}s)...</span>`;
+                doubleBtn.innerHTML = `<span>⏳ Verifying Ad Stream (${remainingTime}s)...</span>`;
 
                 if (remainingTime <= 0) {
                     clearInterval(timer);
                     currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
                     saveBalance();
-                    showNotification("Congratulations! +0.50 ALTA added to balance!");
+                    showNotification("Full 15s completed! +0.50 ALTA added to balance!");
                     doubleBtn.disabled = false;
                     doubleBtn.innerHTML = `<span>⚡ Double Ads 15s (+0.5 ALTA)</span>`;
                     isDoubleAdRunning = false;
@@ -718,12 +717,9 @@
             }, 1000);
         }
 
-        function openRollAd(url) {
-            window.open(url, '_blank');
-        }
-
-        // --- 5. Share Button ---
+        // 5. Share Button
         shareBtn.addEventListener('click', () => {
+            if (!checkNetworkConnection()) return;
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let botUsername = "AltaHub_ads_bot";
             let refLink = `https://t.me/${botUsername}?start=${userId}`;
@@ -736,18 +732,20 @@
             }
         });
 
-        // --- 6. Withdraw Modal Logic (Rule: 1st time Min 50, 2nd time keep 150 Alta) ---
+        // 6. Withdraw Logic (Rule: 1st time Min 150, 2nd time keep 300 ALTA)
         openWithdrawModalBtn.addEventListener('click', () => {
+            if (!checkNetworkConnection()) return;
+
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) {
-                    showNotification(`ပထမအကြိမ် ထုတ်ယူရန် အနည်းဆုံး ${MIN_WITHDRAW} ALTA လိုအပ်ပါသည်။`);
+                    showNotification(`First withdrawal requires minimum ${MIN_WITHDRAW} ALTA!`);
                     return;
                 }
                 altaAmountInput.value = currentAlta.toFixed(2);
             } else {
                 const maxAvailable = currentAlta - KEEP_RESERVE_BALANCE;
                 if (maxAvailable < MIN_WITHDRAW) {
-                    showNotification(`ဒုတိယအကြိမ်မှစ၍ 150 ALTA ချန်ထားရမည်ဖြစ်ပြီး ပိုလျှံငွေ အနည်းဆုံး 50 ALTA ရှိမှသာ ထုတ်ယူနိုင်ပါသည်။ (လက်ရှိထုတ်နိုင်သောငွေ: ${maxAvailable > 0 ? maxAvailable.toFixed(2) : '0.00'} ALTA)`);
+                    showNotification(`2nd+ withdrawal requires 300 ALTA reserve. Minimum withdrawal amount is ${MIN_WITHDRAW} ALTA. (Available: ${maxAvailable > 0 ? maxAvailable.toFixed(2) : '0.00'} ALTA)`);
                     return;
                 }
                 altaAmountInput.value = maxAvailable.toFixed(2);
@@ -763,6 +761,8 @@
         });
 
         submitPayoutBtn.addEventListener('click', async () => {
+            if (!checkNetworkConnection()) return;
+
             const address = tonAddressInput.value.trim();
             const username = usernameInput.value.trim();
             const withdrawAmount = parseFloat(altaAmountInput.value);
@@ -787,35 +787,35 @@
             }
 
             if (isNaN(withdrawAmount) || withdrawAmount < MIN_WITHDRAW) {
-                showNotification(`အနည်းဆုံး ထုတ်ယူမှုပမာဏမှာ ${MIN_WITHDRAW} ALTA ဖြစ်ပါသည်။`);
+                showNotification(`Minimum withdrawal amount is ${MIN_WITHDRAW} ALTA.`);
                 return;
             }
 
             if (withdrawCount === 0) {
                 if (withdrawAmount > currentAlta) {
-                    showNotification("လက်ကျန် ALTA မလုံလောက်ပါ!");
+                    showNotification("Insufficient balance!");
                     return;
                 }
             } else {
                 const maxAvailable = currentAlta - KEEP_RESERVE_BALANCE;
                 if (withdrawAmount > maxAvailable) {
-                    showNotification(`150 ALTA ချန်ထားရမည်ဖြစ်သဖြင့် အများဆုံးထုတ်နိုင်သောပမာဏမှာ ${maxAvailable.toFixed(2)} ALTA ဖြစ်ပါသည်။`);
+                    showNotification(`Must keep 300 ALTA reserve. Maximum withdrawable amount: ${maxAvailable.toFixed(2)} ALTA.`);
                     return;
                 }
             }
 
             if (!isValid) return;
 
-            // Balance deduction & State saving
+            // Balance Deduction & Preserving Remaining Balance
             currentAlta = parseFloat((currentAlta - withdrawAmount).toFixed(2));
             withdrawCount += 1;
             saveBalance();
 
             const message = `<b>New Payout Request</b>\n\n` +
                             `<b>User:</b> ${username}\n` +
-                            `<b>Withdraw Count:</b> 第 ${withdrawCount} 次\n` +
+                            `<b>Withdraw Count:</b> ${withdrawCount}\n` +
                             `<b>Amount:</b> ${withdrawAmount.toFixed(2)} ALTA\n` +
-                            `<b>Remaining Balance:</b> ${currentAlta.toFixed(2)} ALTA\n` +
+                            `<b>Remaining Preserved Balance:</b> ${currentAlta.toFixed(2)} ALTA\n` +
                             `<b>TON Address:</b> <code>${address}</code>\n` +
                             `<b>Status:</b> Pending`;
 
@@ -827,7 +827,7 @@
                 });
             } catch (err) { console.error(err); }
 
-            showNotification(`ငွေထုတ်ယူမှု တောင်းဆိုပြီးပါပြီ: ${withdrawAmount.toFixed(2)} ALTA`);
+            showNotification(`Withdrawal request submitted: ${withdrawAmount.toFixed(2)} ALTA.`);
             payoutModal.style.display = 'none';
 
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
