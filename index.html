@@ -1,126 +1,408 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Alta Ads Miner</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta Rewards & Ads Platform</title>
     <style>
-        /* ... same root and general styles ... */
-        .ad-banner-top {
-            display: none; /* Hide top ad banner as requested */
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --accent: #22c55e;
+            --warning: #ef4444;
         }
-        /* New style for the Double Ads button */
-        .btn-double-ads {
-            background: linear-gradient(135deg, #e67e22, #d35400); /* Orange-brown gradient */
-            color: white;
-            padding: 12px;
-            border-radius: 12px;
-            border: none;
-            font-weight: 700;
-            font-size: 15px;
-            cursor: pointer;
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .container {
             width: 100%;
-            margin-bottom: 10px;
-            transition: transform 0.2s;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
-        .btn-double-ads:active { transform: scale(0.98); }
-        /* Add CSS for countdown timer overlay (optional, but good for UX) */
-        .ad-countdown-overlay {
-            /* ... style for countdown overlay ... */
+
+        /* Top Video Banner */
+        .top-video-banner {
+            width: 100%;
+            height: 180px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+            position: relative;
+            border: 1px solid #334155;
+        }
+
+        .top-video-banner video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Balance & Stats Card */
+        .stats-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #334155;
+        }
+
+        .balance-box h3 {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .balance-box .points {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        /* Double Ads 15s Button */
+        .action-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #334155;
+        }
+
+        .btn-double-ads {
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-double-ads:hover {
+            opacity: 0.9;
+        }
+
+        .btn-double-ads:disabled {
+            background: #475569;
+            cursor: not-allowed;
+        }
+
+        .timer-display {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        /* Auto Rotating Ads Section */
+        .rotating-ads-box {
+            background: #111827;
+            border: 1px dashed #6366f1;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 14px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* High-Income Ads Scroll Section */
+        .scroll-ads-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid #334155;
+        }
+
+        .scroll-ads-title {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            font-weight: bold;
+        }
+
+        .scroll-ads-list {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .scroll-ad-item {
+            min-width: 140px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .scroll-ad-item p {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .scroll-ad-item .reward {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: bold;
+            margin-top: 4px;
+        }
+
+        /* Withdrawal Section */
+        .withdraw-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid #334155;
+        }
+
+        .withdraw-card h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .withdraw-input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .btn-withdraw {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .rules-text {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 8px;
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
-    <div class="ad-banner-top" style="display:none;"></div> 
 
-    <div class="miner-card">
-        <button class="btn-double-ads" id="doubleAdsBtn">Double Ads 15s</button>
-        
+<div class="container">
+    <div class="top-video-banner">
+        <video autoplay muted loop playsinline>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Video tag not supported.
+        </video>
+    </div>
+
+    <div class="stats-card">
+        <div class="balance-box">
+            <h3>လက်ကျန် Alta Point</h3>
+            <div class="points" id="altaBalance">0.00</div>
         </div>
-
-    <div class="modal-overlay" id="payoutModal" style="justify-content: center;">
-        <div class="input-group">
-            <input type="number" id="altaAmount" placeholder="Alta Points (Min: 50, Max: 1000)">
-            <div class="error-msg" id="balanceKeepError" style="display:none;">Please keep at least 150 Alta in your balance for future withdrawals.</div>
+        <div style="text-align: right;">
+            <p style="font-size: 12px; color: #94a3b8;">ထုတ်ယူမှုအကြိမ်</p>
+            <p style="font-size: 16px; font-weight: bold;" id="withdrawCountText">0 ကြိမ်</p>
         </div>
+    </div>
+
+    <div class="action-card">
+        <button class="btn-double-ads" id="doubleAdsBtn" onclick="startDoubleAds()">Double Ads 15s (+0.5 Alta)</button>
+        <div class="timer-display" id="timerDisplay" style="display: none;">ကြော်ငြာပြီးဆုံးရန်: <span id="secondsLeft">15</span>s</div>
+    </div>
+
+    <div class="rotating-ads-box" id="rotatingAdText">
+        Sponsored: Premium Trading Platform - High Return!
+    </div>
+
+    <div class="scroll-ads-container">
+        <div class="scroll-ads-title">🔥 High Income Ads (Scroll to view)</div>
+        <div class="scroll-ads-list">
+            <div class="scroll-ad-item" onclick="openHighIncomeAd('https://example.com/ad1')">
+                <p>Crypto Staking</p>
+                <div class="reward">High Income</div>
+            </div>
+            <div class="scroll-ad-item" onclick="openHighIncomeAd('https://example.com/ad2')">
+                <p>Forex Trading</p>
+                <div class="reward">High Yield</div>
+            </div>
+            <div class="scroll-ad-item" onclick="openHighIncomeAd('https://example.com/ad3')">
+                <p>Gaming Token</p>
+                <div class="reward">Bonus +20%</div>
+            </div>
+            <div class="scroll-ad-item" onclick="openHighIncomeAd('https://example.com/ad4')">
+                <p>Cloud Mining</p>
+                <div class="reward">Daily Payout</div>
+            </div>
         </div>
+    </div>
 
-    <div class="toast-popup" id="customToast"></div>
+    <div class="withdraw-card">
+        <h3>Alta Point ထုတ်ယူရန်</h3>
+        <input type="number" id="withdrawAmount" class="withdraw-input" placeholder="ထုတ်ယူမည့် ပမာဏ ရိုက်ထည့်ပါ">
+        <button class="btn-withdraw" onclick="processWithdrawal()">ငွေထုတ်ယူမည်</button>
+        <div class="rules-text">
+            * ပထမအကြိမ်: အနည်းဆုံး Min 50 Alta ဖြင့် စတင်ထုတ်ယူနိုင်သည်။<br>
+            * ဒုတိယအကြိမ်မှစ၍: အကောင့်ထဲတွင် Alta 150 Balance အဖြစ် ချန်ထားရမည်ဖြစ်ပြီး ပိုလျှံငွေထဲမှ Min 50 စတင်ထုတ်ယူနိုင်သည်။
+        </div>
+    </div>
+</div>
 
-    <script>
-        /* ... standard variable definitions ... */
-        const KEEP_BALANCE = 150.00; // Minimum balance required after first withdrawal
-        const DOUBLE_ADS_REWARD = 0.5; // Reward amount for Double Ads
-        const DOUBLE_ADS_DURATION = 15; // 15 seconds
+<script>
+    let altaPoints = 50.0; // စမ်းသပ်ရန် Balance အစပြုတန်ဖိုး
+    let withdrawCount = 0;
+    let isAdRunning = false;
+    let timerInterval = null;
 
-        let firstWithdrawalDone = localStorage.getItem('firstWithdrawalDone') === 'true' || false;
-        let isAdWatching = false; // Flag to check if currently watching a Double Ad
+    // Load Local Storage (Optional UI State)
+    function updateUI() {
+        document.getElementById('altaBalance').innerText = altaPoints.toFixed(2);
+        document.getElementById('withdrawCountText').innerText = withdrawCount + " ကြိမ်";
+    }
+    updateUI();
 
-        const doubleAdsBtn = document.getElementById('doubleAdsBtn');
+    // Double Ads 15s Logic
+    function startDoubleAds() {
+        if (isAdRunning) return;
 
-        doubleAdsBtn.addEventListener('click', () => {
-            if (isMining || isAdShowing || isAdWatching) return; // Don't allow multiple ad sessions
+        // Ads link ဖွင့်ပေးခြင်း
+        const adUrls = [
+            "https://www.google.com",
+            "https://www.bing.com",
+            "https://www.wikipedia.org"
+        ];
+        const randomAd = adUrls[Math.floor(Math.random() * adUrls.length)];
+        window.open(randomAd, '_blank');
 
-            isAdWatching = true;
-            doubleAdsBtn.disabled = true; // Prevent multiple clicks
-            
-            // Logic to play high-value 15s ads (you'll need to integrate this with your ad provider)
-            // Example using a placeholder:
-            showNotification("Watching high-value ads. Please wait 15 seconds.");
+        // Timer စတင်ခြင်း
+        isAdRunning = true;
+        let timeLeft = 15;
+        const btn = document.getElementById('doubleAdsBtn');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const secondsText = document.getElementById('secondsLeft');
 
-            let timeLeft = DOUBLE_ADS_DURATION;
-            let adInterval = setInterval(() => {
-                // You can add countdown display logic here (e.g., in a separate overlay)
-                timeLeft--;
-                if (timeLeft <= 0) {
-                    clearInterval(adInterval);
-                    doubleAdsBtn.disabled = false; // Re-enable the button
-                    isAdWatching = false;
-                    currentAlta += DOUBLE_ADS_REWARD;
-                    saveBalance();
-                    showNotification(`Added ${DOUBLE_ADS_REWARD.toFixed(1)} Alta for watching Double Ads!`);
-                }
-            }, 1000);
+        btn.disabled = true;
+        timerDisplay.style.display = "block";
+        secondsText.innerText = timeLeft;
 
-            // Back button handling logic to prevent reward if user leaves early
-            // This requires detecting the back button event which is browser-dependent
-            // For Telegram WebApp, you can use `tg.onEvent('backButtonClicked', ...)`
-            if (tg) {
-                tg.onEvent('backButtonClicked', () => {
-                    if (isAdWatching) {
-                        clearInterval(adInterval);
-                        doubleAdsBtn.disabled = false;
-                        isAdWatching = false;
-                        showNotification("Ad not completed. No reward added.");
-                        tg.close(); // Close WebApp or handle as needed
-                    }
-                });
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            secondsText.innerText = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                altaPoints += 0.5;
+                updateUI();
+                alert("ဂုဏ်ယူပါတယ်! Alta +0.5 ရရှိပါပြီ။");
+                btn.disabled = false;
+                timerDisplay.style.display = "none";
+                isAdRunning = false;
             }
-            // For web browsers, you might need complex back button detection/prevention.
-            // ... (requires specialized web development techniques) ...
-        });
+        }, 1000);
+    }
 
-        /* ... existing submit payout handler ... */
-        submitPayoutBtn.addEventListener('click', async () => {
-            /* ... existing validation logic ... */
+    // Auto-Rotating Ads Logic
+    const rotatingAdsList = [
+        "Sponsored: Premium Trading Platform - High Return!",
+        "Hot Deal: E-Commerce 50% Off Voucher Today!",
+        "Invest: Fast Cloud Mining Pool Available!",
+        "Gaming: Play & Earn Daily Crypto Rewards!"
+    ];
+    let currentAdIndex = 0;
+    setInterval(() => {
+        currentAdIndex = (currentAdIndex + 1) % rotatingAdsList.length;
+        document.getElementById('rotatingAdText').innerText = rotatingAdsList[currentAdIndex];
+    }, 4000);
 
-            if (firstWithdrawalDone) {
-                if (withdrawAmount > (currentAlta - KEEP_BALANCE)) {
-                    showNotification(`You must keep at least ${KEEP_BALANCE.toFixed(0)} Alta in your balance. Max withdrawal: ${(currentAlta - KEEP_BALANCE).toFixed(2)} Alta.`);
-                    return;
-                }
-            } else if (withdrawAmount < MIN_WITHDRAW) {
-                showNotification(`Minimum withdrawal is ${MIN_WITHDRAW} ALTA.`);
+    // High Income Ads Click
+    function openHighIncomeAd(url) {
+        window.open(url, '_blank');
+    }
+
+    // Withdraw Validation Logic
+    function processWithdrawal() {
+        const amount = parseFloat(document.getElementById('withdrawAmount').value);
+
+        if (isNaN(amount) || amount <= 0) {
+            alert("ထုတ်ယူမည့် ပမာဏကို မှန်ကန်စွာ ဖြည့်သွင်းပါ။");
+            return;
+        }
+
+        // စည်းကမ်းသတ်မှတ်ချက်များ
+        if (withdrawCount === 0) {
+            // ပထမအကြိမ်ထုတ်ယူခြင်း
+            if (amount < 50) {
+                alert("ပထမအကြိမ်အတွက် အနည်းဆုံး 50 Alta ထုတ်ယူရပါမည်။");
+                return;
+            }
+            if (amount > altaPoints) {
+                alert("လက်ကျန် Alta Point မလုံလောက်ပါ။");
                 return;
             }
 
-            /* ... existing logic to update balance and send payout request ... */
-            if (!firstWithdrawalDone) {
-                firstWithdrawalDone = true;
-                localStorage.setItem('firstWithdrawalDone', 'true');
+            altaPoints -= amount;
+            withdrawCount++;
+            alert("ပထမအကြိမ် ငွေထုတ်ယူမှု အောင်မြင်ပါသည်။ ပမာဏ: " + amount + " Alta");
+        } else {
+            // ဒုတိယအကြိမ်နှင့် နောက်ပိုင်းထုတ်ယူခြင်း
+            const availableToWithdraw = altaPoints - 150;
+
+            if (availableToWithdraw < 50) {
+                alert("ဒုတိယအကြိမ်မှစ၍ Alta 150 ချန်ထားရမည်ဖြစ်ပြီး ပိုလျှံငွေ အနည်းဆုံး 50 Alta ရှိမှသာ ထုတ်ယူနိုင်ပါမည်။");
+                return;
             }
-        });
-    </script>
+
+            if (amount < 50) {
+                alert("အနည်းဆုံး 50 Alta စတင်ထုတ်ယူရပါမည်။");
+                return;
+            }
+
+            if (amount > availableToWithdraw) {
+                alert("ထုတ်ယူနိုင်သော ပမာဏထက် ကျော်လွန်နေပါသည်။ (150 Alta ချန်ထားရမည်ဖြစ်သဖြင့် အများဆုံးထုတ်နိုင်သောပမာဏ: " + availableToWithdraw.toFixed(2) + " Alta)");
+                return;
+            }
+
+            altaPoints -= amount;
+            withdrawCount++;
+            alert("ငွေထုတ်ယူမှု အောင်မြင်ပါသည်။ ပမာဏ: " + amount + " Alta");
+        }
+
+        document.getElementById('withdrawAmount').value = "";
+        updateUI();
+    }
+</script>
+
 </body>
 </html>
