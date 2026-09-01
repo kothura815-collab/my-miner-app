@@ -41,7 +41,6 @@
             -webkit-user-select: none;
         }
 
-        /* Fixed Working Top Banner Container with Auto-Rotate Support */
         .top-ad-banner-box {
             width: 85%;
             max-width: 380px;
@@ -54,7 +53,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
         }
 
         .top-ad-banner-box iframe {
@@ -181,6 +179,21 @@
             background: #000;
         }
 
+        /* Bottom Auto Rotate Box (Figure 1 Red Box) */
+        .bottom-ad-rotate-box {
+            width: 100%;
+            min-height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bottom-ad-rotate-box iframe {
+            width: 100%;
+            height: 120px;
+            border: none;
+        }
+
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -214,6 +227,7 @@
             border: 0;
         }
 
+        /* Modal Center Ad Container (Figure 2 Red Box) */
         .ad-modal-content {
             width: 100%;
             max-width: 340px;
@@ -226,6 +240,15 @@
             border: 1px solid #21262d;
             margin: auto 0;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ad-modal-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         .btn-continue {
@@ -309,9 +332,7 @@
 <body>
 
     <!-- Main Top Auto-Rotating Ads Container -->
-    <div class="top-ad-banner-box" id="topAdRotateBox">
-        <!-- Dynamic Auto Rotating Ad Banner will mount here -->
-    </div>
+    <div class="top-ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
@@ -343,20 +364,21 @@
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <!-- Bottom A-ADS Adaptive Banner Unit -->
+        <!-- Figure 1 Bottom Red Box Area (Auto-Rotate Impression Revenue Ads) -->
         <div class="ad-card-item" style="padding: 10px 0;">
-            <iframe data-aa='2454008' src='//acceptable.a-ads.com/2454008/?size=Adaptive' style='border:0; padding:0; width:100%; height:120px; overflow:hidden; display:block; margin:auto;'></iframe>
+            <div class="bottom-ad-rotate-box" id="bottomAdRotateBox"></div>
         </div>
     </div>
 
-    <!-- 15s Video Modal with Rotating Top Banner -->
+    <!-- 15s Video Modal (Figure 2 Fixes) -->
     <div class="modal-overlay" id="adModal">
-        <div class="modal-top-banner" id="modalTopAdBox">
-            <!-- Dynamic Modal Ad Slot -->
+        <div class="modal-top-banner" id="modalTopAdBox"></div>
+        
+        <!-- Figure 2 Red Box Center Ad Frame -->
+        <div class="ad-modal-content" id="modalCenterAdBox">
+            <iframe src="//acceptable.a-ads.com/2454008/?size=300x250" style="border:0; width:100%; height:100%; overflow:hidden;"></iframe>
         </div>
-        <div class="ad-modal-content">
-            <video id="modalVideoPlayer" width="100%" height="100%" autoplay muted loop playsinline></video>
-        </div>
+
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait 15s...</button>
     </div>
 
@@ -442,18 +464,19 @@
 
         function updateRotatingBanner() {
             const topAdBox = document.getElementById('topAdRotateBox');
+            const bottomAdBox = document.getElementById('bottomAdRotateBox');
             const modalTopBox = document.getElementById('modalTopAdBox');
             
             const nextSrc = rotateAdSources[currentAdIndex];
-            const iframeHtml = `<iframe src="${nextSrc}" style="border:0; width:100%; height:75px; overflow:hidden;" scrolling="no"></iframe>`;
+            const iframeHtml = `<iframe src="${nextSrc}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
 
             if(topAdBox) topAdBox.innerHTML = iframeHtml;
+            if(bottomAdBox) bottomAdBox.innerHTML = iframeHtml;
             if(modalTopBox) modalTopBox.innerHTML = iframeHtml;
 
             currentAdIndex = (currentAdIndex + 1) % rotateAdSources.length;
         }
 
-        // Initial launch & interval rotation every 6 sec
         updateRotatingBanner();
         setInterval(updateRotatingBanner, 6000);
 
@@ -497,13 +520,7 @@
             return url;
         }
 
-        const videoList = [
-            "https://www.w3schools.com/html/mov_bbb.mp4",
-            "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm",
-            "https://www.w3schools.com/html/movie.mp4"
-        ];
-
-        // Alta Mining Click Event (Opens Direct Income Link & Starts 10s Spin)
+        // Tap Mining Logic
         tapBtn.addEventListener('click', (e) => {
             if (!checkNetworkConnection()) return;
 
@@ -516,7 +533,6 @@
 
             if (isMining || isAdShowing) return;
 
-            // Direct link launch for income generation
             window.open(getNextDirectLink(), '_blank');
 
             isMining = true;
@@ -554,17 +570,13 @@
             }, stepInterval);
         });
 
-        // 15 Seconds Modal Ad logic
+        // 15 Seconds Modal Logic & High Revenue Link Trigger on Continue Click
         function trigger15SecModalAd(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
             continueAdBtn.disabled = true;
             continueAdBtn.classList.remove('active');
             continueAdBtn.innerText = "Please wait 15s...";
-
-            const modalPlayer = document.getElementById('modalVideoPlayer');
-            modalPlayer.src = videoList[Math.floor(Math.random() * videoList.length)];
-            modalPlayer.play().catch(()=>{});
 
             let timeLeft = 15;
             let adInterval = setInterval(() => {
@@ -588,6 +600,9 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled && checkNetworkConnection()) {
+                    // Open high revenue monetization link upon Continue Mining click
+                    window.open(getNextDirectLink(), '_blank');
+                    
                     adModal.style.display = 'none';
                     isAdShowing = false;
                     onComplete();
