@@ -41,11 +41,11 @@
             -webkit-user-select: none;
         }
 
-        /* Top Fixed Multi-Banner Area */
+        /* Fixed Working Top Banner Container */
         .top-ad-banner-box {
             width: 90%;
             max-width: 380px;
-            height: 75px;
+            min-height: 70px;
             margin-bottom: 15px;
             border-radius: 12px;
             overflow: hidden;
@@ -54,12 +54,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-
-        .top-ad-banner-box iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
         }
 
         .miner-card {
@@ -192,22 +186,18 @@
             z-index: 1000;
         }
 
-        /* 15s Modal Multi Top Banner */
         .modal-top-banner {
             width: 100%;
             max-width: 340px;
-            height: 75px;
+            min-height: 70px;
             background: #161b22;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #2a3547;
             margin-bottom: 10px;
-        }
-
-        .modal-top-banner iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .ad-modal-content {
@@ -304,9 +294,18 @@
 </head>
 <body>
 
-    <!-- Top Fixed Multi-Banner -->
+    <!-- Main Top Working Banner Ads -->
     <div class="top-ad-banner-box">
-        <iframe id="mainTopBanner" src="https://plump-plastic.com/PEwa43"></iframe>
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'f2d3ee3d88106cf8c9baceb9d7fa460a',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//plump-plastic.com/f2d3ee3d88106cf8c9baceb9d7fa460a/invoke.js"></script>
     </div>
 
     <div class="miner-card">
@@ -329,7 +328,7 @@
     </div>
 
     <div class="ads-feed-container" id="adsFeedContainer">
-        <!-- Sponsored YouTube Video -->
+        <!-- Sponsored Video Feed -->
         <div class="ad-card-item">
             <iframe id="videoFeedFrame" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&enablejsapi=1" allow="autoplay; encrypted-media"></iframe>
         </div>
@@ -339,16 +338,16 @@
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <!-- Bottom AADS Adaptive Banner Unit (Fixed Red Box Area) -->
+        <!-- Bottom A-ADS Adaptive Banner Unit -->
         <div class="ad-card-item" style="padding: 10px 0;">
             <iframe data-aa='2454008' src='//acceptable.a-ads.com/2454008/?size=Adaptive' style='border:0; padding:0; width:100%; height:120px; overflow:hidden; display:block; margin:auto;'></iframe>
         </div>
     </div>
 
-    <!-- 15s Video Modal with Multi Top Banner -->
+    <!-- 15s Video Modal with Top Banner -->
     <div class="modal-overlay" id="adModal">
         <div class="modal-top-banner">
-            <iframe id="modalTopAdFrame" src="https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a"></iframe>
+            <iframe data-aa='2454008' src='//acceptable.a-ads.com/2454008/?size=468x60' style='border:0; padding:0; width:100%; height:60px; overflow:hidden; display:block; margin:auto;'></iframe>
         </div>
         <div class="ad-modal-content">
             <video id="modalVideoPlayer" width="100%" height="100%" autoplay muted loop playsinline></video>
@@ -472,7 +471,7 @@
             "https://www.w3schools.com/html/movie.mp4"
         ];
 
-        // 1. Alta Coin Click Logic (10 Seconds Spin & Income Link Activation)
+        // Alta Mining Click Event (Opens Direct Income Link & Starts 10s Spin)
         tapBtn.addEventListener('click', (e) => {
             if (!checkNetworkConnection()) return;
 
@@ -485,7 +484,7 @@
 
             if (isMining || isAdShowing) return;
 
-            // Open High Revenue Direct Link immediately on click
+            // Direct link launch for income generation
             window.open(getNextDirectLink(), '_blank');
 
             isMining = true;
@@ -493,7 +492,7 @@
             tapInstruction.innerText = "Mining Alta in progress (10s)...";
 
             let targetAlta = currentAlta + 1.00;
-            let totalSteps = 20; // 10 Seconds duration (20 * 500ms)
+            let totalSteps = 20;
             let stepInterval = 500;
             let stepCount = 0;
 
@@ -516,7 +515,6 @@
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
-                    // Trigger 15s Sponsored Modal after 10s mining finish
                     trigger15SecModalAd(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                     });
@@ -524,15 +522,13 @@
             }, stepInterval);
         });
 
-        // 15s Video Modal with Top Banner
+        // 15 Seconds Modal Ad logic
         function trigger15SecModalAd(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
             continueAdBtn.disabled = true;
             continueAdBtn.classList.remove('active');
             continueAdBtn.innerText = "Please wait 15s...";
-
-            document.getElementById('modalTopAdFrame').src = getNextDirectLink();
 
             const modalPlayer = document.getElementById('modalVideoPlayer');
             modalPlayer.src = videoList[Math.floor(Math.random() * videoList.length)];
@@ -567,7 +563,7 @@
             };
         }
 
-        // 2. Double Ads 15s Button Logic
+        // Double Ads 15s Button
         doubleAdsBtn.addEventListener('click', () => {
             if (!checkNetworkConnection()) return;
 
