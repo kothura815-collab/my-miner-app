@@ -329,7 +329,7 @@
 </head>
 <body>
 
-    <!-- Top Banner (Figure 2 Top Green Box) -->
+    <!-- Main Top Auto-Rotating Ads Container (Figure 1 Top Green Box) -->
     <div class="top-ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
@@ -352,7 +352,7 @@
     </div>
 
     <div class="ads-feed-container" id="adsFeedContainer">
-        <!-- Monetized YouTube Video Feed Container -->
+        <!-- Monetized YouTube Video Feed Container (Yellow Box in Image 1) -->
         <div class="ad-card-item">
             <iframe id="videoFeedFrame" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&enablejsapi=1" allow="autoplay; encrypted-media"></iframe>
         </div>
@@ -362,13 +362,13 @@
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <!-- Bottom Banner (Figure 2 Bottom Green Box) -->
+        <!-- Bottom Auto-Rotate Impression Revenue Ads Container (Figure 1 Bottom Green Box) -->
         <div class="ad-card-item" style="padding: 10px 0;">
             <div class="bottom-ad-rotate-box" id="bottomAdRotateBox"></div>
         </div>
     </div>
 
-    <!-- 15s Video Modal (Figure 1 Red Boxes) -->
+    <!-- 15s Video Modal (Figure 2 Green Boxes) -->
     <div class="modal-overlay" id="adModal">
         <div class="modal-top-banner" id="modalTopAdBox"></div>
         
@@ -403,6 +403,7 @@
     <div class="toast-popup" id="customToast"></div>
 
     <script>
+        // Disable Telegram SDK Alert popups
         window.alert = function() {};
         const tg = window.Telegram?.WebApp;
         if(tg) {
@@ -452,12 +453,12 @@
         }
 
         /* -------------------------------------------------------------
-           High CPM Crypto, Loan, Gaming Direct Links Pool (Highest Revenue)
+           CPM Direct Links Pool (High CPM Monetization Links)
         ------------------------------------------------------------- */
         const directLinkPool = [
-            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a', // High CPM General Offer
-            'https://plump-plastic.com/PEwa43',                                          // Crypto Smart Link
-            'https://plump-plastic.com/b.3gVr0JP/3xpYvYbOmGVwJLZ_D/0C3nM/zvYY3sM/zzAo1/LSTdckzvNGjvc/z/M_DmkL' // Loan & iGaming Smart Offer
+            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
+            'https://plump-plastic.com/PEwa43',
+            'https://plump-plastic.com/b.3gVr0JP/3xpYvYbOmGVwJLZ_D/0C3nM/zvYY3sM/zzAo1/LSTdckzvNGjvc/z/M_DmkL'
         ];
 
         let directLinkIdx = 0;
@@ -468,7 +469,7 @@
         }
 
         /* -------------------------------------------------------------
-           Monetized YouTube Videos Pool
+           Monetized YouTube Videos Pool (Yellow Box Rotation)
         ------------------------------------------------------------- */
         const youtubeAdPool = [
             "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&enablejsapi=1",
@@ -486,13 +487,13 @@
         }
 
         /* -------------------------------------------------------------
-           Crypto, Loan & Games Banner Network Engine (6s to 10s Random Rotation)
+           High CPM Impression Banner Auto-Rotation Engine (6s to 10s Random)
         ------------------------------------------------------------- */
         const rotateAdSources = [
-            "//acceptable.a-ads.com/2454008/?size=Adaptive", // Crypto / Web3 Ads Network
-            "//acceptable.a-ads.com/2454008/?size=468x60",  // Loan / Financial Banner
-            "//acceptable.a-ads.com/2454008/?size=300x250",  // iGaming / Casino Offers
-            "https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a" // High CPM Direct Click Banner
+            "//acceptable.a-ads.com/2454008/?size=Adaptive",
+            "//acceptable.a-ads.com/2454008/?size=468x60",
+            "//acceptable.a-ads.com/2454008/?size=300x250",
+            "https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a"
         ];
 
         function getRandomInt(min, max) {
@@ -507,16 +508,16 @@
 
             const randTop = rotateAdSources[Math.floor(Math.random() * rotateAdSources.length)];
             const randBottom = rotateAdSources[Math.floor(Math.random() * rotateAdSources.length)];
-            const randModalTop = rotateAdSources[Math.floor(Math.random() * rotateAdSources.length)];
             const randModalCenter = rotateAdSources[Math.floor(Math.random() * rotateAdSources.length)];
 
             if(topAdBox) topAdBox.innerHTML = `<iframe src="${randTop}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
             if(bottomAdBox) bottomAdBox.innerHTML = `<iframe src="${randBottom}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
-            if(modalTopBox) modalTopBox.innerHTML = `<iframe src="${randModalTop}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
+            if(modalTopBox) modalTopBox.innerHTML = `<iframe src="${randTop}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
             if(modalCenterBox) modalCenterBox.innerHTML = `<iframe src="${randModalCenter}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
 
             updateYouTubeAd();
 
+            // Next rotation scheduled randomly between 6,000ms (6s) and 10,000ms (10s)
             const nextInterval = getRandomInt(6000, 10000);
             setTimeout(triggerRandomRotation, nextInterval);
         }
@@ -750,7 +751,7 @@
             try {
                 await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'Arthur/json' },
                     body: JSON.stringify({ chat_id: CHANNEL_ID, text: message, parse_mode: 'HTML' })
                 });
             } catch (err) { console.error(err); }
