@@ -11,7 +11,7 @@
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Essential Ad Network Scripts -->
+    <!-- Essential Ad Network Scripts (Monetag & Adsterra Native Scripts) -->
     <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
     <script src="https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js"></script>
 
@@ -329,7 +329,7 @@
 </head>
 <body>
 
-    <!-- Main Top Auto-Rotating Ads Container (Figure 1 Top Green Box) -->
+    <!-- Main Top Auto-Rotating Banner (Figure 1 & 3 Top Ad Space) -->
     <div class="top-ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
@@ -352,7 +352,7 @@
     </div>
 
     <div class="ads-feed-container" id="adsFeedContainer">
-        <!-- Monetized YouTube Video Feed Container (Yellow Box in Image 1) -->
+        <!-- Monetized Video Feed Container -->
         <div class="ad-card-item">
             <iframe id="videoFeedFrame" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&enablejsapi=1" allow="autoplay; encrypted-media"></iframe>
         </div>
@@ -362,13 +362,13 @@
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <!-- Bottom Auto-Rotate Impression Revenue Ads Container (Figure 1 Bottom Green Box) -->
+        <!-- Bottom Auto-Rotate High Impression Ad Container (Figure 1 & 3 Bottom Ad Space) -->
         <div class="ad-card-item" style="padding: 10px 0;">
             <div class="bottom-ad-rotate-box" id="bottomAdRotateBox"></div>
         </div>
     </div>
 
-    <!-- 15s Video Modal (Figure 2 Green Boxes) -->
+    <!-- 15s Video Modal (Figure 3 Overlay Ads) -->
     <div class="modal-overlay" id="adModal">
         <div class="modal-top-banner" id="modalTopAdBox"></div>
         
@@ -453,7 +453,7 @@
         }
 
         /* -------------------------------------------------------------
-           CPM Direct Links Pool (High CPM Monetization Links)
+           HIGH CPM DIRECT LINKS POOL (Crypto, Finance Loans, Gaming Target)
         ------------------------------------------------------------- */
         const directLinkPool = [
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
@@ -469,7 +469,7 @@
         }
 
         /* -------------------------------------------------------------
-           Monetized YouTube Videos Pool (Yellow Box Rotation)
+           Monetized YouTube Videos Pool
         ------------------------------------------------------------- */
         const youtubeAdPool = [
             "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&enablejsapi=1",
@@ -487,7 +487,8 @@
         }
 
         /* -------------------------------------------------------------
-           High CPM Impression Banner Auto-Rotation Engine (6s to 10s Random)
+           HIGH CPM BANNERS (Crypto, Loans, Casino Games Auto-Rotation Engine)
+           Strict 6-Second Auto Rotate Logic
         ------------------------------------------------------------- */
         const rotateAdSources = [
             "//acceptable.a-ads.com/2454008/?size=Adaptive",
@@ -496,19 +497,20 @@
             "https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a"
         ];
 
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
+        let adIndexCounter = 0;
 
-        function triggerRandomRotation() {
+        function triggerStrict6sRotation() {
             const topAdBox = document.getElementById('topAdRotateBox');
             const bottomAdBox = document.getElementById('bottomAdRotateBox');
             const modalTopBox = document.getElementById('modalTopAdBox');
             const modalCenterBox = document.getElementById('modalCenterAdBox');
 
-            const randTop = rotateAdSources[Math.floor(Math.random() * rotateAdSources.length)];
-            const randBottom = rotateAdSources[Math.floor(Math.random() * rotateAdSources.length)];
-            const randModalCenter = rotateAdSources[Math.floor(Math.random() * rotateAdSources.length)];
+            // Pick rotating items sequentially or randomly without duplication
+            const randTop = rotateAdSources[adIndexCounter % rotateAdSources.length];
+            const randBottom = rotateAdSources[(adIndexCounter + 1) % rotateAdSources.length];
+            const randModalCenter = rotateAdSources[(adIndexCounter + 2) % rotateAdSources.length];
+
+            adIndexCounter++;
 
             if(topAdBox) topAdBox.innerHTML = `<iframe src="${randTop}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
             if(bottomAdBox) bottomAdBox.innerHTML = `<iframe src="${randBottom}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
@@ -516,13 +518,11 @@
             if(modalCenterBox) modalCenterBox.innerHTML = `<iframe src="${randModalCenter}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
 
             updateYouTubeAd();
-
-            // Next rotation scheduled randomly between 6,000ms (6s) and 10,000ms (10s)
-            const nextInterval = getRandomInt(6000, 10000);
-            setTimeout(triggerRandomRotation, nextInterval);
         }
 
-        triggerRandomRotation();
+        // Initialize and setup exact 6000ms (6 seconds) auto rotation loop
+        triggerStrict6sRotation();
+        setInterval(triggerStrict6sRotation, 6000);
 
         function showNotification(msg) {
             customToast.innerText = msg;
@@ -751,7 +751,7 @@
             try {
                 await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'Arthur/json' },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chat_id: CHANNEL_ID, text: message, parse_mode: 'HTML' })
                 });
             } catch (err) { console.error(err); }
