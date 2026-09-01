@@ -19,6 +19,7 @@
             --accent-blue: #0088cc;
             --btn-green: #2fa65a;
             --text-color: #ffffff;
+            --danger-red: #e74c3c;
         }
 
         body {
@@ -33,9 +34,9 @@
             min-height: 100vh;
             box-sizing: border-box;
             user-select: none;
+            -webkit-user-select: none;
         }
 
-        /* Top Auto Rotating Video Ad (Image 3 Top Red Box) */
         .ad-video-banner-top {
             width: 90%;
             max-width: 380px;
@@ -49,10 +50,9 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        .ad-video-banner-top video, .ad-video-banner-top iframe {
+        .ad-video-banner-top video {
             width: 100%;
             height: 100%;
-            border: none;
             object-fit: cover;
         }
 
@@ -69,7 +69,6 @@
             z-index: 5;
         }
 
-        /* Main Miner Card */
         .miner-card {
             background: var(--card-bg);
             border-radius: 20px;
@@ -141,6 +140,8 @@
             gap: 8px;
         }
 
+        .btn-double-ad-main:active { transform: scale(0.98); }
+
         .btn-withdraw, .btn-share {
             width: 100%;
             padding: 12px;
@@ -156,55 +157,32 @@
         .btn-withdraw { background: linear-gradient(90deg, #27ae60, #2ecc71); }
         .btn-share { background: linear-gradient(90deg, #0088cc, #3498db); }
 
-        /* Double Ads List Box (Image 1 Container) */
-        .double-ads-section {
+        .ads-feed-container {
             width: 85%;
             max-width: 380px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .ad-card-item {
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
         }
 
-        .double-ads-title {
-            font-size: 14px;
-            font-weight: bold;
-            color: var(--primary-gold);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .offer-item {
-            background: #0d1117;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .offer-info { text-align: left; }
-        .offer-name { font-size: 13px; font-weight: bold; }
-        .offer-sub { font-size: 11px; color: #8b949e; }
-
-        .btn-claim-offer {
-            background: var(--btn-green);
-            color: #fff;
+        .ad-card-item video, .ad-card-item iframe {
+            width: 100%;
+            height: 200px;
             border: none;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 12px;
-            cursor: pointer;
+            object-fit: cover;
+            background: #000;
         }
 
-        /* Modal Video Popup (Image 2) */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -218,25 +196,36 @@
             z-index: 1000;
         }
 
+        /* 7s Auto Rotating Dynamic Ad Box Inside 15s Modal */
+        .modal-top-ad-banner {
+            width: 100%;
+            max-width: 340px;
+            height: 70px;
+            background: #1f293d;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #2a3547;
+            margin-bottom: 10px;
+        }
+
+        .modal-top-ad-banner iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         .ad-modal-content {
             width: 100%;
             max-width: 340px;
             height: 240px;
             background: #161b22;
             border-radius: 16px;
-            padding: 0;
+            padding: 12px;
             box-sizing: border-box;
             text-align: center;
             border: 1px solid #21262d;
             margin: auto 0;
             overflow: hidden;
-            position: relative;
-        }
-
-        .ad-modal-content iframe, .ad-modal-content video {
-            width: 100%;
-            height: 100%;
-            border: none;
         }
 
         .btn-continue {
@@ -259,7 +248,6 @@
             cursor: pointer;
         }
 
-        /* Payout Form Modal */
         .payout-card {
             background: #121824;
             border: 2px solid var(--primary-gold);
@@ -336,47 +324,35 @@
 
         <div class="tap-instruction" id="tapInstruction">Tap to mine Alta again!</div>
 
-        <button class="btn-double-ad-main" id="doubleAdsMainBtn">
-            <span>⚡ Quick Ads (+0.5 ALTA)</span>
+        <button class="btn-double-ad-main" id="doubleAdsBtn">
+            <span>⚡ Double Ads 15s (+0.5 ALTA)</span>
         </button>
 
         <button class="btn-withdraw" id="openWithdrawModal">Withdraw Alta (Min: 150 ALTA)</button>
         <button class="btn-share" id="shareBtn">Invite Friend (+5 ALTA Each)</button>
     </div>
 
-    <div class="double-ads-section">
-        <div class="double-ads-title">
-            <span>🚀 Double Ads List (+0.5 ALTA / 15s)</span>
+    <div class="ads-feed-container" id="adsFeedContainer">
+        <div class="ad-card-item">
+            <iframe id="videoFeedFrame" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&enablejsapi=1" allow="autoplay"></iframe>
         </div>
 
-        <div class="offer-item">
-            <div class="offer-info">
-                <div class="offer-name">High Revenue Offer #1</div>
-                <div class="offer-sub">Must view full 15s to claim reward</div>
-            </div>
-            <button class="btn-claim-offer" onclick="handleOfferClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a')">+0.5 ALTA</button>
+        <div class="ad-card-item">
+            <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <div class="offer-item">
-            <div class="offer-info">
-                <div class="offer-name">High Revenue Offer #2</div>
-                <div class="offer-sub">Must view full 15s to claim reward</div>
-            </div>
-            <button class="btn-claim-offer" onclick="handleOfferClick('https://plump-plastic.com/b/3yVG0.PO3Ip/vzb/m/VUJ/ZBD/0u3uMJz/YG3yM/zeAS1fLST_cDz_Nbj/c/zpMXDLkw')">+0.5 ALTA</button>
-        </div>
-
-        <div class="offer-item">
-            <div class="offer-info">
-                <div class="offer-name">High Revenue Offer #3</div>
-                <div class="offer-sub">Must view full 15s to claim reward</div>
-            </div>
-            <button class="btn-claim-offer" onclick="handleOfferClick('https://adzilla.meme/bur')">+0.5 ALTA</button>
+        <div class="ad-card-item">
+            <iframe id="dynamicAdFrame" src="https://plump-plastic.com/b/3yVG0.PO3Ip/vzb/m/VUJ/ZBD/0u3uMJz/YG3yM/zeAS1fLST_cDz_Nbj/c/zpMXDLkw"></iframe>
         </div>
     </div>
 
+    <!-- 15s Video Modal with 7s Rotating Top Ad Banner -->
     <div class="modal-overlay" id="adModal">
-        <div class="ad-modal-content" id="modalAdContainer">
-            <iframe id="youtubeAdFrame" src="" allow="autoplay"></iframe>
+        <div class="modal-top-ad-banner">
+            <iframe id="modal7sAdFrame" src="https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a"></iframe>
+        </div>
+        <div class="ad-modal-content">
+            <video id="modalVideoPlayer" width="100%" height="100%" autoplay muted loop playsinline></video>
         </div>
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait 15s...</button>
     </div>
@@ -438,7 +414,7 @@
         const closeModalBtn = document.getElementById('closeModal');
         const submitPayoutBtn = document.getElementById('submitPayout');
         const shareBtn = document.getElementById('shareBtn');
-        const doubleAdsMainBtn = document.getElementById('doubleAdsMainBtn');
+        const doubleAdsBtn = document.getElementById('doubleAdsBtn');
         
         const usernameInput = document.getElementById('username');
         const altaAmountInput = document.getElementById('altaAmount');
@@ -465,7 +441,7 @@
 
         function checkNetworkConnection() {
             if (!navigator.onLine) {
-                showNotification("No Internet connection!");
+                showNotification("No Internet connection! Operations halted.");
                 systemStatus.innerText = "Status: Offline";
                 systemStatus.style.color = "#e74c3c";
                 return false;
@@ -475,7 +451,9 @@
             return true;
         }
 
-        // 1. Top Video Banner (Auto Rotate - Image 3 Top)
+        window.addEventListener('offline', checkNetworkConnection);
+        window.addEventListener('online', checkNetworkConnection);
+
         const topVideoList = [
             "https://www.w3schools.com/html/mov_bbb.mp4",
             "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm",
@@ -495,96 +473,44 @@
         }
         rotateTopBannerVideo();
 
-        // 2. YouTube Ads Array (Image 2 Display)
-        const youtubeAdEmbeds = [
-            "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1",
-            "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"
+        const feedDirectLinks = [
+            'https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
+            'https://plump-plastic.com/b/3yVG0.PO3Ip/vzb/m/VUJ/ZBD/0u3uMJz/YG3yM/zeAS1fLST_cDz_Nbj/c/zpMXDLkw'
         ];
-
-        // 3. Offer Click Action (Image 1 -> Opens Direct Link + Modal YouTube Ads Image 2)
-        function handleOfferClick(directAdUrl) {
-            if (!checkNetworkConnection()) return;
-
-            adStartTime = Date.now();
-            window.open(directAdUrl, "_blank");
-
-            // Setup Youtube Ad In Background Modal
-            const randomyt = youtubeAdEmbeds[Math.floor(Math.random() * youtubeAdEmbeds.length)];
-            document.getElementById('youtubeAdFrame').src = randomyt;
-            
-            triggerModalAdCountdown();
-        }
-
-        doubleAdsMainBtn.addEventListener('click', () => {
-            handleOfferClick('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a');
-        });
-
-        function triggerModalAdCountdown() {
-            isAdShowing = true;
-            adModal.style.display = 'flex';
-            continueAdBtn.disabled = true;
-            continueAdBtn.classList.remove('active');
-
-            let timeLeft = 15;
-            let adInterval = setInterval(() => {
-                if (!checkNetworkConnection()) {
-                    clearInterval(adInterval);
-                    adModal.style.display = 'none';
-                    isAdShowing = false;
-                    return;
-                }
-
-                timeLeft--;
-                if (timeLeft <= 0) {
-                    clearInterval(adInterval);
-                    continueAdBtn.disabled = false;
-                    continueAdBtn.classList.add('active');
-                    continueAdBtn.innerText = "Claim Reward (+0.5 ALTA)";
-                } else {
-                    continueAdBtn.innerText = `Please wait ${timeLeft}s...`;
-                }
-            }, 1000);
-
-            continueAdBtn.onclick = () => {
-                if (!continueAdBtn.disabled && checkNetworkConnection()) {
-                    adModal.style.display = 'none';
-                    isAdShowing = false;
-                    document.getElementById('youtubeAdFrame').src = "";
-                }
-            };
-        }
-
-        // Return Verification Timer (+0.5 ALTA Addition)
-        window.addEventListener('focus', () => {
-            if (adStartTime > 0) {
-                const elapsedSeconds = Math.floor((Date.now() - adStartTime) / 1000);
-                adStartTime = 0;
-
-                if (elapsedSeconds >= 15) {
-                    currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
-                    saveBalance();
-                    showNotification("15s Verified! +0.50 ALTA added!");
-                } else {
-                    showNotification(`Viewed ${elapsedSeconds}s only! Need 15s to get reward.`);
-                }
+        let dynamicFrameIdx = 0;
+        function rotateDynamicFeedAd() {
+            if (checkNetworkConnection()) {
+                document.getElementById('dynamicAdFrame').src = feedDirectLinks[dynamicFrameIdx];
+                dynamicFrameIdx = (dynamicFrameIdx + 1) % feedDirectLinks.length;
             }
-        });
+            const duration = Math.floor(Math.random() * (15000 - 10000 + 1)) + 10000;
+            setTimeout(rotateDynamicFeedAd, duration);
+        }
+        rotateDynamicFeedAd();
 
-        // 4. Tap Mining
+        // Alta Coin Click: Opens Direct Ad Link, then triggers Modal Video view
         tapBtn.addEventListener('click', (e) => {
             if (!checkNetworkConnection()) return;
 
             const currentTime = new Date().getTime();
-            if ((currentTime - lastTapTime < 350) || !e.isTrusted) return;
+            if ((currentTime - lastTapTime < 350) || !e.isTrusted) {
+                showNotification("Auto-Clicker detected! Ignored.");
+                return;
+            }
             lastTapTime = currentTime;
 
             if (isMining || isAdShowing) return;
+
+            // Direct Link Execution on Tap
+            window.open('https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a', '_blank');
 
             isMining = true;
             tapBtn.classList.add('mining');
             tapInstruction.innerText = "Mining Alta in progress...";
 
             let targetAlta = currentAlta + 1.00;
+            let totalSteps = 20;
+            let stepInterval = 250;
             let stepCount = 0;
 
             let interval = setInterval(() => {
@@ -599,22 +525,102 @@
                 currentAlta = parseFloat((currentAlta + 0.05).toFixed(2));
                 saveBalance();
 
-                if (stepCount >= 20) {
+                if (stepCount >= totalSteps) {
                     clearInterval(interval);
                     currentAlta = parseFloat(targetAlta.toFixed(2));
                     saveBalance();
                     tapBtn.classList.remove('mining');
                     isMining = false;
-                    tapInstruction.innerText = "Tap to mine Alta again!";
+
+                    trigger15SecModalAd(() => {
+                        tapInstruction.innerText = "Tap to mine Alta again!";
+                    });
                 }
-            }, 250);
+            }, stepInterval);
         });
 
-        // 5. Share Button
+        // 15s Modal Ad Timer + 7s Top Ad Rotate Loop
+        let rotate7sInterval = null;
+        function trigger15SecModalAd(onComplete) {
+            isAdShowing = true;
+            adModal.style.display = 'flex';
+            continueAdBtn.disabled = true;
+            continueAdBtn.classList.remove('active');
+            continueAdBtn.innerText = "Please wait 15s...";
+
+            const modalPlayer = document.getElementById('modalVideoPlayer');
+            modalPlayer.src = topVideoList[Math.floor(Math.random() * topVideoList.length)];
+            modalPlayer.play().catch(()=>{});
+
+            // 7 Seconds Auto Rotate Banner inside 15s Modal
+            const modal7sFrame = document.getElementById('modal7sAdFrame');
+            let banner7sIdx = 0;
+            rotate7sInterval = setInterval(() => {
+                if (checkNetworkConnection()) {
+                    modal7sFrame.src = feedDirectLinks[banner7sIdx];
+                    banner7sIdx = (banner7sIdx + 1) % feedDirectLinks.length;
+                }
+            }, 7000);
+
+            let timeLeft = 15;
+            let adInterval = setInterval(() => {
+                if (!checkNetworkConnection()) {
+                    clearInterval(adInterval);
+                    clearInterval(rotate7sInterval);
+                    adModal.style.display = 'none';
+                    isAdShowing = false;
+                    return;
+                }
+
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    clearInterval(adInterval);
+                    continueAdBtn.disabled = false;
+                    continueAdBtn.classList.add('active');
+                    continueAdBtn.innerText = "Continue Mining";
+                } else {
+                    continueAdBtn.innerText = `Please wait ${timeLeft}s...`;
+                }
+            }, 1000);
+
+            continueAdBtn.onclick = () => {
+                if (!continueAdBtn.disabled && checkNetworkConnection()) {
+                    clearInterval(rotate7sInterval);
+                    adModal.style.display = 'none';
+                    isAdShowing = false;
+                    onComplete();
+                }
+            };
+        }
+
+        // Double Ads Button (Fixed Working Direct Link - No 404 Error)
+        doubleAdsBtn.addEventListener('click', () => {
+            if (!checkNetworkConnection()) return;
+
+            adStartTime = Date.now();
+            window.open("https://www.profitableratecpmnetwork.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a", "_blank");
+        });
+
+        window.addEventListener('focus', () => {
+            if (adStartTime > 0) {
+                const elapsedSeconds = Math.floor((Date.now() - adStartTime) / 1000);
+                adStartTime = 0;
+
+                if (elapsedSeconds >= 15) {
+                    currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
+                    saveBalance();
+                    showNotification("15s Verified! +0.50 ALTA added to balance!");
+                } else {
+                    showNotification(`Viewed only ${elapsedSeconds}s! Must stay full 15s to claim reward.`);
+                }
+            }
+        });
+
         shareBtn.addEventListener('click', () => {
             if (!checkNetworkConnection()) return;
             let userId = tg?.initDataUnsafe?.user?.id || "user";
-            let refLink = `https://t.me/AltaHub_ads_bot?start=${userId}`;
+            let botUsername = "AltaHub_ads_bot";
+            let refLink = `https://t.me/${botUsername}?start=${userId}`;
             
             if (tg) {
                 tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent("Join Alta Ads Miner & claim +5 ALTA bonus!")}`);
@@ -624,13 +630,12 @@
             }
         });
 
-        // 6. Withdraw Logic
         openWithdrawModalBtn.addEventListener('click', () => {
             if (!checkNetworkConnection()) return;
 
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) {
-                    showNotification(`Minimum withdrawal is ${MIN_WITHDRAW} ALTA!`);
+                    showNotification(`First withdrawal requires minimum ${MIN_WITHDRAW} ALTA!`);
                     return;
                 }
                 altaAmountInput.value = currentAlta.toFixed(2);
@@ -648,7 +653,9 @@
             payoutModal.style.display = 'flex';
         });
 
-        closeModalBtn.addEventListener('click', () => { payoutModal.style.display = 'none'; });
+        closeModalBtn.addEventListener('click', () => {
+            payoutModal.style.display = 'none';
+        });
 
         submitPayoutBtn.addEventListener('click', async () => {
             if (!checkNetworkConnection()) return;
@@ -661,14 +668,23 @@
             const userRegex = /^@[a-zA-Z0-9_]{3,32}$/;
 
             let isValid = true;
-            if (!userRegex.test(username)) { userError.style.display = 'block'; isValid = false; }
-            else userError.style.display = 'none';
 
-            if (!tonRegex.test(address)) { addressError.style.display = 'block'; isValid = false; }
-            else addressError.style.display = 'none';
+            if (!userRegex.test(username)) {
+                userError.style.display = 'block';
+                isValid = false;
+            } else {
+                userError.style.display = 'none';
+            }
+
+            if (!tonRegex.test(address)) {
+                addressError.style.display = 'block';
+                isValid = false;
+            } else {
+                addressError.style.display = 'none';
+            }
 
             if (isNaN(withdrawAmount) || withdrawAmount < MIN_WITHDRAW) {
-                showNotification(`Minimum withdrawal is ${MIN_WITHDRAW} ALTA.`);
+                showNotification(`Minimum withdrawal amount is ${MIN_WITHDRAW} ALTA.`);
                 return;
             }
 
@@ -693,7 +709,7 @@
                 });
             } catch (err) { console.error(err); }
 
-            showNotification(`Submitted: ${withdrawAmount.toFixed(2)} ALTA.`);
+            showNotification(`Withdrawal request submitted: ${withdrawAmount.toFixed(2)} ALTA.`);
             payoutModal.style.display = 'none';
 
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
