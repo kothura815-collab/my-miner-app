@@ -11,42 +11,8 @@
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Provided Ad Network Scripts -->
+    <!-- Ad Network Native Script -->
     <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
-    <script src="https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js"></script>
-
-    <script>
-    (function(jkpxx){
-        var d = document, s = d.createElement('script'), l = d.scripts[d.scripts.length - 1];
-        s.settings = jkpxx || {};
-        s.src = "//relieved-understanding.com/b/XEVqsJd.GPl/0gYwWMcB/_exmZ9UurZzUxlkkVPoTfcVzeNmzBE/zLNATaMqtjNiz-MV3pMOT/MV1gN/wq";
-        s.async = true;
-        s.referrerPolicy = 'no-referrer-when-downgrade';
-        l.parentNode.insertBefore(s, l);
-    })({});
-    </script>
-
-    <script>
-    (function(ngpwym){
-        var d = document, s = d.createElement('script'), l = d.scripts[d.scripts.length - 1];
-        s.settings = ngpwym || {};
-        s.src = "//relieved-understanding.com/bIX_V.sud_G/lk0cYDWGcx/geJmD9WuIZyUOlxkhPvTEc/z-NRzJEjzQMZzvcFtJNRz/Mc3YM/TcM/0eM/Qr";
-        s.async = true;
-        s.referrerPolicy = 'no-referrer-when-downgrade';
-        l.parentNode.insertBefore(s, l);
-    })({});
-    </script>
-
-    <script>
-    (function(ngpwym){
-        var d = document, s = d.createElement('script'), l = d.scripts[d.scripts.length - 1];
-        s.settings = ngpwym || {};
-        s.src = "//relieved-understanding.com/bAXLV.sndyG/lp0RYQWJcJ/Yenmt9xu/ZNUKl-kmP/TPc/zvN-jOc/ztMrTXMqtQNtzfMa2VNpzAM/xhN_wD";
-        s.async = true;
-        s.referrerPolicy = 'no-referrer-when-downgrade';
-        l.parentNode.insertBefore(s, l);
-    })({});
-    </script>
 
     <style>
         :root {
@@ -72,16 +38,6 @@
             box-sizing: border-box;
             user-select: none;
             -webkit-user-select: none;
-        }
-
-        .top-ad-box {
-            width: 90%;
-            max-width: 380px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
         }
 
         .miner-card {
@@ -198,10 +154,25 @@
             background: #000;
         }
 
+        /* Bottom Ad Box - Moved from top (Figure 3 adjustment) */
+        .bottom-ad-box {
+            width: 85%;
+            max-width: 380px;
+            margin-top: 10px;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            background: var(--card-bg);
+            padding: 10px 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* 15s Video Modal with Top Banner (Figure 4) */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(13, 17, 23, 0.96);
+            background: rgba(13, 17, 23, 0.98);
             display: none;
             flex-direction: column;
             align-items: center;
@@ -211,17 +182,33 @@
             z-index: 1000;
         }
 
+        .modal-multi-top-banner {
+            width: 100%;
+            max-width: 340px;
+            height: 180px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #2a3547;
+            background: #161b22;
+        }
+
+        .modal-multi-top-banner iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         .ad-modal-content {
             width: 100%;
             max-width: 340px;
-            height: 240px;
+            height: 220px;
             background: #161b22;
             border-radius: 16px;
             padding: 0;
             box-sizing: border-box;
             text-align: center;
             border: 1px solid #21262d;
-            margin: auto 0;
+            margin: 10px 0;
             overflow: hidden;
         }
 
@@ -305,14 +292,6 @@
 </head>
 <body>
 
-    <!-- AADS AD UNIT 2454008 -->
-    <div class="top-ad-box">
-        <div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
-            <iframe data-aa='2454008' src='//acceptable.a-ads.com/2454008/?size=Adaptive'
-                    style='border:0; padding:0; width:100%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
-        </div>
-    </div>
-
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -333,7 +312,7 @@
     </div>
 
     <div class="ads-feed-container" id="adsFeedContainer">
-        <!-- Embedded Sponsored YouTube Video Feed (No Ads Overlay On Top) -->
+        <!-- YouTube Video Feed -->
         <div class="ad-card-item">
             <iframe id="videoFeedFrame" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&enablejsapi=1" allow="autoplay; encrypted-media"></iframe>
         </div>
@@ -347,14 +326,26 @@
         </div>
     </div>
 
-    <!-- 15s Video Modal -->
+    <!-- Bottom Ad Placement (Relocated from Top - Figure 3) -->
+    <div class="bottom-ad-box">
+        <div id="frame" style="width: 100%; margin: auto; position: relative;">
+            <iframe data-aa='2454008' src='//acceptable.a-ads.com/2454008/?size=Adaptive'
+                    style='border:0; padding:0; width:100%; height:auto; overflow:hidden; display: block; margin: auto;'></iframe>
+        </div>
+    </div>
+
+    <!-- 15s Video Modal with Multi Top Banner (Figure 4) -->
     <div class="modal-overlay" id="adModal">
+        <div class="modal-multi-top-banner">
+            <iframe id="modalTopAdFrame" src="https://plump-plastic.com/PEwa43"></iframe>
+        </div>
         <div class="ad-modal-content">
             <video id="modalVideoPlayer" width="100%" height="100%" autoplay muted loop playsinline></video>
         </div>
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait 15s...</button>
     </div>
 
+    <!-- Withdrawal Modal -->
     <div class="modal-overlay" id="payoutModal" style="justify-content: center;">
         <div class="payout-card">
             <h3 style="color: var(--primary-gold); margin-top:0; text-align:center;">Withdrawal Request</h3>
@@ -471,7 +462,7 @@
             "https://www.w3schools.com/html/movie.mp4"
         ];
 
-        // 1. Alta Coin Click Logic
+        // 1. Alta Coin Tap Logic: 10s Mining -> Open Direct Link -> Return to 15s Modal (Figure 4)
         tapBtn.addEventListener('click', (e) => {
             if (!checkNetworkConnection()) return;
 
@@ -484,16 +475,13 @@
 
             if (isMining || isAdShowing) return;
 
-            // Direct Link popup on Tap
-            window.open(getNextDirectLink(), '_blank');
-
             isMining = true;
             tapBtn.classList.add('mining');
             tapInstruction.innerText = "Mining Alta in progress...";
 
             let targetAlta = currentAlta + 1.00;
             let totalSteps = 20;
-            let stepInterval = 250;
+            let stepInterval = 500; // 500ms * 20 = 10 Seconds Mining Time
             let stepCount = 0;
 
             let interval = setInterval(() => {
@@ -515,6 +503,10 @@
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
+                    // Open Direct Link after 10s mining complete
+                    window.open(getNextDirectLink(), '_blank');
+
+                    // Show 15s Video Modal with Top Banner after returning
                     trigger15SecModalAd(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                     });
@@ -522,13 +514,16 @@
             }, stepInterval);
         });
 
-        // 15s Video Modal Timer
+        // 15s Video Modal Trigger (Figure 4 Structure)
         function trigger15SecModalAd(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
             continueAdBtn.disabled = true;
             continueAdBtn.classList.remove('active');
             continueAdBtn.innerText = "Please wait 15s...";
+
+            // Refresh Top Multi Banner inside Modal
+            document.getElementById('modalTopAdFrame').src = getNextDirectLink();
 
             const modalPlayer = document.getElementById('modalVideoPlayer');
             modalPlayer.src = videoList[Math.floor(Math.random() * videoList.length)];
@@ -563,7 +558,7 @@
             };
         }
 
-        // 2. Double Ads Button Logic (High Revenue Ad Link with 15s Validation)
+        // 2. Double Ads 15s Click
         doubleAdsBtn.addEventListener('click', () => {
             if (!checkNetworkConnection()) return;
 
