@@ -329,7 +329,7 @@
 </head>
 <body>
 
-    <!-- Main Top Auto-Rotating Ads Container -->
+    <!-- Main Top Auto-Rotating Ads Container (Figure 1 Top Green Box) -->
     <div class="top-ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
@@ -352,7 +352,7 @@
     </div>
 
     <div class="ads-feed-container" id="adsFeedContainer">
-        <!-- Sponsored Video Feed -->
+        <!-- Monetized YouTube Video Feed Container (Yellow Box in Image 1) -->
         <div class="ad-card-item">
             <iframe id="videoFeedFrame" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&enablejsapi=1" allow="autoplay; encrypted-media"></iframe>
         </div>
@@ -362,19 +362,17 @@
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <!-- Bottom Auto-Rotate Impression Revenue Ads -->
+        <!-- Bottom Auto-Rotate Impression Revenue Ads Container (Figure 1 Bottom Green Box) -->
         <div class="ad-card-item" style="padding: 10px 0;">
             <div class="bottom-ad-rotate-box" id="bottomAdRotateBox"></div>
         </div>
     </div>
 
-    <!-- 15s Video Modal -->
+    <!-- 15s Video Modal (Figure 2 Green Boxes) -->
     <div class="modal-overlay" id="adModal">
         <div class="modal-top-banner" id="modalTopAdBox"></div>
         
-        <div class="ad-modal-content" id="modalCenterAdBox">
-            <iframe src="//acceptable.a-ads.com/2454008/?size=300x250" style="border:0; width:100%; height:100%; overflow:hidden;"></iframe>
-        </div>
+        <div class="ad-modal-content" id="modalCenterAdBox"></div>
 
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait 15s...</button>
     </div>
@@ -405,7 +403,7 @@
     <div class="toast-popup" id="customToast"></div>
 
     <script>
-        // Disable Telegram SDK Alert popups (Figure 2 error fix)
+        // Disable Telegram SDK Alert popups
         window.alert = function() {};
         const tg = window.Telegram?.WebApp;
         if(tg) {
@@ -455,7 +453,7 @@
         }
 
         /* -------------------------------------------------------------
-           CPM Direct Links Pool (High CPM / Crypto / Game / Ads Links)
+           CPM Direct Links Pool (High CPM Monetization Links)
         ------------------------------------------------------------- */
         const directLinkPool = [
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
@@ -470,31 +468,61 @@
             return url;
         }
 
-        /* High CPM Impression Banner Auto-Rotation */
+        /* -------------------------------------------------------------
+           Monetized YouTube Videos Pool (Yellow Box Rotation)
+        ------------------------------------------------------------- */
+        const youtubeAdPool = [
+            "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&enablejsapi=1",
+            "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&enablejsapi=1",
+            "https://www.youtube.com/embed/3JZ_D3ELwOQ?autoplay=1&mute=1&enablejsapi=1"
+        ];
+        let ytAdIndex = 0;
+
+        function updateYouTubeAd() {
+            const ytFrame = document.getElementById('videoFeedFrame');
+            if(ytFrame) {
+                ytFrame.src = youtubeAdPool[ytAdIndex];
+                ytAdIndex = (ytAdIndex + 1) % youtubeAdPool.length;
+            }
+        }
+
+        /* -------------------------------------------------------------
+           High CPM Impression Banner Auto-Rotation Engine (6s to 10s Random)
+        ------------------------------------------------------------- */
         const rotateAdSources = [
             "//acceptable.a-ads.com/2454008/?size=Adaptive",
             "//acceptable.a-ads.com/2454008/?size=468x60",
+            "//acceptable.a-ads.com/2454008/?size=300x250",
             "https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a"
         ];
-        let currentAdIndex = 0;
 
-        function updateRotatingBanner() {
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function triggerRandomRotation() {
             const topAdBox = document.getElementById('topAdRotateBox');
             const bottomAdBox = document.getElementById('bottomAdRotateBox');
             const modalTopBox = document.getElementById('modalTopAdBox');
-            
-            const nextSrc = rotateAdSources[currentAdIndex];
-            const iframeHtml = `<iframe src="${nextSrc}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
+            const modalCenterBox = document.getElementById('modalCenterAdBox');
 
-            if(topAdBox) topAdBox.innerHTML = iframeHtml;
-            if(bottomAdBox) bottomAdBox.innerHTML = iframeHtml;
-            if(modalTopBox) modalTopBox.innerHTML = iframeHtml;
+            const randTop = rotateAdSources[Math.floor(Math.random() * rotateAdSources.length)];
+            const randBottom = rotateAdSources[Math.floor(Math.random() * rotateAdSources.length)];
+            const randModalCenter = rotateAdSources[Math.floor(Math.random() * rotateAdSources.length)];
 
-            currentAdIndex = (currentAdIndex + 1) % rotateAdSources.length;
+            if(topAdBox) topAdBox.innerHTML = `<iframe src="${randTop}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
+            if(bottomAdBox) bottomAdBox.innerHTML = `<iframe src="${randBottom}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
+            if(modalTopBox) modalTopBox.innerHTML = `<iframe src="${randTop}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
+            if(modalCenterBox) modalCenterBox.innerHTML = `<iframe src="${randModalCenter}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
+
+            updateYouTubeAd();
+
+            // Next rotation scheduled randomly between 6,000ms (6s) and 10,000ms (10s)
+            const nextInterval = getRandomInt(6000, 10000);
+            setTimeout(triggerRandomRotation, nextInterval);
         }
 
-        updateRotatingBanner();
-        setInterval(updateRotatingBanner, 6000);
+        triggerRandomRotation();
 
         function showNotification(msg) {
             customToast.innerText = msg;
@@ -536,7 +564,6 @@
 
             if (isMining || isAdShowing) return;
 
-            // Direct Link သို့ ပို့မည်
             window.open(getNextDirectLink(), '_blank');
 
             isMining = true;
@@ -604,7 +631,6 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled && checkNetworkConnection()) {
-                    // Continue Mining နှိပ်ပါက High CPM Direct Link ကို ဖွင့်ပေးမည်
                     window.open(getNextDirectLink(), '_blank');
                     
                     adModal.style.display = 'none';
@@ -614,7 +640,7 @@
             };
         }
 
-        // Double Ads 15s Logic (15 စက္ကန့် ပြည့်မှ +0.5 ALTA ထည့်ပေးမည်)
+        // Double Ads 15s Button Logic
         doubleAdsBtn.addEventListener('click', () => {
             if (!checkNetworkConnection()) return;
 
@@ -725,7 +751,7 @@
             try {
                 await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'Arthur/json' },
                     body: JSON.stringify({ chat_id: CHANNEL_ID, text: message, parse_mode: 'HTML' })
                 });
             } catch (err) { console.error(err); }
