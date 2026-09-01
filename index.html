@@ -329,7 +329,7 @@
 </head>
 <body>
 
-    <!-- Main Top Auto-Rotating Ads Container (Figure 1 & 3 Top Box) -->
+    <!-- Main Top Auto-Rotating Ads Container (Figure 1 Top Green Box) -->
     <div class="top-ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
@@ -352,7 +352,7 @@
     </div>
 
     <div class="ads-feed-container" id="adsFeedContainer">
-        <!-- Monetized YouTube Video Feed Container -->
+        <!-- Monetized YouTube Video Feed Container (Yellow Box in Image 1) -->
         <div class="ad-card-item">
             <iframe id="videoFeedFrame" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&enablejsapi=1" allow="autoplay; encrypted-media"></iframe>
         </div>
@@ -362,13 +362,13 @@
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <!-- Bottom Auto-Rotate Impression Revenue Ads Container (Figure 1 & 3 Bottom Box) -->
+        <!-- Bottom Auto-Rotate Impression Revenue Ads Container (Figure 1 Bottom Green Box) -->
         <div class="ad-card-item" style="padding: 10px 0;">
             <div class="bottom-ad-rotate-box" id="bottomAdRotateBox"></div>
         </div>
     </div>
 
-    <!-- 15s Video Modal (Figure 3 Green Boxes) -->
+    <!-- 15s Video Modal (Figure 2 Green Boxes) -->
     <div class="modal-overlay" id="adModal">
         <div class="modal-top-banner" id="modalTopAdBox"></div>
         
@@ -453,14 +453,12 @@
         }
 
         /* -------------------------------------------------------------
-           High CPM Direct Links Pool (High Revenue - Loans, Crypto, Gaming & Financial Offers)
+           High-CPM Direct Links Pool (Crypto, Loans, Financial Smart Smart-Links)
         ------------------------------------------------------------- */
         const directLinkPool = [
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
             'https://plump-plastic.com/PEwa43',
-            'https://plump-plastic.com/b.3gVr0JP/3xpYvYbOmGVwJLZ_D/0C3nM/zvYY3sM/zzAo1/LSTdckzvNGjvc/z/M_DmkL',
-            'https://adsterra.com/direct-link-smart-cpm-finance-loans',
-            'https://acceptable.a-ads.com/direct-crypto-gaming'
+            'https://plump-plastic.com/b.3gVr0JP/3xpYvYbOmGVwJLZ_D/0C3nM/zvYY3sM/zzAo1/LSTdckzvNGjvc/z/M_DmkL'
         ];
 
         let directLinkIdx = 0;
@@ -471,7 +469,7 @@
         }
 
         /* -------------------------------------------------------------
-           Monetized YouTube Videos Pool (High CPM Niche)
+           Monetized YouTube Videos Pool (Crypto & Finance Gaming)
         ------------------------------------------------------------- */
         const youtubeAdPool = [
             "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&enablejsapi=1",
@@ -489,14 +487,13 @@
         }
 
         /* -------------------------------------------------------------
-           High CPM Impression Banner Auto-Rotation Engine (6s to 10s Random)
-           Contains Anti-block Crypto, Loan & Gaming Ad Sources
+           Auto-Rotating Impression Revenue Banner Engine (6s to 10s Random)
+           Loans, Crypto, Games Impression Monetization Networks
         ------------------------------------------------------------- */
         const rotateAdSources = [
-            "//acceptable.a-ads.com/2454008/?size=Adaptive",
-            "//acceptable.a-ads.com/2454008/?size=468x60",
-            "//acceptable.a-ads.com/2454008/?size=300x250",
-            "//acceptable.a-ads.com/2454008/?size=728x90",
+            "https://acceptable.a-ads.com/2454008/?size=Adaptive",
+            "https://acceptable.a-ads.com/2454008/?size=468x60",
+            "https://acceptable.a-ads.com/2454008/?size=300x250",
             "https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a"
         ];
 
@@ -510,15 +507,13 @@
             const modalTopBox = document.getElementById('modalTopAdBox');
             const modalCenterBox = document.getElementById('modalCenterAdBox');
 
-            // Pick distinct sources dynamically for seamless connectivity
             const randTop = rotateAdSources[Math.floor(Math.random() * rotateAdSources.length)];
             const randBottom = rotateAdSources[Math.floor(Math.random() * rotateAdSources.length)];
-            const randModalTop = rotateAdSources[Math.floor(Math.random() * rotateAdSources.length)];
             const randModalCenter = rotateAdSources[Math.floor(Math.random() * rotateAdSources.length)];
 
             if(topAdBox) topAdBox.innerHTML = `<iframe src="${randTop}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
             if(bottomAdBox) bottomAdBox.innerHTML = `<iframe src="${randBottom}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
-            if(modalTopBox) modalTopBox.innerHTML = `<iframe src="${randModalTop}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
+            if(modalTopBox) modalTopBox.innerHTML = `<iframe src="${randTop}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
             if(modalCenterBox) modalCenterBox.innerHTML = `<iframe src="${randModalCenter}" style="border:0; width:100%; height:100%; overflow:hidden;" scrolling="no"></iframe>`;
 
             updateYouTubeAd();
