@@ -14,6 +14,7 @@
     <!-- Essential Ad Network Scripts -->
     <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
     <script src="https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js"></script>
+    <script src="https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js"></script>
 
     <style>
         :root {
@@ -453,12 +454,13 @@
         }
 
         /* -------------------------------------------------------------
-           CPM Direct Links Pool (High CPM Crypto, Loans, Games)
+           CPM Direct Links Pool (High CPM Crypto, Loan, Game Links)
         ------------------------------------------------------------- */
         const directLinkPool = [
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
             'https://plump-plastic.com/PEwa43',
-            'https://plump-plastic.com/b.3gVr0JP/3xpYvYbOmGVwJLZ_D/0C3nM/zvYY3sM/zzAo1/LSTdckzvNGjvc/z/M_DmkL'
+            'https://plump-plastic.com/b.3gVr0JP/3xpYvYbOmGVwJLZ_D/0C3nM/zvYY3sM/zzAo1/LSTdckzvNGjvc/z/M_DmkL',
+            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a'
         ];
 
         let directLinkIdx = 0;
@@ -487,14 +489,12 @@
         }
 
         /* -------------------------------------------------------------
-           Auto-Rotating Impression Banner Engine (ad.a-ads.com & High CPM Banners)
+           Auto-Rotating Impression Banner Engine (6s-10s Dynamic Rotation)
         ------------------------------------------------------------- */
         const rotateAdSources = [
-            "https://ad.a-ads.com/2454008?size=adaptive",
-            "https://ad.a-ads.com/2454008?size=468x60",
-            "https://ad.a-ads.com/2454008?size=300x250",
-            "https://ad.a-ads.com/2453947?size=adaptive",
-            "https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a"
+            "https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a",
+            "https://plump-plastic.com/PEwa43",
+            "https://plump-plastic.com/b.3gVr0JP/3xpYvYbOmGVwJLZ_D/0C3nM/zvYY3sM/zzAo1/LSTdckzvNGjvc/z/M_DmkL"
         ];
 
         function getRandomInt(min, max) {
@@ -518,6 +518,7 @@
 
             updateYouTubeAd();
 
+            // 6 to 10 seconds auto rotation
             const nextInterval = getRandomInt(6000, 10000);
             setTimeout(triggerRandomRotation, nextInterval);
         }
