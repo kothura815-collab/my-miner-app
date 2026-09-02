@@ -342,7 +342,7 @@
             <img src="alta-coin.png" alt="Alta Coin" class="coin-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/6001/6001368.png'">
         </div>
 
-        <div class="tap-instruction" id="tapInstruction">Tap Alta to mine!</div>
+        <div class="tap-instruction" id="tapInstruction">Tap to mine Alta!</div>
 
         <button class="btn-double-ad-main" id="doubleAdsBtn">
             <span>⚡ Double Ads 15s (+0.5 ALTA)</span>
@@ -353,31 +353,30 @@
     </div>
 
     <div class="ads-feed-container" id="adsFeedContainer">
-        <!-- Monetized YouTube Video Feed Container -->
-        <div class="ad-card-item ad-direct-trigger">
+        <!-- YouTube Feed Container -->
+        <div class="ad-card-item">
             <iframe id="videoFeedFrame" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&enablejsapi=1" allow="autoplay; encrypted-media"></iframe>
         </div>
 
-        <!-- Native Ad Container -->
-        <div class="ad-card-item ad-direct-trigger">
+        <!-- Native Ad Container (15s Reward Watchable Direct Ads) -->
+        <div class="ad-card-item direct-reward-item">
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <!-- Bottom Auto-Rotate Impression Revenue Ads Container -->
-        <div class="ad-card-item ad-direct-trigger" style="padding: 10px 0;">
+        <!-- Bottom Auto-Rotate Banner Container -->
+        <div class="ad-card-item direct-reward-item" style="padding: 10px 0;">
             <div class="bottom-ad-rotate-box" id="bottomAdRotateBox"></div>
         </div>
     </div>
 
-    <!-- 15s Video Modal -->
+    <!-- 15s Video Modal Ad -->
     <div class="modal-overlay" id="adModal">
         <div class="modal-top-banner" id="modalTopAdBox"></div>
-        
         <div class="ad-modal-content" id="modalCenterAdBox"></div>
-
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait 15s...</button>
     </div>
 
+    <!-- Payout Modal -->
     <div class="modal-overlay" id="payoutModal" style="justify-content: center;">
         <div class="payout-card">
             <h3 style="color: var(--primary-gold); margin-top:0; text-align:center;">Withdrawal Request</h3>
@@ -404,7 +403,6 @@
     <div class="toast-popup" id="customToast"></div>
 
     <script>
-        // Disable Telegram SDK Alert popups
         window.alert = function() {};
         const tg = window.Telegram?.WebApp;
         if(tg) {
@@ -425,7 +423,7 @@
         let isAdShowing = false;
         let lastTapTime = 0;
         let adStartTime = 0;
-        let pendingMiningTimer = false;
+        let isTapMiningActive = false;
 
         const balanceEl = document.getElementById('altaBalance');
         balanceEl.innerText = currentAlta.toFixed(2);
@@ -455,7 +453,7 @@
         }
 
         /* -------------------------------------------------------------
-           CPM Direct Links Pool
+           CPM Direct Links Pool (High CPM Crypto, Loans, Games)
         ------------------------------------------------------------- */
         const directLinkPool = [
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
@@ -489,7 +487,7 @@
         }
 
         /* -------------------------------------------------------------
-           Auto-Rotate Impression Banners (6s - 10s)
+           Auto-Rotating Impression Banner Engine (6s to 10s Random)
         ------------------------------------------------------------- */
         const rotateAdSources = [
             "https://acceptable.a-ads.com/2454008/?size=Adaptive",
@@ -553,7 +551,7 @@
         window.addEventListener('online', checkNetworkConnection);
 
         /* -------------------------------------------------------------
-           Step-by-Step Tap Mining Logic
+           1. Tap Mining Logic (Auto Step-by-Step Flow)
         ------------------------------------------------------------- */
         tapBtn.addEventListener('click', (e) => {
             if (!checkNetworkConnection()) return;
@@ -567,21 +565,17 @@
 
             if (isMining || isAdShowing) return;
 
-            isMining = true;
-            pendingMiningTimer = true;
-
-            // Step 1: Trigger Direct Link Click immediately
+            // Direct Link သို့ သွားခြင်း
             window.open(getNextDirectLink(), '_blank');
-        });
 
-        function startMining15sProcess() {
-            pendingMiningTimer = false;
+            isMining = true;
+            isTapMiningActive = true;
             tapBtn.classList.add('mining');
             tapInstruction.innerText = "Mining Alta in progress...";
 
             let targetAlta = currentAlta + 1.00;
             let totalSteps = 20;
-            let stepInterval = 750; // Total 15 seconds
+            let stepInterval = 750; // 15s Total Mining
             let stepCount = 0;
 
             let interval = setInterval(() => {
@@ -601,17 +595,19 @@
                     currentAlta = parseFloat(targetAlta.toFixed(2));
                     saveBalance();
                     tapBtn.classList.remove('mining');
+                    isMining = false;
 
-                    // Step 2: Auto Transition to 15s Video Modal
+                    // 15s ပြည့်ပါက Video Ads Modal သို့ တန်းရောက်မည်
                     trigger15SecModalAd(() => {
-                        tapInstruction.innerText = "Tap Alta to mine!";
-                        isMining = false;
+                        tapInstruction.innerText = "Tap to mine Alta again!";
                     });
                 }
             }, stepInterval);
-        }
+        });
 
-        // 15 Seconds Modal Ad Logic
+        /* -------------------------------------------------------------
+           2. Video 15s Modal Logic (Continue Mining Flow)
+        ------------------------------------------------------------- */
         function trigger15SecModalAd(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
@@ -641,40 +637,33 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled && checkNetworkConnection()) {
-                    // Open direct link on Continue Mining click
                     window.open(getNextDirectLink(), '_blank');
+                    
                     adModal.style.display = 'none';
                     isAdShowing = false;
-                    onComplete();
+                    if(onComplete) onComplete();
                 }
             };
         }
 
         /* -------------------------------------------------------------
-           Double Ads & Bottom Ads 15s Timer Verification Logic
+           3. Double Ads & Direct Links 15s Timer Verification Logic
         ------------------------------------------------------------- */
-        function trigger15sDirectAd() {
+        function triggerDirectLink15sVerification() {
             if (!checkNetworkConnection()) return;
             adStartTime = Date.now();
             window.open(getNextDirectLink(), "_blank");
         }
 
-        doubleAdsBtn.addEventListener('click', trigger15sDirectAd);
+        doubleAdsBtn.addEventListener('click', triggerDirectLink15sVerification);
 
-        // Bind all bottom Feed Ads to behave like Double Ads (15s Verification)
-        document.querySelectorAll('.ad-direct-trigger').forEach(item => {
-            item.addEventListener('click', trigger15sDirectAd);
+        // အောက်ပါ Direct Link Ad Cards များကို Click ပါကလည်း 15s Direct Link Verification အလုပ်လုပ်မည်
+        document.querySelectorAll('.direct-reward-item').forEach(item => {
+            item.addEventListener('click', triggerDirectLink15sVerification);
         });
 
-        // Window Focus Event (Triggers when user comes BACK from Direct Link)
+        // User Back ပြန်လာချိန် 15s ပြည့်/မပြည့် စစ်ဆေးခြင်း
         window.addEventListener('focus', () => {
-            // Case 1: Back from Tap Alta Direct Link
-            if (pendingMiningTimer) {
-                startMining15sProcess();
-                return;
-            }
-
-            // Case 2: Back from Double Ads / Feed Direct Links (15s Verification)
             if (adStartTime > 0) {
                 const elapsedSeconds = Math.floor((Date.now() - adStartTime) / 1000);
                 adStartTime = 0;
@@ -682,9 +671,9 @@
                 if (elapsedSeconds >= 15) {
                     currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
                     saveBalance();
-                    showNotification(`Verified 15s viewing! +0.50 ALTA added to balance.`);
+                    showNotification("✅ 15s Verified! +0.50 ALTA added to balance!");
                 } else {
-                    showNotification(`Viewed for ${elapsedSeconds}s only! Must stay full 15s for +0.5 ALTA.`);
+                    showNotification(`❌ Viewed for ${elapsedSeconds}s only! Stay full 15s for +0.5 ALTA.`);
                 }
             }
         });
