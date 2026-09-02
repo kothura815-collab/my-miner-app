@@ -8,7 +8,7 @@
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Optimized Ad Scripts (Lightweight loading) -->
+    <!-- Adsterra / Aclib Script -->
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js" async></script>
     <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', () => {
@@ -23,12 +23,17 @@
             --card-bg: #161b22;
             --primary-gold: #f39c12;
             --accent-blue: #0088cc;
+            --btn-green: #2fa65a;
             --text-color: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
             margin: 0;
-            padding: 10px 0 30px 0;
+            padding: 12px 10px 40px 10px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -36,68 +41,66 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            box-sizing: border-box;
             user-select: none;
             -webkit-user-select: none;
         }
 
-        /* Banner Style */
-        .ad-banner-frame {
-            width: 90%;
-            max-width: 380px;
-            min-height: 60px;
+        /* Responsive Top & Bottom Ad Banners */
+        .ad-banner-box {
+            width: 100%;
+            max-width: 400px;
+            min-height: 65px;
             margin-bottom: 12px;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
             background: #1f293d;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
         .miner-card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 16px;
-            width: 90%;
-            max-width: 380px;
+            border-radius: 18px;
+            padding: 18px;
+            width: 100%;
+            max-width: 400px;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.05);
-            position: relative;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.06);
             margin-bottom: 15px;
-            box-sizing: border-box;
         }
 
-        .title { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+        .title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
 
         .balance-display {
-            font-size: 34px;
+            font-size: 38px;
             font-weight: bold;
             color: var(--primary-gold);
-            margin: 4px 0;
-            text-shadow: 0 0 8px rgba(243, 156, 18, 0.3);
+            margin: 6px 0;
+            text-shadow: 0 0 10px rgba(243, 156, 18, 0.35);
         }
 
-        .status { font-size: 12px; color: #2ec4b6; margin-bottom: 10px; }
+        .status { font-size: 13px; color: #2ec4b6; margin-bottom: 14px; }
 
         .logo-container {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 10px auto;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 12px auto;
             border-radius: 50%;
             padding: 4px;
             cursor: pointer;
-            box-shadow: 0 0 15px rgba(243, 156, 18, 0.4);
+            box-shadow: 0 0 18px rgba(243, 156, 18, 0.5);
             animation: pulse-glow 2s infinite ease-in-out;
         }
 
         @keyframes pulse-glow {
-            0% { transform: scale(1); box-shadow: 0 0 10px rgba(0, 136, 204, 0.4); }
-            50% { transform: scale(1.02); box-shadow: 0 0 20px rgba(243, 156, 18, 0.7); }
-            100% { transform: scale(1); box-shadow: 0 0 10px rgba(0, 136, 204, 0.4); }
+            0% { transform: scale(1); box-shadow: 0 0 12px rgba(0, 136, 204, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 0 24px rgba(243, 156, 18, 0.8); }
+            100% { transform: scale(1); box-shadow: 0 0 12px rgba(0, 136, 204, 0.4); }
         }
 
         .coin-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
@@ -108,22 +111,21 @@
             100% { transform: rotateY(360deg); }
         }
 
-        .tap-instruction { font-size: 12px; color: #8b949e; margin-bottom: 10px; }
+        .tap-instruction { font-size: 13px; color: #8b949e; margin-bottom: 14px; }
 
         .action-btn {
             width: 100%;
-            padding: 12px 14px;
+            padding: 13px 16px;
             color: #fff;
             border: none;
-            border-radius: 10px;
-            font-size: 13px;
+            border-radius: 12px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-sizing: border-box;
         }
 
         .action-btn:active { transform: scale(0.98); }
@@ -135,34 +137,34 @@
         .btn-bonus { background: linear-gradient(90deg, #d35400, #e67e22); }
 
         .ads-feed-container {
-            width: 90%;
-            max-width: 380px;
+            width: 100%;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 15px;
         }
 
+        /* 15s Video Modal */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(13, 17, 23, 0.96);
+            background: rgba(13, 17, 23, 0.97);
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
             padding: 20px 15px;
-            box-sizing: border-box;
             z-index: 1000;
         }
 
         .ad-modal-content {
             width: 100%;
-            max-width: 340px;
+            max-width: 360px;
             height: 220px;
             background: #161b22;
-            border-radius: 12px;
-            border: 1px solid #21262d;
+            border-radius: 14px;
+            border: 1px solid #2a3547;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -171,13 +173,13 @@
 
         .btn-continue {
             width: 100%;
-            max-width: 340px;
-            padding: 13px;
+            max-width: 360px;
+            padding: 14px;
             background: #234b6e;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             color: #ffffff;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
             cursor: not-allowed;
             opacity: 0.6;
@@ -189,30 +191,29 @@
             cursor: pointer;
         }
 
-        /* Payout Modal Styles */
+        /* Withdraw Modal */
         .payout-card {
             background: #121824;
             border: 2px solid var(--primary-gold);
-            border-radius: 14px;
-            padding: 18px;
-            width: 85%;
-            max-width: 320px;
+            border-radius: 16px;
+            padding: 20px;
+            width: 90%;
+            max-width: 340px;
         }
 
         .input-group input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             border: 1px solid #2a3547;
             background: #090d14;
             color: #fff;
-            box-sizing: border-box;
             margin-bottom: 8px;
         }
 
         .btn-submit {
             width: 100%;
-            padding: 11px;
+            padding: 12px;
             background: #27ae60;
             border: none;
             border-radius: 8px;
@@ -231,36 +232,31 @@
 
         .toast-popup {
             position: fixed;
-            top: 20px;
+            top: 25px;
             left: 50%;
             transform: translateX(-50%);
             background: #1f293d;
             color: #fff;
-            padding: 10px 18px;
-            border-radius: 20px;
+            padding: 12px 22px;
+            border-radius: 25px;
             font-size: 13px;
             font-weight: 600;
             border: 1px solid var(--primary-gold);
             display: none;
             z-index: 9999;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            max-width: 80%;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.6);
+            max-width: 85%;
         }
     </style>
 </head>
 <body>
 
-    <!-- Notification Toast -->
+    <!-- Toast Notification -->
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- Top Display Ad Banner -->
-    <div class="ad-banner-frame" id="topAdBanner">
-        <!-- Responsive High CPM Display Ads Component -->
-        <a href="https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a" target="_blank" style="color:#f39c12; font-weight:bold; text-decoration:none; padding:10px;">
-            ⚡ [SPONSORED] Fast Crypto Loan & Instant Rewards ->
-        </a>
-    </div>
+    <!-- Top Auto Rotating Display Ad Banner (6s - 10s) -->
+    <div class="ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
@@ -280,6 +276,7 @@
         </button>
 
         <button class="action-btn btn-withdraw" id="openWithdrawModal">Withdraw Alta (Min: 150)</button>
+
         <button class="action-btn btn-share" id="shareBtn">
             <span>🚀 Share Link</span>
             <span>+5 ALTA</span>
@@ -297,34 +294,28 @@
     </div>
 
     <div class="ads-feed-container">
-        <!-- Native Ad Container -->
-        <div class="ad-banner-frame">
+        <!-- Native Ad Block -->
+        <div class="ad-banner-box">
             <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <!-- Bottom Banner Ad -->
-        <div class="ad-banner-frame">
-            <a href="https://plump-plastic.com/PEwa43" target="_blank" style="color:#2ecc71; font-weight:bold; text-decoration:none; padding:10px;">
-                🎮 Play Games & Win Free Crypto Bonuses Now!
-            </a>
-        </div>
+        <!-- Bottom Auto Rotating Ad Banner -->
+        <div class="ad-banner-box" id="bottomAdRotateBox"></div>
     </div>
 
     <!-- 15s Video / High CPM Modal Ad -->
     <div class="modal-overlay" id="adModal">
-        <div class="ad-banner-frame" id="modalTopAdBox">
-            <span style="color:#0088cc; font-weight:bold;">🔥 Sponsored Ad Offer</span>
-        </div>
+        <div class="ad-banner-box" id="modalTopAdBox"></div>
         
         <div class="ad-modal-content" id="modalCenterAdBox">
-            <iframe id="adFrame" src="https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a" style="width:100%; height:100%; border:none;"></iframe>
+            <iframe id="modalAdIframe" src="" style="width:100%; height:100%; border:none;"></iframe>
         </div>
 
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait 15s...</button>
     </div>
 
-    <!-- Withdraw Modal (Logic Untouched) -->
+    <!-- Withdraw Modal -->
     <div class="modal-overlay" id="payoutModal" style="justify-content: center;">
         <div class="payout-card">
             <h3 style="color: var(--primary-gold); margin-top:0; text-align:center;">Withdrawal Request</h3>
@@ -409,6 +400,7 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 3000);
         }
 
+        /* Direct Link Pools */
         const directLinks = [
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
             'https://plump-plastic.com/PEwa43'
@@ -417,10 +409,40 @@
             return directLinks[Math.floor(Math.random() * directLinks.length)];
         }
 
-        /* 1. Mining Flow */
+        /* -------------------------------------------------------------
+           Auto Rotating Banners Engine (6s to 10s Random Rotation)
+        ------------------------------------------------------------- */
+        const bannerPool = [
+            `<a href="${getRandomLink()}" target="_blank" style="color:#f39c12; font-weight:bold; text-decoration:none; padding:10px;">🔥 [SPONSORED] High CPM Crypto & Loan Deals (Click View)</a>`,
+            `<a href="${getRandomLink()}" target="_blank" style="color:#2ecc71; font-weight:bold; text-decoration:none; padding:10px;">🎮 Play Games & Earn Instant Rewards Today!</a>`,
+            `<a href="${getRandomLink()}" target="_blank" style="color:#0088cc; font-weight:bold; text-decoration:none; padding:10px;">⚡ Fast Payout Offers & Bonus Deals</a>`
+        ];
+
+        function rotateBannerAds() {
+            const topBox = document.getElementById('topAdRotateBox');
+            const bottomBox = document.getElementById('bottomAdRotateBox');
+            const modalTopBox = document.getElementById('modalTopAdBox');
+
+            const rand1 = bannerPool[Math.floor(Math.random() * bannerPool.length)];
+            const rand2 = bannerPool[Math.floor(Math.random() * bannerPool.length)];
+
+            if (topBox) topBox.innerHTML = rand1;
+            if (bottomBox) bottomBox.innerHTML = rand2;
+            if (modalTopBox) modalTopBox.innerHTML = rand1;
+
+            // 6000ms (6s) to 10000ms (10s) Random Interval
+            const nextTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
+            setTimeout(rotateBannerAds, nextTime);
+        }
+        rotateBannerAds();
+
+        /* -------------------------------------------------------------
+           1. Tap Mining Flow
+        ------------------------------------------------------------- */
         tapBtn.addEventListener('click', () => {
             if (isMining || isAdShowing) return;
 
+            // Open New Link on Tap Click
             window.open(getRandomLink(), '_blank');
 
             isMining = true;
@@ -433,11 +455,12 @@
                 currentAlta = parseFloat((currentAlta + 0.05).toFixed(2));
                 updateUI();
 
-                if (stepCount >= 20) { // 15 Seconds
+                if (stepCount >= 20) { // 15s Completed
                     clearInterval(interval);
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
+                    // Trigger 15s Video Modal Ad
                     trigger15SecModalAd(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                     });
@@ -445,9 +468,12 @@
             }, 750);
         });
 
-        /* 2. Video Modal Ad Flow */
+        /* -------------------------------------------------------------
+           2. 15s Video Modal Ad Flow
+        ------------------------------------------------------------- */
         function trigger15SecModalAd(onComplete) {
             isAdShowing = true;
+            document.getElementById('modalAdIframe').src = getRandomLink();
             adModal.style.display = 'flex';
             continueAdBtn.disabled = true;
             continueAdBtn.classList.remove('active');
@@ -460,7 +486,7 @@
                     clearInterval(adInterval);
                     continueAdBtn.disabled = false;
                     continueAdBtn.classList.add('active');
-                    continueAdBtn.innerText = "Continue Mining";
+                    continueAdBtn.innerText = "Continue Ads Mining";
                 } else {
                     continueAdBtn.innerText = `Please wait ${timeLeft}s...`;
                 }
@@ -468,15 +494,19 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled) {
+                    // Click Continue -> Open New Link -> Back to Tap
+                    window.open(getRandomLink(), '_blank');
                     adModal.style.display = 'none';
                     isAdShowing = false;
-                    showNotification("Mining Completed! Reward added!");
+                    showNotification("✅ Mining Reward Added Successfully!");
                     if(onComplete) onComplete();
                 }
             };
         }
 
-        /* 3. High CPM Direct Task Flow */
+        /* -------------------------------------------------------------
+           3. Task Buttons & Direct Link Ads
+        ------------------------------------------------------------- */
         function startDirectTask(type) {
             activeTaskType = type;
             adStartTime = Date.now();
@@ -522,7 +552,7 @@
             }
         });
 
-        /* Share Button Fix */
+        /* Share Button */
         document.getElementById('shareBtn').addEventListener('click', () => {
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let botUsername = "AltaHub_ads_bot";
