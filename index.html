@@ -53,6 +53,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
         }
 
         .top-ad-banner-box iframe {
@@ -60,6 +61,7 @@
             height: 75px !important;
             border: none;
             display: block;
+            pointer-events: none;
         }
 
         .miner-card {
@@ -170,6 +172,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
         }
 
         .ad-card-item iframe {
@@ -177,6 +180,7 @@
             height: 220px;
             border: none;
             background: #000;
+            pointer-events: none;
         }
 
         .bottom-ad-rotate-box {
@@ -191,6 +195,7 @@
             width: 100%;
             height: 120px;
             border: none;
+            pointer-events: none;
         }
 
         .modal-overlay {
@@ -218,12 +223,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
         }
 
         .modal-top-banner iframe {
             width: 100% !important;
             height: 75px !important;
             border: 0;
+            pointer-events: none;
         }
 
         .ad-modal-content {
@@ -241,12 +248,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
         }
 
         .ad-modal-content iframe {
             width: 100%;
             height: 100%;
             border: none;
+            pointer-events: none;
         }
 
         .btn-continue {
@@ -329,7 +338,7 @@
 </head>
 <body>
 
-    <!-- Main Top Auto-Rotating Ads Container (Figure 1 Top Green Box) -->
+    <!-- Main Top Auto-Rotating Ads Container -->
     <div class="top-ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
@@ -352,23 +361,23 @@
     </div>
 
     <div class="ads-feed-container" id="adsFeedContainer">
-        <!-- Monetized YouTube Video Feed Container (Yellow Box in Image 1) -->
-        <div class="ad-card-item">
+        <!-- Monetized YouTube Video Feed Container -->
+        <div class="ad-card-item" id="ytFeedCard">
             <iframe id="videoFeedFrame" src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&enablejsapi=1" allow="autoplay; encrypted-media"></iframe>
         </div>
 
         <!-- Native Ad Container -->
-        <div class="ad-card-item">
+        <div class="ad-card-item" id="nativeAdCard">
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <!-- Bottom Auto-Rotate Impression Revenue Ads Container (Figure 1 Bottom Green Box) -->
-        <div class="ad-card-item" style="padding: 10px 0;">
+        <!-- Bottom Auto-Rotate Impression Revenue Ads Container -->
+        <div class="ad-card-item" style="padding: 10px 0;" id="bottomAdCard">
             <div class="bottom-ad-rotate-box" id="bottomAdRotateBox"></div>
         </div>
     </div>
 
-    <!-- 15s Video Modal (Figure 2 Green Boxes) -->
+    <!-- 15s Video Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="modal-top-banner" id="modalTopAdBox"></div>
         
@@ -453,7 +462,7 @@
         }
 
         /* -------------------------------------------------------------
-           High-CPM Direct Links Pool (Crypto, Loans, Financial Smart Smart-Links)
+           High-CPM Direct Links Pool (Crypto, Loans, Financial Smart-Links)
         ------------------------------------------------------------- */
         const directLinkPool = [
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
@@ -488,7 +497,6 @@
 
         /* -------------------------------------------------------------
            Auto-Rotating Impression Revenue Banner Engine (6s to 10s Random)
-           Loans, Crypto, Games Impression Monetization Networks
         ------------------------------------------------------------- */
         const rotateAdSources = [
             "https://acceptable.a-ads.com/2454008/?size=Adaptive",
@@ -518,7 +526,6 @@
 
             updateYouTubeAd();
 
-            // Next rotation scheduled randomly between 6,000ms (6s) and 10,000ms (10s)
             const nextInterval = getRandomInt(6000, 10000);
             setTimeout(triggerRandomRotation, nextInterval);
         }
@@ -552,7 +559,9 @@
         window.addEventListener('offline', checkNetworkConnection);
         window.addEventListener('online', checkNetworkConnection);
 
-        // Tap Mining Logic
+        /* -------------------------------------------------------------
+           Tap Mining Step-by-Step Flow (15s Mining -> Video Modal -> Back)
+        ------------------------------------------------------------- */
         tapBtn.addEventListener('click', (e) => {
             if (!checkNetworkConnection()) return;
 
@@ -565,14 +574,15 @@
 
             if (isMining || isAdShowing) return;
 
+            // Direct Link ခေါ်ယူပြီး ပွင့်သွားမည်
             window.open(getNextDirectLink(), '_blank');
 
             isMining = true;
             tapBtn.classList.add('mining');
-            tapInstruction.innerText = "Mining Alta in progress (10s)...";
+            tapInstruction.innerText = "Mining Alta in progress (15s)...";
 
             let targetAlta = currentAlta + 1.00;
-            let totalSteps = 20;
+            let totalSteps = 30; // 15s တိတိ (500ms x 30)
             let stepInterval = 500;
             let stepCount = 0;
 
@@ -585,7 +595,7 @@
                 }
 
                 stepCount++;
-                currentAlta = parseFloat((currentAlta + 0.05).toFixed(2));
+                currentAlta = parseFloat((currentAlta + (1.00 / totalSteps)).toFixed(2));
                 saveBalance();
 
                 if (stepCount >= totalSteps) {
@@ -595,6 +605,7 @@
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
+                    // 15s Mining ပြည့်သည်နှင့် Video Modal သို့ တန်းရောက်မည်
                     trigger15SecModalAd(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                     });
@@ -602,7 +613,9 @@
             }, stepInterval);
         });
 
-        // 15 Seconds Modal Ad Logic
+        /* -------------------------------------------------------------
+           15 Seconds Video Modal Logic
+        ------------------------------------------------------------- */
         function trigger15SecModalAd(onComplete) {
             isAdShowing = true;
             adModal.style.display = 'flex';
@@ -624,7 +637,7 @@
                     clearInterval(adInterval);
                     continueAdBtn.disabled = false;
                     continueAdBtn.classList.add('active');
-                    continueAdBtn.innerText = "Continue Mining";
+                    continueAdBtn.innerText = "Continue Ads Mining";
                 } else {
                     continueAdBtn.innerText = `Please wait ${timeLeft}s...`;
                 }
@@ -632,6 +645,7 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled && checkNetworkConnection()) {
+                    // Direct link ခေါ်ယူပြီး ပွင့်သွားပါမည်
                     window.open(getNextDirectLink(), '_blank');
                     
                     adModal.style.display = 'none';
@@ -641,14 +655,24 @@
             };
         }
 
-        // Double Ads 15s Button Logic
-        doubleAdsBtn.addEventListener('click', () => {
+        /* -------------------------------------------------------------
+           Double Ads & Ads Feed Click Flow (15s Verification on Back)
+        ------------------------------------------------------------- */
+        function handleAdItemClick() {
             if (!checkNetworkConnection()) return;
-
             adStartTime = Date.now();
             window.open(getNextDirectLink(), "_blank");
-        });
+        }
 
+        doubleAdsBtn.addEventListener('click', handleAdItemClick);
+        document.getElementById('topAdRotateBox').addEventListener('click', handleAdItemClick);
+        document.getElementById('ytFeedCard').addEventListener('click', handleAdItemClick);
+        document.getElementById('nativeAdCard').addEventListener('click', handleAdItemClick);
+        document.getElementById('bottomAdCard').addEventListener('click', handleAdItemClick);
+        document.getElementById('modalTopAdBox').addEventListener('click', handleAdItemClick);
+        document.getElementById('modalCenterAdBox').addEventListener('click', handleAdItemClick);
+
+        // User Direct Link ကြည့်ပြီး Back ပြန်လုပ်ချိန် 15s ပြည့်/မပြည့် စစ်ဆေးခြင်း
         window.addEventListener('focus', () => {
             if (adStartTime > 0) {
                 const elapsedSeconds = Math.floor((Date.now() - adStartTime) / 1000);
@@ -657,13 +681,16 @@
                 if (elapsedSeconds >= 15) {
                     currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
                     saveBalance();
-                    showNotification("15s Verified! +0.50 ALTA added to balance!");
+                    showNotification(`15s Verified! (${elapsedSeconds}s) +0.50 ALTA added to balance!`);
                 } else {
                     showNotification(`Viewed for ${elapsedSeconds}s only! Must stay full 15s for +0.5 ALTA.`);
                 }
             }
         });
 
+        /* -------------------------------------------------------------
+           Share & Withdraw Modal Handlers
+        ------------------------------------------------------------- */
         shareBtn.addEventListener('click', () => {
             if (!checkNetworkConnection()) return;
             let userId = tg?.initDataUnsafe?.user?.id || "user";
