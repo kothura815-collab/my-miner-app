@@ -8,7 +8,7 @@
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Adsterra / Aclib Script Integration -->
+    <!-- Adsterra / Aclib Script -->
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js" async></script>
     <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', () => {
@@ -27,7 +27,9 @@
             --text-color: #ffffff;
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
@@ -43,11 +45,11 @@
             -webkit-user-select: none;
         }
 
-        /* Auto Rotating Ad Banner Container */
+        /* Responsive Top & Bottom Ad Banners */
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
-            min-height: 80px;
+            min-height: 65px;
             margin-bottom: 12px;
             border-radius: 12px;
             overflow: hidden;
@@ -58,22 +60,6 @@
             align-items: center;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            position: relative;
-        }
-
-        .ad-banner-box a {
-            display: block;
-            width: 100%;
-            height: 100%;
-            text-decoration: none;
-        }
-
-        .ad-banner-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: opacity 0.5s ease-in-out;
         }
 
         .miner-card {
@@ -159,33 +145,7 @@
             margin-bottom: 15px;
         }
 
-        /* Native Feed Ad Cards (Image + Title) */
-        .native-ad-card {
-            width: 100%;
-            background: #161b22;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .native-ad-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
-        .native-ad-card .ad-title {
-            padding: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            text-align: center;
-            color: #d0d7de;
-            background: #0d1117;
-        }
-
-        /* Modal Overlay */
+        /* 15s Video Modal */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -201,7 +161,7 @@
         .ad-modal-content {
             width: 100%;
             max-width: 360px;
-            height: 250px;
+            height: 220px;
             background: #161b22;
             border-radius: 14px;
             border: 1px solid #2a3547;
@@ -209,7 +169,6 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            position: relative;
         }
 
         .btn-continue {
@@ -293,9 +252,10 @@
 </head>
 <body>
 
+    <!-- Toast Notification -->
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- Top Auto Rotating Banner Ad -->
+    <!-- Top Auto Rotating Display Ad Banner (6s - 10s) -->
     <div class="ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
@@ -309,6 +269,7 @@
 
         <div class="tap-instruction" id="tapInstruction">Tap to mine Alta!</div>
 
+        <!-- Action Buttons -->
         <button class="action-btn btn-double" id="doubleAdsBtn">
             <span>⚡ Double Ads 15s</span>
             <span>+0.5 ALTA</span>
@@ -332,17 +293,25 @@
         </button>
     </div>
 
-    <!-- Native Ads Feed (Auto Rotating Cards) -->
     <div class="ads-feed-container">
-        <div class="native-ad-card" id="nativeAdCard1"></div>
-        <div class="native-ad-card" id="nativeAdCard2"></div>
+        <!-- Native Ad Block -->
+        <div class="ad-banner-box">
+            <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
+            <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
+        </div>
+
+        <!-- Bottom Auto Rotating Ad Banner -->
         <div class="ad-banner-box" id="bottomAdRotateBox"></div>
     </div>
 
-    <!-- 15s Video / Modal Ad Popup -->
+    <!-- 15s Video / High CPM Modal Ad -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-banner-box" id="modalTopAdBox"></div>
-        <div class="ad-modal-content" id="modalCenterAdBox"></div>
+        
+        <div class="ad-modal-content" id="modalCenterAdBox">
+            <iframe id="modalAdIframe" src="" style="width:100%; height:100%; border:none;"></iframe>
+        </div>
+
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait 15s...</button>
     </div>
 
@@ -441,59 +410,31 @@
         }
 
         /* -------------------------------------------------------------
-           Continuous Image Ad Pool & Auto Rotation (6s ~ 10s Loop)
+           Auto Rotating Banners Engine (6s to 10s Random Rotation)
         ------------------------------------------------------------- */
-        const imageAdPool = [
-            { img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80', title: 'Russian hotties wanna date', link: getRandomLink() },
-            { img: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=600&q=80', title: 'Live football streaming!', link: getRandomLink() },
-            { img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80', title: 'Digger: Watch Now', link: getRandomLink() },
-            { img: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=600&q=80', title: 'Inside Out 2: Stream Now!', link: getRandomLink() },
-            { img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80', title: 'Play Games & Earn Instant Rewards Today!', link: getRandomLink() }
+        const bannerPool = [
+            `<a href="${getRandomLink()}" target="_blank" style="color:#f39c12; font-weight:bold; text-decoration:none; padding:10px;">🔥 [SPONSORED] High CPM Crypto & Loan Deals (Click View)</a>`,
+            `<a href="${getRandomLink()}" target="_blank" style="color:#2ecc71; font-weight:bold; text-decoration:none; padding:10px;">🎮 Play Games & Earn Instant Rewards Today!</a>`,
+            `<a href="${getRandomLink()}" target="_blank" style="color:#0088cc; font-weight:bold; text-decoration:none; padding:10px;">⚡ Fast Payout Offers & Bonus Deals</a>`
         ];
 
-        function startContinuousAdRotation() {
-            function updateAds() {
-                const itemTop = imageAdPool[Math.floor(Math.random() * imageAdPool.length)];
-                const itemBottom = imageAdPool[Math.floor(Math.random() * imageAdPool.length)];
-                const itemCard1 = imageAdPool[Math.floor(Math.random() * imageAdPool.length)];
-                const itemCard2 = imageAdPool[Math.floor(Math.random() * imageAdPool.length)];
+        function rotateBannerAds() {
+            const topBox = document.getElementById('topAdRotateBox');
+            const bottomBox = document.getElementById('bottomAdRotateBox');
+            const modalTopBox = document.getElementById('modalTopAdBox');
 
-                // Top & Bottom Banners
-                document.getElementById('topAdRotateBox').innerHTML = `<a href="${itemTop.link}" target="_blank"><img src="${itemTop.img}" alt="Ad"></a>`;
-                document.getElementById('bottomAdRotateBox').innerHTML = `<a href="${itemBottom.link}" target="_blank"><img src="${itemBottom.img}" alt="Ad"></a>`;
+            const rand1 = bannerPool[Math.floor(Math.random() * bannerPool.length)];
+            const rand2 = bannerPool[Math.floor(Math.random() * bannerPool.length)];
 
-                // Native Feed Cards (Image + Title)
-                document.getElementById('nativeAdCard1').innerHTML = `
-                    <a href="${itemCard1.link}" target="_blank">
-                        <img src="${itemCard1.img}" alt="Ad Image">
-                        <div class="ad-title">${itemCard1.title}</div>
-                    </a>`;
+            if (topBox) topBox.innerHTML = rand1;
+            if (bottomBox) bottomBox.innerHTML = rand2;
+            if (modalTopBox) modalTopBox.innerHTML = rand1;
 
-                document.getElementById('nativeAdCard2').innerHTML = `
-                    <a href="${itemCard2.link}" target="_blank">
-                        <img src="${itemCard2.img}" alt="Ad Image">
-                        <div class="ad-title">${itemCard2.title}</div>
-                    </a>`;
-
-                // Modal Banner Refresh
-                if(isAdShowing) {
-                    const itemModal = imageAdPool[Math.floor(Math.random() * imageAdPool.length)];
-                    document.getElementById('modalCenterAdBox').innerHTML = `
-                        <a href="${itemModal.link}" target="_blank">
-                            <img src="${itemModal.img}" style="width:100%; height:100%; object-fit:cover;" />
-                        </a>`;
-                }
-
-                // Random interval between 6,000ms (6s) and 10,000ms (10s)
-                const nextInterval = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
-                setTimeout(updateAds, nextInterval);
-            }
-
-            updateAds();
+            // 6000ms (6s) to 10000ms (10s) Random Interval
+            const nextTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
+            setTimeout(rotateBannerAds, nextTime);
         }
-
-        // Trigger Auto Rotation Engine Immediately
-        startContinuousAdRotation();
+        rotateBannerAds();
 
         /* -------------------------------------------------------------
            1. Tap Mining Flow
@@ -501,6 +442,7 @@
         tapBtn.addEventListener('click', () => {
             if (isMining || isAdShowing) return;
 
+            // Open New Link on Tap Click
             window.open(getRandomLink(), '_blank');
 
             isMining = true;
@@ -513,11 +455,12 @@
                 currentAlta = parseFloat((currentAlta + 0.05).toFixed(2));
                 updateUI();
 
-                if (stepCount >= 20) {
+                if (stepCount >= 20) { // 15s Completed
                     clearInterval(interval);
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
+                    // Trigger 15s Video Modal Ad
                     trigger15SecModalAd(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                     });
@@ -530,11 +473,7 @@
         ------------------------------------------------------------- */
         function trigger15SecModalAd(onComplete) {
             isAdShowing = true;
-            const modalCenterBox = document.getElementById('modalCenterAdBox');
-            const item = imageAdPool[Math.floor(Math.random() * imageAdPool.length)];
-            
-            modalCenterBox.innerHTML = `<a href="${item.link}" target="_blank"><img src="${item.img}" style="width:100%; height:100%; object-fit:cover;" /></a>`;
-
+            document.getElementById('modalAdIframe').src = getRandomLink();
             adModal.style.display = 'flex';
             continueAdBtn.disabled = true;
             continueAdBtn.classList.remove('active');
@@ -555,6 +494,7 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled) {
+                    // Click Continue -> Open New Link -> Back to Tap
                     window.open(getRandomLink(), '_blank');
                     adModal.style.display = 'none';
                     isAdShowing = false;
@@ -565,7 +505,7 @@
         }
 
         /* -------------------------------------------------------------
-           3. Task Buttons Logic
+           3. Task Buttons & Direct Link Ads
         ------------------------------------------------------------- */
         function startDirectTask(type) {
             activeTaskType = type;
