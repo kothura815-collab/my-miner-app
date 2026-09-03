@@ -6,29 +6,11 @@
     <title>Alta Ads Miner</title>
     <meta name="referrer" content="no-referrer-when-downgrade" />
     
-    <!-- Telegram WebApp SDK -->
+    <!-- Telegram WebApp SDK Only -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- STEP 5: Clickadu Verification -->
+    <!-- Clickadu Verification -->
     <meta name="clckd" content="0cc8ffbae2313e820c2d17074f2ecc60" />
-
-    <!-- STEP 1: RichAds (In-Page Push & Popunder Scripts) -->
-    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
-    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
-    <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
-
-    <!-- STEP 4: Adcash AutoTag Script -->
-    <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
-    <script type="text/javascript">
-        if (typeof aclib !== 'undefined') {
-            aclib.runAutoTag({ zoneId: 'jaxxc0ldkk' });
-        }
-    </script>
-
-    <!-- STEP 3: HilltopAds Banner/Invoke Scripts -->
-    <script src="https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js" async></script>
-    <script src="https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js" async></script>
-    <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
 
     <style>
         :root {
@@ -346,7 +328,7 @@
         </button>
     </div>
 
-    <!-- STEP 3: HilltopAds Native Ad Placement -->
+    <!-- HilltopAds Native Ad Placement -->
     <div id="container-1cec679dbd5cf50d60afe3c148706d87" style="margin-bottom: 12px; width: 100%; max-width: 400px;"></div>
 
     <!-- BOTTOM DYNAMIC BANNER -->
@@ -467,15 +449,12 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 3000);
         }
 
-        /* DIRECT LINKS (Priority: STEP 1 - RichAds Priority -> STEP 2 - Adsterra -> STEP 3 - HilltopAds) */
+        /* DIRECT LINKS (Priority: RichAds -> Adsterra -> HilltopAds) */
         const directLinks = [
-            // STEP 1: RichAds High-CPM Direct Link / Landing Priority
             'https://richinfo.co/richpartners/pops/js/richads-pu-ob.js',
-            // STEP 2: Adsterra Direct Links
             'https://plump-plastic.com/PEwa43',
             'https://plump-plastic.com/b.3CV-0xPm3Lp/vNb/m/VcJAZ/Du0v3/MqzUY/3UMXzRAD1WLcTMc/zNN/jCc/zFMsDjkW',
             'https://plump-plastic.com/bX3ZV.0sPb3Wpiv/bkm/V/JwZiDe0g3/M-zkY/3/MJzmAU1ILhTTcJz-NyjhcPzFMBDWkg',
-            // STEP 3: HilltopAds Direct Links
             'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a'
         ];
@@ -503,7 +482,6 @@
             </div>`;
         }
 
-        // Auto-Rotate Banners (6s - 10s Smooth Loop)
         function rotateBannerAds() {
             const topBox = document.getElementById('topAdRotateBox');
             const bottomBox = document.getElementById('bottomAdRotateBox');
@@ -518,7 +496,7 @@
             if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item1);
             if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item2);
 
-            const randomTime = Math.floor(Math.random() * 4000) + 6000; // 6000ms - 10000ms
+            const randomTime = Math.floor(Math.random() * 4000) + 6000;
             setTimeout(rotateBannerAds, randomTime);
         }
         rotateBannerAds();
@@ -618,7 +596,7 @@
             startDirectTask('bonus');
         });
 
-        /* 15s Time Verification & Task Release */
+        /* 15s Time Verification */
         window.addEventListener('focus', () => {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
@@ -634,7 +612,7 @@
                         showNotification(`✅ 15s Completed! +1.00 ALTA Added (${highAdsCount}/100)`);
                     } else if (activeTaskType === 'bonus') {
                         bonusCount++;
-                        const bonus = Math.floor(Math.random() * 3) + 1; // +1 to +3 ALTA
+                        const bonus = Math.floor(Math.random() * 3) + 1;
                         currentAlta = parseFloat((currentAlta + bonus).toFixed(2));
                         showNotification(`🎁 15s Completed! +${bonus}.00 ALTA Bonus Added (${bonusCount}/30)`);
                     }
@@ -710,22 +688,46 @@
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
         });
 
-        /* Background Deferred Execution (STEP 3: HilltopAds Scripts) */
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const hilltopScripts = [
+        /* DEFERRED AD NETWORK SCRIPT LOADING (Fixes Infinite Loading) */
+        function loadScript(src, isAsync = true, dataAttrs = {}) {
+            return new Promise((resolve) => {
+                const s = document.createElement('script');
+                s.src = src;
+                s.async = isAsync;
+                Object.keys(dataAttrs).forEach(key => s.setAttribute(key, dataAttrs[key]));
+                s.onload = () => resolve();
+                s.onerror = () => resolve(); // Prevent blocking on error
+                document.body.appendChild(s);
+            });
+        }
+
+        window.addEventListener('load', async () => {
+            // Load Ad Networks Step-by-Step after UI is rendered
+            setTimeout(async () => {
+                // 1. RichAds
+                await loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187");
+                await loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146");
+                await loadScript("https://richinfo.co/richpartners/pops/js/richads-pu-ob.js", true, { "data-pubid": "1021768", "data-siteid": "406140" });
+
+                // 2. Adcash
+                await loadScript("//acscdn.com/script/aclib.js");
+                if (typeof aclib !== 'undefined') {
+                    aclib.runAutoTag({ zoneId: 'jaxxc0ldkk' });
+                }
+
+                // 3. HilltopAds
+                await loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
+                await loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
+                await loadScript("https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js");
+
+                // Background Hilltop scripts
+                const hilltopBackgrounds = [
                     "//relieved-understanding.com/bvX.VgsldvGxlE0kY/W/cb/heFmE9xuLZcUZlukePmT/c/zVNRjjcIzQMCTcMOtkNuz/MD2cNHzfMhxRNvwO",
                     "//relieved-understanding.com/bYX.VwsMd/G_ld0_Y/WDcf/LeImU9zuCZaUslwkTP/TAcAzNNYz/EQzfMBzvcFtdNQzPMO3/MzT/Mv0wMmQx",
                     "//relieved-understanding.com/b.XaVnsIdfGQlW0/YCW/cG/seDmI9UufZPU/lXkxPbT/cMzpNozpEIz/NlT/MLt_NQzYMs3eM/T/MH1gN/wF"
                 ];
-                hilltopScripts.forEach(url => {
-                    const s = document.createElement('script');
-                    s.src = url;
-                    s.async = true;
-                    s.referrerPolicy = 'no-referrer-when-downgrade';
-                    document.body.appendChild(s);
-                });
-            }, 2500);
+                hilltopBackgrounds.forEach(url => loadScript(url));
+            }, 1000);
         });
     </script>
 </body>
