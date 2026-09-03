@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Alta Ads Miner</title>
+    <meta name="referrer" content="no-referrer-when-downgrade" />
     
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Adsterra AutoTag / Direct Script Integration -->
+    <!-- Ad Network Script Integrations (RichAds Popunder & AutoTag) -->
+    <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
+    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
+    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
+
+    <!-- Adsterra Engine -->
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js" async></script>
     <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', () => {
             if(window.aclib) aclib.runAutoTag({ zoneId: 'jaxxc0ldkk' });
         });
     </script>
-    <meta name="referrer" content="no-referrer-when-downgrade" />
 
     <style>
         :root {
@@ -303,9 +308,7 @@
     <div class="toast-popup" id="customToast"></div>
 
     <!-- TOP VIDEO AD CONTAINER -->
-    <div class="ad-banner-box" id="topAdRotateBox">
-        <!-- Ad Network Video Script သို့မဟုတ် Native Player Auto Render -->
-    </div>
+    <div class="ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
@@ -342,24 +345,20 @@
     </div>
 
     <div class="ads-feed-container">
-        <!-- Native Banner Ad -->
-        <div class="ad-banner-box" style="min-height:250px;">
+        <!-- Native Banner Ad Slot -->
+        <div class="ad-banner-box" style="min-height:250px;" id="nativeBannerBox">
             <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
         <!-- BOTTOM VIDEO AD CONTAINER -->
-        <div class="ad-banner-box" id="bottomAdRotateBox">
-            <!-- Ad Network Video Script သို့မဟုတ် Native Player Auto Render -->
-        </div>
+        <div class="ad-banner-box" id="bottomAdRotateBox"></div>
     </div>
 
     <!-- Video Reward Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-banner-box" id="modalTopAdBox"></div>
-        
         <div class="ad-modal-content" id="modalCenterAdBox"></div>
-
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait 15s...</button>
     </div>
 
@@ -447,22 +446,26 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 3000);
         }
 
-        /* Direct Link Pool (High CPM Revenue Links) */
+        /* High CPM Direct Link Pool Rotator */
         const directLinks = [
-            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb'
+            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
+            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
+            'https://plump-plastic.com/PEwa43',
+            'https://plump-plastic.com/bX3ZV.0sPb3Wpiv/bkm/V/JwZiDe0g3/M-zkY/3/MJzmAU1ILhTTcJz-NyjhcPzFMBDWkg'
         ];
+        
         function getRandomLink() {
             return directLinks[Math.floor(Math.random() * directLinks.length)];
         }
 
-        /* Video Ad Pool for Revenue Generation */
+        /* Video / Display Ad Card Generator */
         const videoAdPool = [
             `<div class="video-ad-card">
                 <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400">
                     <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-and-data-41538-large.mp4" type="video/mp4">
                 </video>
                 <div class="video-ad-overlay">
-                    <span class="video-ad-title">🎮 High CPM Video Reward Sponsor</span>
+                    <span class="video-ad-title">🎮 High CPM Reward Sponsor</span>
                     <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">VIEW & CLAIM</a>
                 </div>
             </div>`,
@@ -471,12 +474,13 @@
                     <source src="https://assets.mixkit.co/videos/preview/mixkit-cryptocurrency-and-network-lines-41539-large.mp4" type="video/mp4">
                 </video>
                 <div class="video-ad-overlay">
-                    <span class="video-ad-title">⚡ Watch Video Ads to Earn Bonus</span>
+                    <span class="video-ad-title">⚡ High CPM Ad Network</span>
                     <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">START WATCH</a>
                 </div>
             </div>`
         ];
 
+        /* Dynamic Ad Rotation & Auto Refresh System */
         function rotateBannerAds() {
             const topBox = document.getElementById('topAdRotateBox');
             const bottomBox = document.getElementById('bottomAdRotateBox');
@@ -495,6 +499,21 @@
             setTimeout(rotateBannerAds, nextTime);
         }
         rotateBannerAds();
+
+        /* Dynamic Ad Injection (Script Engine to prevent crashes) */
+        function injectAdScript(src) {
+            try {
+                const s = document.createElement('script');
+                s.src = src;
+                s.async = true;
+                s.referrerPolicy = 'no-referrer-when-downgrade';
+                document.body.appendChild(s);
+            } catch(e) {}
+        }
+
+        // External Script Injections
+        injectAdScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
+        injectAdScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
 
         /* Tap Mining Flow */
         tapBtn.addEventListener('click', () => {
