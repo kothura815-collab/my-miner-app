@@ -60,49 +60,7 @@
             align-items: center;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        /* Visual Ad Card Styling inside Rotators */
-        .ad-card-item {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            padding: 8px;
-            background: linear-gradient(135deg, #1e2638, #111622);
-            transition: all 0.3s ease;
-        }
-
-        .ad-card-item .ad-title {
-            font-size: 13px;
-            font-weight: bold;
-            color: #f39c12;
-            margin-bottom: 4px;
-        }
-
-        .ad-card-item .ad-desc {
-            font-size: 11px;
-            color: #8b949e;
-        }
-
-        .ad-card-item.big-ad {
-            height: 100%;
-            justify-content: center;
-            padding: 15px;
-        }
-
-        .ad-card-item.big-ad .ad-title {
-            font-size: 18px;
-            color: #2ecc71;
-            margin-bottom: 8px;
-        }
-
-        .ad-card-item.big-ad .ad-desc {
-            font-size: 13px;
-            color: #ffffff;
+            position: relative;
         }
 
         .miner-card {
@@ -212,6 +170,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            position: relative;
         }
 
         .btn-continue {
@@ -291,6 +250,14 @@
             box-shadow: 0 4px 18px rgba(0,0,0,0.6);
             max-width: 85%;
         }
+        
+        .ad-frame-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -298,7 +265,7 @@
     <!-- Toast Notification -->
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- 1. Top Auto Rotating Display Ad Banner (6s - 10s) -->
+    <!-- Top Auto Rotating Display Ad Banner (6s - 10s) -->
     <div class="ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
@@ -337,20 +304,23 @@
     </div>
 
     <div class="ads-feed-container">
-        <!-- 2. Native Feed Rotating Ad Box 1 (6s - 10s) -->
-        <div class="ad-banner-box" id="nativeFeedAdBox"></div>
+        <!-- Native Ad Block -->
+        <div class="ad-banner-box">
+            <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
+            <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
+        </div>
 
-        <!-- 3. Bottom Auto Rotating Ad Banner (6s - 10s) -->
+        <!-- Bottom Auto Rotating Ad Banner -->
         <div class="ad-banner-box" id="bottomAdRotateBox"></div>
     </div>
 
     <!-- 15s Video / High CPM Modal Ad -->
     <div class="modal-overlay" id="adModal">
-        <!-- 4. Modal Top Ad Banner (6s - 10s) -->
         <div class="ad-banner-box" id="modalTopAdBox"></div>
         
-        <!-- Modal Center High CPM Ad Container -->
-        <div class="ad-modal-content" id="modalCenterAdBox"></div>
+        <div class="ad-modal-content" id="modalCenterAdBox">
+            <!-- Auto Rotating High CPM Impression Dynamic Engine -->
+        </div>
 
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait 15s...</button>
     </div>
@@ -440,7 +410,7 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 3000);
         }
 
-        /* Direct Link Pools for Maximum High-CPM Revenue */
+        /* Direct Link Pools */
         const directLinks = [
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
             'https://plump-plastic.com/PEwa43'
@@ -450,52 +420,41 @@
         }
 
         /* -------------------------------------------------------------
-           High CPM Ads Pool (Crypto, Loan, Video Games)
+           Auto Rotating Banner & Video Impression Ads Engine (6s to 10s)
         ------------------------------------------------------------- */
         const bannerPool = [
-            `<a href="${getRandomLink()}" target="_blank" class="ad-card-item">
-                <span class="ad-title">🔥 [CRYPTO] High CPM Bonus & Trading Deals</span>
-                <span class="ad-desc">Click to claim instant Crypto rewards & bonuses!</span>
-             </a>`,
-            `<a href="${getRandomLink()}" target="_blank" class="ad-card-item">
-                <span class="ad-title">🎮 [GAME] Play Web3 Games & Earn Instantly</span>
-                <span class="ad-desc">Explore top video game ads and win crypto prizes!</span>
-             </a>`,
-            `<a href="${getRandomLink()}" target="_blank" class="ad-card-item">
-                <span class="ad-title">💰 [LOAN] Instant Approval Business & Personal Loans</span>
-                <span class="ad-desc">Get fast funding with minimal verification!</span>
-             </a>`,
-            `<a href="${getRandomLink()}" target="_blank" class="ad-card-item">
-                <span class="ad-title">⚡ [FAST PAYOUT] High Revenue Sponsored Offers</span>
-                <span class="ad-desc">Click view to unlock exclusive high CPM promotions.</span>
-             </a>`
+            `<a href="${getRandomLink()}" target="_blank" style="color:#f39c12; font-weight:bold; text-decoration:none; padding:10px; display:block; width:100%;">🔥 [SPONSORED] High CPM Crypto & Loan Deals (Click View)</a>`,
+            `<a href="${getRandomLink()}" target="_blank" style="color:#2ecc71; font-weight:bold; text-decoration:none; padding:10px; display:block; width:100%;">🎮 Play Games & Earn Instant Rewards Today!</a>`,
+            `<a href="${getRandomLink()}" target="_blank" style="color:#0088cc; font-weight:bold; text-decoration:none; padding:10px; display:block; width:100%;">⚡ Fast Payout Offers & Bonus Deals</a>`
         ];
 
-        /* Modal Center Specific Ads (Large Display format) */
-        const modalCenterPool = [
-            `<a href="${getRandomLink()}" target="_blank" class="ad-card-item big-ad">
-                <span class="ad-title">🔥 EXCLUSIVE CRYPTO & LOAN OFFER</span>
-                <span class="ad-desc">Click here to view high-reward gaming & financial deals!</span>
-             </a>`,
-            `<a href="${getRandomLink()}" target="_blank" class="ad-card-item big-ad">
-                <span class="ad-title">🎮 PLAY & WIN HIGH CPM REWARDS</span>
-                <span class="ad-desc">Tap to explore featured video game offers!</span>
-             </a>`
+        const videoModalPool = [
+            `<a href="${getRandomLink()}" target="_blank" style="width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(135deg, #1f2430, #0d1117); text-decoration:none; padding:15px; text-align:center;">
+                <div style="font-size:40px; margin-bottom:10px;">🎬</div>
+                <div style="color:#f39c12; font-size:16px; font-weight:bold;">Watch High CPM Video Sponsor</div>
+                <div style="color:#8b949e; font-size:12px; margin-top:6px;">Tap to visit sponsor & verify view</div>
+            </a>`,
+            `<a href="${getRandomLink()}" target="_blank" style="width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(135deg, #1b2838, #0a0e14); text-decoration:none; padding:15px; text-align:center;">
+                <div style="font-size:40px; margin-bottom:10px;">🚀</div>
+                <div style="color:#2ecc71; font-size:16px; font-weight:bold;">Featured Impression Ads</div>
+                <div style="color:#8b949e; font-size:12px; margin-top:6px;">Mining active • Automatic refresh in progress</div>
+            </a>`
         ];
 
-        /* -------------------------------------------------------------
-           Auto Rotating Banners Engine (6s to 10s Random Rotation)
-        ------------------------------------------------------------- */
         function rotateBannerAds() {
             const topBox = document.getElementById('topAdRotateBox');
-            const nativeBox = document.getElementById('nativeFeedAdBox');
             const bottomBox = document.getElementById('bottomAdRotateBox');
             const modalTopBox = document.getElementById('modalTopAdBox');
+            const modalCenterBox = document.getElementById('modalCenterAdBox');
 
-            if (topBox) topBox.innerHTML = bannerPool[Math.floor(Math.random() * bannerPool.length)];
-            if (nativeBox) nativeBox.innerHTML = bannerPool[Math.floor(Math.random() * bannerPool.length)];
-            if (bottomBox) bottomBox.innerHTML = bannerPool[Math.floor(Math.random() * bannerPool.length)];
-            if (modalTopBox) modalTopBox.innerHTML = bannerPool[Math.floor(Math.random() * bannerPool.length)];
+            const rand1 = bannerPool[Math.floor(Math.random() * bannerPool.length)];
+            const rand2 = bannerPool[Math.floor(Math.random() * bannerPool.length)];
+            const randCenter = videoModalPool[Math.floor(Math.random() * videoModalPool.length)];
+
+            if (topBox) topBox.innerHTML = rand1;
+            if (bottomBox) bottomBox.innerHTML = rand2;
+            if (modalTopBox) modalTopBox.innerHTML = rand1;
+            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = randCenter;
 
             // 6000ms (6s) to 10000ms (10s) Random Interval
             const nextTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
@@ -536,13 +495,13 @@
         });
 
         /* -------------------------------------------------------------
-           2. 15s Video / High CPM Modal Ad Flow
+           2. 15s Video Modal Ad Flow
         ------------------------------------------------------------- */
         function trigger15SecModalAd(onComplete) {
             isAdShowing = true;
             const modalCenterBox = document.getElementById('modalCenterAdBox');
-            modalCenterBox.innerHTML = modalCenterPool[Math.floor(Math.random() * modalCenterPool.length)];
-            
+            modalCenterBox.innerHTML = videoModalPool[Math.floor(Math.random() * videoModalPool.length)];
+
             adModal.style.display = 'flex';
             continueAdBtn.disabled = true;
             continueAdBtn.classList.remove('active');
@@ -563,7 +522,6 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled) {
-                    // Click Continue -> Open New Link -> Back to Tap
                     window.open(getRandomLink(), '_blank');
                     adModal.style.display = 'none';
                     isAdShowing = false;
