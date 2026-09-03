@@ -9,7 +9,7 @@
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Ad Networks Push & AutoTag Integrations -->
+    <!-- RichAds Integration (From Dashboard) -->
     <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
@@ -48,11 +48,11 @@
             -webkit-user-select: none;
         }
 
-        /* Top & Bottom Dynamic Banner Boxes */
+        /* Responsive Lightweight Banner Container */
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
-            min-height: 130px;
+            min-height: 120px;
             margin-bottom: 12px;
             border-radius: 12px;
             overflow: hidden;
@@ -65,10 +65,10 @@
             position: relative;
         }
 
-        /* Lightweight Smooth Interactive Ad Cards */
+        /* Optimized Ad Banner Cards */
         .light-ad-card {
             width: 100%;
-            height: 130px;
+            height: 120px;
             padding: 12px;
             background: linear-gradient(135deg, #1f293d 0%, #111827 100%);
             display: flex;
@@ -112,7 +112,7 @@
         }
 
         .ad-action-btn {
-            background: #0088cc;
+            background: var(--accent-blue);
             color: #fff;
             font-size: 12px;
             font-weight: bold;
@@ -228,7 +228,6 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            position: relative;
         }
 
         .btn-continue {
@@ -246,7 +245,7 @@
         }
 
         .btn-continue.active {
-            background: #0088cc;
+            background: var(--accent-blue);
             opacity: 1;
             cursor: pointer;
         }
@@ -281,14 +280,6 @@
             cursor: pointer;
         }
 
-        .error-msg {
-            color: #e74c3c;
-            font-size: 11px;
-            margin-bottom: 8px;
-            display: none;
-            text-align: left;
-        }
-
         .toast-popup {
             position: fixed;
             top: 25px;
@@ -313,13 +304,13 @@
 
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- TOP DYNAMIC ROTATING AD CONTAINER -->
+    <!-- TOP ROTATING LIGHTWEIGHT AD CONTAINER -->
     <div class="ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
-        <div class="status" id="systemStatus">System: Operational</div>
+        <div class="status">System: Operational</div>
 
         <div class="logo-container" id="tapBtn">
             <img src="alta-coin.png" alt="Alta Coin" class="coin-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/6001/6001368.png'">
@@ -357,7 +348,7 @@
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <!-- BOTTOM DYNAMIC ROTATING AD CONTAINER -->
+        <!-- BOTTOM ROTATING LIGHTWEIGHT AD CONTAINER -->
         <div class="ad-banner-box" id="bottomAdRotateBox"></div>
     </div>
 
@@ -375,7 +366,6 @@
             
             <div class="input-group">
                 <input type="text" id="username" placeholder="Telegram Username (@user)">
-                <div class="error-msg" id="userError">Valid Username required!</div>
             </div>
 
             <div class="input-group">
@@ -384,7 +374,6 @@
 
             <div class="input-group">
                 <input type="text" id="tonAddress" placeholder="TON Wallet Address">
-                <div class="error-msg" id="addressError">Invalid TON address! Must start with UQ or EQ.</div>
             </div>
 
             <button class="btn-submit" id="submitPayout">SUBMIT WITHDRAWAL</button>
@@ -399,7 +388,6 @@
         const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
         const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
         const MIN_WITHDRAW = 150.00;
-        const KEEP_RESERVE_BALANCE = 300.00;
 
         let currentAlta = parseFloat(localStorage.getItem('alta_balance') || '0.00');
         let highAdsCount = parseInt(localStorage.getItem('high_ads_count') || '0');
@@ -428,8 +416,6 @@
         const usernameInput = document.getElementById('username');
         const altaAmountInput = document.getElementById('altaAmount');
         const tonAddressInput = document.getElementById('tonAddress');
-        const addressError = document.getElementById('addressError');
-        const userError = document.getElementById('userError');
 
         if (tg && tg.initDataUnsafe?.user?.username) {
             usernameInput.value = "@" + tg.initDataUnsafe.user.username;
@@ -442,7 +428,6 @@
             localStorage.setItem('alta_balance', currentAlta.toString());
             localStorage.setItem('high_ads_count', highAdsCount.toString());
             localStorage.setItem('bonus_count', bonusCount.toString());
-            localStorage.setItem('alta_withdraw_count', withdrawCount.toString());
         }
         updateUI();
 
@@ -452,7 +437,7 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 3000);
         }
 
-        /* High CPM Direct Link Pool Rotator */
+        /* Combined Direct Link Pool (Adsterra & HilltopAds links) */
         const directLinks = [
             'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
@@ -464,12 +449,12 @@
             return directLinks[Math.floor(Math.random() * directLinks.length)];
         }
 
-        /* Lightweight, High CTR & Auto-Rotating Display Ads List (Game, Loan, Crypto Apps) */
+        /* Lightweight Auto-Rotating Display Banner Pool */
         const lightBannerPool = [
-            { title: "🎮 Web3 Mining Game", desc: "Play & Earn Free Crypto Daily!", btn: "PLAY NOW", tag: "SPONSORED GAME" },
-            { title: "💰 Instant Micro Loans", desc: "Fast approval, zero fees required.", btn: "APPLY NOW", tag: "INSTANT LOAN" },
-            { title: "⚡ High Yield Staking", desc: "Get up to 25% APY on Crypto Assets.", btn: "CLAIM NOW", tag: "FINANCE" },
-            { title: "🚀 Top Trading Platform", desc: "Trade with lowest fees & free bonus.", btn: "JOIN TODAY", tag: "HOT OFFER" }
+            { title: "🎮 Play & Earn Rewards", desc: "Top Web3 Games - Instant Cashout!", btn: "PLAY NOW", tag: "SPONSORED GAME" },
+            { title: "💰 Quick Micro Loans", desc: "Fast online approval in 5 mins.", btn: "APPLY NOW", tag: "INSTANT LOAN" },
+            { title: "⚡ High Yield Staking", desc: "Earn up to 20% APY daily.", btn: "CLAIM NOW", tag: "FINANCE" },
+            { title: "🚀 Instant Trading App", desc: "Zero fees, free starter bonus.", btn: "JOIN NOW", tag: "HOT OFFER" }
         ];
 
         function createAdHtml(item) {
@@ -484,7 +469,7 @@
             </div>`;
         }
 
-        /* Auto Rotate Banners between 6s to 10s Continuously */
+        /* Continuous Auto-rotate Banners (6s to 10s Random Interval) */
         function rotateBannerAds() {
             const topBox = document.getElementById('topAdRotateBox');
             const bottomBox = document.getElementById('bottomAdRotateBox');
@@ -499,13 +484,12 @@
             if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item1);
             if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item2);
 
-            // Random delay between 6000ms (6s) and 10000ms (10s)
-            const randomTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
-            setTimeout(rotateBannerAds, randomTime);
+            const randomInterval = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
+            setTimeout(rotateBannerAds, randomInterval);
         }
         rotateBannerAds();
 
-        /* External Scripts Ingestion Engine */
+        /* External Scripts Ingestion */
         function injectAdScript(src) {
             try {
                 const s = document.createElement('script');
@@ -518,7 +502,7 @@
         injectAdScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
         injectAdScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
 
-        /* Tap Mining Flow */
+        /* Tap Mining Handler */
         tapBtn.addEventListener('click', () => {
             if (isMining || isAdShowing) return;
 
@@ -574,37 +558,35 @@
                     window.open(getRandomLink(), '_blank');
                     adModal.style.display = 'none';
                     isAdShowing = false;
-                    showNotification("✅ Mining Reward Added Successfully!");
+                    showNotification("✅ Mining Reward Added!");
                     if(onComplete) onComplete();
                 }
             };
         }
 
-        /* Direct Task Runner for High CPM Links */
+        /* Direct Task Trigger */
         function startDirectTask(type) {
             activeTaskType = type;
             adStartTime = Date.now();
             window.open(getRandomLink(), "_blank");
         }
 
-        /* Double Ads 15s Button Handler */
+        /* Task Buttons */
         document.getElementById('doubleAdsBtn').addEventListener('click', () => {
             startDirectTask('double');
         });
 
-        /* Daily High Ads 15s Button Handler (Limit: 100) */
         document.getElementById('highAdsBtn').addEventListener('click', () => {
             if (highAdsCount >= 100) return showNotification("❌ Daily High Ads limit reached (100/100)!");
             startDirectTask('high');
         });
 
-        /* Daily Bonus 15s Button Handler (Limit: 30) */
         document.getElementById('dailyBonusBtn').addEventListener('click', () => {
             if (bonusCount >= 30) return showNotification("❌ Daily Bonus limit reached (30/30)!");
             startDirectTask('bonus');
         });
 
-        /* 15s Time Verification & Reward Calculation Engine */
+        /* Window Focus Listener for 15s Timer Verification */
         window.addEventListener('focus', () => {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
@@ -620,7 +602,7 @@
                         showNotification(`✅ 15s Completed! +1.00 ALTA Added (${highAdsCount}/100)`);
                     } else if (activeTaskType === 'bonus') {
                         bonusCount++;
-                        const bonus = Math.floor(Math.random() * 3) + 1; // Generates 1, 2, or 3
+                        const bonus = Math.floor(Math.random() * 3) + 1; // +1, +2, or +3
                         currentAlta = parseFloat((currentAlta + bonus).toFixed(2));
                         showNotification(`🎁 15s Completed! +${bonus} ALTA Bonus Added (${bonusCount}/30)`);
                     }
@@ -632,11 +614,10 @@
             }
         });
 
-        /* Share Link Handler */
+        /* Share Handler */
         document.getElementById('shareBtn').addEventListener('click', () => {
             let userId = tg?.initDataUnsafe?.user?.id || "user";
-            let botUsername = "AltaHub_ads_bot";
-            let refLink = `https://t.me/${botUsername}?start=${userId}`;
+            let refLink = `https://t.me/AltaHub_ads_bot?start=${userId}`;
             let shareText = "Join Alta Ads Miner & claim +5 ALTA bonus!";
             
             if (tg) {
@@ -647,63 +628,35 @@
             }
         });
 
-        /* Withdraw Modal Handler */
+        /* Withdraw Handlers */
         openWithdrawModalBtn.addEventListener('click', () => {
-            if (withdrawCount === 0) {
-                if (currentAlta < MIN_WITHDRAW) {
-                    return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA!`);
-                }
-                altaAmountInput.value = currentAlta.toFixed(2);
-            } else {
-                const maxAvailable = currentAlta - KEEP_RESERVE_BALANCE;
-                if (maxAvailable < MIN_WITHDRAW) {
-                    return showNotification(`2nd+ withdraw requires 300 ALTA reserve.`);
-                }
-                altaAmountInput.value = maxAvailable.toFixed(2);
+            if (currentAlta < MIN_WITHDRAW) {
+                return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA!`);
             }
-
-            addressError.style.display = 'none';
-            userError.style.display = 'none';
+            altaAmountInput.value = currentAlta.toFixed(2);
             payoutModal.style.display = 'flex';
         });
 
         closeModalBtn.addEventListener('click', () => payoutModal.style.display = 'none');
 
-        /* Submit Payout Request */
         submitPayoutBtn.addEventListener('click', async () => {
             const address = tonAddressInput.value.trim();
             const username = usernameInput.value.trim();
             const withdrawAmount = parseFloat(altaAmountInput.value);
 
-            const tonRegex = /^(UQ|EQ)[a-zA-Z0-9_-]{46}$/;
-            const userRegex = /^@[a-zA-Z0-9_]{3,32}$/;
-
-            let isValid = true;
-
-            if (!userRegex.test(username)) {
-                userError.style.display = 'block';
-                isValid = false;
-            } else { userError.style.display = 'none'; }
-
-            if (!tonRegex.test(address)) {
-                addressError.style.display = 'block';
-                isValid = false;
-            } else { addressError.style.display = 'none'; }
-
-            if (isNaN(withdrawAmount) || withdrawAmount < MIN_WITHDRAW) {
-                showNotification(`Minimum withdrawal is ${MIN_WITHDRAW} ALTA.`);
-                return;
+            if (!username || !address) {
+                return showNotification("Please complete all details!");
             }
 
-            if (!isValid) return;
+            if (isNaN(withdrawAmount) || withdrawAmount < MIN_WITHDRAW || withdrawAmount > currentAlta) {
+                return showNotification(`Invalid amount or insufficient balance.`);
+            }
 
             currentAlta = parseFloat((currentAlta - withdrawAmount).toFixed(2));
-            withdrawCount += 1;
             updateUI();
 
             const message = `<b>New Payout Request</b>\n\n` +
                             `<b>User:</b> ${username}\n` +
-                            `<b>Withdraw Count:</b> ${withdrawCount}\n` +
                             `<b>Amount:</b> ${withdrawAmount.toFixed(2)} ALTA\n` +
                             `<b>TON Address:</b> <code>${address}</code>`;
 
@@ -717,8 +670,6 @@
 
             showNotification(`Submitted: ${withdrawAmount.toFixed(2)} ALTA.`);
             payoutModal.style.display = 'none';
-
-            if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
         });
     </script>
 </body>
