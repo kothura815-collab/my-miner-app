@@ -9,18 +9,11 @@
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Ad Network Script Integrations -->
+    <!-- Optimized External Ad Engine Async Scripts -->
     <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
-
-    <!-- Adsterra Engine -->
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js" async></script>
-    <script type="text/javascript">
-        window.addEventListener('DOMContentLoaded', () => {
-            if(window.aclib) aclib.runAutoTag({ zoneId: 'jaxxc0ldkk' });
-        });
-    </script>
 
     <style>
         :root {
@@ -28,15 +21,15 @@
             --card-bg: #161b22;
             --primary-gold: #f39c12;
             --accent-blue: #0088cc;
-            --btn-green: #2fa65a;
             --text-color: #ffffff;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; }
 
         body {
+            margin: 0;
             padding: 12px 10px 40px 10px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             display: flex;
@@ -48,11 +41,10 @@
             will-change: transform;
         }
 
-        /* Optimized Banners */
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
-            min-height: 140px;
+            min-height: 160px;
             margin-bottom: 12px;
             border-radius: 12px;
             overflow: hidden;
@@ -76,7 +68,7 @@
 
         .video-ad-card video {
             width: 100%;
-            height: 140px;
+            height: 160px;
             border: none;
             object-fit: cover;
         }
@@ -140,13 +132,20 @@
         .status { font-size: 13px; color: #2ec4b6; margin-bottom: 14px; }
 
         .logo-container {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             margin: 0 auto 12px auto;
             border-radius: 50%;
             padding: 4px;
             cursor: pointer;
-            box-shadow: 0 0 14px rgba(243, 156, 18, 0.5);
+            box-shadow: 0 0 18px rgba(243, 156, 18, 0.5);
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1); box-shadow: 0 0 12px rgba(0, 136, 204, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 0 24px rgba(243, 156, 18, 0.8); }
+            100% { transform: scale(1); box-shadow: 0 0 12px rgba(0, 136, 204, 0.4); }
         }
 
         .coin-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
@@ -172,7 +171,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: transform 0.1s ease;
         }
 
         .action-btn:active { transform: scale(0.98); }
@@ -207,7 +205,7 @@
         .ad-modal-content {
             width: 100%;
             max-width: 360px;
-            height: 200px;
+            height: 220px;
             background: #161b22;
             border-radius: 14px;
             border: 1px solid #2a3547;
@@ -339,7 +337,7 @@
 
     <div class="ads-feed-container">
         <!-- Native Banner Ad Slot -->
-        <div class="ad-banner-box" style="min-height:220px;" id="nativeBannerBox">
+        <div class="ad-banner-box" style="min-height:250px;" id="nativeBannerBox">
             <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
@@ -439,7 +437,7 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 3000);
         }
 
-        /* Direct Link Pools Optimized for High CPM / CTR Revenue */
+        /* High CPM Direct Link Pool Rotator */
         const directLinks = [
             'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
@@ -451,15 +449,15 @@
             return directLinks[Math.floor(Math.random() * directLinks.length)];
         }
 
-        /* High Revenue Auto Rotating Ad Pool (Games, Loans & High CPM Ads) */
+        /* High CPM Video & Interactive Ads Pool */
         const videoAdPool = [
             `<div class="video-ad-card">
                 <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400">
                     <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-and-data-41538-large.mp4" type="video/mp4">
                 </video>
                 <div class="video-ad-overlay">
-                    <span class="video-ad-title">🎮 Play & Earn Rewards</span>
-                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">PLAY NOW</a>
+                    <span class="video-ad-title">🎮 Web3 Gaming & Loans Bonus</span>
+                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">VIEW & CLAIM</a>
                 </div>
             </div>`,
             `<div class="video-ad-card">
@@ -467,13 +465,22 @@
                     <source src="https://assets.mixkit.co/videos/preview/mixkit-cryptocurrency-and-network-lines-41539-large.mp4" type="video/mp4">
                 </video>
                 <div class="video-ad-overlay">
-                    <span class="video-ad-title">⚡ Instant Loan & Crypto Offer</span>
-                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">CLAIM OFFER</a>
+                    <span class="video-ad-title">⚡ Instant Micro-Finance Loan Ad</span>
+                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">APPLY NOW</a>
+                </div>
+            </div>`,
+            `<div class="video-ad-card">
+                <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-with-green-screen-41543-large.mp4" type="video/mp4">
+                </video>
+                <div class="video-ad-overlay">
+                    <span class="video-ad-title">🔥 High Payoff Ad Network</span>
+                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">WATCH AD</a>
                 </div>
             </div>`
         ];
 
-        /* Auto-Rotate Banners Every 6 to 10 Seconds without Memory Leak */
+        /* Fast Auto-Rotate Engine (6s to 10s Window) */
         function rotateBannerAds() {
             const topBox = document.getElementById('topAdRotateBox');
             const bottomBox = document.getElementById('bottomAdRotateBox');
@@ -486,8 +493,9 @@
             if (topBox) topBox.innerHTML = rand1;
             if (bottomBox) bottomBox.innerHTML = rand2;
             if (modalTopBox) modalTopBox.innerHTML = rand1;
-            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = rand1;
+            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = rand2;
 
+            // Random rotation interval between 6,000ms (6s) and 10,000ms (10s)
             const nextTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
             setTimeout(rotateBannerAds, nextTime);
         }
@@ -504,10 +512,11 @@
             } catch(e) {}
         }
 
+        // Initialize External Banner Engines
         injectAdScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
         injectAdScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
 
-        /* Tap Mining Execution */
+        /* Tap Mining Flow */
         tapBtn.addEventListener('click', () => {
             if (isMining || isAdShowing) return;
 
@@ -569,7 +578,7 @@
             };
         }
 
-        /* Direct Task Runner for Double, High Ads & Daily Bonus */
+        /* Direct Task Engagement System */
         function startDirectTask(type) {
             activeTaskType = type;
             adStartTime = Date.now();
@@ -581,16 +590,16 @@
         });
 
         document.getElementById('highAdsBtn').addEventListener('click', () => {
-            if (highAdsCount >= 100) return showNotification("⚠️ Daily High Ads limit reached (100/100)!");
+            if (highAdsCount >= 100) return showNotification("Daily High Ads limit reached (100/100)!");
             startDirectTask('high');
         });
 
         document.getElementById('dailyBonusBtn').addEventListener('click', () => {
-            if (bonusCount >= 30) return showNotification("⚠️ Daily Bonus limit reached (30/30)!");
+            if (bonusCount >= 30) return showNotification("Daily Bonus limit reached (30/30)!");
             startDirectTask('bonus');
         });
 
-        /* Focus Verification & Reward System */
+        /* Lifecycle Time Tracking & Verification */
         window.addEventListener('focus', () => {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
@@ -599,20 +608,20 @@
                 if (elapsed >= 15) {
                     if (activeTaskType === 'double') {
                         currentAlta += 0.50;
-                        showNotification("✅ 15s Verified! +0.50 ALTA Added!");
+                        showNotification("✅ Verified 15s! +0.50 ALTA added!");
                     } else if (activeTaskType === 'high') {
                         highAdsCount++;
                         currentAlta += 1.00;
-                        showNotification(`✅ High Ad Verified! +1.00 ALTA (${highAdsCount}/100)`);
+                        showNotification(`✅ Verified 15s! +1.00 ALTA added (${highAdsCount}/100)`);
                     } else if (activeTaskType === 'bonus') {
                         bonusCount++;
                         const bonus = Math.floor(Math.random() * 3) + 1;
                         currentAlta += bonus;
-                        showNotification(`🎁 Bonus Verified! +${bonus} ALTA (${bonusCount}/30)`);
+                        showNotification(`🎁 Bonus Verified 15s! +${bonus} ALTA added (${bonusCount}/30)`);
                     }
                     updateUI();
                 } else {
-                    showNotification(`❌ Please view full 15s! (${elapsed}s elapsed)`);
+                    showNotification(`⚠️ Please view for full 15s! (${elapsed}s elapsed)`);
                 }
                 activeTaskType = null;
             }
@@ -632,7 +641,7 @@
             }
         });
 
-        /* Withdrawal Modal Handler */
+        /* Withdrawal Handler */
         openWithdrawModalBtn.addEventListener('click', () => {
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) {
