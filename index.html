@@ -3,35 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Alta Ads Miner Pro</title>
+    <title>Alta Ads Miner</title>
+    <meta name="referrer" content="no-referrer-when-downgrade" />
     
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Ad Network Global Scripts (Integrated for Max Coverage) -->
+    <!-- Ad Network Script Integrations (RichAds Popunder & AutoTag) -->
+    <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
+    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
+    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
+
+    <!-- Adsterra Engine -->
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js" async></script>
     <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', () => {
-            if (window.aclib) { window.aclib.runAutoTag({ zoneId: 'jaxxc0ldkk' }); }
+            if(window.aclib && typeof window.aclib.runAutoTag === 'function') {
+                window.aclib.runAutoTag({ zoneId: 'jaxxc0ldkk' });
+            }
         });
     </script>
-    
-    <!-- RichAds Popunder Code -->
-    <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
-
-    <!-- Relieved Understanding Scripts Pool -->
-    <script>
-        (function(fffywb){
-            var d = document, s = d.createElement('script'), l = d.scripts[d.scripts.length - 1];
-            s.settings = fffywb || {};
-            s.src = "//relieved-understanding.com/b/XtV/s.dnGNlC0JYgWpcD/fenmy9-uLZfULl/kBPMTZcKzZNBz/EkzANXTOM/tkNNzlMj3VMeTcME1CNKwm";
-            s.async = true;
-            s.referrerPolicy = 'no-referrer-when-downgrade';
-            l.parentNode.insertBefore(s, l);
-        })({});
-    </script>
-
-    <meta name="referrer" content="no-referrer-when-downgrade" />
 
     <style>
         :root {
@@ -47,7 +38,7 @@
 
         body {
             margin: 0;
-            padding: 10px 10px 30px 10px;
+            padding: 12px 10px 40px 10px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -59,11 +50,12 @@
             -webkit-user-select: none;
         }
 
+        /* Top and Bottom Video Ad Containers */
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
-            min-height: 150px;
-            margin-bottom: 10px;
+            min-height: 160px;
+            margin-bottom: 12px;
             border-radius: 12px;
             overflow: hidden;
             background: #161b22;
@@ -73,8 +65,10 @@
             align-items: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             position: relative;
+            transition: opacity 0.3s ease-in-out;
         }
 
+        /* Outstream Video Ad Wrapper */
         .video-ad-card {
             width: 100%;
             position: relative;
@@ -86,7 +80,7 @@
 
         .video-ad-card video {
             width: 100%;
-            height: 150px;
+            height: 160px;
             border: none;
             object-fit: cover;
         }
@@ -97,7 +91,7 @@
             left: 0;
             right: 0;
             background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
-            padding: 6px 10px;
+            padding: 8px 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -106,20 +100,20 @@
 
         .video-ad-title {
             color: #fff;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 60%;
+            max-width: 65%;
         }
 
         .video-ad-btn {
             background: var(--primary-gold);
             color: #000;
-            font-size: 10px;
+            font-size: 11px;
             font-weight: bold;
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 6px;
             text-decoration: none;
             cursor: pointer;
@@ -128,31 +122,31 @@
         .miner-card {
             background: var(--card-bg);
             border-radius: 18px;
-            padding: 16px;
+            padding: 18px;
             width: 100%;
             max-width: 400px;
             text-align: center;
             box-shadow: 0 8px 24px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.06);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        .title { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+        .title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
 
         .balance-display {
-            font-size: 36px;
+            font-size: 38px;
             font-weight: bold;
             color: var(--primary-gold);
-            margin: 4px 0;
+            margin: 6px 0;
             text-shadow: 0 0 10px rgba(243, 156, 18, 0.35);
         }
 
-        .status { font-size: 12px; color: #2ec4b6; margin-bottom: 12px; }
+        .status { font-size: 13px; color: #2ec4b6; margin-bottom: 14px; }
 
         .logo-container {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 10px auto;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 12px auto;
             border-radius: 50%;
             padding: 4px;
             cursor: pointer;
@@ -174,21 +168,22 @@
             100% { transform: rotateY(360deg); }
         }
 
-        .tap-instruction { font-size: 12px; color: #8b949e; margin-bottom: 12px; }
+        .tap-instruction { font-size: 13px; color: #8b949e; margin-bottom: 14px; }
 
         .action-btn {
             width: 100%;
-            padding: 12px 14px;
+            padding: 13px 16px;
             color: #fff;
             border: none;
-            border-radius: 10px;
-            font-size: 13px;
+            border-radius: 12px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            transition: transform 0.1s ease;
         }
 
         .action-btn:active { transform: scale(0.98); }
@@ -204,8 +199,8 @@
             max-width: 400px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 12px;
+            margin-bottom: 15px;
         }
 
         .modal-overlay {
@@ -223,9 +218,9 @@
         .ad-modal-content {
             width: 100%;
             max-width: 360px;
-            height: 200px;
+            height: 220px;
             background: #161b22;
-            border-radius: 12px;
+            border-radius: 14px;
             border: 1px solid #2a3547;
             display: flex;
             justify-content: center;
@@ -237,15 +232,16 @@
         .btn-continue {
             width: 100%;
             max-width: 360px;
-            padding: 12px;
+            padding: 14px;
             background: #234b6e;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             color: #ffffff;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
             cursor: not-allowed;
             opacity: 0.6;
+            transition: all 0.3s ease;
         }
 
         .btn-continue.active {
@@ -258,14 +254,14 @@
             background: #121824;
             border: 2px solid var(--primary-gold);
             border-radius: 16px;
-            padding: 18px;
+            padding: 20px;
             width: 90%;
             max-width: 340px;
         }
 
         .input-group input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             border: 1px solid #2a3547;
             background: #090d14;
@@ -275,7 +271,7 @@
 
         .btn-submit {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background: #27ae60;
             border: none;
             border-radius: 8px;
@@ -287,21 +283,21 @@
         .error-msg {
             color: #e74c3c;
             font-size: 11px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             display: none;
             text-align: left;
         }
 
         .toast-popup {
             position: fixed;
-            top: 20px;
+            top: 25px;
             left: 50%;
             transform: translateX(-50%);
             background: #1f293d;
             color: #fff;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 12px 22px;
+            border-radius: 25px;
+            font-size: 13px;
             font-weight: 600;
             border: 1px solid var(--primary-gold);
             display: none;
@@ -316,7 +312,7 @@
 
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- TOP AUTO-ROTATING BANNER AD -->
+    <!-- TOP VIDEO AD CONTAINER -->
     <div class="ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
@@ -354,13 +350,13 @@
     </div>
 
     <div class="ads-feed-container">
-        <!-- NATIVE SCRIPT BANNER CONTAINER -->
-        <div class="ad-banner-box" style="min-height:220px;">
+        <!-- Native Banner Ad Slot -->
+        <div class="ad-banner-box" style="min-height:250px;" id="nativeBannerBox">
             <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <!-- BOTTOM AUTO-ROTATING BANNER AD -->
+        <!-- BOTTOM VIDEO AD CONTAINER -->
         <div class="ad-banner-box" id="bottomAdRotateBox"></div>
     </div>
 
@@ -397,7 +393,7 @@
 
     <script>
         const tg = window.Telegram?.WebApp;
-        if (tg) { tg.expand(); tg.ready(); }
+        if(tg) { tg.expand(); tg.ready(); }
 
         const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
         const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
@@ -452,30 +448,30 @@
         function showNotification(msg) {
             customToast.innerText = msg;
             customToast.style.display = 'block';
-            setTimeout(() => { customToast.style.display = 'none'; }, 3000);
+            setTimeout(() => { customToast.style.display = 'none'; }, 3500);
         }
 
-        /* Combined Direct Link Pool (Plump-Plastic & Mammothsubway) */
+        /* High CPM Direct Link Pool Rotator */
         const directLinks = [
-            'https://plump-plastic.com/bX3ZV.0sPb3Wpiv/bkm/V/JwZiDe0g3/M-zkY/3/MJzmAU1ILhTTcJz-NyjhcPzFMBDWkg',
-            'https://plump-plastic.com/PEwa43',
             'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
-            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a'
+            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
+            'https://plump-plastic.com/PEwa43',
+            'https://plump-plastic.com/bX3ZV.0sPb3Wpiv/bkm/V/JwZiDe0g3/M-zkY/3/MJzmAU1ILhTTcJz-NyjhcPzFMBDWkg'
         ];
-
+        
         function getRandomLink() {
             return directLinks[Math.floor(Math.random() * directLinks.length)];
         }
 
-        /* Interactive Dynamic Ad Banners (Rotate 6s - 10s) */
+        /* Dynamic Video Ad Pool */
         const videoAdPool = [
             `<div class="video-ad-card">
-                <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400">
+                <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400">
                     <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-and-data-41538-large.mp4" type="video/mp4">
                 </video>
                 <div class="video-ad-overlay">
-                    <span class="video-ad-title">🎮 High Instant Loan & Game Rewards</span>
-                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">PLAY & CLAIM</a>
+                    <span class="video-ad-title">🎮 High Yield Mining Sponsor</span>
+                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">VIEW & CLAIM</a>
                 </div>
             </div>`,
             `<div class="video-ad-card">
@@ -483,12 +479,13 @@
                     <source src="https://assets.mixkit.co/videos/preview/mixkit-cryptocurrency-and-network-lines-41539-large.mp4" type="video/mp4">
                 </video>
                 <div class="video-ad-overlay">
-                    <span class="video-ad-title">⚡ High CPM Finance & Crypto Ads</span>
-                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">EXPLORE NOW</a>
+                    <span class="video-ad-title">⚡ High CPM Ad Network</span>
+                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">START WATCH</a>
                 </div>
             </div>`
         ];
 
+        /* Smooth Auto-rotate Banners (6s - 10s) without breaking layout */
         function rotateBannerAds() {
             const topBox = document.getElementById('topAdRotateBox');
             const bottomBox = document.getElementById('bottomAdRotateBox');
@@ -503,13 +500,26 @@
             if (modalTopBox) modalTopBox.innerHTML = rand1;
             if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = rand1;
 
-            /* Auto rotation timer interval: 6 to 10 seconds */
-            const nextInterval = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
-            setTimeout(rotateBannerAds, nextInterval);
+            const nextTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
+            setTimeout(rotateBannerAds, nextTime);
         }
         rotateBannerAds();
 
-        /* Tap Mining Execution */
+        /* Dynamic Ad Injection safely */
+        function injectAdScript(src) {
+            try {
+                const s = document.createElement('script');
+                s.src = src;
+                s.async = true;
+                s.referrerPolicy = 'no-referrer-when-downgrade';
+                document.body.appendChild(s);
+            } catch(e) {}
+        }
+
+        injectAdScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
+        injectAdScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
+
+        /* Tap Mining System */
         tapBtn.addEventListener('click', () => {
             if (isMining || isAdShowing) return;
 
@@ -537,6 +547,7 @@
             }, 750);
         });
 
+        /* 15-Second Video Reward Modal */
         function trigger15SecModalAd(onComplete) {
             isAdShowing = true;
             const modalCenterBox = document.getElementById('modalCenterAdBox');
@@ -554,7 +565,7 @@
                     clearInterval(adInterval);
                     continueAdBtn.disabled = false;
                     continueAdBtn.classList.add('active');
-                    continueAdBtn.innerText = "Continue Ads Mining";
+                    continueAdBtn.innerText = "Continue Mining";
                 } else {
                     continueAdBtn.innerText = `Please wait ${timeLeft}s...`;
                 }
@@ -565,32 +576,38 @@
                     window.open(getRandomLink(), '_blank');
                     adModal.style.display = 'none';
                     isAdShowing = false;
-                    showNotification("✅ Mining Reward Added Successfully!");
-                    if (onComplete) onComplete();
+                    showNotification("✅ Reward verified successfully!");
+                    if(onComplete) onComplete();
                 }
             };
         }
 
-        /* Direct Link Task Handlers */
+        /* Direct Ad Task Handling */
         function startDirectTask(type) {
             activeTaskType = type;
             adStartTime = Date.now();
             window.open(getRandomLink(), "_blank");
+            showNotification("⏱ Stay on the Ad page for 15s to claim reward!");
         }
 
-        document.getElementById('doubleAdsBtn').addEventListener('click', () => startDirectTask('double'));
+        /* Double Ads Click Handler */
+        document.getElementById('doubleAdsBtn').addEventListener('click', () => {
+            startDirectTask('double');
+        });
 
+        /* Daily High Ads Handler */
         document.getElementById('highAdsBtn').addEventListener('click', () => {
-            if (highAdsCount >= 100) return showNotification("❌ Daily High Ads limit (100/100) reached!");
+            if (highAdsCount >= 100) return showNotification("⚠️ Daily High Ads limit reached (100/100)!");
             startDirectTask('high');
         });
 
+        /* Daily Bonus Handler */
         document.getElementById('dailyBonusBtn').addEventListener('click', () => {
-            if (bonusCount >= 30) return showNotification("❌ Daily Bonus limit (30/30) reached!");
+            if (bonusCount >= 30) return showNotification("⚠️ Daily Bonus limit reached (30/30)!");
             startDirectTask('bonus');
         });
 
-        /* Focus Verification Engine */
+        /* Verification on Focus (15 Seconds Watch Check) */
         window.addEventListener('focus', () => {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
@@ -598,27 +615,31 @@
 
                 if (elapsed >= 15) {
                     if (activeTaskType === 'double') {
-                        currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
-                        showNotification("✅ Verified 15s! +0.50 ALTA Added!");
+                        currentAlta += 0.50;
+                        showNotification("✅ Verified! +0.50 ALTA added to balance!");
                     } else if (activeTaskType === 'high') {
-                        highAdsCount++;
-                        currentAlta = parseFloat((currentAlta + 1.00).toFixed(2));
-                        showNotification(`✅ High Ad Verified 15s! +1.00 ALTA Added! (${highAdsCount}/100)`);
+                        if (highAdsCount < 100) {
+                            highAdsCount++;
+                            currentAlta += 1.00;
+                            showNotification(`✅ High Ad Verified! +1.00 ALTA (${highAdsCount}/100)`);
+                        }
                     } else if (activeTaskType === 'bonus') {
-                        bonusCount++;
-                        const bonus = Math.floor(Math.random() * 3) + 1;
-                        currentAlta = parseFloat((currentAlta + bonus).toFixed(2));
-                        showNotification(`🎁 Bonus Verified 15s! +${bonus}.00 ALTA Added! (${bonusCount}/30)`);
+                        if (bonusCount < 30) {
+                            bonusCount++;
+                            const bonus = Math.floor(Math.random() * 3) + 1;
+                            currentAlta += bonus;
+                            showNotification(`🎁 Bonus Verified! +${bonus} ALTA added (${bonusCount}/30)`);
+                        }
                     }
                     updateUI();
                 } else {
-                    showNotification(`❌ Time insufficient! View full 15s! (${elapsed}s elapsed)`);
+                    showNotification(`❌ Task incomplete! Watched ${elapsed}s (15s required). Try again!`);
                 }
                 activeTaskType = null;
             }
         });
 
-        /* Referral System */
+        /* Share Handler */
         document.getElementById('shareBtn').addEventListener('click', () => {
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let botUsername = "AltaHub_ads_bot";
@@ -633,17 +654,17 @@
             }
         });
 
-        /* Withdrawal Management */
+        /* Withdrawal Logic */
         openWithdrawModalBtn.addEventListener('click', () => {
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) {
-                    return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA!`);
+                    return showNotification(`Minimum withdraw amount is ${MIN_WITHDRAW} ALTA!`);
                 }
                 altaAmountInput.value = currentAlta.toFixed(2);
             } else {
                 const maxAvailable = currentAlta - KEEP_RESERVE_BALANCE;
                 if (maxAvailable < MIN_WITHDRAW) {
-                    return showNotification(`2nd+ withdraw requires 300 ALTA reserve.`);
+                    return showNotification(`Subsequent withdrawals require maintaining a 300 ALTA reserve.`);
                 }
                 altaAmountInput.value = maxAvailable.toFixed(2);
             }
@@ -700,7 +721,7 @@
                 });
             } catch (err) {}
 
-            showNotification(`Submitted: ${withdrawAmount.toFixed(2)} ALTA.`);
+            showNotification(`Withdrawal request submitted: ${withdrawAmount.toFixed(2)} ALTA.`);
             payoutModal.style.display = 'none';
 
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
