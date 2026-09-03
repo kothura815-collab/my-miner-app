@@ -6,13 +6,7 @@
     <title>Alta Ads Miner</title>
     <meta name="referrer" content="no-referrer-when-downgrade" />
     
-    <!-- DNS & Preconnect Optimization -->
-    <link rel="dns-prefetch" href="//richinfo.co">
-    <link rel="dns-prefetch" href="//plump-plastic.com">
-    <link rel="dns-prefetch" href="//mammothsubway.com">
-    <link rel="dns-prefetch" href="//acscdn.com">
-
-    <!-- Essential Telegram SDK Only -->
+    <!-- Telegram WebApp SDK Only -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
     <!-- Clickadu Verification -->
@@ -24,6 +18,7 @@
             --card-bg: #161b22;
             --primary-gold: #f39c12;
             --accent-blue: #0088cc;
+            --btn-green: #2fa65a;
             --text-color: #ffffff;
         }
 
@@ -61,22 +56,23 @@
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
-            min-height: 90px;
+            min-height: 100px;
             margin-bottom: 12px;
             border-radius: 12px;
             overflow: hidden;
             background: #161b22;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             display: flex;
             justify-content: center;
             align-items: center;
-            contain: content; /* Rendering Speed တိုးရန် */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            position: relative;
         }
 
         .light-ad-card {
             width: 100%;
-            height: 90px;
-            padding: 10px 14px;
+            height: 100px;
+            padding: 12px;
             background: linear-gradient(135deg, #1f293d 0%, #111827 100%);
             display: flex;
             align-items: center;
@@ -137,7 +133,6 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.06);
             margin-bottom: 15px;
-            contain: content;
         }
 
         .title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
@@ -153,14 +148,13 @@
         .status { font-size: 13px; color: #2ec4b6; margin-bottom: 14px; }
 
         .logo-container {
-            width: 95px;
-            height: 95px;
+            width: 100px;
+            height: 100px;
             margin: 0 auto 12px auto;
             border-radius: 50%;
             padding: 4px;
             cursor: pointer;
             box-shadow: 0 0 18px rgba(243, 156, 18, 0.5);
-            will-change: transform;
         }
 
         .coin-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
@@ -212,7 +206,7 @@
         .ad-modal-content {
             width: 100%;
             max-width: 360px;
-            height: 180px;
+            height: 200px;
             background: #161b22;
             border-radius: 14px;
             border: 1px solid #2a3547;
@@ -242,6 +236,36 @@
             cursor: pointer;
         }
 
+        .payout-card {
+            background: #121824;
+            border: 2px solid var(--primary-gold);
+            border-radius: 16px;
+            padding: 20px;
+            width: 90%;
+            max-width: 340px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #2a3547;
+            background: #090d14;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: #27ae60;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
         .toast-popup {
             position: fixed;
             top: 25px;
@@ -267,6 +291,7 @@
     <div class="offline-bar" id="offlineBar">⚠️ Connection Lost! Mining Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
+    <!-- TOP DYNAMIC BANNER -->
     <div class="ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
@@ -303,25 +328,57 @@
         </button>
     </div>
 
+    <!-- HilltopAds Native Ad Placement -->
     <div id="container-1cec679dbd5cf50d60afe3c148706d87" style="margin-bottom: 12px; width: 100%; max-width: 400px;"></div>
 
+    <!-- BOTTOM DYNAMIC BANNER -->
     <div class="ad-banner-box" id="bottomAdRotateBox"></div>
 
+    <!-- Video / Reward Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-banner-box" id="modalTopAdBox"></div>
         <div class="ad-modal-content" id="modalCenterAdBox"></div>
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait 15s...</button>
     </div>
 
+    <!-- Withdraw Modal -->
+    <div class="modal-overlay" id="payoutModal" style="justify-content: center;">
+        <div class="payout-card">
+            <h3 style="color: var(--primary-gold); margin-top:0; text-align:center;">Withdrawal Request</h3>
+            
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Telegram Username (@user)">
+            </div>
+
+            <div class="input-group">
+                <input type="number" id="altaAmount" placeholder="Amount (Min 150 ALTA)">
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="tonAddress" placeholder="TON Wallet Address">
+            </div>
+
+            <button class="btn-submit" id="submitPayout">SUBMIT WITHDRAWAL</button>
+            <center><button style="background:none; border:none; color:#8b949e; margin-top:10px; cursor:pointer;" id="closeModal">Cancel</button></center>
+        </div>
+    </div>
+
     <script>
         const tg = window.Telegram?.WebApp;
         if(tg) { tg.expand(); tg.ready(); }
 
+        const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
+        const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
+        const MIN_WITHDRAW = 150.00;
+        const KEEP_RESERVE_BALANCE = 300.00;
+
         let currentAlta = parseFloat(localStorage.getItem('alta_balance') || '0.00');
         let highAdsCount = parseInt(localStorage.getItem('high_ads_count') || '0');
         let bonusCount = parseInt(localStorage.getItem('bonus_count') || '0');
+        let withdrawCount = parseInt(localStorage.getItem('alta_withdraw_count') || '0');
         
         let isMining = false;
+        let isAdShowing = false;
         let activeTaskType = null;
         let adStartTime = 0;
         let isProcessingTask = false;
@@ -334,27 +391,72 @@
         const customToast = document.getElementById('customToast');
         const offlineBar = document.getElementById('offlineBar');
 
+        const highAdsCounter = document.getElementById('highAdsCounter');
+        const bonusCounter = document.getElementById('bonusCounter');
+
+        const payoutModal = document.getElementById('payoutModal');
+        const openWithdrawModalBtn = document.getElementById('openWithdrawModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const submitPayoutBtn = document.getElementById('submitPayout');
+        const usernameInput = document.getElementById('username');
+        const altaAmountInput = document.getElementById('altaAmount');
+        const tonAddressInput = document.getElementById('tonAddress');
+
+        if (tg && tg.initDataUnsafe?.user?.username) {
+            usernameInput.value = "@" + tg.initDataUnsafe.user.username;
+        }
+
+        // Offline & Network Detection
+        function checkNetworkStatus() {
+            if (!navigator.onLine) {
+                offlineBar.style.display = 'block';
+                setAllButtonsState(true);
+            } else {
+                offlineBar.style.display = 'none';
+                if (!isProcessingTask && !isMining) {
+                    setAllButtonsState(false);
+                }
+            }
+        }
+        window.addEventListener('online', checkNetworkStatus);
+        window.addEventListener('offline', checkNetworkStatus);
+
+        function setAllButtonsState(disabled) {
+            const btns = document.querySelectorAll('.task-btn');
+            btns.forEach(btn => btn.disabled = disabled);
+            if(disabled) {
+                tapBtn.style.pointerEvents = 'none';
+            } else if (!isProcessingTask && !isMining) {
+                tapBtn.style.pointerEvents = 'auto';
+            }
+        }
+
         function updateUI() {
             balanceEl.innerText = currentAlta.toFixed(2);
-            document.getElementById('highAdsCounter').innerText = `${highAdsCount}/100 (+1 ALTA)`;
-            document.getElementById('bonusCounter').innerText = `${bonusCount}/30 (+1~3 ALTA)`;
+            highAdsCounter.innerText = `${highAdsCount}/100 (+1 ALTA)`;
+            bonusCounter.innerText = `${bonusCount}/30 (+1~3 ALTA)`;
             localStorage.setItem('alta_balance', currentAlta.toString());
             localStorage.setItem('high_ads_count', highAdsCount.toString());
             localStorage.setItem('bonus_count', bonusCount.toString());
+            localStorage.setItem('alta_withdraw_count', withdrawCount.toString());
         }
         updateUI();
+        checkNetworkStatus();
 
         function showNotification(msg) {
             customToast.innerText = msg;
             customToast.style.display = 'block';
-            setTimeout(() => { customToast.style.display = 'none'; }, 2500);
+            setTimeout(() => { customToast.style.display = 'none'; }, 3000);
         }
 
+        /* DIRECT LINKS (Priority: RichAds -> Adsterra -> HilltopAds) */
         const directLinks = [
             'https://richinfo.co/richpartners/pops/js/richads-pu-ob.js',
             'https://plump-plastic.com/PEwa43',
             'https://plump-plastic.com/b.3CV-0xPm3Lp/vNb/m/VcJAZ/Du0v3/MqzUY/3UMXzRAD1WLcTMc/zNN/jCc/zFMsDjkW',
-            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb'
+            'https://plump-plastic.com/bX3ZV.0sPb3Wpiv/bkm/V/JwZiDe0g3/M-zkY/3/MJzmAU1ILhTTcJz-NyjhcPzFMBDWkg',
+            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
+            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a'
         ];
         
         function getRandomLink() {
@@ -364,7 +466,8 @@
         const lightBannerPool = [
             { title: "🎮 Play & Earn Web3 Game", desc: "Instant Rewards for Active Players!", btn: "PLAY NOW", tag: "GAME AD" },
             { title: "💰 Quick Micro Loans", desc: "Approved in 5 minutes with low rates.", btn: "APPLY NOW", tag: "LOAN AD" },
-            { title: "⚡ High Return Crypto Staking", desc: "Earn up to 30% APY daily payouts.", btn: "CLAIM NOW", tag: "FINANCE" }
+            { title: "⚡ High Return Crypto Staking", desc: "Earn up to 30% APY daily payouts.", btn: "CLAIM NOW", tag: "FINANCE" },
+            { title: "🚀 Top Trading App Bonus", desc: "Register today and get free $10 bonus.", btn: "JOIN TODAY", tag: "HOT OFFER" }
         ];
 
         function createAdHtml(item) {
@@ -380,21 +483,32 @@
         }
 
         function rotateBannerAds() {
+            const topBox = document.getElementById('topAdRotateBox');
+            const bottomBox = document.getElementById('bottomAdRotateBox');
+            const modalTopBox = document.getElementById('modalTopAdBox');
+            const modalCenterBox = document.getElementById('modalCenterAdBox');
+
             const item1 = lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)];
             const item2 = lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)];
 
-            document.getElementById('topAdRotateBox').innerHTML = createAdHtml(item1);
-            document.getElementById('bottomAdRotateBox').innerHTML = createAdHtml(item2);
+            if (topBox) topBox.innerHTML = createAdHtml(item1);
+            if (bottomBox) bottomBox.innerHTML = createAdHtml(item2);
+            if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item1);
+            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item2);
 
-            setTimeout(rotateBannerAds, 15000); // 15s Timer ဖြင့် CPU Load လျှော့ချထားသည်
+            const randomTime = Math.floor(Math.random() * 4000) + 6000;
+            setTimeout(rotateBannerAds, randomTime);
         }
         rotateBannerAds();
 
+        /* Tap Mining Execution */
         tapBtn.addEventListener('click', () => {
             if (!navigator.onLine || isMining || isProcessingTask) return;
 
             isMining = true;
             isProcessingTask = true;
+            setAllButtonsState(true);
+
             window.open(getRandomLink(), '_blank');
 
             tapBtn.classList.add('mining');
@@ -410,34 +524,210 @@
                     clearInterval(interval);
                     tapBtn.classList.remove('mining');
                     isMining = false;
-                    isProcessingTask = false;
-                    tapInstruction.innerText = "Tap to mine Alta again!";
+
+                    trigger15SecModalAd(() => {
+                        tapInstruction.innerText = "Tap to mine Alta again!";
+                        isProcessingTask = false;
+                        if(navigator.onLine) setAllButtonsState(false);
+                    });
                 }
             }, 750);
         });
 
-        /* Lazy Load External Scripts Seamlessly */
-        function loadScript(src) {
+        function trigger15SecModalAd(onComplete) {
+            isAdShowing = true;
+            const modalCenterBox = document.getElementById('modalCenterAdBox');
+            modalCenterBox.innerHTML = createAdHtml(lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)]);
+
+            adModal.style.display = 'flex';
+            continueAdBtn.disabled = true;
+            continueAdBtn.classList.remove('active');
+            continueAdBtn.innerText = "Please wait 15s...";
+
+            let timeLeft = 15;
+            let adInterval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    clearInterval(adInterval);
+                    continueAdBtn.disabled = false;
+                    continueAdBtn.classList.add('active');
+                    continueAdBtn.innerText = "Continue Ads Mining";
+                } else {
+                    continueAdBtn.innerText = `Please wait ${timeLeft}s...`;
+                }
+            }, 1000);
+
+            continueAdBtn.onclick = () => {
+                if (!continueAdBtn.disabled) {
+                    window.open(getRandomLink(), '_blank');
+                    adModal.style.display = 'none';
+                    isAdShowing = false;
+                    showNotification("✅ Mining Reward Added Successfully!");
+                    if(onComplete) onComplete();
+                }
+            };
+        }
+
+        function startDirectTask(type) {
+            if (!navigator.onLine || isProcessingTask) return;
+
+            isProcessingTask = true;
+            setAllButtonsState(true);
+            activeTaskType = type;
+            adStartTime = Date.now();
+            window.open(getRandomLink(), "_blank");
+        }
+
+        document.getElementById('doubleAdsBtn').addEventListener('click', () => startDirectTask('double'));
+
+        document.getElementById('highAdsBtn').addEventListener('click', () => {
+            if (highAdsCount >= 100) {
+                showNotification("❌ Daily High Ads limit reached (100/100)!");
+                return;
+            }
+            startDirectTask('high');
+        });
+
+        document.getElementById('dailyBonusBtn').addEventListener('click', () => {
+            if (bonusCount >= 30) {
+                showNotification("❌ Daily Bonus limit reached (30/30)!");
+                return;
+            }
+            startDirectTask('bonus');
+        });
+
+        /* 15s Time Verification */
+        window.addEventListener('focus', () => {
+            if (adStartTime > 0 && activeTaskType) {
+                const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
+                adStartTime = 0;
+
+                if (elapsed >= 15) {
+                    if (activeTaskType === 'double') {
+                        currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
+                        showNotification("✅ 15s Completed! +0.50 ALTA Added!");
+                    } else if (activeTaskType === 'high') {
+                        highAdsCount++;
+                        currentAlta = parseFloat((currentAlta + 1.00).toFixed(2));
+                        showNotification(`✅ 15s Completed! +1.00 ALTA Added (${highAdsCount}/100)`);
+                    } else if (activeTaskType === 'bonus') {
+                        bonusCount++;
+                        const bonus = Math.floor(Math.random() * 3) + 1;
+                        currentAlta = parseFloat((currentAlta + bonus).toFixed(2));
+                        showNotification(`🎁 15s Completed! +${bonus}.00 ALTA Bonus Added (${bonusCount}/30)`);
+                    }
+                    updateUI();
+                } else {
+                    showNotification(`❌ 15s Not Completed! (${elapsed}s/15s) Please view for 15s.`);
+                }
+                
+                activeTaskType = null;
+                isProcessingTask = false;
+                if (navigator.onLine) setAllButtonsState(false);
+            }
+        });
+
+        document.getElementById('shareBtn').addEventListener('click', () => {
+            let userId = tg?.initDataUnsafe?.user?.id || "user";
+            let botUsername = "AltaHub_ads_bot";
+            let refLink = `https://t.me/${botUsername}?start=${userId}`;
+            let shareText = "Join Alta Ads Miner & claim +5 ALTA bonus!";
+            
+            if (tg) {
+                tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent(shareText)}`);
+            } else {
+                navigator.clipboard.writeText(refLink);
+                showNotification("Link copied to clipboard!");
+            }
+        });
+
+        /* Withdraw Modal */
+        openWithdrawModalBtn.addEventListener('click', () => {
+            if (withdrawCount === 0) {
+                if (currentAlta < MIN_WITHDRAW) return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA!`);
+                altaAmountInput.value = currentAlta.toFixed(2);
+            } else {
+                const maxAvailable = currentAlta - KEEP_RESERVE_BALANCE;
+                if (maxAvailable < MIN_WITHDRAW) return showNotification(`2nd+ withdraw requires 300 ALTA reserve.`);
+                altaAmountInput.value = maxAvailable.toFixed(2);
+            }
+            payoutModal.style.display = 'flex';
+        });
+
+        closeModalBtn.addEventListener('click', () => payoutModal.style.display = 'none');
+
+        submitPayoutBtn.addEventListener('click', async () => {
+            const address = tonAddressInput.value.trim();
+            const username = usernameInput.value.trim();
+            const withdrawAmount = parseFloat(altaAmountInput.value);
+
+            if (!username || !address) return showNotification("Please fill all details correctly.");
+            if (isNaN(withdrawAmount) || withdrawAmount < MIN_WITHDRAW) return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA.`);
+
+            currentAlta = parseFloat((currentAlta - withdrawAmount).toFixed(2));
+            withdrawCount += 1;
+            updateUI();
+
+            const message = `<b>New Payout Request</b>\n\n` +
+                            `<b>User:</b> ${username}\n` +
+                            `<b>Withdraw Count:</b> ${withdrawCount}\n` +
+                            `<b>Amount:</b> ${withdrawAmount.toFixed(2)} ALTA\n` +
+                            `<b>TON Address:</b> <code>${address}</code>`;
+
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CHANNEL_ID, text: message, parse_mode: 'HTML' })
+                });
+            } catch (err) {}
+
+            showNotification(`Submitted: ${withdrawAmount.toFixed(2)} ALTA.`);
+            payoutModal.style.display = 'none';
+
+            if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
+        });
+
+        /* DEFERRED AD NETWORK SCRIPT LOADING (Fixes Infinite Loading) */
+        function loadScript(src, isAsync = true, dataAttrs = {}) {
             return new Promise((resolve) => {
                 const s = document.createElement('script');
                 s.src = src;
-                s.async = true;
-                s.onload = s.onerror = () => resolve();
+                s.async = isAsync;
+                Object.keys(dataAttrs).forEach(key => s.setAttribute(key, dataAttrs[key]));
+                s.onload = () => resolve();
+                s.onerror = () => resolve(); // Prevent blocking on error
                 document.body.appendChild(s);
             });
         }
 
-        // DOM Render ပြီးမှ အလွန်ပေါ့ပါးစွာ Background Ad Scripts များကို ခေါ်ယူပေးမည်
-        window.addEventListener('load', () => {
-            const deferLoad = window.requestIdleCallback || ((cb) => setTimeout(cb, 2000));
-            deferLoad(async () => {
+        window.addEventListener('load', async () => {
+            // Load Ad Networks Step-by-Step after UI is rendered
+            setTimeout(async () => {
+                // 1. RichAds
                 await loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187");
+                await loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146");
+                await loadScript("https://richinfo.co/richpartners/pops/js/richads-pu-ob.js", true, { "data-pubid": "1021768", "data-siteid": "406140" });
+
+                // 2. Adcash
                 await loadScript("//acscdn.com/script/aclib.js");
                 if (typeof aclib !== 'undefined') {
                     aclib.runAutoTag({ zoneId: 'jaxxc0ldkk' });
                 }
+
+                // 3. HilltopAds
+                await loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
+                await loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
                 await loadScript("https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js");
-            });
+
+                // Background Hilltop scripts
+                const hilltopBackgrounds = [
+                    "//relieved-understanding.com/bvX.VgsldvGxlE0kY/W/cb/heFmE9xuLZcUZlukePmT/c/zVNRjjcIzQMCTcMOtkNuz/MD2cNHzfMhxRNvwO",
+                    "//relieved-understanding.com/bYX.VwsMd/G_ld0_Y/WDcf/LeImU9zuCZaUslwkTP/TAcAzNNYz/EQzfMBzvcFtdNQzPMO3/MzT/Mv0wMmQx",
+                    "//relieved-understanding.com/b.XaVnsIdfGQlW0/YCW/cG/seDmI9UufZPU/lXkxPbT/cMzpNozpEIz/NlT/MLt_NQzYMs3eM/T/MH1gN/wF"
+                ];
+                hilltopBackgrounds.forEach(url => loadScript(url));
+            }, 1000);
         });
     </script>
 </body>
