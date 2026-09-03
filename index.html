@@ -9,7 +9,7 @@
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Ad Network Script Integrations (RichAds Popunder & AutoTag) -->
+    <!-- Ad Network Scripts -->
     <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
@@ -18,9 +18,7 @@
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js" async></script>
     <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', () => {
-            if(window.aclib && typeof window.aclib.runAutoTag === 'function') {
-                window.aclib.runAutoTag({ zoneId: 'jaxxc0ldkk' });
-            }
+            if(window.aclib) aclib.runAutoTag({ zoneId: 'jaxxc0ldkk' });
         });
     </script>
 
@@ -50,7 +48,6 @@
             -webkit-user-select: none;
         }
 
-        /* Top and Bottom Video Ad Containers */
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
@@ -65,10 +62,9 @@
             align-items: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             position: relative;
-            transition: opacity 0.3s ease-in-out;
+            will-change: transform;
         }
 
-        /* Outstream Video Ad Wrapper */
         .video-ad-card {
             width: 100%;
             position: relative;
@@ -152,6 +148,7 @@
             cursor: pointer;
             box-shadow: 0 0 18px rgba(243, 156, 18, 0.5);
             animation: pulse-glow 2s infinite ease-in-out;
+            will-change: transform;
         }
 
         @keyframes pulse-glow {
@@ -183,7 +180,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: transform 0.1s ease;
         }
 
         .action-btn:active { transform: scale(0.98); }
@@ -241,7 +237,6 @@
             font-weight: bold;
             cursor: not-allowed;
             opacity: 0.6;
-            transition: all 0.3s ease;
         }
 
         .btn-continue.active {
@@ -448,7 +443,7 @@
         function showNotification(msg) {
             customToast.innerText = msg;
             customToast.style.display = 'block';
-            setTimeout(() => { customToast.style.display = 'none'; }, 3500);
+            setTimeout(() => { customToast.style.display = 'none'; }, 3000);
         }
 
         /* High CPM Direct Link Pool Rotator */
@@ -463,15 +458,15 @@
             return directLinks[Math.floor(Math.random() * directLinks.length)];
         }
 
-        /* Dynamic Video Ad Pool */
+        /* High CPM Video Ads Collection */
         const videoAdPool = [
             `<div class="video-ad-card">
                 <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400">
                     <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-and-data-41538-large.mp4" type="video/mp4">
                 </video>
                 <div class="video-ad-overlay">
-                    <span class="video-ad-title">🎮 High Yield Mining Sponsor</span>
-                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">VIEW & CLAIM</a>
+                    <span class="video-ad-title">🎮 Exclusive Game Bonus</span>
+                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">PLAY & CLAIM</a>
                 </div>
             </div>`,
             `<div class="video-ad-card">
@@ -479,13 +474,13 @@
                     <source src="https://assets.mixkit.co/videos/preview/mixkit-cryptocurrency-and-network-lines-41539-large.mp4" type="video/mp4">
                 </video>
                 <div class="video-ad-overlay">
-                    <span class="video-ad-title">⚡ High CPM Ad Network</span>
-                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">START WATCH</a>
+                    <span class="video-ad-title">💰 Instant Micro Loans</span>
+                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">APPLY NOW</a>
                 </div>
             </div>`
         ];
 
-        /* Smooth Auto-rotate Banners (6s - 10s) without breaking layout */
+        /* Auto Rotate Banners between 6s to 10s smoothly */
         function rotateBannerAds() {
             const topBox = document.getElementById('topAdRotateBox');
             const bottomBox = document.getElementById('bottomAdRotateBox');
@@ -500,12 +495,12 @@
             if (modalTopBox) modalTopBox.innerHTML = rand1;
             if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = rand1;
 
-            const nextTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
-            setTimeout(rotateBannerAds, nextTime);
+            const nextRotationTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
+            setTimeout(rotateBannerAds, nextRotationTime);
         }
         rotateBannerAds();
 
-        /* Dynamic Ad Injection safely */
+        /* Optimized Dynamic Ad Script Injection */
         function injectAdScript(src) {
             try {
                 const s = document.createElement('script');
@@ -519,7 +514,7 @@
         injectAdScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
         injectAdScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
 
-        /* Tap Mining System */
+        /* Tap Mining Execution */
         tapBtn.addEventListener('click', () => {
             if (isMining || isAdShowing) return;
 
@@ -547,7 +542,6 @@
             }, 750);
         });
 
-        /* 15-Second Video Reward Modal */
         function trigger15SecModalAd(onComplete) {
             isAdShowing = true;
             const modalCenterBox = document.getElementById('modalCenterAdBox');
@@ -565,7 +559,7 @@
                     clearInterval(adInterval);
                     continueAdBtn.disabled = false;
                     continueAdBtn.classList.add('active');
-                    continueAdBtn.innerText = "Continue Mining";
+                    continueAdBtn.innerText = "Continue Ads Mining";
                 } else {
                     continueAdBtn.innerText = `Please wait ${timeLeft}s...`;
                 }
@@ -576,38 +570,33 @@
                     window.open(getRandomLink(), '_blank');
                     adModal.style.display = 'none';
                     isAdShowing = false;
-                    showNotification("✅ Reward verified successfully!");
+                    showNotification("✅ Mining Reward Added Successfully!");
                     if(onComplete) onComplete();
                 }
             };
         }
 
-        /* Direct Ad Task Handling */
+        /* Direct Task Runner for Double, High Ads & Daily Bonus */
         function startDirectTask(type) {
             activeTaskType = type;
             adStartTime = Date.now();
             window.open(getRandomLink(), "_blank");
-            showNotification("⏱ Stay on the Ad page for 15s to claim reward!");
+            showNotification("⏳ Viewing Ad... Stay for at least 15s!");
         }
 
-        /* Double Ads Click Handler */
-        document.getElementById('doubleAdsBtn').addEventListener('click', () => {
-            startDirectTask('double');
-        });
+        document.getElementById('doubleAdsBtn').addEventListener('click', () => startDirectTask('double'));
 
-        /* Daily High Ads Handler */
         document.getElementById('highAdsBtn').addEventListener('click', () => {
             if (highAdsCount >= 100) return showNotification("⚠️ Daily High Ads limit reached (100/100)!");
             startDirectTask('high');
         });
 
-        /* Daily Bonus Handler */
         document.getElementById('dailyBonusBtn').addEventListener('click', () => {
             if (bonusCount >= 30) return showNotification("⚠️ Daily Bonus limit reached (30/30)!");
             startDirectTask('bonus');
         });
 
-        /* Verification on Focus (15 Seconds Watch Check) */
+        /* Tab Focus Time Verification Engine */
         window.addEventListener('focus', () => {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
@@ -616,30 +605,25 @@
                 if (elapsed >= 15) {
                     if (activeTaskType === 'double') {
                         currentAlta += 0.50;
-                        showNotification("✅ Verified! +0.50 ALTA added to balance!");
+                        showNotification("✅ 15s Completed! +0.50 ALTA Added!");
                     } else if (activeTaskType === 'high') {
-                        if (highAdsCount < 100) {
-                            highAdsCount++;
-                            currentAlta += 1.00;
-                            showNotification(`✅ High Ad Verified! +1.00 ALTA (${highAdsCount}/100)`);
-                        }
+                        highAdsCount++;
+                        currentAlta += 1.00;
+                        showNotification(`✅ High Ad Verified! +1.00 ALTA (${highAdsCount}/100)`);
                     } else if (activeTaskType === 'bonus') {
-                        if (bonusCount < 30) {
-                            bonusCount++;
-                            const bonus = Math.floor(Math.random() * 3) + 1;
-                            currentAlta += bonus;
-                            showNotification(`🎁 Bonus Verified! +${bonus} ALTA added (${bonusCount}/30)`);
-                        }
+                        bonusCount++;
+                        const bonus = Math.floor(Math.random() * 3) + 1;
+                        currentAlta += bonus;
+                        showNotification(`🎁 Bonus Verified! +${bonus} ALTA (${bonusCount}/30)`);
                     }
                     updateUI();
                 } else {
-                    showNotification(`❌ Task incomplete! Watched ${elapsed}s (15s required). Try again!`);
+                    showNotification(`❌ Ad ended early! Watched: ${elapsed}s / Required: 15s`);
                 }
                 activeTaskType = null;
             }
         });
 
-        /* Share Handler */
         document.getElementById('shareBtn').addEventListener('click', () => {
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let botUsername = "AltaHub_ads_bot";
@@ -654,17 +638,16 @@
             }
         });
 
-        /* Withdrawal Logic */
         openWithdrawModalBtn.addEventListener('click', () => {
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) {
-                    return showNotification(`Minimum withdraw amount is ${MIN_WITHDRAW} ALTA!`);
+                    return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA!`);
                 }
                 altaAmountInput.value = currentAlta.toFixed(2);
             } else {
                 const maxAvailable = currentAlta - KEEP_RESERVE_BALANCE;
                 if (maxAvailable < MIN_WITHDRAW) {
-                    return showNotification(`Subsequent withdrawals require maintaining a 300 ALTA reserve.`);
+                    return showNotification(`2nd+ withdraw requires 300 ALTA reserve.`);
                 }
                 altaAmountInput.value = maxAvailable.toFixed(2);
             }
@@ -721,7 +704,7 @@
                 });
             } catch (err) {}
 
-            showNotification(`Withdrawal request submitted: ${withdrawAmount.toFixed(2)} ALTA.`);
+            showNotification(`Submitted: ${withdrawAmount.toFixed(2)} ALTA.`);
             payoutModal.style.display = 'none';
 
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
