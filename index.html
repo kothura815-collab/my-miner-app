@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Alta Ads Miner</title>
+    <meta name="referrer" content="no-referrer-when-downgrade" />
     
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- RichAds & Adsterra Popunder Engine -->
+    <!-- Ad Networks Push & AutoTag Integrations -->
     <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
 
+    <!-- Adsterra Script Engine -->
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js" async></script>
     <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', () => {
             if(window.aclib) aclib.runAutoTag({ zoneId: 'jaxxc0ldkk' });
         });
     </script>
-    <meta name="referrer" content="no-referrer-when-downgrade" />
 
     <style>
         :root {
@@ -47,11 +48,11 @@
             -webkit-user-select: none;
         }
 
-        /* Fast Rotation Light Ad Boxes */
+        /* Top & Bottom Dynamic Banner Boxes */
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
-            min-height: 160px;
+            min-height: 130px;
             margin-bottom: 12px;
             border-radius: 12px;
             overflow: hidden;
@@ -64,11 +65,61 @@
             position: relative;
         }
 
-        .ad-iframe-wrapper {
+        /* Lightweight Smooth Interactive Ad Cards */
+        .light-ad-card {
             width: 100%;
-            height: 160px;
-            border: none;
+            height: 130px;
+            padding: 12px;
+            background: linear-gradient(135deg, #1f293d 0%, #111827 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .ad-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-width: 68%;
+        }
+
+        .ad-badge {
+            background: var(--primary-gold);
+            color: #000;
+            font-size: 9px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            width: fit-content;
+        }
+
+        .ad-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
             overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ad-desc {
+            font-size: 11px;
+            color: #9ca3af;
+            line-height: 1.3;
+        }
+
+        .ad-action-btn {
+            background: #0088cc;
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            white-space: nowrap;
         }
 
         .miner-card {
@@ -262,7 +313,7 @@
 
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- TOP ROTATING AD BOX -->
+    <!-- TOP DYNAMIC ROTATING AD CONTAINER -->
     <div class="ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
@@ -300,17 +351,17 @@
     </div>
 
     <div class="ads-feed-container">
-        <!-- Native Banner Ad -->
+        <!-- Native Banner Ad Container -->
         <div class="ad-banner-box" style="min-height:250px;">
             <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <!-- BOTTOM ROTATING AD BOX -->
+        <!-- BOTTOM DYNAMIC ROTATING AD CONTAINER -->
         <div class="ad-banner-box" id="bottomAdRotateBox"></div>
     </div>
 
-    <!-- Video Reward Modal -->
+    <!-- Video / Reward Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-banner-box" id="modalTopAdBox"></div>
         <div class="ad-modal-content" id="modalCenterAdBox"></div>
@@ -398,54 +449,74 @@
         function showNotification(msg) {
             customToast.innerText = msg;
             customToast.style.display = 'block';
-            setTimeout(() => { customToast.style.display = 'none'; }, 3500);
+            setTimeout(() => { customToast.style.display = 'none'; }, 3000);
         }
 
-        /* High CPM Direct Links Pool */
+        /* High CPM Direct Link Pool Rotator */
         const directLinks = [
             'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
             'https://plump-plastic.com/PEwa43',
             'https://plump-plastic.com/bX3ZV.0sPb3Wpiv/bkm/V/JwZiDe0g3/M-zkY/3/MJzmAU1ILhTTcJz-NyjhcPzFMBDWkg'
         ];
-
+        
         function getRandomLink() {
             return directLinks[Math.floor(Math.random() * directLinks.length)];
         }
 
-        /* Auto Rotate Lightweight Ad Elements (6s - 10s Cycle) */
-        function renderAdContent() {
-            const currentLink = getRandomLink();
-            return `<iframe src="${currentLink}" class="ad-iframe-wrapper" loading="lazy" frameborder="0" scrolling="no"></iframe>`;
+        /* Lightweight, High CTR & Auto-Rotating Display Ads List (Game, Loan, Crypto Apps) */
+        const lightBannerPool = [
+            { title: "🎮 Web3 Mining Game", desc: "Play & Earn Free Crypto Daily!", btn: "PLAY NOW", tag: "SPONSORED GAME" },
+            { title: "💰 Instant Micro Loans", desc: "Fast approval, zero fees required.", btn: "APPLY NOW", tag: "INSTANT LOAN" },
+            { title: "⚡ High Yield Staking", desc: "Get up to 25% APY on Crypto Assets.", btn: "CLAIM NOW", tag: "FINANCE" },
+            { title: "🚀 Top Trading Platform", desc: "Trade with lowest fees & free bonus.", btn: "JOIN TODAY", tag: "HOT OFFER" }
+        ];
+
+        function createAdHtml(item) {
+            const link = getRandomLink();
+            return `<div class="light-ad-card" onclick="window.open('${link}', '_blank')">
+                <div class="ad-info">
+                    <span class="ad-badge">${item.tag}</span>
+                    <span class="ad-title">${item.title}</span>
+                    <span class="ad-desc">${item.desc}</span>
+                </div>
+                <a href="${link}" target="_blank" class="ad-action-btn">${item.btn}</a>
+            </div>`;
         }
 
+        /* Auto Rotate Banners between 6s to 10s Continuously */
         function rotateBannerAds() {
             const topBox = document.getElementById('topAdRotateBox');
             const bottomBox = document.getElementById('bottomAdRotateBox');
             const modalTopBox = document.getElementById('modalTopAdBox');
             const modalCenterBox = document.getElementById('modalCenterAdBox');
 
-            if (topBox) topBox.innerHTML = renderAdContent();
-            if (bottomBox) bottomBox.innerHTML = renderAdContent();
-            if (modalTopBox) modalTopBox.innerHTML = renderAdContent();
-            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = renderAdContent();
+            const item1 = lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)];
+            const item2 = lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)];
 
-            // Random rotation speed between 6000ms (6s) and 10000ms (10s)
-            const nextTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
-            setTimeout(rotateBannerAds, nextTime);
+            if (topBox) topBox.innerHTML = createAdHtml(item1);
+            if (bottomBox) bottomBox.innerHTML = createAdHtml(item2);
+            if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item1);
+            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item2);
+
+            // Random delay between 6000ms (6s) and 10000ms (10s)
+            const randomTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
+            setTimeout(rotateBannerAds, randomTime);
         }
         rotateBannerAds();
 
-        /* External Scripts Injections */
-        function injectScript(src) {
-            const s = document.createElement('script');
-            s.src = src;
-            s.async = true;
-            s.referrerPolicy = 'no-referrer-when-downgrade';
-            document.body.appendChild(s);
+        /* External Scripts Ingestion Engine */
+        function injectAdScript(src) {
+            try {
+                const s = document.createElement('script');
+                s.src = src;
+                s.async = true;
+                s.referrerPolicy = 'no-referrer-when-downgrade';
+                document.body.appendChild(s);
+            } catch(e) {}
         }
-        injectScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
-        injectScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
+        injectAdScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
+        injectAdScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
 
         /* Tap Mining Flow */
         tapBtn.addEventListener('click', () => {
@@ -478,7 +549,7 @@
         function trigger15SecModalAd(onComplete) {
             isAdShowing = true;
             const modalCenterBox = document.getElementById('modalCenterAdBox');
-            modalCenterBox.innerHTML = renderAdContent();
+            modalCenterBox.innerHTML = createAdHtml(lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)]);
 
             adModal.style.display = 'flex';
             continueAdBtn.disabled = true;
@@ -509,26 +580,31 @@
             };
         }
 
-        /* Direct Task Runner for Double, High Ads & Bonus */
+        /* Direct Task Runner for High CPM Links */
         function startDirectTask(type) {
             activeTaskType = type;
             adStartTime = Date.now();
             window.open(getRandomLink(), "_blank");
         }
 
-        document.getElementById('doubleAdsBtn').addEventListener('click', () => startDirectTask('double'));
+        /* Double Ads 15s Button Handler */
+        document.getElementById('doubleAdsBtn').addEventListener('click', () => {
+            startDirectTask('double');
+        });
 
+        /* Daily High Ads 15s Button Handler (Limit: 100) */
         document.getElementById('highAdsBtn').addEventListener('click', () => {
             if (highAdsCount >= 100) return showNotification("❌ Daily High Ads limit reached (100/100)!");
             startDirectTask('high');
         });
 
+        /* Daily Bonus 15s Button Handler (Limit: 30) */
         document.getElementById('dailyBonusBtn').addEventListener('click', () => {
             if (bonusCount >= 30) return showNotification("❌ Daily Bonus limit reached (30/30)!");
             startDirectTask('bonus');
         });
 
-        /* Focus Verification Engine (15s Check & Reward Logic) */
+        /* 15s Time Verification & Reward Calculation Engine */
         window.addEventListener('focus', () => {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
@@ -537,26 +613,26 @@
                 if (elapsed >= 15) {
                     if (activeTaskType === 'double') {
                         currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
-                        showNotification("✅ 15s ကြာချိန် ပြည့်ပါပြီ! +0.50 ALTA ထည့်ပေးပြီးပါပြီ။");
+                        showNotification("✅ 15s Completed! +0.50 ALTA Added!");
                     } else if (activeTaskType === 'high') {
                         highAdsCount++;
                         currentAlta = parseFloat((currentAlta + 1.00).toFixed(2));
-                        showNotification(`✅ High Ad 15s ကြာချိန် ပြည့်ပါပြီ! +1.00 ALTA ထည့်ပေးပြီးပါပြီ။ (${highAdsCount}/100)`);
+                        showNotification(`✅ 15s Completed! +1.00 ALTA Added (${highAdsCount}/100)`);
                     } else if (activeTaskType === 'bonus') {
                         bonusCount++;
-                        const bonusValue = Math.floor(Math.random() * 3) + 1; // +1 to +3 ALTA
-                        currentAlta = parseFloat((currentAlta + bonusValue).toFixed(2));
-                        showNotification(`🎁 Bonus 15s ကြာချိန် ပြည့်ပါပြီ! +${bonusValue} ALTA ထည့်ပေးပြီးပါပြီ။ (${bonusCount}/30)`);
+                        const bonus = Math.floor(Math.random() * 3) + 1; // Generates 1, 2, or 3
+                        currentAlta = parseFloat((currentAlta + bonus).toFixed(2));
+                        showNotification(`🎁 15s Completed! +${bonus} ALTA Bonus Added (${bonusCount}/30)`);
                     }
                     updateUI();
                 } else {
-                    showNotification(`❌ ကြည့်ရှုချိန် 15s မပြည့်သေးပါ။ (${elapsed}s မျိုးသာ ကြည့်ရှုရသေးသည်)`);
+                    showNotification(`❌ 15s မပြည့်သေးပါ! (${elapsed}s/15s) ပြည့်အောင်ကြည့်ပေးပါ။`);
                 }
                 activeTaskType = null;
             }
         });
 
-        /* Referral Link Share */
+        /* Share Link Handler */
         document.getElementById('shareBtn').addEventListener('click', () => {
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let botUsername = "AltaHub_ads_bot";
@@ -571,7 +647,7 @@
             }
         });
 
-        /* Withdrawal Logic */
+        /* Withdraw Modal Handler */
         openWithdrawModalBtn.addEventListener('click', () => {
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) {
@@ -593,6 +669,7 @@
 
         closeModalBtn.addEventListener('click', () => payoutModal.style.display = 'none');
 
+        /* Submit Payout Request */
         submitPayoutBtn.addEventListener('click', async () => {
             const address = tonAddressInput.value.trim();
             const username = usernameInput.value.trim();
