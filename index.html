@@ -8,7 +8,7 @@
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Adsterra / Aclib Script -->
+    <!-- Adsterra AutoTag / Direct Script Integration -->
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js" async></script>
     <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', () => {
@@ -43,21 +43,72 @@
             -webkit-user-select: none;
         }
 
+        /* Top and Bottom Video Ad Containers */
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
-            min-height: 65px;
+            min-height: 160px;
             margin-bottom: 12px;
             border-radius: 12px;
             overflow: hidden;
-            background: #1f293d;
+            background: #161b22;
             border: 1px solid rgba(255, 255, 255, 0.12);
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             position: relative;
+        }
+
+        /* Outstream Video Ad Wrapper */
+        .video-ad-card {
+            width: 100%;
+            position: relative;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .video-ad-card video {
+            width: 100%;
+            height: 160px;
+            border: none;
+            object-fit: cover;
+        }
+
+        .video-ad-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+            padding: 8px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .video-ad-title {
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 65%;
+        }
+
+        .video-ad-btn {
+            background: var(--primary-gold);
+            color: #000;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         .miner-card {
@@ -251,8 +302,10 @@
 
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- Top Banner -->
-    <div class="ad-banner-box" id="topAdRotateBox"></div>
+    <!-- TOP VIDEO AD CONTAINER -->
+    <div class="ad-banner-box" id="topAdRotateBox">
+        <!-- Ad Network Video Script သို့မဟုတ် Native Player Auto Render -->
+    </div>
 
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
@@ -289,15 +342,19 @@
     </div>
 
     <div class="ads-feed-container">
-        <div class="ad-banner-box">
+        <!-- Native Banner Ad -->
+        <div class="ad-banner-box" style="min-height:250px;">
             <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <div class="ad-banner-box" id="bottomAdRotateBox"></div>
+        <!-- BOTTOM VIDEO AD CONTAINER -->
+        <div class="ad-banner-box" id="bottomAdRotateBox">
+            <!-- Ad Network Video Script သို့မဟုတ် Native Player Auto Render -->
+        </div>
     </div>
 
-    <!-- Video Modal -->
+    <!-- Video Reward Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-banner-box" id="modalTopAdBox"></div>
         
@@ -390,7 +447,7 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 3000);
         }
 
-        /* Update Direct Link Pools */
+        /* Direct Link Pool (High CPM Revenue Links) */
         const directLinks = [
             'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb'
         ];
@@ -398,19 +455,26 @@
             return directLinks[Math.floor(Math.random() * directLinks.length)];
         }
 
-        /* Banner & Video Pools */
-        const bannerPool = [
-            `<a href="${getRandomLink()}" target="_blank" style="color:#f39c12; font-weight:bold; text-decoration:none; padding:10px; display:block; width:100%;">🔥 [SPONSORED] High CPM Crypto & Loan Deals (Click View)</a>`,
-            `<a href="${getRandomLink()}" target="_blank" style="color:#2ecc71; font-weight:bold; text-decoration:none; padding:10px; display:block; width:100%;">🎮 Play Games & Earn Instant Rewards Today!</a>`,
-            `<a href="${getRandomLink()}" target="_blank" style="color:#0088cc; font-weight:bold; text-decoration:none; padding:10px; display:block; width:100%;">⚡ Fast Payout Offers & Bonus Deals</a>`
-        ];
-
-        const videoModalPool = [
-            `<a href="${getRandomLink()}" target="_blank" style="width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(135deg, #1f2430, #0d1117); text-decoration:none; padding:15px; text-align:center;">
-                <div style="font-size:40px; margin-bottom:10px;">🎬</div>
-                <div style="color:#f39c12; font-size:16px; font-weight:bold;">Watch High CPM Video Sponsor</div>
-                <div style="color:#8b949e; font-size:12px; margin-top:6px;">Tap to visit sponsor & verify view</div>
-            </a>`
+        /* Video Ad Pool for Revenue Generation */
+        const videoAdPool = [
+            `<div class="video-ad-card">
+                <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-and-data-41538-large.mp4" type="video/mp4">
+                </video>
+                <div class="video-ad-overlay">
+                    <span class="video-ad-title">🎮 High CPM Video Reward Sponsor</span>
+                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">VIEW & CLAIM</a>
+                </div>
+            </div>`,
+            `<div class="video-ad-card">
+                <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1621416894569-0f39ed31d247?w=400">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-cryptocurrency-and-network-lines-41539-large.mp4" type="video/mp4">
+                </video>
+                <div class="video-ad-overlay">
+                    <span class="video-ad-title">⚡ Watch Video Ads to Earn Bonus</span>
+                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">START WATCH</a>
+                </div>
+            </div>`
         ];
 
         function rotateBannerAds() {
@@ -419,16 +483,15 @@
             const modalTopBox = document.getElementById('modalTopAdBox');
             const modalCenterBox = document.getElementById('modalCenterAdBox');
 
-            const rand1 = bannerPool[Math.floor(Math.random() * bannerPool.length)];
-            const rand2 = bannerPool[Math.floor(Math.random() * bannerPool.length)];
-            const randCenter = videoModalPool[Math.floor(Math.random() * videoModalPool.length)];
+            const rand1 = videoAdPool[Math.floor(Math.random() * videoAdPool.length)];
+            const rand2 = videoAdPool[Math.floor(Math.random() * videoAdPool.length)];
 
             if (topBox) topBox.innerHTML = rand1;
             if (bottomBox) bottomBox.innerHTML = rand2;
             if (modalTopBox) modalTopBox.innerHTML = rand1;
-            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = randCenter;
+            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = rand1;
 
-            const nextTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
+            const nextTime = Math.floor(Math.random() * (12000 - 8000 + 1)) + 8000;
             setTimeout(rotateBannerAds, nextTime);
         }
         rotateBannerAds();
@@ -464,7 +527,7 @@
         function trigger15SecModalAd(onComplete) {
             isAdShowing = true;
             const modalCenterBox = document.getElementById('modalCenterAdBox');
-            modalCenterBox.innerHTML = videoModalPool[Math.floor(Math.random() * videoModalPool.length)];
+            modalCenterBox.innerHTML = videoAdPool[Math.floor(Math.random() * videoAdPool.length)];
 
             adModal.style.display = 'flex';
             continueAdBtn.disabled = true;
