@@ -9,12 +9,12 @@
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Ad Network Script Integrations (RichAds Popunder & AutoTag) -->
+    <!-- RichAds Popunder & In-Page Push Integrations -->
     <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
 
-    <!-- Adsterra Engine -->
+    <!-- Adsterra Engine Integration -->
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js" async></script>
     <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', () => {
@@ -48,82 +48,82 @@
             -webkit-user-select: none;
         }
 
-        /* Lightweight Visual Banner Box */
+        /* Responsive Banner Containers */
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
-            min-height: 140px;
+            min-height: 120px;
             margin-bottom: 12px;
-            border-radius: 14px;
+            border-radius: 12px;
             overflow: hidden;
             background: #161b22;
             border: 1px solid rgba(255, 255, 255, 0.12);
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             position: relative;
-            transition: all 0.3s ease;
         }
 
-        /* Dynamic Ad Card Styles (HTML5 Lightweight) */
-        .interactive-ad-card {
+        /* Dynamic Rotating Banner Cards */
+        .light-ad-card {
             width: 100%;
-            height: 140px;
+            height: 120px;
             padding: 12px;
+            background: linear-gradient(135deg, #1f293d 0%, #111827 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.3s ease;
+        }
+
+        .light-ad-card:active {
+            transform: scale(0.98);
+        }
+
+        .ad-info {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            background-size: cover;
-            background-position: center;
-            text-decoration: none;
-            color: #fff;
-            box-sizing: border-box;
+            gap: 4px;
+            max-width: 68%;
         }
 
-        .interactive-ad-card .ad-badge {
-            align-self: flex-start;
-            background: rgba(0, 0, 0, 0.6);
-            color: #f1c40f;
-            font-size: 10px;
-            font-weight: bold;
-            padding: 3px 8px;
-            border-radius: 4px;
-            border: 1px solid rgba(241, 196, 15, 0.4);
-            letter-spacing: 0.5px;
-        }
-
-        .interactive-ad-card .ad-content {
-            z-index: 2;
-        }
-
-        .interactive-ad-card .ad-title {
-            font-size: 15px;
-            font-weight: 800;
-            margin: 0 0 4px 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
-
-        .interactive-ad-card .ad-desc {
-            font-size: 11px;
-            color: #d1d5db;
-            margin: 0 0 8px 0;
-            line-height: 1.2;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-        }
-
-        .interactive-ad-card .ad-action-btn {
-            display: inline-block;
+        .ad-badge {
             background: var(--primary-gold);
             color: #000;
+            font-size: 9px;
             font-weight: bold;
-            font-size: 11px;
-            padding: 6px 14px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+            padding: 2px 6px;
+            border-radius: 4px;
             width: fit-content;
+        }
+
+        .ad-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ad-desc {
+            font-size: 11px;
+            color: #9ca3af;
+            line-height: 1.3;
+        }
+
+        .ad-action-btn {
+            background: var(--accent-blue);
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            white-space: nowrap;
         }
 
         .miner-card {
@@ -190,7 +190,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: transform 0.1s ease;
         }
 
         .action-btn:active { transform: scale(0.98); }
@@ -225,7 +224,7 @@
         .ad-modal-content {
             width: 100%;
             max-width: 360px;
-            height: 200px;
+            height: 220px;
             background: #161b22;
             border-radius: 14px;
             border: 1px solid #2a3547;
@@ -318,7 +317,7 @@
 
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- TOP AD CONTAINER -->
+    <!-- TOP DYNAMIC BANNER CONTAINER -->
     <div class="ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
@@ -356,17 +355,17 @@
     </div>
 
     <div class="ads-feed-container">
-        <!-- Native Banner Ad Slot -->
-        <div class="ad-banner-box" style="min-height:250px;" id="nativeBannerBox">
+        <!-- Mammothsubway Native Banner Ad Container -->
+        <div class="ad-banner-box" style="min-height:250px;">
             <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
 
-        <!-- BOTTOM AD CONTAINER -->
+        <!-- BOTTOM DYNAMIC BANNER CONTAINER -->
         <div class="ad-banner-box" id="bottomAdRotateBox"></div>
     </div>
 
-    <!-- Video/Reward Modal -->
+    <!-- Video / Reward Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-banner-box" id="modalTopAdBox"></div>
         <div class="ad-modal-content" id="modalCenterAdBox"></div>
@@ -396,6 +395,31 @@
             <center><button style="background:none; border:none; color:#8b949e; margin-top:10px; cursor:pointer;" id="closeModal">Cancel</button></center>
         </div>
     </div>
+
+    <!-- External High CPM Ad Networks Dynamic Loader -->
+    <script>
+        function injectScript(src, isAsync = true) {
+            try {
+                const s = document.createElement('script');
+                s.src = src;
+                s.async = isAsync;
+                s.referrerPolicy = 'no-referrer-when-downgrade';
+                document.body.appendChild(s);
+            } catch(e) {}
+        }
+
+        /* Load Relieved Understanding Scripts */
+        const relievedScripts = [
+            "//relieved-understanding.com/b/XtV/s.dnGNlC0JYgWpcD/fenmy9-uLZfULl/kBPMTZcKzZNBz/EkzANXTOM/tkNNzlMj3VMeTcME1CNKwm",
+            "//relieved-understanding.com/b/XTV_s/d.GSls0SYbWrcW/Becm-9gumZVUWlBkgPqTPcQzvNnzpE/zsMSz/cXt_Ntz/MD3dMfT/M/0/M/Qn",
+            "//relieved-understanding.com/b.XFV/sxd_G/l/0YYJWUc_/Tezmt9NuOZ/UBljkJPhTlcYz-N/jycwz/MVTbMxtxN/zpMQ2ANXziMNxZNAwo"
+        ];
+        relievedScripts.forEach(url => injectScript(url));
+
+        /* Load Mammothsubway Direct Ad Scripts */
+        injectScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
+        injectScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
+    </script>
 
     <script>
         const tg = window.Telegram?.WebApp;
@@ -457,110 +481,59 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 3000);
         }
 
-        /* High CPM Direct Link Pool Rotator */
+        /* Provided High CPM Direct Link Pool Rotator */
         const directLinks = [
-            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
-            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
+            'https://plump-plastic.com/bX3ZV.0sPb3Wpiv/bkm/V/JwZiDe0g3/M-zkY/3/MJzmAU1ILhTTcJz-NyjhcPzFMBDWkg',
             'https://plump-plastic.com/PEwa43',
-            'https://plump-plastic.com/bX3ZV.0sPb3Wpiv/bkm/V/JwZiDe0g3/M-zkY/3/MJzmAU1ILhTTcJz-NyjhcPzFMBDWkg'
+            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
+            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a'
         ];
         
         function getRandomLink() {
             return directLinks[Math.floor(Math.random() * directLinks.length)];
         }
 
-        /* Lightweight HTML5 High-CPM Visual Banner Pool (Games, Loans, Crypto, Casino, Offers) */
-        const dynamicVisualAds = [
-            {
-                bg: "linear-gradient(135deg, #11998e, #38ef7d)",
-                badge: "SPONSORED GAME",
-                title: "🎮 Play & Earn Rewards",
-                desc: "Join millions of players in real cash tournaments!",
-                btn: "PLAY NOW"
-            },
-            {
-                bg: "linear-gradient(135deg, #8E2DE2, #4A00E0)",
-                badge: "INSTANT LOAN",
-                title: "💰 Fast Approval Credit",
-                desc: "Get instant digital loans with 0% introductory rate.",
-                btn: "APPLY NOW"
-            },
-            {
-                bg: "linear-gradient(135deg, #f857a6, #ff5858)",
-                badge: "CASINO & SLOTS",
-                title: "🎰 200% Welcome Bonus",
-                desc: "Spin the wheel & win big prizes today!",
-                btn: "CLAIM BONUS"
-            },
-            {
-                bg: "linear-gradient(135deg, #00c6ff, #0072ff)",
-                badge: "CRYPTO TRADING",
-                title: "🚀 Trade & Win Crypto",
-                desc: "Sign up today and get $50 trading bonus voucher.",
-                btn: "START TRADING"
-            },
-            {
-                bg: "linear-gradient(135deg, #FF416C, #FF4B2B)",
-                badge: "HOT OFFER",
-                title: "🔥 High Paying Tasks",
-                desc: "Complete simple tasks and cash out instantly.",
-                btn: "JOIN NOW"
-            }
+        /* High CTR Banner Offers Pool (Games, Loans, Web3 Apps) */
+        const lightBannerPool = [
+            { title: "🎮 Play & Earn Web3 Game", desc: "Instant Rewards for Active Players!", btn: "PLAY NOW", tag: "GAME AD" },
+            { title: "💰 Quick Micro Loans", desc: "Approved in 5 minutes with low rates.", btn: "APPLY NOW", tag: "LOAN AD" },
+            { title: "⚡ High Return Crypto Staking", desc: "Earn up to 30% APY daily payouts.", btn: "CLAIM NOW", tag: "FINANCE" },
+            { title: "🚀 Top Trading App Bonus", desc: "Register today and get free $10 bonus.", btn: "JOIN TODAY", tag: "HOT OFFER" }
         ];
 
-        function generateAdHTML(adObj) {
+        function createAdHtml(item) {
             const link = getRandomLink();
-            return `
-                <a href="${link}" target="_blank" class="interactive-ad-card" style="background: ${adObj.bg};">
-                    <span class="ad-badge">${adObj.badge}</span>
-                    <div class="ad-content">
-                        <div class="ad-title">${adObj.title}</div>
-                        <div class="ad-desc">${adObj.desc}</div>
-                        <div class="ad-action-btn">${adObj.btn}</div>
-                    </div>
-                </a>
-            `;
+            return `<div class="light-ad-card" onclick="window.open('${link}', '_blank')">
+                <div class="ad-info">
+                    <span class="ad-badge">${item.tag}</span>
+                    <span class="ad-title">${item.title}</span>
+                    <span class="ad-desc">${item.desc}</span>
+                </div>
+                <a href="${link}" target="_blank" class="ad-action-btn">${item.btn}</a>
+            </div>`;
         }
 
-        /* Auto-Rotate Banners every 6s - 10s for max impression/revenue without lag */
+        /* 6s to 10s Randomized Smooth Banner Auto-Rotation */
         function rotateBannerAds() {
             const topBox = document.getElementById('topAdRotateBox');
             const bottomBox = document.getElementById('bottomAdRotateBox');
             const modalTopBox = document.getElementById('modalTopAdBox');
             const modalCenterBox = document.getElementById('modalCenterAdBox');
 
-            const ad1 = dynamicVisualAds[Math.floor(Math.random() * dynamicVisualAds.length)];
-            let ad2 = dynamicVisualAds[Math.floor(Math.random() * dynamicVisualAds.length)];
-            
-            // Avoid duplicate identical ads side by side
-            if(ad1 === ad2) ad2 = dynamicVisualAds[(dynamicVisualAds.indexOf(ad1) + 1) % dynamicVisualAds.length];
+            const item1 = lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)];
+            const item2 = lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)];
 
-            if (topBox) topBox.innerHTML = generateAdHTML(ad1);
-            if (bottomBox) bottomBox.innerHTML = generateAdHTML(ad2);
-            if (modalTopBox) modalTopBox.innerHTML = generateAdHTML(ad1);
-            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = generateAdHTML(ad2);
+            if (topBox) topBox.innerHTML = createAdHtml(item1);
+            if (bottomBox) bottomBox.innerHTML = createAdHtml(item2);
+            if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item1);
+            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item2);
 
-            // Time interval between 6,000ms (6s) and 10,000ms (10s)
-            const nextTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
-            setTimeout(rotateBannerAds, nextTime);
+            const randomTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
+            setTimeout(rotateBannerAds, randomTime);
         }
         rotateBannerAds();
 
-        /* Dynamic External Script Injections */
-        function injectAdScript(src) {
-            try {
-                const s = document.createElement('script');
-                s.src = src;
-                s.async = true;
-                s.referrerPolicy = 'no-referrer-when-downgrade';
-                document.body.appendChild(s);
-            } catch(e) {}
-        }
-
-        injectAdScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
-        injectAdScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
-
-        /* Tap Mining Flow */
+        /* Tap Mining Execution */
         tapBtn.addEventListener('click', () => {
             if (isMining || isAdShowing) return;
 
@@ -591,8 +564,7 @@
         function trigger15SecModalAd(onComplete) {
             isAdShowing = true;
             const modalCenterBox = document.getElementById('modalCenterAdBox');
-            const randomAd = dynamicVisualAds[Math.floor(Math.random() * dynamicVisualAds.length)];
-            modalCenterBox.innerHTML = generateAdHTML(randomAd);
+            modalCenterBox.innerHTML = createAdHtml(lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)]);
 
             adModal.style.display = 'flex';
             continueAdBtn.disabled = true;
@@ -623,26 +595,31 @@
             };
         }
 
-        /* Direct Task Runner Function */
+        /* Helper to Trigger 15s Direct Tasks */
         function startDirectTask(type) {
             activeTaskType = type;
             adStartTime = Date.now();
             window.open(getRandomLink(), "_blank");
         }
 
-        document.getElementById('doubleAdsBtn').addEventListener('click', () => startDirectTask('double'));
+        /* Double Ads 15s Button Handler */
+        document.getElementById('doubleAdsBtn').addEventListener('click', () => {
+            startDirectTask('double');
+        });
 
+        /* Daily High Ads 15s Button Handler (Limit: 100) */
         document.getElementById('highAdsBtn').addEventListener('click', () => {
-            if (highAdsCount >= 100) return showNotification("Daily High Ads limit reached (100/100)!");
+            if (highAdsCount >= 100) return showNotification("❌ Daily High Ads limit reached (100/100)!");
             startDirectTask('high');
         });
 
+        /* Daily Bonus 15s Button Handler (Limit: 30) */
         document.getElementById('dailyBonusBtn').addEventListener('click', () => {
-            if (bonusCount >= 30) return showNotification("Daily Bonus limit reached (30/30)!");
+            if (bonusCount >= 30) return showNotification("❌ Daily Bonus limit reached (30/30)!");
             startDirectTask('bonus');
         });
 
-        /* Focus Verification & Award Balance Logic */
+        /* 15s Time Tracker & Verification Handler */
         window.addEventListener('focus', () => {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
@@ -651,25 +628,26 @@
                 if (elapsed >= 15) {
                     if (activeTaskType === 'double') {
                         currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
-                        showNotification("✅ Verified 15s! +0.50 ALTA Added!");
+                        showNotification("✅ 15s Completed! +0.50 ALTA Added!");
                     } else if (activeTaskType === 'high') {
                         highAdsCount++;
                         currentAlta = parseFloat((currentAlta + 1.00).toFixed(2));
-                        showNotification(`✅ High Ad Verified! +1.00 ALTA (${highAdsCount}/100)`);
+                        showNotification(`✅ 15s Completed! +1.00 ALTA Added (${highAdsCount}/100)`);
                     } else if (activeTaskType === 'bonus') {
                         bonusCount++;
-                        const bonus = Math.floor(Math.random() * 3) + 1; // 1 to 3 ALTA
+                        const bonus = Math.floor(Math.random() * 3) + 1;
                         currentAlta = parseFloat((currentAlta + bonus).toFixed(2));
-                        showNotification(`🎁 Bonus Verified! +${bonus} ALTA (${bonusCount}/30)`);
+                        showNotification(`🎁 15s Completed! +${bonus} ALTA Bonus Added (${bonusCount}/30)`);
                     }
                     updateUI();
                 } else {
-                    showNotification(`❌ View full 15s required! (${elapsed}s elapsed)`);
+                    showNotification(`❌ 15s Not Completed! (${elapsed}s/15s) Please view for 15s.`);
                 }
                 activeTaskType = null;
             }
         });
 
+        /* Share Button Handler */
         document.getElementById('shareBtn').addEventListener('click', () => {
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let botUsername = "AltaHub_ads_bot";
@@ -684,6 +662,7 @@
             }
         });
 
+        /* Withdraw Modal Operations */
         openWithdrawModalBtn.addEventListener('click', () => {
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) {
@@ -705,6 +684,7 @@
 
         closeModalBtn.addEventListener('click', () => payoutModal.style.display = 'none');
 
+        /* Submit Payout Request */
         submitPayoutBtn.addEventListener('click', async () => {
             const address = tonAddressInput.value.trim();
             const username = usernameInput.value.trim();
