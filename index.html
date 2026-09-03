@@ -9,7 +9,7 @@
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Ad Network Scripts -->
+    <!-- Ad Network Script Integrations -->
     <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
@@ -32,10 +32,9 @@
             --text-color: #ffffff;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            margin: 0;
             padding: 12px 10px 40px 10px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
@@ -46,12 +45,14 @@
             min-height: 100vh;
             user-select: none;
             -webkit-user-select: none;
+            will-change: transform;
         }
 
+        /* Optimized Banners */
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
-            min-height: 160px;
+            min-height: 140px;
             margin-bottom: 12px;
             border-radius: 12px;
             overflow: hidden;
@@ -62,7 +63,6 @@
             align-items: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             position: relative;
-            will-change: transform;
         }
 
         .video-ad-card {
@@ -76,7 +76,7 @@
 
         .video-ad-card video {
             width: 100%;
-            height: 160px;
+            height: 140px;
             border: none;
             object-fit: cover;
         }
@@ -140,21 +140,13 @@
         .status { font-size: 13px; color: #2ec4b6; margin-bottom: 14px; }
 
         .logo-container {
-            width: 110px;
-            height: 110px;
+            width: 100px;
+            height: 100px;
             margin: 0 auto 12px auto;
             border-radius: 50%;
             padding: 4px;
             cursor: pointer;
-            box-shadow: 0 0 18px rgba(243, 156, 18, 0.5);
-            animation: pulse-glow 2s infinite ease-in-out;
-            will-change: transform;
-        }
-
-        @keyframes pulse-glow {
-            0% { transform: scale(1); box-shadow: 0 0 12px rgba(0, 136, 204, 0.4); }
-            50% { transform: scale(1.03); box-shadow: 0 0 24px rgba(243, 156, 18, 0.8); }
-            100% { transform: scale(1); box-shadow: 0 0 12px rgba(0, 136, 204, 0.4); }
+            box-shadow: 0 0 14px rgba(243, 156, 18, 0.5);
         }
 
         .coin-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
@@ -180,6 +172,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            transition: transform 0.1s ease;
         }
 
         .action-btn:active { transform: scale(0.98); }
@@ -214,7 +207,7 @@
         .ad-modal-content {
             width: 100%;
             max-width: 360px;
-            height: 220px;
+            height: 200px;
             background: #161b22;
             border-radius: 14px;
             border: 1px solid #2a3547;
@@ -346,7 +339,7 @@
 
     <div class="ads-feed-container">
         <!-- Native Banner Ad Slot -->
-        <div class="ad-banner-box" style="min-height:250px;" id="nativeBannerBox">
+        <div class="ad-banner-box" style="min-height:220px;" id="nativeBannerBox">
             <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
             <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
         </div>
@@ -446,7 +439,7 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 3000);
         }
 
-        /* High CPM Direct Link Pool Rotator */
+        /* Direct Link Pools Optimized for High CPM / CTR Revenue */
         const directLinks = [
             'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
@@ -458,15 +451,15 @@
             return directLinks[Math.floor(Math.random() * directLinks.length)];
         }
 
-        /* High CPM Video Ads Collection */
+        /* High Revenue Auto Rotating Ad Pool (Games, Loans & High CPM Ads) */
         const videoAdPool = [
             `<div class="video-ad-card">
                 <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400">
                     <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-and-data-41538-large.mp4" type="video/mp4">
                 </video>
                 <div class="video-ad-overlay">
-                    <span class="video-ad-title">🎮 Exclusive Game Bonus</span>
-                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">PLAY & CLAIM</a>
+                    <span class="video-ad-title">🎮 Play & Earn Rewards</span>
+                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">PLAY NOW</a>
                 </div>
             </div>`,
             `<div class="video-ad-card">
@@ -474,13 +467,13 @@
                     <source src="https://assets.mixkit.co/videos/preview/mixkit-cryptocurrency-and-network-lines-41539-large.mp4" type="video/mp4">
                 </video>
                 <div class="video-ad-overlay">
-                    <span class="video-ad-title">💰 Instant Micro Loans</span>
-                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">APPLY NOW</a>
+                    <span class="video-ad-title">⚡ Instant Loan & Crypto Offer</span>
+                    <a href="${getRandomLink()}" target="_blank" class="video-ad-btn">CLAIM OFFER</a>
                 </div>
             </div>`
         ];
 
-        /* Auto Rotate Banners between 6s to 10s smoothly */
+        /* Auto-Rotate Banners Every 6 to 10 Seconds without Memory Leak */
         function rotateBannerAds() {
             const topBox = document.getElementById('topAdRotateBox');
             const bottomBox = document.getElementById('bottomAdRotateBox');
@@ -495,12 +488,12 @@
             if (modalTopBox) modalTopBox.innerHTML = rand1;
             if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = rand1;
 
-            const nextRotationTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
-            setTimeout(rotateBannerAds, nextRotationTime);
+            const nextTime = Math.floor(Math.random() * (10000 - 6000 + 1)) + 6000;
+            setTimeout(rotateBannerAds, nextTime);
         }
         rotateBannerAds();
 
-        /* Optimized Dynamic Ad Script Injection */
+        /* Dynamic Script Injection Engine */
         function injectAdScript(src) {
             try {
                 const s = document.createElement('script');
@@ -581,10 +574,11 @@
             activeTaskType = type;
             adStartTime = Date.now();
             window.open(getRandomLink(), "_blank");
-            showNotification("⏳ Viewing Ad... Stay for at least 15s!");
         }
 
-        document.getElementById('doubleAdsBtn').addEventListener('click', () => startDirectTask('double'));
+        document.getElementById('doubleAdsBtn').addEventListener('click', () => {
+            startDirectTask('double');
+        });
 
         document.getElementById('highAdsBtn').addEventListener('click', () => {
             if (highAdsCount >= 100) return showNotification("⚠️ Daily High Ads limit reached (100/100)!");
@@ -596,7 +590,7 @@
             startDirectTask('bonus');
         });
 
-        /* Tab Focus Time Verification Engine */
+        /* Focus Verification & Reward System */
         window.addEventListener('focus', () => {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
@@ -605,7 +599,7 @@
                 if (elapsed >= 15) {
                     if (activeTaskType === 'double') {
                         currentAlta += 0.50;
-                        showNotification("✅ 15s Completed! +0.50 ALTA Added!");
+                        showNotification("✅ 15s Verified! +0.50 ALTA Added!");
                     } else if (activeTaskType === 'high') {
                         highAdsCount++;
                         currentAlta += 1.00;
@@ -618,7 +612,7 @@
                     }
                     updateUI();
                 } else {
-                    showNotification(`❌ Ad ended early! Watched: ${elapsed}s / Required: 15s`);
+                    showNotification(`❌ Please view full 15s! (${elapsed}s elapsed)`);
                 }
                 activeTaskType = null;
             }
@@ -638,6 +632,7 @@
             }
         });
 
+        /* Withdrawal Modal Handler */
         openWithdrawModalBtn.addEventListener('click', () => {
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) {
