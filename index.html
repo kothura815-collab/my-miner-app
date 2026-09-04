@@ -6,6 +6,12 @@
     <title>Alta Ads Miner</title>
     <meta name="referrer" content="no-referrer-when-downgrade" />
     
+    <!-- Resource Preconnect for Performance Optimization -->
+    <link rel="dns-prefetch" href="//richinfo.co">
+    <link rel="dns-prefetch" href="//plump-plastic.com">
+    <link rel="dns-prefetch" href="//mammothsubway.com">
+    <link rel="dns-prefetch" href="//acscdn.com">
+
     <!-- Telegram WebApp SDK Only -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
@@ -67,6 +73,7 @@
             align-items: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             position: relative;
+            contain: content;
         }
 
         .light-ad-card {
@@ -133,6 +140,7 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.06);
             margin-bottom: 15px;
+            contain: content;
         }
 
         .title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
@@ -155,6 +163,7 @@
             padding: 4px;
             cursor: pointer;
             box-shadow: 0 0 18px rgba(243, 156, 18, 0.5);
+            will-change: transform;
         }
 
         .coin-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
@@ -266,29 +275,33 @@
             cursor: pointer;
         }
 
+        /* Centered Notification Styling */
         .toast-popup {
             position: fixed;
-            top: 25px;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             background: #1f293d;
             color: #fff;
-            padding: 12px 22px;
-            border-radius: 25px;
-            font-size: 13px;
+            padding: 14px 24px;
+            border-radius: 16px;
+            font-size: 14px;
             font-weight: 600;
             border: 1px solid var(--primary-gold);
             display: none;
             z-index: 9999;
             text-align: center;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.6);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.8);
             max-width: 85%;
+            word-break: break-word;
         }
     </style>
 </head>
 <body>
 
     <div class="offline-bar" id="offlineBar">⚠️ Connection Lost! Mining Disabled.</div>
+    
+    <!-- Middle Center Notification Popup -->
     <div class="toast-popup" id="customToast"></div>
 
     <!-- TOP DYNAMIC BANNER -->
@@ -446,10 +459,10 @@
         function showNotification(msg) {
             customToast.innerText = msg;
             customToast.style.display = 'block';
-            setTimeout(() => { customToast.style.display = 'none'; }, 3000);
+            setTimeout(() => { customToast.style.display = 'none'; }, 2500);
         }
 
-        /* DIRECT LINKS (Priority: RichAds -> Adsterra -> HilltopAds) */
+        /* DIRECT LINKS (Priority Order: RichAds -> Adsterra -> HilltopAds) */
         const directLinks = [
             'https://richinfo.co/richpartners/pops/js/richads-pu-ob.js',
             'https://plump-plastic.com/PEwa43',
@@ -496,8 +509,7 @@
             if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item1);
             if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item2);
 
-            const randomTime = Math.floor(Math.random() * 4000) + 6000;
-            setTimeout(rotateBannerAds, randomTime);
+            setTimeout(rotateBannerAds, 15000);
         }
         rotateBannerAds();
 
@@ -688,46 +700,45 @@
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
         });
 
-        /* DEFERRED AD NETWORK SCRIPT LOADING (Fixes Infinite Loading) */
+        /* ASYNCHRONOUS AD SCRIPT LOADING WITH IDLE CALLBACK */
         function loadScript(src, isAsync = true, dataAttrs = {}) {
             return new Promise((resolve) => {
                 const s = document.createElement('script');
                 s.src = src;
                 s.async = isAsync;
                 Object.keys(dataAttrs).forEach(key => s.setAttribute(key, dataAttrs[key]));
-                s.onload = () => resolve();
-                s.onerror = () => resolve(); // Prevent blocking on error
+                s.onload = s.onerror = () => resolve();
                 document.body.appendChild(s);
             });
         }
 
-        window.addEventListener('load', async () => {
-            // Load Ad Networks Step-by-Step after UI is rendered
-            setTimeout(async () => {
-                // 1. RichAds
+        window.addEventListener('load', () => {
+            const deferLoad = window.requestIdleCallback || ((cb) => setTimeout(cb, 2000));
+            deferLoad(async () => {
+                // 1. RichAds Dynamic Modules
                 await loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187");
                 await loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146");
                 await loadScript("https://richinfo.co/richpartners/pops/js/richads-pu-ob.js", true, { "data-pubid": "1021768", "data-siteid": "406140" });
 
-                // 2. Adcash
+                // 2. Adcash Dynamic Engine
                 await loadScript("//acscdn.com/script/aclib.js");
                 if (typeof aclib !== 'undefined') {
                     aclib.runAutoTag({ zoneId: 'jaxxc0ldkk' });
                 }
 
-                // 3. HilltopAds
+                // 3. HilltopAds Multi-Zone
                 await loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
                 await loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
                 await loadScript("https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js");
 
-                // Background Hilltop scripts
+                // Background Fallbacks
                 const hilltopBackgrounds = [
                     "//relieved-understanding.com/bvX.VgsldvGxlE0kY/W/cb/heFmE9xuLZcUZlukePmT/c/zVNRjjcIzQMCTcMOtkNuz/MD2cNHzfMhxRNvwO",
                     "//relieved-understanding.com/bYX.VwsMd/G_ld0_Y/WDcf/LeImU9zuCZaUslwkTP/TAcAzNNYz/EQzfMBzvcFtdNQzPMO3/MzT/Mv0wMmQx",
                     "//relieved-understanding.com/b.XaVnsIdfGQlW0/YCW/cG/seDmI9UufZPU/lXkxPbT/cMzpNozpEIz/NlT/MLt_NQzYMs3eM/T/MH1gN/wF"
                 ];
                 hilltopBackgrounds.forEach(url => loadScript(url));
-            }, 1000);
+            });
         });
     </script>
 </body>
