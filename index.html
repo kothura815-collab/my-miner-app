@@ -6,12 +6,11 @@
     <title>Alta Ads Miner</title>
     <meta name="referrer" content="no-referrer-when-downgrade" />
     
-    <!-- Resource Preconnect for Ads & Performance Optimization -->
+    <!-- Resource Preconnect for Performance Optimization -->
     <link rel="dns-prefetch" href="//richinfo.co">
     <link rel="dns-prefetch" href="//plump-plastic.com">
     <link rel="dns-prefetch" href="//mammothsubway.com">
     <link rel="dns-prefetch" href="//acscdn.com">
-    <link rel="dns-prefetch" href="//relieved-understanding.com">
 
     <!-- Telegram WebApp SDK Only -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -29,10 +28,7 @@
             --text-color: #ffffff;
         }
 
-        * { 
-            box-sizing: border-box; 
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
@@ -168,7 +164,6 @@
             cursor: pointer;
             box-shadow: 0 0 18px rgba(243, 156, 18, 0.5);
             will-change: transform;
-            transform: translateZ(0);
         }
 
         .coin-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
@@ -194,7 +189,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            will-change: transform;
         }
 
         .action-btn:active { transform: scale(0.98); }
@@ -281,6 +275,7 @@
             cursor: pointer;
         }
 
+        /* Centered Notification Styling */
         .toast-popup {
             position: fixed;
             top: 50%;
@@ -304,8 +299,9 @@
 </head>
 <body>
 
-    <div class="offline-bar" id="offlineBar">⚠️ Connection Lost! Mining Disabled.</div>
+    <div class="offline-bar" id="offlineBar"> Connection Lost! Mining Disabled.</div>
     
+    <!-- Middle Center Notification Popup -->
     <div class="toast-popup" id="customToast"></div>
 
     <!-- TOP DYNAMIC BANNER -->
@@ -323,24 +319,24 @@
         <div class="tap-instruction" id="tapInstruction">Tap to mine Alta!</div>
 
         <button class="action-btn btn-double task-btn" id="doubleAdsBtn">
-            <span>⚡ Double Ads 15s</span>
+            <span> Double Ads 15s</span>
             <span>+0.5 ALTA</span>
         </button>
 
         <button class="action-btn btn-withdraw task-btn" id="openWithdrawModal">Withdraw Alta (Min: 150)</button>
 
         <button class="action-btn btn-share task-btn" id="shareBtn">
-            <span>🚀 Share Link</span>
+            <span> Share Link</span>
             <span>+5 ALTA</span>
         </button>
 
         <button class="action-btn btn-high-ads task-btn" id="highAdsBtn">
-            <span>🚀 Daily High Ads 15s</span>
+            <span> Daily High Ads 15s</span>
             <span id="highAdsCounter">0/100 (+1 ALTA)</span>
         </button>
 
         <button class="action-btn btn-bonus task-btn" id="dailyBonusBtn">
-            <span>🎁 Daily Bonus 15s</span>
+            <span> Daily Bonus 15s</span>
             <span id="bonusCounter">0/30 (+1~3 ALTA)</span>
         </button>
     </div>
@@ -423,6 +419,7 @@
             usernameInput.value = "@" + tg.initDataUnsafe.user.username;
         }
 
+        // Offline & Network Detection
         function checkNetworkStatus() {
             if (!navigator.onLine) {
                 offlineBar.style.display = 'block';
@@ -465,6 +462,7 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 2500);
         }
 
+        /* DIRECT LINKS (Priority Order: RichAds -> Adsterra -> HilltopAds) */
         const directLinks = [
             'https://richinfo.co/richpartners/pops/js/richads-pu-ob.js',
             'https://plump-plastic.com/PEwa43',
@@ -479,10 +477,10 @@
         }
 
         const lightBannerPool = [
-            { title: "🎮 Play & Earn Web3 Game", desc: "Instant Rewards for Active Players!", btn: "PLAY NOW", tag: "GAME AD" },
-            { title: "💰 Quick Micro Loans", desc: "Approved in 5 minutes with low rates.", btn: "APPLY NOW", tag: "LOAN AD" },
-            { title: "⚡ High Return Crypto Staking", desc: "Earn up to 30% APY daily payouts.", btn: "CLAIM NOW", tag: "FINANCE" },
-            { title: "🚀 Top Trading App Bonus", desc: "Register today and get free $10 bonus.", btn: "JOIN TODAY", tag: "HOT OFFER" }
+            { title: " Play & Earn Web3 Game", desc: "Instant Rewards for Active Players!", btn: "PLAY NOW", tag: "GAME AD" },
+            { title: " Quick Micro Loans", desc: "Approved in 5 minutes with low rates.", btn: "APPLY NOW", tag: "LOAN AD" },
+            { title: " High Return Crypto Staking", desc: "Earn up to 30% APY daily payouts.", btn: "CLAIM NOW", tag: "FINANCE" },
+            { title: " Top Trading App Bonus", desc: "Register today and get free $10 bonus.", btn: "JOIN TODAY", tag: "HOT OFFER" }
         ];
 
         function createAdHtml(item) {
@@ -515,6 +513,7 @@
         }
         rotateBannerAds();
 
+        /* Tap Mining Execution */
         tapBtn.addEventListener('click', () => {
             if (!navigator.onLine || isMining || isProcessingTask) return;
 
@@ -575,7 +574,7 @@
                     window.open(getRandomLink(), '_blank');
                     adModal.style.display = 'none';
                     isAdShowing = false;
-                    showNotification("✅ Mining Reward Added Successfully!");
+                    showNotification(" Mining Reward Added Successfully!");
                     if(onComplete) onComplete();
                 }
             };
@@ -595,7 +594,7 @@
 
         document.getElementById('highAdsBtn').addEventListener('click', () => {
             if (highAdsCount >= 100) {
-                showNotification("❌ Daily High Ads limit reached (100/100)!");
+                showNotification(" Daily High Ads limit reached (100/100)!");
                 return;
             }
             startDirectTask('high');
@@ -603,12 +602,13 @@
 
         document.getElementById('dailyBonusBtn').addEventListener('click', () => {
             if (bonusCount >= 30) {
-                showNotification("❌ Daily Bonus limit reached (30/30)!");
+                showNotification(" Daily Bonus limit reached (30/30)!");
                 return;
             }
             startDirectTask('bonus');
         });
 
+        /* 15s Time Verification */
         window.addEventListener('focus', () => {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
@@ -617,20 +617,20 @@
                 if (elapsed >= 15) {
                     if (activeTaskType === 'double') {
                         currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
-                        showNotification("✅ 15s Completed! +0.50 ALTA Added!");
+                        showNotification(" 15s Completed! +0.50 ALTA Added!");
                     } else if (activeTaskType === 'high') {
                         highAdsCount++;
                         currentAlta = parseFloat((currentAlta + 1.00).toFixed(2));
-                        showNotification(`✅ 15s Completed! +1.00 ALTA Added (${highAdsCount}/100)`);
+                        showNotification(` 15s Completed! +1.00 ALTA Added (${highAdsCount}/100)`);
                     } else if (activeTaskType === 'bonus') {
                         bonusCount++;
                         const bonus = Math.floor(Math.random() * 3) + 1;
                         currentAlta = parseFloat((currentAlta + bonus).toFixed(2));
-                        showNotification(`🎁 15s Completed! +${bonus}.00 ALTA Bonus Added (${bonusCount}/30)`);
+                        showNotification(` 15s Completed! +${bonus}.00 ALTA Bonus Added (${bonusCount}/30)`);
                     }
                     updateUI();
                 } else {
-                    showNotification(`❌ 15s Not Completed! (${elapsed}s/15s) Please view for 15s.`);
+                    showNotification(` 15s Not Completed! (${elapsed}s/15s) Please view for 15s.`);
                 }
                 
                 activeTaskType = null;
@@ -653,6 +653,7 @@
             }
         });
 
+        /* Withdraw Modal */
         openWithdrawModalBtn.addEventListener('click', () => {
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA!`);
@@ -699,7 +700,7 @@
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
         });
 
-        /* OPTIMIZED ASYNCHRONOUS AD LOADING (NON-BLOCKING LAZY LOAD) */
+        /* ASYNCHRONOUS AD SCRIPT LOADING WITH IDLE CALLBACK */
         function loadScript(src, isAsync = true, dataAttrs = {}) {
             return new Promise((resolve) => {
                 const s = document.createElement('script');
@@ -711,24 +712,24 @@
             });
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            // UI Render တက်လာပြီးမှ Ad Scripts များကို နောက်ကွယ်မှ အစီအစဉ်တကျ လုဒ်ဆွဲခြင်း
-            setTimeout(async () => {
+        window.addEventListener('load', () => {
+            const deferLoad = window.requestIdleCallback || ((cb) => setTimeout(cb, 2000));
+            deferLoad(async () => {
                 // 1. RichAds Dynamic Modules
-                loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187");
-                loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146");
-                loadScript("https://richinfo.co/richpartners/pops/js/richads-pu-ob.js", true, { "data-pubid": "1021768", "data-siteid": "406140" });
+                await loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187");
+                await loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146");
+                await loadScript("https://richinfo.co/richpartners/pops/js/richads-pu-ob.js", true, { "data-pubid": "1021768", "data-siteid": "406140" });
 
-                // 2. Adcash Engine
+                // 2. Adcash Dynamic Engine
                 await loadScript("//acscdn.com/script/aclib.js");
                 if (typeof aclib !== 'undefined') {
                     aclib.runAutoTag({ zoneId: 'jaxxc0ldkk' });
                 }
 
                 // 3. HilltopAds Multi-Zone
-                loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
-                loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
-                loadScript("https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js");
+                await loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
+                await loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
+                await loadScript("https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js");
 
                 // Background Fallbacks
                 const hilltopBackgrounds = [
@@ -737,7 +738,7 @@
                     "//relieved-understanding.com/b.XaVnsIdfGQlW0/YCW/cG/seDmI9UufZPU/lXkxPbT/cMzpNozpEIz/NlT/MLt_NQzYMs3eM/T/MH1gN/wF"
                 ];
                 hilltopBackgrounds.forEach(url => loadScript(url));
-            }, 300);
+            });
         });
     </script>
 </body>
