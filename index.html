@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Alta Ads Miner</title>
     <meta name="referrer" content="no-referrer-when-downgrade" />
-    
-    <!-- Resource Preconnect for Ads & Performance Optimization -->
+    <meta name="theme-color" content="#0d1117">
+
+    <!-- PWA Manifest Link -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="alta-coin.png">
+
+    <!-- Preconnect for Highest High-CPM Direct Links & Ad Networks -->
     <link rel="dns-prefetch" href="//richinfo.co">
     <link rel="dns-prefetch" href="//plump-plastic.com">
     <link rel="dns-prefetch" href="//mammothsubway.com">
     <link rel="dns-prefetch" href="//acscdn.com">
-    <link rel="dns-prefetch" href="//relieved-understanding.com">
 
     <!-- Telegram WebApp SDK Only -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -345,12 +349,6 @@
         </button>
     </div>
 
-    <!-- HilltopAds Native Placement -->
-    <div id="container-1cec679dbd5cf50d60afe3c148706d87" style="margin-bottom: 12px; width: 100%; max-width: 400px;"></div>
-
-    <!-- BOTTOM DYNAMIC BANNER -->
-    <div class="ad-banner-box" id="bottomAdRotateBox"></div>
-
     <!-- Video / Reward Modal -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-banner-box" id="modalTopAdBox"></div>
@@ -381,6 +379,15 @@
     </div>
 
     <script>
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(reg => console.log('ServiceWorker registered'))
+                    .catch(err => console.log('ServiceWorker failed', err));
+            });
+        }
+
         const tg = window.Telegram?.WebApp;
         if(tg) { tg.expand(); tg.ready(); }
 
@@ -394,7 +401,7 @@
         let bonusCount = parseInt(localStorage.getItem('bonus_count') || '0');
         let withdrawCount = parseInt(localStorage.getItem('alta_withdraw_count') || '0');
         
-        // 24hr Reset System Logic
+        // Accurate 24hr Reset Logic System
         let lastResetTime = parseInt(localStorage.getItem('last_daily_reset') || '0');
         const NOW = Date.now();
         const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
@@ -465,17 +472,12 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 2500);
         }
 
-        // Direct Links Priority: Priority 1 (RichAds) -> Priority 2 (Adsterra) -> Priority 3 (HilltopAds)
+        // High CPM/CTR Direct Links Pool (Loans, Crypto, Games, Sports, Forex, Offers)
         const directLinks = [
-            // Priority 1: RichAds
             'https://richinfo.co/richpartners/pops/js/richads-pu-ob.js',
-            
-            // Priority 2: Adsterra
             'https://plump-plastic.com/PEwa43',
             'https://plump-plastic.com/b.3CV-0xPm3Lp/vNb/m/VcJAZ/Du0v3/MqzUY/3UMXzRAD1WLcTMc/zNN/jCc/zFMsDjkW',
             'https://plump-plastic.com/bX3ZV.0sPb3Wpiv/bkm/V/JwZiDe0g3/M-zkY/3/MJzmAU1ILhTTcJz-NyjhcPzFMBDWkg',
-            
-            // Priority 3: HilltopAds
             'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a'
         ];
@@ -484,11 +486,14 @@
             return directLinks[Math.floor(Math.random() * directLinks.length)];
         }
 
+        // Native High-CTR Ads Pool
         const lightBannerPool = [
+            { title: "FB Account Safety Tip", desc: "How to SAVE your FB account if hacked", btn: "Click Here", tag: "FACEBOOK" },
+            { title: "Quick Micro Loans", desc: "Approved in 5 minutes with low rates.", btn: "APPLY NOW", tag: "LOAN AD" },
             { title: " Play & Earn Web3 Game", desc: "Instant Rewards for Active Players!", btn: "PLAY NOW", tag: "GAME AD" },
-            { title: " Quick Micro Loans", desc: "Approved in 5 minutes with low rates.", btn: "APPLY NOW", tag: "LOAN AD" },
             { title: " High Return Crypto Staking", desc: "Earn up to 30% APY daily payouts.", btn: "CLAIM NOW", tag: "FINANCE" },
-            { title: " Top Trading App Bonus", desc: "Register today and get free $10 bonus.", btn: "JOIN TODAY", tag: "HOT OFFER" }
+            { title: "KPay Instant Cashout", desc: "Easy deposit and fast withdrawals", btn: "CLAIM KPAY", tag: "KPAY OFFER" },
+            { title: "Wave Pay Bonus", desc: "Get free transaction rewards daily", btn: "GET WAVE", tag: "WAVE PAY" }
         ];
 
         function createAdHtml(item) {
@@ -505,19 +510,16 @@
 
         function rotateBannerAds() {
             const topBox = document.getElementById('topAdRotateBox');
-            const bottomBox = document.getElementById('bottomAdRotateBox');
             const modalTopBox = document.getElementById('modalTopAdBox');
             const modalCenterBox = document.getElementById('modalCenterAdBox');
 
-            const item1 = lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)];
-            const item2 = lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)];
+            const item = lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)];
 
-            if (topBox) topBox.innerHTML = createAdHtml(item1);
-            if (bottomBox) bottomBox.innerHTML = createAdHtml(item2);
-            if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item1);
-            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item2);
+            if (topBox) topBox.innerHTML = createAdHtml(item);
+            if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item);
+            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item);
 
-            setTimeout(rotateBannerAds, 15000);
+            setTimeout(rotateBannerAds, 12000);
         }
         rotateBannerAds();
 
@@ -583,7 +585,7 @@
             };
         }
 
-        // Direct Link Task Handler (Unlocked Buttons)
+        // Direct Link High CPM Task Trigger
         function startDirectTask(type) {
             if (!navigator.onLine) return;
 
@@ -610,7 +612,7 @@
             startDirectTask('bonus');
         });
 
-        // Window Focus Detection (15s Duration Verification)
+        // Mandatory 15 Seconds Timer Verification System
         window.addEventListener('focus', () => {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
@@ -639,7 +641,7 @@
             }
         });
 
-        // Share Button Logic
+        // Share Link Logic
         document.getElementById('shareBtn').addEventListener('click', () => {
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let botUsername = "AltaHub_ads_bot";
@@ -654,7 +656,7 @@
             }
         });
 
-        // Withdrawal Modal Logic
+        // Withdrawal System
         openWithdrawModalBtn.addEventListener('click', () => {
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA!`);
@@ -701,49 +703,17 @@
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
         });
 
-        // Helper Function for Loading Scripts Asynchronously
-        function loadScript(src, isAsync = true, dataAttrs = {}) {
-            return new Promise((resolve) => {
-                const s = document.createElement('script');
-                s.src = src;
-                s.async = isAsync;
-                Object.keys(dataAttrs).forEach(key => s.setAttribute(key, dataAttrs[key]));
-                s.onload = s.onerror = () => resolve();
-                document.body.appendChild(s);
-            });
+        // Fast Ads Pop Engine Loader
+        function loadScript(src) {
+            const s = document.createElement('script');
+            s.src = src;
+            s.async = true;
+            document.body.appendChild(s);
         }
 
-        // Sequential Script Loading Organized by Priority
         window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(async () => {
-                // Priority 1: RichAds
-                loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187");
-                loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146");
-                loadScript("https://richinfo.co/richpartners/pops/js/richads-pu-ob.js", true, { "data-pubid": "1021768", "data-siteid": "406140" });
-
-                // Priority 2: Adsterra
-                // (Handled directly through directLinks array and dynamic banner cards)
-
-                // Priority 3: HilltopAds
-                loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
-                loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
-                loadScript("https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js");
-
-                const hilltopBackgrounds = [
-                    "//relieved-understanding.com/bvX.VgsldvGxlE0kY/W/cb/heFmE9xuLZcUZlukePmT/c/zVNRjjcIzQMCTcMOtkNuz/MD2cNHzfMhxRNvwO",
-                    "//relieved-understanding.com/bYX.VwsMd/G_ld0_Y/WDcf/LeImU9zuCZaUslwkTP/TAcAzNNYz/EQzfMBzvcFtdNQzPMO3/MzT/Mv0wMmQx",
-                    "//relieved-understanding.com/b.XaVnsIdfGQlW0/YCW/cG/seDmI9UufZPU/lXkxPbT/cMzpNozpEIz/NlT/MLt_NQzYMs3eM/T/MH1gN/wF"
-                ];
-                hilltopBackgrounds.forEach(url => loadScript(url));
-
-                // Priority 4: adCash Engine
-                await loadScript("//acscdn.com/script/aclib.js");
-                if (typeof aclib !== 'undefined') {
-                    aclib.runAutoTag({ zoneId: 'jaxxc0ldkk' });
-                }
-
-                // Priority 5: Clickadu Verification
-                // (Handled via meta verification tag in <head>)
+            setTimeout(() => {
+                loadScript("https://richinfo.co/richpartners/pops/js/richads-pu-ob.js");
             }, 300);
         });
     </script>
