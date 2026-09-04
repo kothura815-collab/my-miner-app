@@ -117,12 +117,12 @@
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
-            min-height: 80px;
+            min-height: 75px;
             margin-bottom: 10px;
             border-radius: 12px;
             overflow: hidden;
             background: #161b22;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(243, 156, 18, 0.25);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -132,20 +132,21 @@
 
         .light-ad-card {
             width: 100%;
-            height: 80px;
-            padding: 10px 12px;
+            height: 75px;
+            padding: 8px 12px;
             background: linear-gradient(135deg, #1f293d 0%, #111827 100%);
             display: flex;
             align-items: center;
             justify-content: space-between;
             border-radius: 12px;
             cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .ad-info {
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 2px;
             max-width: 68%;
         }
 
@@ -154,7 +155,7 @@
             color: #000;
             font-size: 8px;
             font-weight: bold;
-            padding: 2px 5px;
+            padding: 1px 5px;
             border-radius: 4px;
             width: fit-content;
         }
@@ -171,12 +172,15 @@
         .ad-desc {
             font-size: 10px;
             color: #9ca3af;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .ad-action-btn {
             background: var(--accent-blue);
             color: #fff;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             padding: 6px 10px;
             border-radius: 6px;
@@ -208,10 +212,10 @@
 
         .status { font-size: 12px; color: #2ec4b6; margin-bottom: 10px; }
 
-        /* Increased Alta Coin Logo Size */
+        /* Larger Alta Coin Logo */
         .logo-container {
-            width: 135px;
-            height: 135px;
+            width: 140px;
+            height: 140px;
             margin: 0 auto 12px auto;
             border-radius: 50%;
             padding: 4px;
@@ -269,7 +273,7 @@
         .ad-modal-content {
             width: 100%;
             max-width: 360px;
-            height: 180px;
+            min-height: 120px;
             background: #161b22;
             border-radius: 14px;
             border: 1px solid #2a3547;
@@ -354,19 +358,8 @@
     <div class="offline-bar" id="offlineBar">Connection Lost! Mining Paused.</div>
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- TOP AD BANNER AREA -->
-    <div class="ad-banner-box" id="topAdRotateBox">
-        <script>
-            atOptions = {
-                'key' : '347789b1da1885d257b7e71a197c6c18',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-            };
-        </script>
-        <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
-    </div>
+    <!-- TOP AUTO-ROTATE LOCAL BANNER AREA -->
+    <div class="ad-banner-box" id="topAdRotateBox"></div>
 
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
@@ -403,11 +396,8 @@
         </button>
     </div>
 
-    <!-- BOTTOM AD BANNER AREA -->
-    <div class="ad-banner-box" id="bottomAdRotateBox">
-        <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
-        <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
-    </div>
+    <!-- BOTTOM AUTO-ROTATE LOCAL BANNER AREA -->
+    <div class="ad-banner-box" id="bottomAdRotateBox"></div>
 
     <!-- 15 SECONDS MODAL NOTIFICATION & AD DISPLAY -->
     <div class="modal-overlay" id="adModal">
@@ -526,7 +516,7 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 2500);
         }
 
-        // Ordered Direct Links (High CPM: Loan, Crypto, Sports, Game, Offers)
+        // High CPM Direct Links Pool (RichAds, Adsterra, HilltopAds)
         const directLinks = [
             'https://richinfo.co/richpartners/my-miner-app-8282.vercel.app/',
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
@@ -538,16 +528,17 @@
             return directLinks[Math.floor(Math.random() * directLinks.length)];
         }
 
-        // High CTR Local Custom Native Banner Pool
-        const lightBannerPool = [
-            { title: "FB Account Recovery Guide", desc: "Protect & recover your FB account instantly", btn: "CHECK NOW", tag: "SECURITY" },
-            { title: "Instant Personal Micro Loan", desc: "Low interest rate & fast transfer", btn: "APPLY NOW", tag: "LOAN AD" },
-            { title: "KPay Express Reward", desc: "Claim daily transaction rewards easily", btn: "CLAIM KPAY", tag: "PAYMENT" },
-            { title: "Web3 Crypto Staking Platform", desc: "Earn up to 35% APY with daily payouts", btn: "EARN NOW", tag: "CRYPTO" },
-            { title: "Wave Pay Cash Back Offer", desc: "Get free transaction bonus now", btn: "GET WAVE", tag: "WAVE PAY" }
+        // Local Custom Banners List (KBZ Pay, Wave Pay, FB, Crypto, Loan, Sport)
+        const localBanners = [
+            { title: "KBZ Pay Daily Bonus Offer", desc: "Claim free rewards & cash transfer", btn: "CLAIM KPAY", tag: "KBZ PAY" },
+            { title: "Wave Pay Cash Back Reward", desc: "Get instant cash back on transfer", btn: "GET WAVE", tag: "WAVE PAY" },
+            { title: "FB Account Security & Recovery", desc: "Protect & recover your FB account", btn: "CHECK NOW", tag: "FACEBOOK" },
+            { title: "Instant Personal Loan Up to $500", desc: "Fast approval & low interest rate", btn: "APPLY NOW", tag: "LOAN AD" },
+            { title: "Crypto Staking Earn 35% APY", desc: "High yield crypto mining platform", btn: "EARN NOW", tag: "CRYPTO" },
+            { title: "Top Sport Prediction Game", desc: "Play & win daily crypto bonuses", btn: "PLAY NOW", tag: "GAME" }
         ];
 
-        function createAdHtml(item) {
+        function createLocalBannerHtml(item) {
             const link = getRandomLink();
             return `<div class="light-ad-card" onclick="window.open('${link}', '_blank')">
                 <div class="ad-info">
@@ -559,21 +550,26 @@
             </div>`;
         }
 
-        // 8-12 seconds Auto-rotate Banners
-        function rotateBannerAds() {
+        // Auto-Rotate Local Banners (Every 8 to 12 seconds)
+        function rotateTopBottomBanners() {
             const topBox = document.getElementById('topAdRotateBox');
+            const bottomBox = document.getElementById('bottomAdRotateBox');
             const modalTopBox = document.getElementById('modalTopAdBox');
             const modalCenterBox = document.getElementById('modalCenterAdBox');
 
-            const item = lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)];
+            const itemTop = localBanners[Math.floor(Math.random() * localBanners.length)];
+            const itemBottom = localBanners[Math.floor(Math.random() * localBanners.length)];
 
-            if (topBox && Math.random() > 0.5) topBox.innerHTML = createAdHtml(item);
-            if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item);
-            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item);
+            if (topBox) topBox.innerHTML = createLocalBannerHtml(itemTop);
+            if (bottomBox) bottomBox.innerHTML = createLocalBannerHtml(itemBottom);
+            if (modalTopBox) modalTopBox.innerHTML = createLocalBannerHtml(itemTop);
+            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createLocalBannerHtml(itemBottom);
 
-            setTimeout(rotateBannerAds, 9000);
+            // Random rotation between 8s (8000ms) to 12s (12000ms)
+            const nextRotateTime = Math.floor(Math.random() * 4000) + 8000;
+            setTimeout(rotateTopBottomBanners, nextRotateTime);
         }
-        rotateBannerAds();
+        rotateTopBottomBanners();
 
         // Tap Mining Handler
         tapBtn.addEventListener('click', () => {
@@ -607,7 +603,7 @@
         function trigger15SecModalAd(onComplete) {
             isAdShowing = true;
             const modalCenterBox = document.getElementById('modalCenterAdBox');
-            modalCenterBox.innerHTML = createAdHtml(lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)]);
+            modalCenterBox.innerHTML = createLocalBannerHtml(localBanners[Math.floor(Math.random() * localBanners.length)]);
 
             adModal.style.display = 'flex';
             continueAdBtn.disabled = true;
