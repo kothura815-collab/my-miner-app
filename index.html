@@ -6,11 +6,12 @@
     <title>Alta Ads Miner</title>
     <meta name="referrer" content="no-referrer-when-downgrade" />
     
-    <!-- Resource Preconnect for Performance Optimization -->
+    <!-- Resource Preconnect for Ads & Performance Optimization -->
     <link rel="dns-prefetch" href="//richinfo.co">
     <link rel="dns-prefetch" href="//plump-plastic.com">
     <link rel="dns-prefetch" href="//mammothsubway.com">
     <link rel="dns-prefetch" href="//acscdn.com">
+    <link rel="dns-prefetch" href="//relieved-understanding.com">
 
     <!-- Telegram WebApp SDK Only -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -28,7 +29,10 @@
             --text-color: #ffffff;
         }
 
-        * { box-sizing: border-box; }
+        * { 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
             margin: 0;
@@ -164,6 +168,7 @@
             cursor: pointer;
             box-shadow: 0 0 18px rgba(243, 156, 18, 0.5);
             will-change: transform;
+            transform: translateZ(0);
         }
 
         .coin-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
@@ -189,6 +194,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            will-change: transform;
         }
 
         .action-btn:active { transform: scale(0.98); }
@@ -275,7 +281,6 @@
             cursor: pointer;
         }
 
-        /* Centered Notification Styling */
         .toast-popup {
             position: fixed;
             top: 50%;
@@ -301,7 +306,6 @@
 
     <div class="offline-bar" id="offlineBar">⚠️ Connection Lost! Mining Disabled.</div>
     
-    <!-- Middle Center Notification Popup -->
     <div class="toast-popup" id="customToast"></div>
 
     <!-- TOP DYNAMIC BANNER -->
@@ -419,7 +423,6 @@
             usernameInput.value = "@" + tg.initDataUnsafe.user.username;
         }
 
-        // Offline & Network Detection
         function checkNetworkStatus() {
             if (!navigator.onLine) {
                 offlineBar.style.display = 'block';
@@ -462,7 +465,6 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 2500);
         }
 
-        /* DIRECT LINKS (Priority Order: RichAds -> Adsterra -> HilltopAds) */
         const directLinks = [
             'https://richinfo.co/richpartners/pops/js/richads-pu-ob.js',
             'https://plump-plastic.com/PEwa43',
@@ -513,7 +515,6 @@
         }
         rotateBannerAds();
 
-        /* Tap Mining Execution */
         tapBtn.addEventListener('click', () => {
             if (!navigator.onLine || isMining || isProcessingTask) return;
 
@@ -608,7 +609,6 @@
             startDirectTask('bonus');
         });
 
-        /* 15s Time Verification */
         window.addEventListener('focus', () => {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
@@ -653,7 +653,6 @@
             }
         });
 
-        /* Withdraw Modal */
         openWithdrawModalBtn.addEventListener('click', () => {
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA!`);
@@ -700,7 +699,7 @@
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
         });
 
-        /* ASYNCHRONOUS AD SCRIPT LOADING WITH IDLE CALLBACK */
+        /* OPTIMIZED ASYNCHRONOUS AD LOADING (NON-BLOCKING LAZY LOAD) */
         function loadScript(src, isAsync = true, dataAttrs = {}) {
             return new Promise((resolve) => {
                 const s = document.createElement('script');
@@ -712,24 +711,24 @@
             });
         }
 
-        window.addEventListener('load', () => {
-            const deferLoad = window.requestIdleCallback || ((cb) => setTimeout(cb, 2000));
-            deferLoad(async () => {
+        window.addEventListener('DOMContentLoaded', () => {
+            // UI Render တက်လာပြီးမှ Ad Scripts များကို နောက်ကွယ်မှ အစီအစဉ်တကျ လုဒ်ဆွဲခြင်း
+            setTimeout(async () => {
                 // 1. RichAds Dynamic Modules
-                await loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187");
-                await loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146");
-                await loadScript("https://richinfo.co/richpartners/pops/js/richads-pu-ob.js", true, { "data-pubid": "1021768", "data-siteid": "406140" });
+                loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187");
+                loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146");
+                loadScript("https://richinfo.co/richpartners/pops/js/richads-pu-ob.js", true, { "data-pubid": "1021768", "data-siteid": "406140" });
 
-                // 2. Adcash Dynamic Engine
+                // 2. Adcash Engine
                 await loadScript("//acscdn.com/script/aclib.js");
                 if (typeof aclib !== 'undefined') {
                     aclib.runAutoTag({ zoneId: 'jaxxc0ldkk' });
                 }
 
                 // 3. HilltopAds Multi-Zone
-                await loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
-                await loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
-                await loadScript("https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js");
+                loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
+                loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
+                loadScript("https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js");
 
                 // Background Fallbacks
                 const hilltopBackgrounds = [
@@ -738,7 +737,7 @@
                     "//relieved-understanding.com/b.XaVnsIdfGQlW0/YCW/cG/seDmI9UufZPU/lXkxPbT/cMzpNozpEIz/NlT/MLt_NQzYMs3eM/T/MH1gN/wF"
                 ];
                 hilltopBackgrounds.forEach(url => loadScript(url));
-            });
+            }, 300);
         });
     </script>
 </body>
