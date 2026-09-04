@@ -3,43 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Alta Ads Miner - High CPM Edition</title>
+    <title>Alta Ads Miner - High CPM Version</title>
     <meta name="referrer" content="no-referrer-when-downgrade" />
     <meta name="theme-color" content="#0d1117">
 
-    <!-- PWA Integration -->
+    <!-- PWA Manifest & Icons -->
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="alta-coin.png">
 
-    <!-- Ad Network Preconnects -->
-    <link rel="dns-prefetch" href="//richinfo.co">
+    <!-- Priority Network Preconnects -->
     <link rel="dns-prefetch" href="//plump-plastic.com">
     <link rel="dns-prefetch" href="//mammothsubway.com">
     <link rel="dns-prefetch" href="//relieved-understanding.com">
 
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <meta name="clckd" content="0cc8ffbae2313e820c2d17074f2ecc60" />
 
-    <!-- 1. RichAds Push & Pops Integration -->
-    <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406277&niche=33" async data-cfasync="false"></script>
+    <!-- RichAds In-Page Banner Script (Correct Ad Rendering) -->
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
-    <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
-
-    <!-- 2. Adsterra Native & Pop Engine Integration -->
-    <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
-
-    <!-- 3. HilltopAds Native Integration Script -->
-    <script>
-    (function(vmb){
-    var d = document, s = d.createElement('script'), l = d.scripts[d.scripts.length - 1];
-    s.settings = vmb || {};
-    s.src = "//relieved-understanding.com/b.XMVassdwGylg0WYSW/cu/Oezm-9/uiZ/UKlakePBTacBzGN/znE_zyNnTBMetsNYzeMy3WMXTCMe1tNXwS";
-    s.async = true;
-    s.referrerPolicy = 'no-referrer-when-downgrade';
-    l.parentNode.insertBefore(s, l);
-    })({})
-    </script>
 
     <style>
         :root {
@@ -55,7 +36,7 @@
         body {
             margin: 0;
             padding: 10px 10px 40px 10px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             display: flex;
@@ -81,22 +62,21 @@
         .top-banner-wrapper {
             width: 100%;
             max-width: 400px;
-            min-height: 90px;
+            min-height: 85px;
             margin-bottom: 12px;
             border-radius: 14px;
             overflow: hidden;
             background: #161b22;
-            border: 1px solid rgba(243, 156, 18, 0.3);
+            border: 1px solid rgba(243, 156, 18, 0.35);
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            position: relative;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
         }
 
         .light-ad-card {
             width: 100%;
-            height: 90px;
+            height: 85px;
             padding: 10px 14px;
             background: linear-gradient(135deg, #1f293d 0%, #0d1117 100%);
             display: flex;
@@ -114,7 +94,6 @@
             padding: 2px 6px;
             border-radius: 4px;
             width: fit-content;
-            text-transform: uppercase;
         }
         .ad-title { font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .ad-desc { font-size: 11px; color: #9ca3af; }
@@ -126,7 +105,6 @@
             padding: 8px 12px;
             border-radius: 8px;
             text-decoration: none;
-            white-space: nowrap;
         }
 
         .miner-card {
@@ -143,27 +121,26 @@
 
         .title { font-size: 24px; font-weight: 800; }
         .balance-display {
-            font-size: 40px;
+            font-size: 42px;
             font-weight: 900;
             color: var(--primary-gold);
             margin: 4px 0;
-            text-shadow: 0 0 12px rgba(243, 156, 18, 0.4);
+            text-shadow: 0 0 14px rgba(243, 156, 18, 0.45);
         }
         .status { font-size: 12px; color: #2ec4b6; margin-bottom: 12px; }
 
-        /* Resized Logo Container */
+        /* Optimized Mobile Logo Dimension */
         .logo-container {
-            width: 140px;
-            height: 140px;
-            margin: 10px auto 16px auto;
+            width: 160px;
+            height: 160px;
+            margin: 12px auto 18px auto;
             border-radius: 50%;
-            padding: 5px;
+            padding: 6px;
             cursor: pointer;
-            box-shadow: 0 0 25px rgba(243, 156, 18, 0.6);
-            will-change: transform;
+            box-shadow: 0 0 28px rgba(243, 156, 18, 0.65);
             transition: transform 0.1s ease;
         }
-        .logo-container:active { transform: scale(0.95); }
+        .logo-container:active { transform: scale(0.94); }
 
         .coin-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
         .logo-container.mining .coin-img { animation: spin-coin 1s linear infinite; }
@@ -188,8 +165,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            transition: opacity 0.2s ease;
         }
-        .action-btn:active { transform: scale(0.98); }
+        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .btn-double { background: linear-gradient(90deg, #e67e22, #f39c12); }
         .btn-withdraw { background: linear-gradient(90deg, #27ae60, #2ecc71); }
@@ -212,7 +190,7 @@
         .ad-modal-content {
             width: 100%;
             max-width: 360px;
-            height: 220px;
+            height: 200px;
             background: #161b22;
             border-radius: 14px;
             border: 1px solid #2a3547;
@@ -299,7 +277,7 @@
         <div class="balance-display" id="altaBalance">0.00</div>
         <div class="status" id="systemStatus">System: Operational</div>
 
-        <!-- Larger Logo Display -->
+        <!-- Resized High-Res Mobile Logo -->
         <div class="logo-container" id="tapBtn">
             <img src="alta-coin.png" alt="Alta Coin" class="coin-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/6001/6001368.png'">
         </div>
@@ -328,9 +306,6 @@
             <span id="bonusCounter">0/30 (+1~3 ALTA)</span>
         </button>
     </div>
-
-    <!-- Adsterra Container Integration -->
-    <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
 
     <!-- Mandatory 15s Video/Ad Popup Modal -->
     <div class="modal-overlay" id="adModal">
@@ -373,7 +348,7 @@
         let bonusCount = parseInt(localStorage.getItem('bonus_count') || '0');
         let withdrawCount = parseInt(localStorage.getItem('alta_withdraw_count') || '0');
         
-        // 24-Hour Daily Reset Engine
+        // 24-Hour Daily Reset Engine (00:00 Cycle)
         let lastResetTime = parseInt(localStorage.getItem('last_daily_reset') || '0');
         const NOW = Date.now();
         const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
@@ -438,9 +413,8 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 2500);
         }
 
-        /* Priority High CPM Direct Link Pool (RichAds -> Adsterra -> Hilltop) */
+        /* Cleaned High CPM Direct Links Pool (No Raw Script URLs) */
         const priorityDirectLinks = [
-            'https://richinfo.co/richpartners/pops/js/richads-pu-ob.js?pubid=1021768&siteid=406140&niche=crypto_sports_loan',
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
             'https://plump-plastic.com/PEwa43',
             'https://plump-plastic.com/bh3cV.0dPd3tpzv/bYmqV/JbZuD-0i3/MUzCY/3SMBzbAS1rLwTvczz/N/jcctzXMrDikp'
@@ -450,7 +424,7 @@
             return priorityDirectLinks[Math.floor(Math.random() * priorityDirectLinks.length)];
         }
 
-        /* Local Banner Pool mapped to High CPM Direct Links */
+        /* Local Banner Pool mapped to Direct Links */
         const lightBannerPool = [
             { title: "KBZPay Cash Bonus Offer", desc: "Claim instant transaction rewards", btn: "CLAIM KPAY", tag: "FINANCE" },
             { title: "WavePay Instant Cashout", desc: "Fast transfers and wallet rewards", btn: "GET WAVE", tag: "WALLET" },
@@ -470,7 +444,7 @@
             </div>`;
         }
 
-        /* 8-Second High CPM Auto Rotate Engine */
+        /* 8s Auto Rotate Engine */
         function rotateBannerAds() {
             const topBox = document.getElementById('topAdRotateBox');
             const modalTopBox = document.getElementById('modalTopAdBox');
@@ -486,7 +460,7 @@
         }
         rotateBannerAds();
 
-        /* Tap Mining Logic with Automatic Target Focus Return */
+        /* Tap Mining Logic */
         tapBtn.addEventListener('click', () => {
             if (!navigator.onLine || isMining) return;
 
@@ -548,7 +522,7 @@
             };
         }
 
-        /* 15s Direct Task Handlers */
+        /* Process Click and Key Unlocking Engine */
         function startDirectTask(type) {
             if (!navigator.onLine) return;
             activeTaskType = type;
@@ -568,7 +542,7 @@
             startDirectTask('bonus');
         });
 
-        /* Focus Recovery & 15-Second Watch Verification */
+        /* Back Focus Recovery & Key Unlock Execution */
         window.addEventListener('focus', () => {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
@@ -577,26 +551,26 @@
                 if (elapsed >= 15) {
                     if (activeTaskType === 'double') {
                         currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
-                        showNotification("15s Completed! +0.50 ALTA Added!");
+                        showNotification("15s Verified! +0.50 ALTA Added!");
                     } else if (activeTaskType === 'high') {
                         highAdsCount++;
                         currentAlta = parseFloat((currentAlta + 1.00).toFixed(2));
-                        showNotification(`15s Completed! +1.00 ALTA Added (${highAdsCount}/100)`);
+                        showNotification(`15s Verified! +1.00 ALTA Added (${highAdsCount}/100)`);
                     } else if (activeTaskType === 'bonus') {
                         bonusCount++;
                         const bonus = Math.floor(Math.random() * 3) + 1;
                         currentAlta = parseFloat((currentAlta + bonus).toFixed(2));
-                        showNotification(`15s Completed! +${bonus}.00 ALTA Bonus Added (${bonusCount}/30)`);
+                        showNotification(`15s Verified! +${bonus}.00 ALTA Added (${bonusCount}/30)`);
                     }
                     updateUI();
                 } else {
-                    showNotification(`Viewed ${elapsed}s/15s. Please view full 15s for reward.`);
+                    showNotification(`Viewed ${elapsed}s/15s. Please view for full 15s to unlock key.`);
                 }
                 activeTaskType = null;
             }
         });
 
-        /* Referral Sharing System */
+        /* Referral Sharing Handler */
         document.getElementById('shareBtn').addEventListener('click', () => {
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let refLink = `https://t.me/AltaHub_ads_bot?start=${userId}`;
@@ -610,7 +584,7 @@
             }
         });
 
-        /* Withdrawal Handler */
+        /* Withdrawal Modal Handler */
         openWithdrawModalBtn.addEventListener('click', () => {
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA!`);
