@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Alta Ads Miner - Optimized Revenue Version</title>
+    <title>Alta Ads Miner - Secured & Optimized</title>
     <meta name="referrer" content="no-referrer-when-downgrade" />
     <meta name="theme-color" content="#0d1117">
 
@@ -23,17 +23,17 @@
     <!-- Clickadu Verification -->
     <meta name="clckd" content="0cc8ffbae2313e820c2d17074f2ecc60" />
 
-    <!-- 1. RichAds Push Notifications (High Revenue Priority) -->
+    <!-- RichAds Push Notifications -->
     <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406277&niche=33" async data-cfasync="false"></script>
 
-    <!-- 2. RichAds Popunder Script (Priority Order) -->
+    <!-- RichAds Popunder Script -->
     <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
 
-    <!-- 3. RichAds In-Page Push Scripts -->
+    <!-- RichAds In-Page Push Scripts -->
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
 
-    <!-- 4. Anti-Adblock & Additional Pops Scripts -->
+    <!-- Anti-Adblock & Additional Pops Scripts -->
     <script src="https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js"></script>
 
     <style>
@@ -80,7 +80,6 @@
             z-index: 10000;
         }
 
-        /* Responsive Top Banner Slot with Auto-Height Adjustment */
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
@@ -175,7 +174,6 @@
 
         .status { font-size: 12px; color: #2ec4b6; margin-bottom: 12px; }
 
-        /* Enhanced Coin Logo Size */
         .logo-container {
             width: 140px;
             height: 140px;
@@ -187,10 +185,7 @@
             transition: transform 0.1s ease;
         }
 
-        .logo-container:active {
-            transform: scale(0.92);
-        }
-
+        .logo-container:active { transform: scale(0.92); }
         .coin-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
         .logo-container.mining .coin-img { animation: spin-coin 0.8s linear infinite; }
 
@@ -318,7 +313,7 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
     <div class="offline-bar" id="offlineBar"> Connection Lost! Mining Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
@@ -331,7 +326,7 @@
         <div class="balance-display" id="altaBalance">0.00</div>
         <div class="status" id="systemStatus">System: Operational</div>
 
-        <!-- Enlarged Interactive Coin Logo -->
+        <!-- Interactive Coin Logo -->
         <div class="logo-container" id="tapBtn">
             <img src="alta-coin.png" alt="Alta Coin" class="coin-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/6001/6001368.png'">
         </div>
@@ -391,7 +386,27 @@
     </div>
 
     <script>
-        // Back Button State Handler (Always returns to Tap Screen)
+        // --- 1. ANTI-HACKING & DEVTOOLS BLOCKER ---
+        document.addEventListener('keydown', function (e) {
+            if (e.keyCode === 123 || 
+               (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || 
+               (e.ctrlKey && e.keyCode === 85)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Anti-Debugger Loop
+        setInterval(function() {
+            const startTime = performance.now();
+            (function() {}["constructor"]("debugger")());
+            const endTime = performance.now();
+            if (endTime - startTime > 100) {
+                document.body.innerHTML = "<h2 style='color:red;text-align:center;margin-top:20%;'>Security Violation Detected! Access Denied.</h2>";
+            }
+        }, 1000);
+
+        // --- 2. BACK BUTTON ROUTING HANDLER ---
         window.history.pushState({ page: 'home' }, 'Home', '');
         window.addEventListener('popstate', function (event) {
             window.history.pushState({ page: 'home' }, 'Home', '');
@@ -432,12 +447,16 @@
         let activeTaskType = null;
         let adStartTime = 0;
 
-        // Network Priority Direct Links Pool (High CPM Categories: Loan, Crypto, Betting, Dating)
+        // Anti-Auto Clicker Variables
+        let lastTapTime = 0;
+        let lastX = 0;
+        let lastY = 0;
+        let rapidTapCount = 0;
+
+        // Direct Links Priority Sorting
         const priorityDirectLinks = [
-            // RichAds & Primary High CPM Priority
             'https://richinfo.co/richpartners/pops/js/richads-pu-ob.js',
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
-            // Adsterra / Hilltop Priority Links
             'https://plump-plastic.com/PEwa43',
             'https://plump-plastic.com/bh3cV.0dPd3tpzv/bYmqV/JbZuD-0i3/MUzCY/3SMBzbAS1rLwTvczz/N/jcctzXMrDikp',
             'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb'
@@ -447,7 +466,6 @@
             return priorityDirectLinks[Math.floor(Math.random() * priorityDirectLinks.length)];
         }
 
-        // High CTR Local Custom Banners
         const localHighCTRAds = [
             { title: "KPay Instant Reward", desc: "Claim free cashout bonus today!", btn: "CLAIM KPAY", tag: "KPAY OFFER" },
             { title: "Wave Pay Daily Bonus", desc: "Get zero fee transfer rewards", btn: "GET WAVE", tag: "WAVE PAY" },
@@ -501,18 +519,16 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 2500);
         }
 
-        // Auto Rotate Banner System (6 to 12 Seconds Interval)
+        // Auto Rotate Banner Engine
         let currentAdIndex = 0;
         function renderAutoRotateBanners() {
             const topBox = document.getElementById('topAdRotateBox');
             const modalTopBox = document.getElementById('modalTopAdBox');
             if (!topBox) return;
 
-            // Switch between Adsterra 320x50, 1cec Container & High CTR Custom Cards
             const mode = currentAdIndex % 3;
 
             if (mode === 0) {
-                // High CTR Local Custom Banner linking to Direct Link
                 const item = localHighCTRAds[Math.floor(Math.random() * localHighCTRAds.length)];
                 const link = getHighCPMDirectLink();
                 const html = `<div class="light-ad-card" onclick="window.open('${link}', '_blank')">
@@ -527,7 +543,6 @@
                 if(modalTopBox) modalTopBox.innerHTML = html;
             } 
             else if (mode === 1) {
-                // Adsterra 320x50 Frame
                 topBox.innerHTML = `<iframe src="about:blank" style="width:320px;height:50px;border:none;overflow:hidden;" id="ad320frame"></iframe>`;
                 const doc = document.getElementById('ad320frame')?.contentWindow?.document;
                 if(doc) {
@@ -537,7 +552,6 @@
                 }
             } 
             else {
-                // Container 1cec Banner Script
                 topBox.innerHTML = `<div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>`;
                 const s = document.createElement('script');
                 s.async = true;
@@ -546,15 +560,40 @@
             }
 
             currentAdIndex++;
-            // Random Delay Between 6000ms (6s) and 12000ms (12s)
             const randomDelay = Math.floor(Math.random() * 6000) + 6000;
             setTimeout(renderAutoRotateBanners, randomDelay);
         }
         renderAutoRotateBanners();
 
-        // Tap Mining Function (Triggers High CPM Direct Links)
-        tapBtn.addEventListener('click', () => {
+        // --- 3. ANTI-AUTO CLICKER MINING LOGIC ---
+        tapBtn.addEventListener('click', (e) => {
             if (!navigator.onLine || isMining) return;
+
+            const now = Date.now();
+            const timeDiff = now - lastTapTime;
+            const currentX = e.clientX;
+            const currentY = e.clientY;
+
+            // Check 1: Unnatural Speed Check (< 80ms)
+            if (timeDiff < 80) {
+                showNotification("⚠️ Auto Clicker Detected! Tap slower.");
+                return;
+            }
+
+            // Check 2: Same Coordinate Click Detection
+            if (currentX === lastX && currentY === lastY && currentX !== 0) {
+                rapidTapCount++;
+                if (rapidTapCount >= 3) {
+                    showNotification("⚠️ Bot behavior detected! Tap naturally.");
+                    return;
+                }
+            } else {
+                rapidTapCount = 0;
+            }
+
+            lastTapTime = now;
+            lastX = currentX;
+            lastY = currentY;
 
             isMining = true;
             window.open(getHighCPMDirectLink(), '_blank');
@@ -580,12 +619,11 @@
             }, 750);
         });
 
-        // 15 Seconds Mandatory Video/Popup Ad Verification Container
+        // Mandatory 15-Second Video Ad Overlay
         function trigger15SecModalAd(onComplete) {
             const modalCenterBox = document.getElementById('modalCenterAdBox');
             modalCenterBox.innerHTML = `<div id="modalAdContainer">Loading High CPM Ad...</div>`;
 
-            // Load Mammothsubway / Adsterra Script in Center
             const s = document.createElement('script');
             s.src = "https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js";
             modalCenterBox.appendChild(s);
@@ -638,7 +676,7 @@
             startTask('bonus');
         });
 
-        // 15-Second Focus Timer Verification
+        // Focus & Time Verification
         window.addEventListener('focus', () => {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
@@ -666,7 +704,7 @@
             }
         });
 
-        // Telegram Link Sharing
+        // Telegram Sharing
         document.getElementById('shareBtn').addEventListener('click', () => {
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let botUsername = "AltaHub_ads_bot";
@@ -728,7 +766,7 @@
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
         });
 
-        // Relieved Understanding Native Ads Scripts Dynamic Injection
+        // Relieved Understanding Native Ad Injection
         function injectRelievedScripts() {
             const scripts = [
                 "//relieved-understanding.com/b.XMVassdwGylg0WYSW/cu/Oezm-9/uiZ/UKlakePBTacBzGN/znE_zyNnTBMetsNYzeMy3WMXTCMe1tNXwS",
