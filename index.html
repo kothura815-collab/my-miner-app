@@ -12,14 +12,22 @@
     <link rel="apple-touch-icon" href="alta-coin.png">
 
     <!-- Priority Ad Network Preconnects -->
+    <link rel="dns-prefetch" href="//richinfo.co">
     <link rel="dns-prefetch" href="//plump-plastic.com">
     <link rel="dns-prefetch" href="//mammothsubway.com">
+    <link rel="dns-prefetch" href="//relieved-understanding.com">
 
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
     <!-- Clickadu Verification -->
     <meta name="clckd" content="0cc8ffbae2313e820c2d17074f2ecc60" />
+
+    <!-- 1. RichAds Priority Scripts -->
+    <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406277&niche=33" async data-cfasync="false"></script>
+    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
+    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
+    <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
 
     <style>
         :root {
@@ -68,7 +76,7 @@
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
-            min-height: 100px;
+            min-height: 80px;
             margin-bottom: 12px;
             border-radius: 12px;
             overflow: hidden;
@@ -86,7 +94,7 @@
         .top-native-script-container {
             width: 320px;
             height: 50px;
-            margin-top: 5px;
+            margin: 5px 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -231,6 +239,14 @@
         .btn-high-ads { background: linear-gradient(90deg, #8e44ad, #9b59b6); }
         .btn-bonus { background: linear-gradient(90deg, #d35400, #e67e22); }
 
+        .bottom-banner-container {
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -332,9 +348,11 @@
     <div class="offline-bar" id="offlineBar">Connection Lost! Mining Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
+    <!-- Top Native Ad Box -->
     <div class="ad-banner-box">
         <div id="topAdRotateBox" style="width: 100%;"></div>
         <div class="top-native-script-container">
+            <!-- 2. Adsterra Native Banner -->
             <script>
                 atOptions = {
                     'key' : '347789b1da1885d257b7e71a197c6c18',
@@ -348,8 +366,7 @@
         </div>
     </div>
 
-    <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
-
+    <!-- Main Miner Interface -->
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -382,14 +399,21 @@
             <span>Daily Bonus 15s</span>
             <span id="bonusCounter">0/30 (+1~3 ALTA)</span>
         </button>
+
+        <!-- ပုံ (၂) ပါ Adsterra Banner (Daily Bonus အောက်သို့ ရွှေ့ပေးထားပါသည်) -->
+        <div class="bottom-banner-container">
+            <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
+        </div>
     </div>
 
+    <!-- Ad Modal Interface -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-banner-box" id="modalTopAdBox"></div>
         <div class="ad-modal-content" id="modalCenterAdBox"></div>
         <button class="btn-continue" id="continueAdBtn" disabled>Please wait 15s...</button>
     </div>
 
+    <!-- Payout Modal -->
     <div class="modal-overlay" id="payoutModal" style="justify-content: center;">
         <div class="payout-card">
             <h3 style="color: var(--primary-gold); margin-top:0; text-align:center;">Withdrawal Request</h3>
@@ -411,58 +435,62 @@
         </div>
     </div>
 
+    <!-- 2. Adsterra Banner Script Injection -->
     <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
 
     <script>
-        // ----------------------------------------------------
-        // ANTI-HACKING, ANTI-DEVTOOLS & ANTI-AUTO-CLICKER GUARD
-        // ----------------------------------------------------
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
-                e.preventDefault();
-                return false;
-            }
-        });
+        // High-CPM Direct Smartlinks Rotation (Round-Robin Sequential System)
+        const directLinks = [
+            'https://plump-plastic.com/PEwa43',
+            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
+            'https://plump-plastic.com/bh3cV.0dPd3tpzv/bYmqV/JbZuD-0i3/MUzCY/3SMBzbAS1rLwTvczz/N/jcctzXMrDikp',
+            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
+            'https://richinfo.co/richpartners/pops/js/richads-pu-ob.js'
+        ];
 
-        // Anti-Auto Clicker Variables
-        let lastTapTime = 0;
-        let lastX = 0;
-        let lastY = 0;
-
-        function isAutoClicker(e) {
-            const now = Date.now();
-            const timeDiff = now - lastTapTime;
-            const currentX = e.clientX || 0;
-            const currentY = e.clientY || 0;
-
-            // Block clicks faster than 300ms or exact same pixel position taps
-            if (timeDiff < 300 || (currentX === lastX && currentY === lastY && currentX !== 0)) {
-                showNotification("Auto Clicker / Fast Click Detected!");
-                return true;
-            }
-
-            lastTapTime = now;
-            lastX = currentX;
-            lastY = currentY;
-            return false;
+        let linkIndex = 0;
+        function getRandomLink() {
+            const selected = directLinks[linkIndex];
+            linkIndex = (linkIndex + 1) % directLinks.length; // တစ်ခုပြီးတစ်ခု အလှည့်ကျ ပြောင်းလဲမည်
+            return selected;
         }
 
-        // Mandatory Notification Request
-        function requestNotificationPermission() {
-            if ("Notification" in window && Notification.permission !== "granted") {
-                Notification.requestPermission();
-            }
-        }
-        window.addEventListener('load', requestNotificationPermission);
+        // Local Banner Hybrid CTR Funnel
+        const lightBannerPool = [
+            { title: "Instant KBZ Pay Bonus", desc: "Claim daily instant transfer rewards", btn: "CLAIM KPAY", tag: "FINANCE" },
+            { title: "Wave Pay Cash Reward", desc: "Quick loan & fast cash bonus unlocked", btn: "GET WAVE", tag: "LOAN CASH" },
+            { title: "Crypto Mining Doubler", desc: "Double your sports & crypto yield", btn: "START NOW", tag: "HIGH CPM CRYPTO" },
+            { title: "FB Account Security Guard", desc: "Protect your Facebook account now", btn: "VERIFY NOW", tag: "SECURITY" }
+        ];
 
-        // PWA Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./service-worker.js').catch(() => {});
-            });
+        function createAdHtml(item) {
+            const link = getRandomLink();
+            return `<div class="light-ad-card" onclick="window.open('${link}', '_blank')">
+                <div class="ad-info">
+                    <span class="ad-badge">${item.tag}</span>
+                    <span class="ad-title">${item.title}</span>
+                    <span class="ad-desc">${item.desc}</span>
+                </div>
+                <a href="${link}" target="_blank" class="ad-action-btn">${item.btn}</a>
+            </div>`;
         }
 
+        function rotateBannerAds() {
+            const topBox = document.getElementById('topAdRotateBox');
+            const modalTopBox = document.getElementById('modalTopAdBox');
+            const modalCenterBox = document.getElementById('modalCenterAdBox');
+
+            const item = lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)];
+
+            if (topBox) topBox.innerHTML = createAdHtml(item);
+            if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item);
+            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item);
+
+            setTimeout(rotateBannerAds, 8000);
+        }
+        rotateBannerAds();
+
+        // Application Engine Logic
         const tg = window.Telegram?.WebApp;
         if(tg) { tg.expand(); tg.ready(); }
 
@@ -542,54 +570,8 @@
             setTimeout(() => { customToast.style.display = 'none'; }, 2500);
         }
 
-        const directLinks = [
-            'https://plump-plastic.com/PEwa43',
-            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
-            'https://plump-plastic.com/bh3cV.0dPd3tpzv/bYmqV/JbZuD-0i3/MUzCY/3SMBzbAS1rLwTvczz/N/jcctzXMrDikp',
-            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb'
-        ];
-        
-        function getRandomLink() {
-            return directLinks[Math.floor(Math.random() * directLinks.length)];
-        }
-
-        const lightBannerPool = [
-            { title: "Instant KBZ Pay Bonus", desc: "Claim daily instant transfer rewards", btn: "CLAIM KPAY", tag: "FINANCE" },
-            { title: "Wave Pay Cash Reward", desc: "Quick loan & fast cash bonus unlocked", btn: "GET WAVE", tag: "LOAN CASH" },
-            { title: "Crypto Mining Doubler", desc: "Double your sports & crypto yield", btn: "START NOW", tag: "HIGH CPM CRYPTO" },
-            { title: "FB Account Security Guard", desc: "Protect your Facebook account now", btn: "VERIFY NOW", tag: "SECURITY" }
-        ];
-
-        function createAdHtml(item) {
-            const link = getRandomLink();
-            return `<div class="light-ad-card" onclick="window.open('${link}', '_blank')">
-                <div class="ad-info">
-                    <span class="ad-badge">${item.tag}</span>
-                    <span class="ad-title">${item.title}</span>
-                    <span class="ad-desc">${item.desc}</span>
-                </div>
-                <a href="${link}" target="_blank" class="ad-action-btn">${item.btn}</a>
-            </div>`;
-        }
-
-        function rotateBannerAds() {
-            const topBox = document.getElementById('topAdRotateBox');
-            const modalTopBox = document.getElementById('modalTopAdBox');
-            const modalCenterBox = document.getElementById('modalCenterAdBox');
-
-            const item = lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)];
-
-            if (topBox) topBox.innerHTML = createAdHtml(item);
-            if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item);
-            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item);
-
-            setTimeout(rotateBannerAds, Math.floor(Math.random() * 6000) + 6000);
-        }
-        rotateBannerAds();
-
-        // Tap Mining Logic with Anti Auto-Clicker Protection
-        tapBtn.addEventListener('click', (e) => {
-            if (isAutoClicker(e)) return;
+        // Tap Mining Logic
+        tapBtn.addEventListener('click', () => {
             if (!navigator.onLine || isMining) return;
 
             isMining = true;
@@ -650,31 +632,29 @@
             };
         }
 
-        function startDirectTask(type, e) {
-            if (isAutoClicker(e)) return;
+        function startDirectTask(type) {
             if (!navigator.onLine) return;
-
             activeTaskType = type;
             adStartTime = Date.now();
             window.open(getRandomLink(), "_blank");
         }
 
-        document.getElementById('doubleAdsBtn').addEventListener('click', (e) => startDirectTask('double', e));
+        document.getElementById('doubleAdsBtn').addEventListener('click', () => startDirectTask('double'));
 
-        document.getElementById('highAdsBtn').addEventListener('click', (e) => {
+        document.getElementById('highAdsBtn').addEventListener('click', () => {
             if (highAdsCount >= 100) {
                 showNotification("Daily High Ads limit reached (100/100)!");
                 return;
             }
-            startDirectTask('high', e);
+            startDirectTask('high');
         });
 
-        document.getElementById('dailyBonusBtn').addEventListener('click', (e) => {
+        document.getElementById('dailyBonusBtn').addEventListener('click', () => {
             if (bonusCount >= 30) {
                 showNotification("Daily Bonus limit reached (30/30)!");
                 return;
             }
-            startDirectTask('bonus', e);
+            startDirectTask('bonus');
         });
 
         window.addEventListener('focus', () => {
@@ -763,20 +743,6 @@
             payoutModal.style.display = 'none';
 
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
-        });
-
-        function loadScript(src) {
-            const s = document.createElement('script');
-            s.src = src;
-            s.async = true;
-            document.body.appendChild(s);
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
-                loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
-            }, 400);
         });
     </script>
 </body>
