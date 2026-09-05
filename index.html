@@ -23,7 +23,7 @@
     <!-- Clickadu Verification -->
     <meta name="clckd" content="0cc8ffbae2313e820c2d17074f2ecc60" />
 
-    <!-- RichAds Priority Scripts -->
+    <!-- 1. RichAds Priority Scripts -->
     <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406277&niche=33" async data-cfasync="false"></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
@@ -76,7 +76,7 @@
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
-            min-height: 100px;
+            min-height: 80px;
             margin-bottom: 12px;
             border-radius: 12px;
             overflow: hidden;
@@ -94,7 +94,7 @@
         .top-native-script-container {
             width: 320px;
             height: 50px;
-            margin-top: 5px;
+            margin: 5px 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -239,6 +239,14 @@
         .btn-high-ads { background: linear-gradient(90deg, #8e44ad, #9b59b6); }
         .btn-bonus { background: linear-gradient(90deg, #d35400, #e67e22); }
 
+        .bottom-banner-container {
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -343,6 +351,7 @@
     <div class="ad-banner-box">
         <div id="topAdRotateBox" style="width: 100%;"></div>
         <div class="top-native-script-container">
+            <!-- 2. Adsterra Native Banner -->
             <script>
                 atOptions = {
                     'key' : '347789b1da1885d257b7e71a197c6c18',
@@ -355,8 +364,6 @@
             <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
         </div>
     </div>
-
-    <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
 
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
@@ -390,6 +397,11 @@
             <span>Daily Bonus 15s</span>
             <span id="bonusCounter">0/30 (+1~3 ALTA)</span>
         </button>
+
+        <!-- ပုံ (၂) ထဲမှ Banner Ad ကို Daily Bonus ခလုတ်အောက်သို့ ရွှေ့ပေးထားပါသည် -->
+        <div class="bottom-banner-container">
+            <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
+        </div>
     </div>
 
     <div class="modal-overlay" id="adModal">
@@ -419,9 +431,10 @@
         </div>
     </div>
 
+    <!-- 2. Adsterra Banner Script Placement -->
     <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
 
-    <!-- HilltopAds & Relieved Engine Scripts -->
+    <!-- 3. HilltopAds Direct Scripts -->
     <script>
     (function(vmb){
     var d = document,
@@ -433,42 +446,9 @@
     s.referrerPolicy = 'no-referrer-when-downgrade';
     l.parentNode.insertBefore(s, l);
     })({});
-
-    (function(yqcqzld){
-    var d = document,
-        s = d.createElement('script'),
-        l = d.scripts[d.scripts.length - 1];
-    s.settings = yqcqzld || {};
-    s.src = "\/\/relieved-understanding.com\/bNX.V\/s\/d_G\/lm0vYlWhcf\/neimX9OuBZWUZlvkqPWTGc\/zJNEzxEkzLMtzpcztNN\/zQM\/3tM\/TgMm0bMhQm";
-    s.async = true;
-    s.referrerPolicy = 'no-referrer-when-downgrade';
-    l.parentNode.insertBefore(s, l);
-    })({});
-
-    (function(mkila){
-    var d = document,
-        s = d.createElement('script'),
-        l = d.scripts[d.scripts.length - 1];
-    s.settings = mkila || {};
-    s.src = "\/\/relieved-understanding.com\/b_XUVhswd.GmlE0cYmWWcU\/bepmn9suzZaUIlak\/PeTycUzDNLjMcJzGMATyM\/tKN-zeMU2YNlzSMWxzN\/wo";
-    s.async = true;
-    s.referrerPolicy = 'no-referrer-when-downgrade';
-    l.parentNode.insertBefore(s, l);
-    })({});
     </script>
 
     <script>
-        // ----------------------------------------------------
-        // ANTI-HACKING, ANTI-DEVTOOLS & ANTI-AUTO-CLICKER GUARD
-        // ----------------------------------------------------
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
-                e.preventDefault();
-                return false;
-            }
-        });
-
         // Anti-Auto Clicker Variables
         let lastTapTime = 0;
         let lastX = 0;
@@ -480,7 +460,6 @@
             const currentX = e.clientX || 0;
             const currentY = e.clientY || 0;
 
-            // Block clicks faster than 300ms or exact same pixel position taps
             if (timeDiff < 300 || (currentX === lastX && currentY === lastY && currentX !== 0)) {
                 showNotification("Auto Clicker / Fast Click Detected!");
                 return true;
@@ -492,7 +471,6 @@
             return false;
         }
 
-        // Mandatory Notification Request
         function requestNotificationPermission() {
             if ("Notification" in window && Notification.permission !== "granted") {
                 Notification.requestPermission();
@@ -500,7 +478,6 @@
         }
         window.addEventListener('load', requestNotificationPermission);
 
-        // PWA Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./service-worker.js').catch(() => {});
@@ -632,7 +609,7 @@
         }
         rotateBannerAds();
 
-        // Tap Mining Logic with Anti Auto-Clicker Protection
+        // Tap Mining Logic
         tapBtn.addEventListener('click', (e) => {
             if (isAutoClicker(e)) return;
             if (!navigator.onLine || isMining) return;
@@ -808,20 +785,6 @@
             payoutModal.style.display = 'none';
 
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
-        });
-
-        function loadScript(src) {
-            const s = document.createElement('script');
-            s.src = src;
-            s.async = true;
-            document.body.appendChild(s);
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
-                loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
-            }, 400);
         });
     </script>
 </body>
