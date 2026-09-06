@@ -23,12 +23,6 @@
     <!-- Clickadu Verification -->
     <meta name="clckd" content="0cc8ffbae2313e820c2d17074f2ecc60" />
 
-    <!-- RichAds Priority Scripts -->
-    <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406277&niche=33" async data-cfasync="false"></script>
-    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
-    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
-    <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
-
     <style>
         :root {
             --bg-color: #0d1117;
@@ -373,22 +367,8 @@
             <span id="bonusCounter">0/30 (+1~3 ALTA)</span>
         </button>
 
-        <!-- Moved Ad Banner Box Below Daily Bonus Button -->
-        <div class="ad-banner-box" style="margin-top: 12px; margin-bottom: 0;">
-            <div id="topAdRotateBox" style="width: 100%;"></div>
-            <div class="top-native-script-container">
-                <script>
-                    atOptions = {
-                        'key' : '347789b1da1885d257b7e71a197c6c18',
-                        'format' : 'iframe',
-                        'height' : 50,
-                        'width' : 320,
-                        'params' : {}
-                    };
-                </script>
-                <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
-            </div>
-        </div>
+        <!-- ပုံ ၂ ပါ Native Ad Box ကို Daily Bonus ခလုတ်အောက်သို့ ရွှေ့ပေးထားပါသည် -->
+        <div id="container-1cec679dbd5cf50d60afe3c148706d87" style="margin-top: 15px;"></div>
     </div>
 
     <div class="modal-overlay" id="adModal">
@@ -418,45 +398,9 @@
         </div>
     </div>
 
-    <!-- HilltopAds & Relieved Engine Scripts -->
-    <script>
-    (function(vmb){
-    var d = document,
-        s = d.createElement('script'),
-        l = d.scripts[d.scripts.length - 1];
-    s.settings = vmb || {};
-    s.src = "\/\/relieved-understanding.com\/b.XMVassdwGylg0WYSW\/cu\/Oezm-9\/uiZ\/UKlakePBTacBzGN\/znE_zyNnTBMetsNYzeMy3WMXTCMe1tNXwS";
-    s.async = true;
-    s.referrerPolicy = 'no-referrer-when-downgrade';
-    l.parentNode.insertBefore(s, l);
-    })({});
-
-    (function(yqcqzld){
-    var d = document,
-        s = d.createElement('script'),
-        l = d.scripts[d.scripts.length - 1];
-    s.settings = yqcqzld || {};
-    s.src = "\/\/relieved-understanding.com\/bNX.V\/s\/d_G\/lm0vYlWhcf\/neimX9OuBZWUZlvkqPWTGc\/zJNEzxEkzLMtzpcztNN\/zQM\/3tM\/TgMm0bMhQm";
-    s.async = true;
-    s.referrerPolicy = 'no-referrer-when-downgrade';
-    l.parentNode.insertBefore(s, l);
-    })({});
-
-    (function(mkila){
-    var d = document,
-        s = d.createElement('script'),
-        l = d.scripts[d.scripts.length - 1];
-    s.settings = mkila || {};
-    s.src = "\/\/relieved-understanding.com\/b_XUVhswd.GmlE0cYmWWcU\/bepmn9suzZaUIlak\/PeTycUzDNLjMcJzGMATyM\/tKN-zeMU2YNlzSMWxzN\/wo";
-    s.async = true;
-    s.referrerPolicy = 'no-referrer-when-downgrade';
-    l.parentNode.insertBefore(s, l);
-    })({});
-    </script>
-
     <script>
         // ----------------------------------------------------
-        // ANTI-HACKING, ANTI-DEVTOOLS & ANTI-AUTO-CLICKER GUARD
+        // ANTI-HACKING & ANTI-AUTO-CLICKER GUARD
         // ----------------------------------------------------
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
@@ -466,7 +410,6 @@
             }
         });
 
-        // Anti-Auto Clicker Variables
         let lastTapTime = 0;
         let lastX = 0;
         let lastY = 0;
@@ -488,13 +431,21 @@
             return false;
         }
 
+        // Notification ခွင့်ပြုချက် မဖြစ်မနေ တောင်းဆိုခြင်း
         function requestNotificationPermission() {
-            if ("Notification" in window && Notification.permission !== "granted") {
-                Notification.requestPermission();
+            if ("Notification" in window) {
+                if (Notification.permission !== "granted") {
+                    Notification.requestPermission().then(permission => {
+                        if (permission !== "granted") {
+                            alert("Please allow notifications to receive rewards and updates!");
+                        }
+                    });
+                }
             }
         }
         window.addEventListener('load', requestNotificationPermission);
 
+        // PWA Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./service-worker.js').catch(() => {});
@@ -612,13 +563,11 @@
         }
 
         function rotateBannerAds() {
-            const topBox = document.getElementById('topAdRotateBox');
             const modalTopBox = document.getElementById('modalTopAdBox');
             const modalCenterBox = document.getElementById('modalCenterAdBox');
 
             const item = lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)];
 
-            if (topBox) topBox.innerHTML = createAdHtml(item);
             if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item);
             if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item);
 
@@ -626,6 +575,7 @@
         }
         rotateBannerAds();
 
+        // Tap Mining Logic
         tapBtn.addEventListener('click', (e) => {
             if (isAutoClicker(e)) return;
             if (!navigator.onLine || isMining) return;
@@ -804,17 +754,23 @@
         });
 
         function loadScript(src) {
-            const s = document.createElement('script');
-            s.src = src;
-            s.async = true;
-            document.body.appendChild(s);
+            return new Promise((resolve) => {
+                const s = document.createElement('script');
+                s.src = src;
+                s.async = true;
+                s.onload = resolve;
+                s.onerror = resolve;
+                document.body.appendChild(s);
+            });
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
-                loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
-            }, 400);
+        // Script များကို တစ်ခုပြီးမှတစ်ခု (Sequential Loading) စနစ်ဖြင့် Load လုပ်၍ Bot လေးခြင်းကို ဖြေရှင်းထားပါသည်
+        window.addEventListener('DOMContentLoaded', async () => {
+            await loadScript("https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406277&niche=33");
+            await loadScript("https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187");
+            await loadScript("https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js");
+            await loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
+            await loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
         });
     </script>
 </body>
