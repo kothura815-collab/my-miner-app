@@ -15,7 +15,6 @@
     <link rel="dns-prefetch" href="//richinfo.co">
     <link rel="dns-prefetch" href="//plump-plastic.com">
     <link rel="dns-prefetch" href="//mammothsubway.com">
-    <link rel="dns-prefetch" href="//relieved-understanding.com">
 
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -23,10 +22,11 @@
     <!-- Clickadu Verification -->
     <meta name="clckd" content="0cc8ffbae2313e820c2d17074f2ecc60" />
 
-    <!-- RichAds Priority Scripts (Pop-up Script ရေးထားသည့် နေရာကို လုံးဝ ဖြုတ်ပေးထားပါသည်) -->
+    <!-- RichAds Priority Scripts -->
     <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406277&niche=33" async data-cfasync="false"></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
+    <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
 
     <style>
         :root {
@@ -355,8 +355,6 @@
         </div>
     </div>
 
-    <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
-
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -418,11 +416,8 @@
         </div>
     </div>
 
-    <!-- Scripts များကို စနစ်တကျ အစဉ်လိုက် Load လုပ်စေရန် ပြင်ဆင်ထားပါသည် -->
-    <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
-
     <script>
-        // ANTI-HACKING & ANTI-DEVTOOLS & ANTI-AUTO-CLICKER GUARD
+        // ANTI-HACKING, ANTI-DEVTOOLS & ANTI-AUTO-CLICKER GUARD
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
             if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
@@ -431,7 +426,7 @@
             }
         });
 
-        // Anti-Auto Clicker Engine
+        // Anti-Auto Clicker Variables
         let lastTapTime = 0;
         let lastX = 0;
         let lastY = 0;
@@ -453,10 +448,10 @@
             return false;
         }
 
-        // Notification Permission Request (မဖြစ်မနေ Noti ပြရန်)
+        // Mandatory Notification Request
         function requestNotificationPermission() {
             if ("Notification" in window) {
-                if (Notification.permission !== "granted" && Notification.permission !== "denied") {
+                if (Notification.permission !== "granted") {
                     Notification.requestPermission();
                 }
             }
@@ -546,15 +541,11 @@
         function showNotification(msg) {
             customToast.innerText = msg;
             customToast.style.display = 'block';
-
-            // System Native Notification ပြသပေးခြင်း
-            if ("Notification" in window && Notification.permission === "granted") {
-                try {
-                    new Notification("Alta Ads Miner", { body: msg, icon: "alta-coin.png" });
-                } catch(e) {}
-            }
-
             setTimeout(() => { customToast.style.display = 'none'; }, 2500);
+
+            if ("Notification" in window && Notification.permission === "granted") {
+                new Notification("Alta Ads Miner", { body: msg, icon: "alta-coin.png" });
+            }
         }
 
         const directLinks = [
@@ -602,7 +593,7 @@
         }
         rotateBannerAds();
 
-        // Tap Mining Logic
+        // Tap Mining Logic with Anti Auto-Clicker Protection
         tapBtn.addEventListener('click', (e) => {
             if (isAutoClicker(e)) return;
             if (!navigator.onLine || isMining) return;
@@ -780,23 +771,22 @@
             if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
         });
 
-        // Dynamic Sequential Script Loader (Bot ပေါ့ပါးမြန်ဆန်စေရန် အစဉ်လိုက် Load လုပ်ပေးခြင်း)
-        function loadScript(src, callback) {
+        function loadScript(src) {
             const s = document.createElement('script');
             s.src = src;
             s.async = true;
-            s.onload = () => { if(callback) callback(); };
             document.body.appendChild(s);
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            // Sequential script loading after page load
             setTimeout(() => {
-                loadScript("https://relieved-understanding.com/b.XMVassdwGylg0WYSW/cu/Oezm-9/uiZ/UKlakePBTacBzGN/znE_zyNnTBMetsNYzeMy3WMXTCMe1tNXwS", () => {
-                    loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js", () => {
-                        loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
-                    });
-                });
-            }, 300);
+                loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
+            }, 500);
+
+            setTimeout(() => {
+                loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
+            }, 2500);
         });
     </script>
 </body>
