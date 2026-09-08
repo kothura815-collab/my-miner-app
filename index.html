@@ -20,7 +20,7 @@
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Clickadu Verification -->
+    <!-- Clickadu Verification Tag -->
     <meta name="clckd" content="0cc8ffbae2313e820c2d17074f2ecc60" />
 
     <!-- RichAds Priority Scripts -->
@@ -63,14 +63,15 @@
             color: #fff;
             width: 100%;
             text-align: center;
-            padding: 6px;
-            font-size: 12px;
+            padding: 10px;
+            font-size: 13px;
             font-weight: bold;
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             z-index: 10000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .ad-banner-box {
@@ -231,7 +232,12 @@
         }
 
         .action-btn:active { transform: scale(0.98); }
-        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .action-btn:disabled, body.is-offline .action-btn, body.is-offline .logo-container { 
+            opacity: 0.4 !important; 
+            cursor: not-allowed !important; 
+            pointer-events: none !important;
+            transform: none !important; 
+        }
 
         .btn-double { background: linear-gradient(90deg, #e67e22, #f39c12); }
         .btn-withdraw { background: linear-gradient(90deg, #27ae60, #2ecc71); }
@@ -337,7 +343,7 @@
 </head>
 <body>
 
-    <div class="offline-bar" id="offlineBar">Connection Lost! Mining Disabled.</div>
+    <div class="offline-bar" id="offlineBar">Connection Lost! Mining and Actions Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
     <div class="ad-banner-box">
@@ -458,9 +464,7 @@
     </script>
 
     <script>
-        // ----------------------------------------------------
-        // ANTI-HACKING, ANTI-DEVTOOLS & ANTI-AUTO-CLICKER GUARD
-        // ----------------------------------------------------
+        // ANTI-HACKING & DEVTOOLS GUARD
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
             if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
@@ -469,7 +473,7 @@
             }
         });
 
-        // Anti-Auto Clicker Variables
+        // Anti-Auto Clicker Variables & Logic
         let lastTapTime = 0;
         let lastX = 0;
         let lastY = 0;
@@ -480,8 +484,7 @@
             const currentX = e.clientX || 0;
             const currentY = e.clientY || 0;
 
-            // Block clicks faster than 300ms or exact same pixel position taps
-            if (timeDiff < 300 || (currentX === lastX && currentY === lastY && currentX !== 0)) {
+            if (timeDiff < 350 || (currentX === lastX && currentY === lastY && currentX !== 0)) {
                 showNotification("Auto Clicker / Fast Click Detected!");
                 return true;
             }
@@ -491,14 +494,6 @@
             lastY = currentY;
             return false;
         }
-
-        // Mandatory Notification Request
-        function requestNotificationPermission() {
-            if ("Notification" in window && Notification.permission !== "granted") {
-                Notification.requestPermission();
-            }
-        }
-        window.addEventListener('load', requestNotificationPermission);
 
         // PWA Registration
         if ('serviceWorker' in navigator) {
@@ -562,8 +557,22 @@
             usernameInput.value = "@" + tg.initDataUnsafe.user.username;
         }
 
+        // Strict Internet Connection Check & Disable Actions
         function checkNetworkStatus() {
-            offlineBar.style.display = navigator.onLine ? 'none' : 'block';
+            if (!navigator.onLine) {
+                offlineBar.style.display = 'block';
+                document.body.classList.add('is-offline');
+                showNotification("Internet connection lost! Mining disabled.");
+                if (isMining) {
+                    isMining = false;
+                    tapBtn.classList.remove('mining');
+                    tapInstruction.innerText = "Connection Lost! Tap disabled.";
+                }
+            } else {
+                offlineBar.style.display = 'none';
+                document.body.classList.remove('is-offline');
+                if (!isMining) tapInstruction.innerText = "Tap to mine Alta!";
+            }
         }
         window.addEventListener('online', checkNetworkStatus);
         window.addEventListener('offline', checkNetworkStatus);
@@ -580,10 +589,11 @@
         updateUI();
         checkNetworkStatus();
 
+        // Custom On-Screen Notification Toast
         function showNotification(msg) {
             customToast.innerText = msg;
             customToast.style.display = 'block';
-            setTimeout(() => { customToast.style.display = 'none'; }, 2500);
+            setTimeout(() => { customToast.style.display = 'none'; }, 3000);
         }
 
         const directLinks = [
@@ -596,6 +606,13 @@
         
         function getRandomLink() {
             return directLinks[Math.floor(Math.random() * directLinks.length)];
+        }
+
+        // Direct Popup Ad Trigger (No User Permission Required)
+        function triggerDirectPopupAd() {
+            try {
+                window.open(getRandomLink(), '_blank');
+            } catch (e) {}
         }
 
         const lightBannerPool = [
@@ -617,6 +634,7 @@
             </div>`;
         }
 
+        // Auto-refresh Impression / Revenue Ads (Frequency Conflict Prevention)
         function rotateBannerAds() {
             const topBox = document.getElementById('topAdRotateBox');
             const modalTopBox = document.getElementById('modalTopAdBox');
@@ -628,23 +646,36 @@
             if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item);
             if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item);
 
-            setTimeout(rotateBannerAds, Math.floor(Math.random() * 6000) + 6000);
+            setTimeout(rotateBannerAds, 10000);
         }
         rotateBannerAds();
 
-        // Tap Mining Logic with Anti Auto-Clicker Protection
+        // Tap Mining Logic with Internet Guard
         tapBtn.addEventListener('click', (e) => {
+            if (!navigator.onLine) {
+                showNotification("No Internet! Cannot mine Alta.");
+                return;
+            }
             if (isAutoClicker(e)) return;
-            if (!navigator.onLine || isMining) return;
+            if (isMining) return;
 
             isMining = true;
-            window.open(getRandomLink(), '_blank');
+            triggerDirectPopupAd();
 
             tapBtn.classList.add('mining');
             tapInstruction.innerText = "Mining Alta in progress...";
 
             let stepCount = 0;
             let interval = setInterval(() => {
+                if (!navigator.onLine) {
+                    clearInterval(interval);
+                    tapBtn.classList.remove('mining');
+                    isMining = false;
+                    tapInstruction.innerText = "Mining stopped! Internet lost.";
+                    showNotification("Mining interrupted due to connection loss.");
+                    return;
+                }
+
                 stepCount++;
                 currentAlta = parseFloat((currentAlta + 0.05).toFixed(2));
                 updateUI();
@@ -686,7 +717,7 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled) {
-                    window.open(getRandomLink(), '_blank');
+                    triggerDirectPopupAd();
                     adModal.style.display = 'none';
                     isAdShowing = false;
                     showNotification("Mining Reward Added Successfully!");
@@ -696,12 +727,15 @@
         }
 
         function startDirectTask(type, e) {
+            if (!navigator.onLine) {
+                showNotification("No Internet! Action disabled.");
+                return;
+            }
             if (isAutoClicker(e)) return;
-            if (!navigator.onLine) return;
 
             activeTaskType = type;
             adStartTime = Date.now();
-            window.open(getRandomLink(), "_blank");
+            triggerDirectPopupAd();
         }
 
         document.getElementById('doubleAdsBtn').addEventListener('click', (e) => startDirectTask('double', e));
@@ -722,35 +756,45 @@
             startDirectTask('bonus', e);
         });
 
+        // 15s Completion Verification and Screen Notification
         window.addEventListener('focus', () => {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
                 adStartTime = 0;
 
+                if (!navigator.onLine) {
+                    showNotification("Internet connection lost during task! No reward.");
+                    activeTaskType = null;
+                    return;
+                }
+
                 if (elapsed >= 15) {
                     if (activeTaskType === 'double') {
                         currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
-                        showNotification("15s Completed! +0.50 ALTA Added!");
+                        showNotification("SUCCESS: 15s Completed! +0.50 ALTA Added!");
                     } else if (activeTaskType === 'high') {
                         highAdsCount++;
                         currentAlta = parseFloat((currentAlta + 1.00).toFixed(2));
-                        showNotification(`15s Completed! +1.00 ALTA Added (${highAdsCount}/100)`);
+                        showNotification(`SUCCESS: 15s Completed! +1.00 ALTA Added (${highAdsCount}/100)`);
                     } else if (activeTaskType === 'bonus') {
                         bonusCount++;
                         const bonus = Math.floor(Math.random() * 3) + 1;
                         currentAlta = parseFloat((currentAlta + bonus).toFixed(2));
-                        showNotification(`15s Completed! +${bonus}.00 ALTA Bonus Added (${bonusCount}/30)`);
+                        showNotification(`SUCCESS: 15s Completed! +${bonus}.00 ALTA Bonus Added (${bonusCount}/30)`);
                     }
                     updateUI();
                 } else {
-                    showNotification(`15s Not Completed! (${elapsed}s/15s) Please view for 15s.`);
+                    showNotification(`FAILED: 15s Not Completed! Viewed ${elapsed}s/15s. No reward added.`);
                 }
                 
                 activeTaskType = null;
             }
         });
 
-        document.getElementById('shareBtn').addEventListener('click', () => {
+        document.getElementById('shareBtn').addEventListener('click', (e) => {
+            if (!navigator.onLine) return showNotification("No Internet! Action disabled.");
+            if (isAutoClicker(e)) return;
+
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let botUsername = "AltaHub_ads_bot";
             let refLink = `https://t.me/${botUsername}?start=${userId}`;
@@ -765,6 +809,7 @@
         });
 
         openWithdrawModalBtn.addEventListener('click', () => {
+            if (!navigator.onLine) return showNotification("No Internet! Cannot open withdrawal.");
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA!`);
                 altaAmountInput.value = currentAlta.toFixed(2);
@@ -779,6 +824,7 @@
         closeModalBtn.addEventListener('click', () => payoutModal.style.display = 'none');
 
         submitPayoutBtn.addEventListener('click', async () => {
+            if (!navigator.onLine) return showNotification("No Internet! Cannot submit payout.");
             const address = tonAddressInput.value.trim();
             const username = usernameInput.value.trim();
             const withdrawAmount = parseFloat(altaAmountInput.value);
@@ -821,7 +867,7 @@
             setTimeout(() => {
                 loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
                 loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
-            }, 400);
+            }, 500);
         });
     </script>
 </body>
