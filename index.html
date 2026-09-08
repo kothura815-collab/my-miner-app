@@ -327,15 +327,15 @@
             transform: translate(-50%, -50%);
             background: #1f293d;
             color: #fff;
-            padding: 14px 24px;
+            padding: 16px 24px;
             border-radius: 16px;
             font-size: 14px;
             font-weight: 600;
-            border: 1px solid var(--primary-gold);
+            border: 2px solid var(--primary-gold);
             display: none;
-            z-index: 9999;
+            z-index: 99999;
             text-align: center;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.9);
             max-width: 85%;
             word-break: break-word;
         }
@@ -533,6 +533,7 @@
         let isAdShowing = false;
         let activeTaskType = null;
         let adStartTime = 0;
+        let toastTimeout = null;
 
         const balanceEl = document.getElementById('altaBalance');
         const tapBtn = document.getElementById('tapBtn');
@@ -557,7 +558,6 @@
             usernameInput.value = "@" + tg.initDataUnsafe.user.username;
         }
 
-        // Strict Internet Connection Check & Disable Actions
         function checkNetworkStatus() {
             if (!navigator.onLine) {
                 offlineBar.style.display = 'block';
@@ -589,11 +589,14 @@
         updateUI();
         checkNetworkStatus();
 
-        // Custom On-Screen Notification Toast
+        // Improved Toast Notification System
         function showNotification(msg) {
+            if (toastTimeout) clearTimeout(toastTimeout);
             customToast.innerText = msg;
             customToast.style.display = 'block';
-            setTimeout(() => { customToast.style.display = 'none'; }, 3000);
+            toastTimeout = setTimeout(() => { 
+                customToast.style.display = 'none'; 
+            }, 3500);
         }
 
         const directLinks = [
@@ -608,7 +611,6 @@
             return directLinks[Math.floor(Math.random() * directLinks.length)];
         }
 
-        // Direct Popup Ad Trigger (No User Permission Required)
         function triggerDirectPopupAd() {
             try {
                 window.open(getRandomLink(), '_blank');
@@ -634,7 +636,6 @@
             </div>`;
         }
 
-        // Auto-refresh Impression / Revenue Ads (Frequency Conflict Prevention)
         function rotateBannerAds() {
             const topBox = document.getElementById('topAdRotateBox');
             const modalTopBox = document.getElementById('modalTopAdBox');
@@ -650,7 +651,6 @@
         }
         rotateBannerAds();
 
-        // Tap Mining Logic with Internet Guard
         tapBtn.addEventListener('click', (e) => {
             if (!navigator.onLine) {
                 showNotification("No Internet! Cannot mine Alta.");
@@ -756,8 +756,8 @@
             startDirectTask('bonus', e);
         });
 
-        // 15s Completion Verification and Screen Notification
-        window.addEventListener('focus', () => {
+        // Reliable 15s Duration Verification Handler
+        function verifyTaskCompletion() {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
                 adStartTime = 0;
@@ -788,6 +788,14 @@
                 }
                 
                 activeTaskType = null;
+            }
+        }
+
+        // Multiple Window Events to Ensure Notification Appears in Mobile/Telegram WebApp
+        window.addEventListener('focus', verifyTaskCompletion);
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                verifyTaskCompletion();
             }
         });
 
