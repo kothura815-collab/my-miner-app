@@ -11,19 +11,20 @@
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="alta-coin.png">
 
-    <!-- Priority Ad Network Preconnects -->
+    <!-- Priority Ad Network Preconnects (Fast DNS Lookup) -->
+    <link rel="preconnect" href="https://telegram.org" crossorigin>
     <link rel="dns-prefetch" href="//richinfo.co">
     <link rel="dns-prefetch" href="//plump-plastic.com">
     <link rel="dns-prefetch" href="//mammothsubway.com">
     <link rel="dns-prefetch" href="//relieved-understanding.com">
 
-    <!-- Telegram WebApp SDK -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Telegram WebApp SDK (Defer for UI rendering priority) -->
+    <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
 
     <!-- Clickadu Verification Tag -->
     <meta name="clckd" content="0cc8ffbae2313e820c2d17074f2ecc60" />
 
-    <!-- RichAds Priority Scripts -->
+    <!-- RichAds Priority Scripts (Async & Non-Blocking) -->
     <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406277&niche=33" async data-cfasync="false"></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
@@ -358,7 +359,7 @@
                     'params' : {}
                 };
             </script>
-            <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
+            <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js" async></script>
         </div>
     </div>
 
@@ -370,7 +371,7 @@
         <div class="status" id="systemStatus">System: Operational</div>
 
         <div class="logo-container" id="tapBtn">
-            <img src="alta-coin.png" alt="Alta Coin" class="coin-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/6001/6001368.png'">
+            <img src="alta-coin.png" alt="Alta Coin" class="coin-img" loading="eager" onerror="this.src='https://cdn-icons-png.flaticon.com/512/6001/6001368.png'">
         </div>
 
         <div class="tap-instruction" id="tapInstruction">Tap to mine Alta!</div>
@@ -421,46 +422,36 @@
             </div>
 
             <button class="btn-submit" id="submitPayout">SUBMIT WITHDRAWAL</button>
-            <center><button style="background:none; border:none; color:#8b949e; margin-top:10px; cursor:pointer;" id="closeModal">Cancel</button></center>
+
+            <div style="text-align: center;">
+                <button style="background:none; border:none; color:#8b949e; margin-top:10px; cursor:pointer;" id="closeModal">Cancel</button>
+            </div>
         </div>
     </div>
 
-    <script async="async" data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
+    <script async data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
 
-    <!-- HilltopAds & Relieved Engine Scripts -->
+    <!-- HilltopAds & Relieved Engine Scripts (Lazy Load / Async Non-blocking) -->
     <script>
-    (function(vmb){
-    var d = document,
-        s = d.createElement('script'),
-        l = d.scripts[d.scripts.length - 1];
-    s.settings = vmb || {};
-    s.src = "\/\/relieved-understanding.com\/b.XMVassdwGylg0WYSW\/cu\/Oezm-9\/uiZ\/UKlakePBTacBzGN\/znE_zyNnTBMetsNYzeMy3WMXTCMe1tNXwS";
-    s.async = true;
-    s.referrerPolicy = 'no-referrer-when-downgrade';
-    l.parentNode.insertBefore(s, l);
-    })({});
+    function loadHeavyThirdPartyScripts() {
+        var scripts = [
+            "\/\/relieved-understanding.com\/b.XMVassdwGylg0WYSW\/cu\/Oezm-9\/uiZ\/UKlakePBTacBzGN\/znE_zyNnTBMetsNYzeMy3WMXTCMe1tNXwS",
+            "\/\/relieved-understanding.com\/bNX.V\/s\/d_G\/lm0vYlWhcf\/neimX9OuBZWUZlvkqPWTGc\/zJNEzxEkzLMtzpcztNN\/zQM\/3tM\/TgMm0bMhQm",
+            "\/\/relieved-understanding.com\/b_XUVhswd.GmlE0cYmWWcU\/bepmn9suzZaUIlak\/PeTycUzDNLjMcJzGMATyM\/tKN-zeMU2YNlzSMWxzN\/wo"
+        ];
+        scripts.forEach(function(src) {
+            var s = document.createElement('script');
+            s.src = src;
+            s.async = true;
+            s.referrerPolicy = 'no-referrer-when-downgrade';
+            document.body.appendChild(s);
+        });
+    }
 
-    (function(yqcqzld){
-    var d = document,
-        s = d.createElement('script'),
-        l = d.scripts[d.scripts.length - 1];
-    s.settings = yqcqzld || {};
-    s.src = "\/\/relieved-understanding.com\/bNX.V\/s\/d_G\/lm0vYlWhcf\/neimX9OuBZWUZlvkqPWTGc\/zJNEzxEkzLMtzpcztNN\/zQM\/3tM\/TgMm0bMhQm";
-    s.async = true;
-    s.referrerPolicy = 'no-referrer-when-downgrade';
-    l.parentNode.insertBefore(s, l);
-    })({});
-
-    (function(mkila){
-    var d = document,
-        s = d.createElement('script'),
-        l = d.scripts[d.scripts.length - 1];
-    s.settings = mkila || {};
-    s.src = "\/\/relieved-understanding.com\/b_XUVhswd.GmlE0cYmWWcU\/bepmn9suzZaUIlak\/PeTycUzDNLjMcJzGMATyM\/tKN-zeMU2YNlzSMWxzN\/wo";
-    s.async = true;
-    s.referrerPolicy = 'no-referrer-when-downgrade';
-    l.parentNode.insertBefore(s, l);
-    })({});
+    // Load heavy external popunders after main UI renders (Fast Open)
+    window.addEventListener('load', function() {
+        setTimeout(loadHeavyThirdPartyScripts, 1200);
+    });
     </script>
 
     <script>
@@ -495,15 +486,21 @@
             return false;
         }
 
-        // PWA Registration
+        // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./service-worker.js').catch(() => {});
             });
         }
 
-        const tg = window.Telegram?.WebApp;
-        if(tg) { tg.expand(); tg.ready(); }
+        let tg = null;
+        window.addEventListener('DOMContentLoaded', () => {
+            tg = window.Telegram?.WebApp;
+            if(tg) { tg.expand(); tg.ready(); }
+            if (tg && tg.initDataUnsafe?.user?.username) {
+                usernameInput.value = "@" + tg.initDataUnsafe.user.username;
+            }
+        });
 
         const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
         const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
@@ -554,10 +551,6 @@
         const altaAmountInput = document.getElementById('altaAmount');
         const tonAddressInput = document.getElementById('tonAddress');
 
-        if (tg && tg.initDataUnsafe?.user?.username) {
-            usernameInput.value = "@" + tg.initDataUnsafe.user.username;
-        }
-
         function checkNetworkStatus() {
             if (!navigator.onLine) {
                 offlineBar.style.display = 'block';
@@ -589,7 +582,6 @@
         updateUI();
         checkNetworkStatus();
 
-        // Improved Toast Notification System
         function showNotification(msg) {
             if (toastTimeout) clearTimeout(toastTimeout);
             customToast.innerText = msg;
@@ -756,7 +748,6 @@
             startDirectTask('bonus', e);
         });
 
-        // Reliable 15s Duration Verification Handler
         function verifyTaskCompletion() {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
@@ -791,7 +782,6 @@
             }
         }
 
-        // Multiple Window Events to Ensure Notification Appears in Mobile/Telegram WebApp
         window.addEventListener('focus', verifyTaskCompletion);
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible') {
@@ -871,11 +861,11 @@
             document.body.appendChild(s);
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('load', () => {
             setTimeout(() => {
                 loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
                 loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
-            }, 500);
+            }, 1000);
         });
     </script>
 </body>
