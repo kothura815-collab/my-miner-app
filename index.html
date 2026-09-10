@@ -11,16 +11,19 @@
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="alta-coin.png">
 
-    <!-- Priority Ad Network Preconnects -->
+    <!-- Priority Ad Network Preconnects (Fast DNS Lookup) -->
+    <link rel="preconnect" href="https://telegram.org" crossorigin>
+    <link rel="dns-prefetch" href="//libtl.com">
     <link rel="dns-prefetch" href="//richinfo.co">
     <link rel="dns-prefetch" href="//plump-plastic.com">
     <link rel="dns-prefetch" href="//mammothsubway.com">
+    <link rel="dns-prefetch" href="//relieved-understanding.com">
 
     <!-- Telegram WebApp SDK -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
 
-    <!-- Clickadu Verification -->
-    <meta name="clckd" content="0cc8ffbae2313e820c2d17074f2ecc60" />
+    <!-- Monetag / HilltopAds Main SDK Script -->
+    <script src="//libtl.com/sdk.js" data-zone="11768288" data-sdk="show_11768288" async></script>
 
     <!-- RichAds Priority Scripts -->
     <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406277&niche=33" async data-cfasync="false"></script>
@@ -62,14 +65,15 @@
             color: #fff;
             width: 100%;
             text-align: center;
-            padding: 6px;
-            font-size: 12px;
+            padding: 10px;
+            font-size: 13px;
             font-weight: bold;
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             z-index: 10000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .ad-banner-box {
@@ -230,7 +234,12 @@
         }
 
         .action-btn:active { transform: scale(0.98); }
-        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .action-btn:disabled, body.is-offline .action-btn, body.is-offline .logo-container { 
+            opacity: 0.4 !important; 
+            cursor: not-allowed !important; 
+            pointer-events: none !important;
+            transform: none !important; 
+        }
 
         .btn-double { background: linear-gradient(90deg, #e67e22, #f39c12); }
         .btn-withdraw { background: linear-gradient(90deg, #27ae60, #2ecc71); }
@@ -320,15 +329,15 @@
             transform: translate(-50%, -50%);
             background: #1f293d;
             color: #fff;
-            padding: 14px 24px;
+            padding: 16px 24px;
             border-radius: 16px;
             font-size: 14px;
             font-weight: 600;
-            border: 1px solid var(--primary-gold);
+            border: 2px solid var(--primary-gold);
             display: none;
-            z-index: 9999;
+            z-index: 99999;
             text-align: center;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.9);
             max-width: 85%;
             word-break: break-word;
         }
@@ -336,7 +345,7 @@
 </head>
 <body>
 
-    <div class="offline-bar" id="offlineBar">Connection Lost! Mining Disabled.</div>
+    <div class="offline-bar" id="offlineBar">Connection Lost! Mining and Actions Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
     <div class="ad-banner-box">
@@ -351,9 +360,11 @@
                     'params' : {}
                 };
             </script>
-            <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
+            <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js" async></script>
         </div>
     </div>
+
+    <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
 
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
@@ -361,7 +372,7 @@
         <div class="status" id="systemStatus">System: Operational</div>
 
         <div class="logo-container" id="tapBtn">
-            <img src="alta-coin.png" alt="Alta Coin" class="coin-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/6001/6001368.png'">
+            <img src="alta-coin.png" alt="Alta Coin" class="coin-img" loading="eager" onerror="this.src='https://cdn-icons-png.flaticon.com/512/6001/6001368.png'">
         </div>
 
         <div class="tap-instruction" id="tapInstruction">Tap to mine Alta!</div>
@@ -412,12 +423,54 @@
             </div>
 
             <button class="btn-submit" id="submitPayout">SUBMIT WITHDRAWAL</button>
-            <center><button style="background:none; border:none; color:#8b949e; margin-top:10px; cursor:pointer;" id="closeModal">Cancel</button></center>
+
+            <div style="text-align: center;">
+                <button style="background:none; border:none; color:#8b949e; margin-top:10px; cursor:pointer;" id="closeModal">Cancel</button>
+            </div>
         </div>
     </div>
 
+    <script async data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
+
+    <!-- Heavy Third-Party Scripts & SDK Init -->
     <script>
-        // ANTI-HACKING, ANTI-DEVTOOLS & ANTI-AUTO-CLICKER GUARD
+    function loadHeavyThirdPartyScripts() {
+        // Initialize Monetag / Hilltop Ads In-App Interstitial
+        if (typeof show_11768288 === 'function') {
+            show_11768288({
+                type: 'inApp',
+                inAppSettings: {
+                    frequency: 2,
+                    capping: 0.1,
+                    interval: 30,
+                    timeout: 5,
+                    everyPage: false
+                }
+            });
+        }
+
+        var scripts = [
+            "\/\/relieved-understanding.com\/b.XMVassdwGylg0WYSW\/cu\/Oezm-9\/uiZ\/UKlakePBTacBzGN\/znE_zyNnTBMetsNYzeMy3WMXTCMe1tNXwS",
+            "\/\/relieved-understanding.com\/bNX.V\/s\/d_G\/lm0vYlWhcf\/neimX9OuBZWUZlvkqPWTGc\/zJNEzxEkzLMtzpcztNN\/zQM\/3tM\/TgMm0bMhQm",
+            "\/\/relieved-understanding.com\/b_XUVhswd.GmlE0cYmWWcU\/bepmn9suzZaUIlak\/PeTycUzDNLjMcJzGMATyM\/tKN-zeMU2YNlzSMWxzN\/wo"
+        ];
+        scripts.forEach(function(src) {
+            var s = document.createElement('script');
+            s.src = src;
+            s.async = true;
+            s.referrerPolicy = 'no-referrer-when-downgrade';
+            document.body.appendChild(s);
+        });
+    }
+
+    // Load heavy scripts after main UI renders for lightweight bot performance
+    window.addEventListener('load', function() {
+        setTimeout(loadHeavyThirdPartyScripts, 1200);
+    });
+    </script>
+
+    <script>
+        // ANTI-HACKING & DEVTOOLS GUARD
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
             if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
@@ -426,7 +479,7 @@
             }
         });
 
-        // Anti-Auto Clicker Variables
+        // Anti-Auto Clicker Variables & Logic
         let lastTapTime = 0;
         let lastX = 0;
         let lastY = 0;
@@ -437,7 +490,7 @@
             const currentX = e.clientX || 0;
             const currentY = e.clientY || 0;
 
-            if (timeDiff < 300 || (currentX === lastX && currentY === lastY && currentX !== 0)) {
+            if (timeDiff < 350 || (currentX === lastX && currentY === lastY && currentX !== 0)) {
                 showNotification("Auto Clicker / Fast Click Detected!");
                 return true;
             }
@@ -448,25 +501,21 @@
             return false;
         }
 
-        // Mandatory Notification Request
-        function requestNotificationPermission() {
-            if ("Notification" in window) {
-                if (Notification.permission !== "granted") {
-                    Notification.requestPermission();
-                }
-            }
-        }
-        window.addEventListener('load', requestNotificationPermission);
-
-        // PWA Registration
+        // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./service-worker.js').catch(() => {});
             });
         }
 
-        const tg = window.Telegram?.WebApp;
-        if(tg) { tg.expand(); tg.ready(); }
+        let tg = null;
+        window.addEventListener('DOMContentLoaded', () => {
+            tg = window.Telegram?.WebApp;
+            if(tg) { tg.expand(); tg.ready(); }
+            if (tg && tg.initDataUnsafe?.user?.username) {
+                usernameInput.value = "@" + tg.initDataUnsafe.user.username;
+            }
+        });
 
         const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
         const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
@@ -496,6 +545,7 @@
         let isAdShowing = false;
         let activeTaskType = null;
         let adStartTime = 0;
+        let toastTimeout = null;
 
         const balanceEl = document.getElementById('altaBalance');
         const tapBtn = document.getElementById('tapBtn');
@@ -516,12 +566,21 @@
         const altaAmountInput = document.getElementById('altaAmount');
         const tonAddressInput = document.getElementById('tonAddress');
 
-        if (tg && tg.initDataUnsafe?.user?.username) {
-            usernameInput.value = "@" + tg.initDataUnsafe.user.username;
-        }
-
         function checkNetworkStatus() {
-            offlineBar.style.display = navigator.onLine ? 'none' : 'block';
+            if (!navigator.onLine) {
+                offlineBar.style.display = 'block';
+                document.body.classList.add('is-offline');
+                showNotification("Internet connection lost! Mining disabled.");
+                if (isMining) {
+                    isMining = false;
+                    tapBtn.classList.remove('mining');
+                    tapInstruction.innerText = "Connection Lost! Tap disabled.";
+                }
+            } else {
+                offlineBar.style.display = 'none';
+                document.body.classList.remove('is-offline');
+                if (!isMining) tapInstruction.innerText = "Tap to mine Alta!";
+            }
         }
         window.addEventListener('online', checkNetworkStatus);
         window.addEventListener('offline', checkNetworkStatus);
@@ -539,24 +598,37 @@
         checkNetworkStatus();
 
         function showNotification(msg) {
+            if (toastTimeout) clearTimeout(toastTimeout);
             customToast.innerText = msg;
             customToast.style.display = 'block';
-            setTimeout(() => { customToast.style.display = 'none'; }, 2500);
-
-            if ("Notification" in window && Notification.permission === "granted") {
-                new Notification("Alta Ads Miner", { body: msg, icon: "alta-coin.png" });
-            }
+            toastTimeout = setTimeout(() => { 
+                customToast.style.display = 'none'; 
+            }, 3500);
         }
 
         const directLinks = [
             'https://plump-plastic.com/PEwa43',
             'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
             'https://plump-plastic.com/bh3cV.0dPd3tpzv/bYmqV/JbZuD-0i3/MUzCY/3SMBzbAS1rLwTvczz/N/jcctzXMrDikp',
-            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb'
+            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
+            'https://richinfo.co/richpartners/pops/js/richads-pu-ob.js'
         ];
         
         function getRandomLink() {
             return directLinks[Math.floor(Math.random() * directLinks.length)];
+        }
+
+        // Trigger Rewarded Popup / Direct Popup Ad
+        function triggerDirectPopupAd() {
+            if (typeof show_11768288 === 'function') {
+                show_11768288('pop')
+                    .then(() => { console.log('Ad completed'); })
+                    .catch(() => {
+                        try { window.open(getRandomLink(), '_blank'); } catch (e) {}
+                    });
+            } else {
+                try { window.open(getRandomLink(), '_blank'); } catch (e) {}
+            }
         }
 
         const lightBannerPool = [
@@ -589,23 +661,35 @@
             if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item);
             if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item);
 
-            setTimeout(rotateBannerAds, Math.floor(Math.random() * 6000) + 6000);
+            setTimeout(rotateBannerAds, 10000);
         }
         rotateBannerAds();
 
-        // Tap Mining Logic with Anti Auto-Clicker Protection
         tapBtn.addEventListener('click', (e) => {
+            if (!navigator.onLine) {
+                showNotification("No Internet! Cannot mine Alta.");
+                return;
+            }
             if (isAutoClicker(e)) return;
-            if (!navigator.onLine || isMining) return;
+            if (isMining) return;
 
             isMining = true;
-            window.open(getRandomLink(), '_blank');
+            triggerDirectPopupAd();
 
             tapBtn.classList.add('mining');
             tapInstruction.innerText = "Mining Alta in progress...";
 
             let stepCount = 0;
             let interval = setInterval(() => {
+                if (!navigator.onLine) {
+                    clearInterval(interval);
+                    tapBtn.classList.remove('mining');
+                    isMining = false;
+                    tapInstruction.innerText = "Mining stopped! Internet lost.";
+                    showNotification("Mining interrupted due to connection loss.");
+                    return;
+                }
+
                 stepCount++;
                 currentAlta = parseFloat((currentAlta + 0.05).toFixed(2));
                 updateUI();
@@ -647,22 +731,40 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled) {
-                    window.open(getRandomLink(), '_blank');
-                    adModal.style.display = 'none';
-                    isAdShowing = false;
-                    showNotification("Mining Reward Added Successfully!");
-                    if(onComplete) onComplete();
+                    if (typeof show_11768288 === 'function') {
+                        show_11768288().then(() => {
+                            adModal.style.display = 'none';
+                            isAdShowing = false;
+                            showNotification("Mining Reward Added Successfully!");
+                            if(onComplete) onComplete();
+                        }).catch(() => {
+                            triggerDirectPopupAd();
+                            adModal.style.display = 'none';
+                            isAdShowing = false;
+                            showNotification("Mining Reward Added Successfully!");
+                            if(onComplete) onComplete();
+                        });
+                    } else {
+                        triggerDirectPopupAd();
+                        adModal.style.display = 'none';
+                        isAdShowing = false;
+                        showNotification("Mining Reward Added Successfully!");
+                        if(onComplete) onComplete();
+                    }
                 }
             };
         }
 
         function startDirectTask(type, e) {
+            if (!navigator.onLine) {
+                showNotification("No Internet! Action disabled.");
+                return;
+            }
             if (isAutoClicker(e)) return;
-            if (!navigator.onLine) return;
 
             activeTaskType = type;
             adStartTime = Date.now();
-            window.open(getRandomLink(), "_blank");
+            triggerDirectPopupAd();
         }
 
         document.getElementById('doubleAdsBtn').addEventListener('click', (e) => startDirectTask('double', e));
@@ -683,35 +785,51 @@
             startDirectTask('bonus', e);
         });
 
-        window.addEventListener('focus', () => {
+        function verifyTaskCompletion() {
             if (adStartTime > 0 && activeTaskType) {
                 const elapsed = Math.floor((Date.now() - adStartTime) / 1000);
                 adStartTime = 0;
 
+                if (!navigator.onLine) {
+                    showNotification("Internet connection lost during task! No reward.");
+                    activeTaskType = null;
+                    return;
+                }
+
                 if (elapsed >= 15) {
                     if (activeTaskType === 'double') {
                         currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
-                        showNotification("15s Completed! +0.50 ALTA Added!");
+                        showNotification("SUCCESS: 15s Completed! +0.50 ALTA Added!");
                     } else if (activeTaskType === 'high') {
                         highAdsCount++;
                         currentAlta = parseFloat((currentAlta + 1.00).toFixed(2));
-                        showNotification(`15s Completed! +1.00 ALTA Added (${highAdsCount}/100)`);
+                        showNotification(`SUCCESS: 15s Completed! +1.00 ALTA Added (${highAdsCount}/100)`);
                     } else if (activeTaskType === 'bonus') {
                         bonusCount++;
                         const bonus = Math.floor(Math.random() * 3) + 1;
                         currentAlta = parseFloat((currentAlta + bonus).toFixed(2));
-                        showNotification(`15s Completed! +${bonus}.00 ALTA Bonus Added (${bonusCount}/30)`);
+                        showNotification(`SUCCESS: 15s Completed! +${bonus}.00 ALTA Bonus Added (${bonusCount}/30)`);
                     }
                     updateUI();
                 } else {
-                    showNotification(`15s Not Completed! (${elapsed}s/15s) Please view for 15s.`);
+                    showNotification(`FAILED: 15s Not Completed! Viewed ${elapsed}s/15s. No reward added.`);
                 }
                 
                 activeTaskType = null;
             }
+        }
+
+        window.addEventListener('focus', verifyTaskCompletion);
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                verifyTaskCompletion();
+            }
         });
 
-        document.getElementById('shareBtn').addEventListener('click', () => {
+        document.getElementById('shareBtn').addEventListener('click', (e) => {
+            if (!navigator.onLine) return showNotification("No Internet! Action disabled.");
+            if (isAutoClicker(e)) return;
+
             let userId = tg?.initDataUnsafe?.user?.id || "user";
             let botUsername = "AltaHub_ads_bot";
             let refLink = `https://t.me/${botUsername}?start=${userId}`;
@@ -726,6 +844,7 @@
         });
 
         openWithdrawModalBtn.addEventListener('click', () => {
+            if (!navigator.onLine) return showNotification("No Internet! Cannot open withdrawal.");
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA!`);
                 altaAmountInput.value = currentAlta.toFixed(2);
@@ -740,6 +859,7 @@
         closeModalBtn.addEventListener('click', () => payoutModal.style.display = 'none');
 
         submitPayoutBtn.addEventListener('click', async () => {
+            if (!navigator.onLine) return showNotification("No Internet! Cannot submit payout.");
             const address = tonAddressInput.value.trim();
             const username = usernameInput.value.trim();
             const withdrawAmount = parseFloat(altaAmountInput.value);
@@ -778,15 +898,11 @@
             document.body.appendChild(s);
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            // Sequential script loading after page load
+        window.addEventListener('load', () => {
             setTimeout(() => {
                 loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
-            }, 500);
-
-            setTimeout(() => {
                 loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
-            }, 2500);
+            }, 1000);
         });
     </script>
 </body>
