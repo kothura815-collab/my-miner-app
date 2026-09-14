@@ -27,6 +27,7 @@
     <script src="//libtl.com/sdk.js" data-zone="11768288" data-sdk="show_11768288" async></script>
 
     <!-- RichAds Priority Scripts -->
+    <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406278&niche=33" async data-cfasync="false"></script>
     <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406277&niche=33" async data-cfasync="false"></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
@@ -436,7 +437,6 @@
     <!-- Heavy Third-Party Scripts & SDK Init -->
     <script>
     function loadHeavyThirdPartyScripts() {
-        // Initialize Monetag In-App Interstitial
         if (typeof show_11768288 === 'function') {
             show_11768288({
                 type: 'inApp',
@@ -604,7 +604,6 @@
             }, 3500);
         }
 
-        // Direct Link Pool (omg10.com ပါဝင်အောင် ထည့်သွင်းထားသည်)
         const directLinks = [
             'https://omg10.com/4/11776333',
             'https://plump-plastic.com/PEwa43',
@@ -617,7 +616,6 @@
             return directLinks[Math.floor(Math.random() * directLinks.length)];
         }
 
-        // Trigger Direct Popup Ad / Rewarded Popup
         function triggerDirectPopupAd() {
             if (typeof show_11768288 === 'function') {
                 show_11768288('pop')
@@ -664,7 +662,6 @@
         }
         rotateBannerAds();
 
-        // Mining Tap Event
         tapBtn.addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot mine Alta.");
             if (isAutoClicker(e)) return;
@@ -696,7 +693,6 @@
                     tapBtn.classList.remove('mining');
                     isMining = false;
 
-                    // Trigger 15s Modal Ad
                     run15SecModalAd(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                         showNotification("Mining Cycle Complete! Reward Added!");
@@ -705,7 +701,6 @@
             }, 750);
         });
 
-        // 15s Modal Ad Runner with Rewarded Popup Callback
         function run15SecModalAd(onCompleteReward) {
             isAdShowing = true;
             const modalCenterBox = document.getElementById('modalCenterAdBox');
@@ -731,7 +726,6 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled) {
-                    // Trigger Monetag SDK Rewarded Ad / Popup when user clicks Continue
                     if (typeof show_11768288 === 'function') {
                         show_11768288().then(() => {
                             adModal.style.display = 'none';
@@ -753,7 +747,6 @@
             };
         }
 
-        // Double Ads Button
         document.getElementById('doubleAdsBtn').addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Action disabled.");
             if (isAutoClicker(e)) return;
@@ -766,7 +759,6 @@
             });
         });
 
-        // Daily High Ads Button
         document.getElementById('highAdsBtn').addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Action disabled.");
             if (isAutoClicker(e)) return;
@@ -781,7 +773,6 @@
             });
         });
 
-        // Daily Bonus Button
         document.getElementById('dailyBonusBtn').addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Action disabled.");
             if (isAutoClicker(e)) return;
@@ -797,7 +788,6 @@
             });
         });
 
-        // Share Button Logic
         document.getElementById('shareBtn').addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Action disabled.");
             if (isAutoClicker(e)) return;
@@ -815,7 +805,6 @@
             }
         });
 
-        // Withdrawal Logic
         openWithdrawModalBtn.addEventListener('click', () => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot open withdrawal.");
             if (withdrawCount === 0) {
