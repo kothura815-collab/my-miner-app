@@ -81,7 +81,7 @@
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
-            min-height: 100px;
+            min-height: 90px;
             margin-bottom: 12px;
             border-radius: 12px;
             overflow: hidden;
@@ -94,15 +94,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             position: relative;
             contain: content;
-        }
-
-        .top-native-script-container {
-            width: 320px;
-            height: 50px;
-            margin-top: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .light-ad-card {
@@ -352,21 +343,7 @@
 
     <div class="ad-banner-box">
         <div id="topAdRotateBox" style="width: 100%;"></div>
-        <div class="top-native-script-container">
-            <script>
-                atOptions = {
-                    'key' : '347789b1da1885d257b7e71a197c6c18',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js" async></script>
-        </div>
     </div>
-
-    <div id="container-1cec679dbd5cf50d60afe3c148706d87"></div>
 
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
@@ -432,8 +409,6 @@
         </div>
     </div>
 
-    <script async data-cfasync="false" src="https://mammothsubway.com/1cec679dbd5cf50d60afe3c148706d87/invoke.js"></script>
-
     <!-- Heavy Third-Party Scripts & SDK Init -->
     <script>
     function loadHeavyThirdPartyScripts() {
@@ -470,14 +445,26 @@
     </script>
 
     <script>
-        // ANTI-HACKING & DEVTOOLS GUARD
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
-                e.preventDefault();
-                return false;
-            }
-        });
+        // ANTI-HACKING SECURITY & DEVTOOLS GUARD
+        (function() {
+            document.addEventListener('contextmenu', e => e.preventDefault());
+            document.addEventListener('keydown', e => {
+                if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // Prevent Console Tampering
+            setInterval(() => {
+                const startTime = performance.now();
+                debugger;
+                const endTime = performance.now();
+                if (endTime - startTime > 100) {
+                    document.body.innerHTML = "<h1>Unauthorized Inspection Detected!</h1>";
+                }
+            }, 1000);
+        })();
 
         // Anti-Auto Clicker Logic
         let lastTapTime = 0;
@@ -518,7 +505,7 @@
         });
 
         const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
-        const CHANNEL_ID = "@AltaHub_ads_withdraw_history";
+        const CHANNEL_ID = "@Allwithdrawhistory";
         const MIN_WITHDRAW = 150.00;
         const KEEP_RESERVE_BALANCE = 300.00;
 
@@ -805,14 +792,19 @@
             }
         });
 
+        // Withdrawal Logic with Reserve Balance Check
         openWithdrawModalBtn.addEventListener('click', () => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot open withdrawal.");
+            
             if (withdrawCount === 0) {
                 if (currentAlta < MIN_WITHDRAW) return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA!`);
                 altaAmountInput.value = currentAlta.toFixed(2);
             } else {
+                // Second withdraw onwards: Requires 300 ALTA reserve balance
                 const maxAvailable = currentAlta - KEEP_RESERVE_BALANCE;
-                if (maxAvailable < MIN_WITHDRAW) return showNotification(`2nd+ withdraw requires 300 ALTA reserve.`);
+                if (maxAvailable < MIN_WITHDRAW) {
+                    return showNotification(`2nd+ withdraw requires 300 ALTA reserve. (Min withdraw: 150 ALTA)`);
+                }
                 altaAmountInput.value = maxAvailable.toFixed(2);
             }
             payoutModal.style.display = 'flex';
@@ -829,6 +821,14 @@
             if (!username || !address) return showNotification("Please fill all details correctly.");
             if (isNaN(withdrawAmount) || withdrawAmount < MIN_WITHDRAW) return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA.`);
 
+            // Strict Validation for 2nd+ Withdraw Rules
+            if (withdrawCount > 0) {
+                const remainingBalance = currentAlta - withdrawAmount;
+                if (remainingBalance < KEEP_RESERVE_BALANCE) {
+                    return showNotification(`You must keep 300 ALTA reserve balance for 2nd+ withdrawal.`);
+                }
+            }
+
             currentAlta = parseFloat((currentAlta - withdrawAmount).toFixed(2));
             withdrawCount += 1;
             updateUI();
@@ -840,31 +840,25 @@
                             `<b>TON Address:</b> <code>${address}</code>`;
 
             try {
-                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chat_id: CHANNEL_ID, text: message, parse_mode: 'HTML' })
                 });
-            } catch (err) {}
+                
+                const data = await res.json();
+                if (!data.ok) {
+                    showNotification("Telegram Broadcast Error: Make sure Bot is Admin in Channel!");
+                } else {
+                    showNotification(`Submitted: ${withdrawAmount.toFixed(2)} ALTA.`);
+                }
+            } catch (err) {
+                showNotification("Failed to send request. Check internet/bot settings.");
+            }
 
-            showNotification(`Submitted: ${withdrawAmount.toFixed(2)} ALTA.`);
             payoutModal.style.display = 'none';
 
-            if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
-        });
-
-        function loadScript(src) {
-            const s = document.createElement('script');
-            s.src = src;
-            s.async = true;
-            document.body.appendChild(s);
-        }
-
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                loadScript("https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js");
-                loadScript("https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js");
-            }, 1000);
+            if (tg) tg.openTelegramLink("https://t.me/Allwithdrawhistory");
         });
     </script>
 </body>
