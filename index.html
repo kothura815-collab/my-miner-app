@@ -11,15 +11,27 @@
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="alta-coin.png">
 
-    <!-- Priority Network Preconnects -->
+    <!-- Priority Ad Network Preconnects -->
     <link rel="preconnect" href="https://telegram.org" crossorigin>
-    <link rel="preconnect" href="https://sad.adsgram.ai" crossorigin>
+    <link rel="dns-prefetch" href="//libtl.com">
+    <link rel="dns-prefetch" href="//richinfo.co">
+    <link rel="dns-prefetch" href="//plump-plastic.com">
+    <link rel="dns-prefetch" href="//mammothsubway.com">
+    <link rel="dns-prefetch" href="//relieved-understanding.com">
+    <link rel="dns-prefetch" href="//omg10.com">
 
     <!-- Telegram WebApp SDK -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
 
-    <!-- Adsgram Official Controller SDK -->
-    <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+    <!-- Monetag / HilltopAds Main SDK Script -->
+    <script src="//libtl.com/sdk.js" data-zone="11768288" data-sdk="show_11768288" async></script>
+
+    <!-- RichAds Priority Scripts -->
+    <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406278&niche=33" async data-cfasync="false"></script>
+    <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406277&niche=33" async data-cfasync="false"></script>
+    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
+    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406146" async></script>
+    <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
 
     <style>
         :root {
@@ -64,6 +76,78 @@
             left: 0;
             z-index: 10000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .ad-banner-box {
+            width: 100%;
+            max-width: 400px;
+            min-height: 90px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #161b22;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            position: relative;
+            contain: content;
+        }
+
+        .light-ad-card {
+            width: 100%;
+            height: 90px;
+            padding: 10px 12px;
+            background: linear-gradient(135deg, #1f293d 0%, #111827 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .ad-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-width: 68%;
+        }
+
+        .ad-badge {
+            background: var(--primary-gold);
+            color: #000;
+            font-size: 9px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            width: fit-content;
+        }
+
+        .ad-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ad-desc {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        .ad-action-btn {
+            background: var(--accent-blue);
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 8px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            white-space: nowrap;
         }
 
         .miner-card {
@@ -163,9 +247,42 @@
             display: none;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             padding: 20px 15px;
             z-index: 1000;
+        }
+
+        .ad-modal-content {
+            width: 100%;
+            max-width: 360px;
+            height: 200px;
+            background: #161b22;
+            border-radius: 14px;
+            border: 1px solid #2a3547;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .btn-continue {
+            width: 100%;
+            max-width: 360px;
+            padding: 14px;
+            background: #234b6e;
+            border: none;
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .btn-continue.active {
+            background: #0088cc;
+            opacity: 1;
+            cursor: pointer;
         }
 
         .payout-card {
@@ -224,6 +341,10 @@
     <div class="offline-bar" id="offlineBar">Connection Lost! Mining and Actions Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
+    <div class="ad-banner-box">
+        <div id="topAdRotateBox" style="width: 100%;"></div>
+    </div>
+
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -236,7 +357,7 @@
         <div class="tap-instruction" id="tapInstruction">Tap to mine Alta!</div>
 
         <button class="action-btn btn-double task-btn" id="doubleAdsBtn">
-            <span>Double Ads</span>
+            <span>Double Ads 15s</span>
             <span>+0.5 ALTA</span>
         </button>
 
@@ -248,17 +369,23 @@
         </button>
 
         <button class="action-btn btn-high-ads task-btn" id="highAdsBtn">
-            <span>Daily High Ads</span>
+            <span>Daily High Ads 15s</span>
             <span id="highAdsCounter">0/100 (+1 ALTA)</span>
         </button>
 
         <button class="action-btn btn-bonus task-btn" id="dailyBonusBtn">
-            <span>Daily Bonus</span>
+            <span>Daily Bonus 15s</span>
             <span id="bonusCounter">0/30 (+1~3 ALTA)</span>
         </button>
     </div>
 
-    <div class="modal-overlay" id="payoutModal">
+    <div class="modal-overlay" id="adModal">
+        <div class="ad-banner-box" id="modalTopAdBox"></div>
+        <div class="ad-modal-content" id="modalCenterAdBox"></div>
+        <button class="btn-continue" id="continueAdBtn" disabled>Please wait 15s...</button>
+    </div>
+
+    <div class="modal-overlay" id="payoutModal" style="justify-content: center;">
         <div class="payout-card">
             <h3 style="color: var(--primary-gold); margin-top:0; text-align:center;">Withdrawal Request</h3>
             
@@ -282,32 +409,44 @@
         </div>
     </div>
 
+    <!-- Heavy Third-Party Scripts Init -->
     <script>
-        // --- ADSGRAM AD CONTROLLERS INITIALIZATION ---
-        // 1. Rewarded Ads (Block ID: 48690)
-        const AdControllerRewarded = window.Adsgram ? window.Adsgram.init({ blockId: "48690" }) : null;
-        
-        // 2. Interstitial Ads (Block ID: int-48691)
-        const AdControllerInterstitial = window.Adsgram ? window.Adsgram.init({ blockId: "int-48691" }) : null;
-
-        // 3. Task / High Ads (Block ID: task-48692)
-        const AdControllerTask = window.Adsgram ? window.Adsgram.init({ blockId: "task-48692" }) : null;
-
-        // Ads Trigger Helper Function
-        function triggerAdsgramAd(controller, onSuccess, onError) {
-            if (controller) {
-                controller.show().then(() => {
-                    if (onSuccess) onSuccess();
-                }).catch((result) => {
-                    showNotification("Ad not completed or unavailable.");
-                    if (onError) onError(result);
-                });
-            } else {
-                showNotification("Adsgram Controller failed to load.");
-            }
+    function loadHeavyThirdPartyScripts() {
+        if (typeof show_11768288 === 'function') {
+            show_11768288({
+                type: 'inApp',
+                inAppSettings: {
+                    frequency: 2,
+                    capping: 0.1,
+                    interval: 30,
+                    timeout: 5,
+                    everyPage: false
+                }
+            });
         }
 
-        // --- ENHANCED ANTI-HACK & DEVTOOLS GUARD ---
+        var scripts = [
+            "\/\/relieved-understanding.com\/b.XMVassdwGylg0WYSW\/cu\/Oezm-9\/uiZ\/UKlakePBTacBzGN\/znE_zyNnTBMetsNYzeMy3WMXTCMe1tNXwS",
+            "\/\/relieved-understanding.com\/bNX.V\/s\/d_G\/lm0vYlWhcf\/neimX9OuBZWUZlvkqPWTGc\/zJNEzxEkzLMtzpcztNN\/zQM\/3tM\/TgMm0bMhQm",
+            "\/\/relieved-understanding.com\/b_XUVhswd.GmlE0cYmWWcU\/bepmn9suzZaUIlak\/PeTycUzDNLjMcJzGMATyM\/tKN-zeMU2YNlzSMWxzN\/wo",
+            "\/\/relieved-understanding.com\/bYXBV\/scd.GOlu0HYTW\/cX\/He\/mT9rupZvUylhkEPSTJc\/zEN\/z\/EUzMNJTsMdtUNFzQMS3ZMsTtMU1-NZwM"
+        ];
+        scripts.forEach(function(src) {
+            var s = document.createElement('script');
+            s.src = src;
+            s.async = true;
+            s.referrerPolicy = 'no-referrer-when-downgrade';
+            document.body.appendChild(s);
+        });
+    }
+
+    window.addEventListener('load', function() {
+        setTimeout(loadHeavyThirdPartyScripts, 1200);
+    });
+    </script>
+
+    <script>
+        // ANTI-HACKING & DEVTOOLS GUARD
         (function() {
             document.addEventListener('contextmenu', e => e.preventDefault());
             document.addEventListener('keydown', e => {
@@ -322,12 +461,12 @@
                 debugger;
                 const endTime = performance.now();
                 if (endTime - startTime > 100) {
-                    document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:20%'>Unauthorized Inspection / DevTools Detected!</h1>";
+                    document.body.innerHTML = "<h1>Unauthorized Inspection Detected!</h1>";
                 }
             }, 1000);
         })();
 
-        // Anti-Auto Clicker / Fast Click Detector
+        // Anti-Auto Clicker Logic
         let lastTapTime = 0;
         let lastX = 0;
         let lastY = 0;
@@ -338,8 +477,8 @@
             const currentX = e.clientX || 0;
             const currentY = e.clientY || 0;
 
-            if (timeDiff < 400 || (currentX === lastX && currentY === lastY && currentX !== 0)) {
-                showNotification("Auto Clicker / Suspicious Click Detected!");
+            if (timeDiff < 350 || (currentX === lastX && currentY === lastY && currentX !== 0)) {
+                showNotification("Auto Clicker / Fast Click Detected!");
                 return true;
             }
 
@@ -388,11 +527,14 @@
         }
 
         let isMining = false;
+        let isAdShowing = false;
         let toastTimeout = null;
 
         const balanceEl = document.getElementById('altaBalance');
         const tapBtn = document.getElementById('tapBtn');
         const tapInstruction = document.getElementById('tapInstruction');
+        const adModal = document.getElementById('adModal');
+        const continueAdBtn = document.getElementById('continueAdBtn');
         const customToast = document.getElementById('customToast');
         const offlineBar = document.getElementById('offlineBar');
 
@@ -447,63 +589,168 @@
             }, 3500);
         }
 
-        // Tap to Mine Event
+        const directLinks = [
+            'https://omg10.com/4/11776333',
+            'https://plump-plastic.com/PEwa43',
+            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
+            'https://plump-plastic.com/bh3cV.0dPd3tpzv/bYmqV/JbZuD-0i3/MUzCY/3SMBzbAS1rLwTvczz/N/jcctzXMrDikp',
+            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb'
+        ];
+        
+        function getRandomLink() {
+            return directLinks[Math.floor(Math.random() * directLinks.length)];
+        }
+
+        function triggerDirectPopupAd() {
+            if (typeof show_11768288 === 'function') {
+                show_11768288('pop')
+                    .then(() => { console.log('Ad completed'); })
+                    .catch(() => {
+                        try { window.open(getRandomLink(), '_blank'); } catch (e) {}
+                    });
+            } else {
+                try { window.open(getRandomLink(), '_blank'); } catch (e) {}
+            }
+        }
+
+        const lightBannerPool = [
+            { title: "Instant KBZ Pay Bonus", desc: "Claim daily instant transfer rewards", btn: "CLAIM KPAY", tag: "FINANCE" },
+            { title: "Wave Pay Cash Reward", desc: "Quick loan & fast cash bonus unlocked", btn: "GET WAVE", tag: "LOAN CASH" },
+            { title: "Crypto Mining Doubler", desc: "Double your sports & crypto yield", btn: "START NOW", tag: "HIGH CPM CRYPTO" },
+            { title: "FB Account Security Guard", desc: "Protect your Facebook account now", btn: "VERIFY NOW", tag: "SECURITY" }
+        ];
+
+        function createAdHtml(item) {
+            const link = getRandomLink();
+            return `<div class="light-ad-card" onclick="window.open('${link}', '_blank')">
+                <div class="ad-info">
+                    <span class="ad-badge">${item.tag}</span>
+                    <span class="ad-title">${item.title}</span>
+                    <span class="ad-desc">${item.desc}</span>
+                </div>
+                <a href="${link}" target="_blank" class="ad-action-btn">${item.btn}</a>
+            </div>`;
+        }
+
+        function rotateBannerAds() {
+            const topBox = document.getElementById('topAdRotateBox');
+            const modalTopBox = document.getElementById('modalTopAdBox');
+            const modalCenterBox = document.getElementById('modalCenterAdBox');
+
+            const item = lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)];
+
+            if (topBox) topBox.innerHTML = createAdHtml(item);
+            if (modalTopBox) modalTopBox.innerHTML = createAdHtml(item);
+            if (modalCenterBox && isAdShowing) modalCenterBox.innerHTML = createAdHtml(item);
+
+            setTimeout(rotateBannerAds, 10000);
+        }
+        rotateBannerAds();
+
         tapBtn.addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot mine Alta.");
             if (isAutoClicker(e)) return;
             if (isMining) return;
 
-            // Trigger Interstitial Ad before mining
-            triggerAdsgramAd(AdControllerInterstitial, () => {
-                isMining = true;
-                tapBtn.classList.add('mining');
-                tapInstruction.innerText = "Mining Alta in progress...";
+            isMining = true;
+            triggerDirectPopupAd();
 
-                let stepCount = 0;
-                let interval = setInterval(() => {
-                    if (!navigator.onLine) {
-                        clearInterval(interval);
-                        tapBtn.classList.remove('mining');
-                        isMining = false;
-                        tapInstruction.innerText = "Mining stopped! Internet lost.";
-                        showNotification("Mining interrupted due to connection loss.");
-                        return;
-                    }
+            tapBtn.classList.add('mining');
+            tapInstruction.innerText = "Mining Alta in progress...";
 
-                    stepCount++;
-                    currentAlta = parseFloat((currentAlta + 0.05).toFixed(2));
-                    updateUI();
+            let stepCount = 0;
+            let interval = setInterval(() => {
+                if (!navigator.onLine) {
+                    clearInterval(interval);
+                    tapBtn.classList.remove('mining');
+                    isMining = false;
+                    tapInstruction.innerText = "Mining stopped! Internet lost.";
+                    showNotification("Mining interrupted due to connection loss.");
+                    return;
+                }
 
-                    if (stepCount >= 20) {
-                        clearInterval(interval);
-                        tapBtn.classList.remove('mining');
-                        isMining = false;
+                stepCount++;
+                currentAlta = parseFloat((currentAlta + 0.05).toFixed(2));
+                updateUI();
+
+                if (stepCount >= 20) {
+                    clearInterval(interval);
+                    tapBtn.classList.remove('mining');
+                    isMining = false;
+
+                    run15SecModalAd(() => {
                         tapInstruction.innerText = "Tap to mine Alta again!";
                         showNotification("Mining Cycle Complete! Reward Added!");
-                    }
-                }, 750);
-            });
+                    });
+                }
+            }, 750);
         });
 
-        // Double Ads Button Event
+        function run15SecModalAd(onCompleteReward) {
+            isAdShowing = true;
+            const modalCenterBox = document.getElementById('modalCenterAdBox');
+            modalCenterBox.innerHTML = createAdHtml(lightBannerPool[Math.floor(Math.random() * lightBannerPool.length)]);
+
+            adModal.style.display = 'flex';
+            continueAdBtn.disabled = true;
+            continueAdBtn.classList.remove('active');
+            continueAdBtn.innerText = "Please wait 15s...";
+
+            let timeLeft = 15;
+            let adInterval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    clearInterval(adInterval);
+                    continueAdBtn.disabled = false;
+                    continueAdBtn.classList.add('active');
+                    continueAdBtn.innerText = "Claim Reward & Continue";
+                } else {
+                    continueAdBtn.innerText = `Please wait ${timeLeft}s...`;
+                }
+            }, 1000);
+
+            continueAdBtn.onclick = () => {
+                if (!continueAdBtn.disabled) {
+                    if (typeof show_11768288 === 'function') {
+                        show_11768288().then(() => {
+                            adModal.style.display = 'none';
+                            isAdShowing = false;
+                            if(onCompleteReward) onCompleteReward();
+                        }).catch(() => {
+                            triggerDirectPopupAd();
+                            adModal.style.display = 'none';
+                            isAdShowing = false;
+                            if(onCompleteReward) onCompleteReward();
+                        });
+                    } else {
+                        triggerDirectPopupAd();
+                        adModal.style.display = 'none';
+                        isAdShowing = false;
+                        if(onCompleteReward) onCompleteReward();
+                    }
+                }
+            };
+        }
+
         document.getElementById('doubleAdsBtn').addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Action disabled.");
             if (isAutoClicker(e)) return;
 
-            triggerAdsgramAd(AdControllerRewarded, () => {
+            triggerDirectPopupAd();
+            run15SecModalAd(() => {
                 currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
                 updateUI();
                 showNotification("SUCCESS: +0.50 ALTA Double Bonus Added!");
             });
         });
 
-        // High Ads Button Event
         document.getElementById('highAdsBtn').addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Action disabled.");
             if (isAutoClicker(e)) return;
             if (highAdsCount >= 100) return showNotification("Daily High Ads limit reached (100/100)!");
 
-            triggerAdsgramAd(AdControllerTask, () => {
+            triggerDirectPopupAd();
+            run15SecModalAd(() => {
                 highAdsCount++;
                 currentAlta = parseFloat((currentAlta + 1.00).toFixed(2));
                 updateUI();
@@ -511,13 +758,13 @@
             });
         });
 
-        // Daily Bonus Button Event
         document.getElementById('dailyBonusBtn').addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Action disabled.");
             if (isAutoClicker(e)) return;
             if (bonusCount >= 30) return showNotification("Daily Bonus limit reached (30/30)!");
 
-            triggerAdsgramAd(AdControllerRewarded, () => {
+            triggerDirectPopupAd();
+            run15SecModalAd(() => {
                 bonusCount++;
                 const bonus = Math.floor(Math.random() * 3) + 1;
                 currentAlta = parseFloat((currentAlta + bonus).toFixed(2));
@@ -526,7 +773,6 @@
             });
         });
 
-        // Share Button Event
         document.getElementById('shareBtn').addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Action disabled.");
             if (isAutoClicker(e)) return;
@@ -544,7 +790,7 @@
             }
         });
 
-        // Withdrawal Logic
+        // Withdrawal Logic with Reserve Balance Check
         openWithdrawModalBtn.addEventListener('click', () => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot open withdrawal.");
             
@@ -563,7 +809,7 @@
 
         closeModalBtn.addEventListener('click', () => payoutModal.style.display = 'none');
 
-        // Submit Withdrawal Request
+        // Secure Serverless Payout Request Submission
         submitPayoutBtn.addEventListener('click', async () => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot submit payout.");
             const address = tonAddressInput.value.trim();
@@ -580,10 +826,12 @@
                 }
             }
 
+            // Client side state update
             currentAlta = parseFloat((currentAlta - withdrawAmount).toFixed(2));
             withdrawCount += 1;
             updateUI();
 
+            // Secure API Endpoint Call
             try {
                 const res = await fetch('/api/withdraw', {
                     method: 'POST',
@@ -608,8 +856,8 @@
 
             payoutModal.style.display = 'none';
 
-            if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
+            if (tg) tg.openTelegramLink("https://t.me/Allwithdrawhistory");
         });
     </script>
 </body>
-</html>
+        </html>
