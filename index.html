@@ -11,10 +11,14 @@
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="alta-coin.png">
 
+    <!-- Priority Network Preconnects -->
+    <link rel="preconnect" href="https://telegram.org" crossorigin>
+    <link rel="preconnect" href="https://sad.adsgram.ai" crossorigin>
+
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Adsgram Official SDK Integration -->
+    <!-- Adsgram Official Controller SDK -->
     <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 
     <style>
@@ -60,21 +64,6 @@
             left: 0;
             z-index: 10000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-
-        .ad-banner-box {
-            width: 100%;
-            max-width: 400px;
-            min-height: 90px;
-            margin-bottom: 12px;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #161b22;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
         .miner-card {
@@ -235,9 +224,6 @@
     <div class="offline-bar" id="offlineBar">Connection Lost! Mining and Actions Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- Adsgram Banner Ad Integration (Block ID: 48690) -->
-    <div class="ad-banner-box" id="adsgram-banner-container"></div>
-
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -297,7 +283,31 @@
     </div>
 
     <script>
-        // STRICT ANTI-HACKING & DEVTOOLS GUARD
+        // --- ADSGRAM AD CONTROLLERS INITIALIZATION ---
+        // 1. Rewarded Ads (Block ID: 48690)
+        const AdControllerRewarded = window.Adsgram ? window.Adsgram.init({ blockId: "48690" }) : null;
+        
+        // 2. Interstitial Ads (Block ID: int-48691)
+        const AdControllerInterstitial = window.Adsgram ? window.Adsgram.init({ blockId: "int-48691" }) : null;
+
+        // 3. Task / High Ads (Block ID: task-48692)
+        const AdControllerTask = window.Adsgram ? window.Adsgram.init({ blockId: "task-48692" }) : null;
+
+        // Ads Trigger Helper Function
+        function triggerAdsgramAd(controller, onSuccess, onError) {
+            if (controller) {
+                controller.show().then(() => {
+                    if (onSuccess) onSuccess();
+                }).catch((result) => {
+                    showNotification("Ad not completed or unavailable.");
+                    if (onError) onError(result);
+                });
+            } else {
+                showNotification("Adsgram Controller failed to load.");
+            }
+        }
+
+        // --- ENHANCED ANTI-HACK & DEVTOOLS GUARD ---
         (function() {
             document.addEventListener('contextmenu', e => e.preventDefault());
             document.addEventListener('keydown', e => {
@@ -312,12 +322,12 @@
                 debugger;
                 const endTime = performance.now();
                 if (endTime - startTime > 100) {
-                    document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:50px;'>Security Violation Detected! Access Denied.</h1>";
+                    document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:20%'>Unauthorized Inspection / DevTools Detected!</h1>";
                 }
-            }, 800);
+            }, 1000);
         })();
 
-        // Anti-Auto Clicker Logic
+        // Anti-Auto Clicker / Fast Click Detector
         let lastTapTime = 0;
         let lastX = 0;
         let lastY = 0;
@@ -329,7 +339,7 @@
             const currentY = e.clientY || 0;
 
             if (timeDiff < 400 || (currentX === lastX && currentY === lastY && currentX !== 0)) {
-                showNotification("Auto Clicker / Fast Click Detected!");
+                showNotification("Auto Clicker / Suspicious Click Detected!");
                 return true;
             }
 
@@ -339,44 +349,10 @@
             return false;
         }
 
-        // Initialize Adsgram Controllers
-        let AdControllerRew = null;
-        let AdControllerInt = null;
-
-        window.addEventListener('DOMContentLoaded', () => {
-            if (window.Adsgram) {
-                // Rewarded Video Controller (Block ID: 48690)
-                AdControllerRew = window.Adsgram.init({ blockId: "48690" });
-                
-                // Interstitial Controller (Block ID: int-48691)
-                AdControllerInt = window.Adsgram.init({ blockId: "int-48691" });
-
-                // Render Banner Ad (Block ID: task-48692)
-                const bannerContainer = document.getElementById('adsgram-banner-container');
-                if (bannerContainer && window.Adsgram.renderBanner) {
-                    window.Adsgram.renderBanner({
-                        blockId: "task-48692",
-                        container: bannerContainer
-                    });
-                }
-            }
-        });
-
-        // Helper function to show Adsgram Video Ad
-        function showAdsgramAd(type = 'reward') {
-            return new Promise((resolve, reject) => {
-                const controller = (type === 'interstitial' && AdControllerInt) ? AdControllerInt : AdControllerRew;
-                if (controller) {
-                    controller.show().then(() => {
-                        resolve(true);
-                    }).catch((result) => {
-                        showNotification("Ad unavailable or skipped. Please try again.");
-                        reject(result);
-                    });
-                } else {
-                    showNotification("Adsgram Controller Loading... Try again.");
-                    reject("Not Ready");
-                }
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js').catch(() => {});
             });
         }
 
@@ -471,13 +447,14 @@
             }, 3500);
         }
 
-        tapBtn.addEventListener('click', async (e) => {
+        // Tap to Mine Event
+        tapBtn.addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot mine Alta.");
             if (isAutoClicker(e)) return;
             if (isMining) return;
 
-            try {
-                await showAdsgramAd('interstitial');
+            // Trigger Interstitial Ad before mining
+            triggerAdsgramAd(AdControllerInterstitial, () => {
                 isMining = true;
                 tapBtn.classList.add('mining');
                 tapInstruction.innerText = "Mining Alta in progress...";
@@ -505,52 +482,51 @@
                         showNotification("Mining Cycle Complete! Reward Added!");
                     }
                 }, 750);
-            } catch (err) {
-                // Error handling handled in showAdsgramAd
-            }
+            });
         });
 
-        document.getElementById('doubleAdsBtn').addEventListener('click', async (e) => {
+        // Double Ads Button Event
+        document.getElementById('doubleAdsBtn').addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Action disabled.");
             if (isAutoClicker(e)) return;
 
-            try {
-                await showAdsgramAd('reward');
+            triggerAdsgramAd(AdControllerRewarded, () => {
                 currentAlta = parseFloat((currentAlta + 0.50).toFixed(2));
                 updateUI();
                 showNotification("SUCCESS: +0.50 ALTA Double Bonus Added!");
-            } catch(err) {}
+            });
         });
 
-        document.getElementById('highAdsBtn').addEventListener('click', async (e) => {
+        // High Ads Button Event
+        document.getElementById('highAdsBtn').addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Action disabled.");
             if (isAutoClicker(e)) return;
             if (highAdsCount >= 100) return showNotification("Daily High Ads limit reached (100/100)!");
 
-            try {
-                await showAdsgramAd('reward');
+            triggerAdsgramAd(AdControllerTask, () => {
                 highAdsCount++;
                 currentAlta = parseFloat((currentAlta + 1.00).toFixed(2));
                 updateUI();
                 showNotification(`SUCCESS: +1.00 ALTA Added (${highAdsCount}/100)`);
-            } catch(err) {}
+            });
         });
 
-        document.getElementById('dailyBonusBtn').addEventListener('click', async (e) => {
+        // Daily Bonus Button Event
+        document.getElementById('dailyBonusBtn').addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Action disabled.");
             if (isAutoClicker(e)) return;
             if (bonusCount >= 30) return showNotification("Daily Bonus limit reached (30/30)!");
 
-            try {
-                await showAdsgramAd('reward');
+            triggerAdsgramAd(AdControllerRewarded, () => {
                 bonusCount++;
                 const bonus = Math.floor(Math.random() * 3) + 1;
                 currentAlta = parseFloat((currentAlta + bonus).toFixed(2));
                 updateUI();
                 showNotification(`SUCCESS: +${bonus}.00 ALTA Bonus Added (${bonusCount}/30)`);
-            } catch(err) {}
+            });
         });
 
+        // Share Button Event
         document.getElementById('shareBtn').addEventListener('click', (e) => {
             if (!navigator.onLine) return showNotification("No Internet! Action disabled.");
             if (isAutoClicker(e)) return;
@@ -568,6 +544,7 @@
             }
         });
 
+        // Withdrawal Logic
         openWithdrawModalBtn.addEventListener('click', () => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot open withdrawal.");
             
@@ -586,6 +563,7 @@
 
         closeModalBtn.addEventListener('click', () => payoutModal.style.display = 'none');
 
+        // Submit Withdrawal Request
         submitPayoutBtn.addEventListener('click', async () => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot submit payout.");
             const address = tonAddressInput.value.trim();
@@ -629,8 +607,9 @@
             }
 
             payoutModal.style.display = 'none';
-            if (tg) tg.openTelegramLink("https://t.me/Allwithdrawhistory");
+
+            if (tg) tg.openTelegramLink("https://t.me/AltaHub_ads_withdraw_history");
         });
     </script>
 </body>
-    </html>
+</html>
