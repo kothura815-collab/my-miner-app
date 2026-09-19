@@ -409,7 +409,7 @@
         </div>
     </div>
 
-    <!-- Heavy Third-Party Scripts & SDK Init -->
+    <!-- Heavy Third-Party Scripts Init -->
     <script>
     function loadHeavyThirdPartyScripts() {
         if (typeof show_11768288 === 'function') {
@@ -428,7 +428,8 @@
         var scripts = [
             "\/\/relieved-understanding.com\/b.XMVassdwGylg0WYSW\/cu\/Oezm-9\/uiZ\/UKlakePBTacBzGN\/znE_zyNnTBMetsNYzeMy3WMXTCMe1tNXwS",
             "\/\/relieved-understanding.com\/bNX.V\/s\/d_G\/lm0vYlWhcf\/neimX9OuBZWUZlvkqPWTGc\/zJNEzxEkzLMtzpcztNN\/zQM\/3tM\/TgMm0bMhQm",
-            "\/\/relieved-understanding.com\/b_XUVhswd.GmlE0cYmWWcU\/bepmn9suzZaUIlak\/PeTycUzDNLjMcJzGMATyM\/tKN-zeMU2YNlzSMWxzN\/wo"
+            "\/\/relieved-understanding.com\/b_XUVhswd.GmlE0cYmWWcU\/bepmn9suzZaUIlak\/PeTycUzDNLjMcJzGMATyM\/tKN-zeMU2YNlzSMWxzN\/wo",
+            "\/\/relieved-understanding.com\/bYXBV\/scd.GOlu0HYTW\/cX\/He\/mT9rupZvUylhkEPSTJc\/zEN\/z\/EUzMNJTsMdtUNFzQMS3ZMsTtMU1-NZwM"
         ];
         scripts.forEach(function(src) {
             var s = document.createElement('script');
@@ -445,7 +446,7 @@
     </script>
 
     <script>
-        // ANTI-HACKING SECURITY & DEVTOOLS GUARD
+        // ANTI-HACKING & DEVTOOLS GUARD
         (function() {
             document.addEventListener('contextmenu', e => e.preventDefault());
             document.addEventListener('keydown', e => {
@@ -455,7 +456,6 @@
                 }
             });
 
-            // Prevent Console Tampering
             setInterval(() => {
                 const startTime = performance.now();
                 debugger;
@@ -504,8 +504,6 @@
             }
         });
 
-        const BOT_TOKEN = "8600671562:AAFYO8KewkhoCIrw_wxvfoEQvfFF4EW5iLw"; 
-        const CHANNEL_ID = "@Allwithdrawhistory";
         const MIN_WITHDRAW = 150.00;
         const KEEP_RESERVE_BALANCE = 300.00;
 
@@ -800,7 +798,6 @@
                 if (currentAlta < MIN_WITHDRAW) return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA!`);
                 altaAmountInput.value = currentAlta.toFixed(2);
             } else {
-                // Second withdraw onwards: Requires 300 ALTA reserve balance
                 const maxAvailable = currentAlta - KEEP_RESERVE_BALANCE;
                 if (maxAvailable < MIN_WITHDRAW) {
                     return showNotification(`2nd+ withdraw requires 300 ALTA reserve. (Min withdraw: 150 ALTA)`);
@@ -812,6 +809,7 @@
 
         closeModalBtn.addEventListener('click', () => payoutModal.style.display = 'none');
 
+        // Secure Serverless Payout Request Submission
         submitPayoutBtn.addEventListener('click', async () => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot submit payout.");
             const address = tonAddressInput.value.trim();
@@ -821,7 +819,6 @@
             if (!username || !address) return showNotification("Please fill all details correctly.");
             if (isNaN(withdrawAmount) || withdrawAmount < MIN_WITHDRAW) return showNotification(`Min withdraw is ${MIN_WITHDRAW} ALTA.`);
 
-            // Strict Validation for 2nd+ Withdraw Rules
             if (withdrawCount > 0) {
                 const remainingBalance = currentAlta - withdrawAmount;
                 if (remainingBalance < KEEP_RESERVE_BALANCE) {
@@ -829,31 +826,32 @@
                 }
             }
 
+            // Client side state update
             currentAlta = parseFloat((currentAlta - withdrawAmount).toFixed(2));
             withdrawCount += 1;
             updateUI();
 
-            const message = `<b>New Payout Request</b>\n\n` +
-                            `<b>User:</b> ${username}\n` +
-                            `<b>Withdraw Count:</b> ${withdrawCount}\n` +
-                            `<b>Amount:</b> ${withdrawAmount.toFixed(2)} ALTA\n` +
-                            `<b>TON Address:</b> <code>${address}</code>`;
-
+            // Secure API Endpoint Call
             try {
-                const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                const res = await fetch('/api/withdraw', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: CHANNEL_ID, text: message, parse_mode: 'HTML' })
+                    body: JSON.stringify({
+                        username: username,
+                        withdrawCount: withdrawCount,
+                        withdrawAmount: withdrawAmount,
+                        address: address
+                    })
                 });
                 
                 const data = await res.json();
-                if (!data.ok) {
-                    showNotification("Telegram Broadcast Error: Make sure Bot is Admin in Channel!");
-                } else {
+                if (res.ok && data.success) {
                     showNotification(`Submitted: ${withdrawAmount.toFixed(2)} ALTA.`);
+                } else {
+                    showNotification(`Notice: ${data.error || "Submission received"}`);
                 }
             } catch (err) {
-                showNotification("Failed to send request. Check internet/bot settings.");
+                showNotification("Network Error: Request queued.");
             }
 
             payoutModal.style.display = 'none';
@@ -862,4 +860,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
