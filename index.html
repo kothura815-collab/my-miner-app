@@ -78,7 +78,7 @@
 
         body {
             margin: 0;
-            padding: 12px 10px 40px 10px;
+            padding: 12px 10px 140px 10px; /* အောက်ခြေတွင် ကြော်ငြာမဖုံးစေရန် Margin/Padding ချန်ထားသည် */
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -122,29 +122,6 @@
             position: relative;
         }
 
-        /* In-Page Push ကြော်ငြာများကို အပေါ်သို့ တက်မဖုံးစေရန်နှင့် Daily Bonus အောက်တွင် တည်ငြိမ်စွာ ပေါ်စေရန် ထိန်းချုပ်ထားသော Class */
-        .inpage-ads-wrapper {
-            width: 100%;
-            max-width: 400px;
-            margin-top: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 120px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* In-Page Push Floating ကြော်ငြာများ အပေါ်မတက်အောင် ရင်းမြစ် Element များကို Override လုပ်ထားခြင်း */
-        .inpage-ads-wrapper div, 
-        .inpage-ads-wrapper iframe {
-            position: relative !important;
-            top: auto !important;
-            left: auto !important;
-            transform: none !important;
-            max-width: 100% !important;
-        }
-
         .miner-card {
             background: var(--card-bg);
             border-radius: 18px;
@@ -154,7 +131,7 @@
             text-align: center;
             box-shadow: 0 8px 24px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.06);
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             position: relative;
             z-index: 2;
         }
@@ -233,6 +210,17 @@
         .btn-share { background: linear-gradient(90deg, #0088cc, #3498db); }
         .btn-high-ads { background: linear-gradient(90deg, #8e44ad, #9b59b6); }
         .btn-bonus { background: linear-gradient(90deg, #d35400, #e67e22); }
+
+        /* အောက်ခြေတွင် Floating အဖြစ် ပေါ်စေမည့် Container */
+        .bottom-inpage-container {
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            z-index: 99;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+        }
 
         .modal-overlay {
             position: fixed;
@@ -334,7 +322,7 @@
     <div class="offline-bar" id="offlineBar">Connection Lost! Mining and Actions Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- Banner Ad (320x50) ကို မူလအပေါ်ဆုံးနေရာတွင် ထားရှိပါသည် -->
+    <!-- Banner Ad (320x50) -->
     <div class="ad-banner-box">
         <script>
           atOptions = {
@@ -382,8 +370,8 @@
         </button>
     </div>
 
-    <!-- Coca-Cola အပါအဝင် In-Page Push ကြော်ငြာများကို Daily Bonus အောက်တွင် အသေကပ် ပေါ်စေသည့် နေရာ -->
-    <div class="inpage-ads-wrapper">
+    <!-- Screen ၏ အောက်ခြေတွင် ပေါ်စေမည့် In-Page Push ကြော်ငြာနေရာ -->
+    <div class="bottom-inpage-container">
         <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406278&niche=33" async data-cfasync="false"></script>
         <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
         <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
