@@ -122,14 +122,27 @@
             position: relative;
         }
 
+        /* In-Page Push ကြော်ငြာများကို အပေါ်သို့ တက်မဖုံးစေရန်နှင့် Daily Bonus အောက်တွင် တည်ငြိမ်စွာ ပေါ်စေရန် ထိန်းချုပ်ထားသော Class */
         .inpage-ads-wrapper {
             width: 100%;
             max-width: 400px;
-            margin-top: 10px;
+            margin-top: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100px;
+            min-height: 120px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* In-Page Push Floating ကြော်ငြာများ အပေါ်မတက်အောင် ရင်းမြစ် Element များကို Override လုပ်ထားခြင်း */
+        .inpage-ads-wrapper div, 
+        .inpage-ads-wrapper iframe {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            transform: none !important;
+            max-width: 100% !important;
         }
 
         .miner-card {
@@ -142,6 +155,8 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.06);
             margin-bottom: 5px;
+            position: relative;
+            z-index: 2;
         }
 
         .title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
@@ -319,7 +334,7 @@
     <div class="offline-bar" id="offlineBar">Connection Lost! Mining and Actions Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- Banner Ad ကို အပေါ်ဆုံးနေရာတွင် ပြန်လည်ထားရှိပါသည် -->
+    <!-- Banner Ad (320x50) ကို မူလအပေါ်ဆုံးနေရာတွင် ထားရှိပါသည် -->
     <div class="ad-banner-box">
         <script>
           atOptions = {
@@ -367,7 +382,7 @@
         </button>
     </div>
 
-    <!-- Coca-Cola အပါအဝင် In-Page Push ကြော်ငြာများကို Daily Bonus အောက်တွင် ပေါ်စေရန် အောက်ဘက်သို့ ရွှေ့ထားပါသည် -->
+    <!-- Coca-Cola အပါအဝင် In-Page Push ကြော်ငြာများကို Daily Bonus အောက်တွင် အသေကပ် ပေါ်စေသည့် နေရာ -->
     <div class="inpage-ads-wrapper">
         <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406278&niche=33" async data-cfasync="false"></script>
         <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
@@ -555,10 +570,10 @@
 
         // DIRECT LINKS POOL (Adsterra & HilltopAds)
         const directLinksPool = [
-            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb', // Adsterra Smartlink 1
-            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a', // Adsterra Smartlink 2
-            'https://plump-plastic.com/bd3AVU0NP.3/plvebXmJVuJ/ZyDt0f3/Msz-YB3mMBzqAK1gLWTkcVzkNPjcc/zVMKD/kV', // Hilltop Direct 1
-            'https://plump-plastic.com/PEwa43' // Hilltop Direct 2
+            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
+            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
+            'https://plump-plastic.com/bd3AVU0NP.3/plvebXmJVuJ/ZyDt0f3/Msz-YB3mMBzqAK1gLWTkcVzkNPjcc/zVMKD/kV',
+            'https://plump-plastic.com/PEwa43'
         ];
         
         let linkIndex = 0;
@@ -716,7 +731,7 @@
 
         closeModalBtn.addEventListener('click', () => payoutModal.style.display = 'none');
 
-        // Submit Withdrawal Payout to Serverless Endpoint
+        // Submit Withdrawal Payout
         submitPayoutBtn.addEventListener('click', async () => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot submit payout.");
             const address = tonAddressInput.value.trim();
