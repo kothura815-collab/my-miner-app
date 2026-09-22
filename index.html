@@ -111,12 +111,12 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
+        /* TOP BANNER AD DISPLAY */
         .ad-banner-box {
             width: 100%;
             max-width: 400px;
             min-height: 60px;
-            margin-top: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             border-radius: 12px;
             overflow: hidden;
             background: #161b22;
@@ -126,7 +126,7 @@
             align-items: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             position: relative;
-            z-index: 1;
+            z-index: 10;
         }
 
         .miner-card {
@@ -138,9 +138,9 @@
             text-align: center;
             box-shadow: 0 8px 24px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.06);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             position: relative;
-            z-index: 2;
+            z-index: 10;
         }
 
         .title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
@@ -167,6 +167,8 @@
             transform: translateZ(0);
             background: radial-gradient(circle, rgba(243,156,18,0.2) 0%, rgba(22,27,34,0.8) 100%);
             transition: transform 0.1s ease;
+            position: relative;
+            z-index: 20;
         }
 
         .logo-container:active { transform: scale(0.95); }
@@ -217,6 +219,27 @@
         .btn-share { background: linear-gradient(90deg, #0088cc, #3498db); }
         .btn-high-ads { background: linear-gradient(90deg, #8e44ad, #9b59b6); }
         .btn-bonus { background: linear-gradient(90deg, #d35400, #e67e22); }
+
+        /* BOTTOM IN-PAGE PUSH & SOCIAL BAR AD CONTAINER */
+        .bottom-ad-container {
+            width: 100%;
+            max-width: 400px;
+            min-height: 80px;
+            margin-top: 10px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* FORCE IN-PAGE PUSH / OVERLAY ADS TO STAY AT BOTTOM */
+        div[class*="rich-"], div[id*="rich"], div[class*="adsterra"], div[id*="at-"] {
+            top: auto !important;
+            bottom: 0px !important;
+            z-index: 5 !important;
+        }
 
         .modal-overlay {
             position: fixed;
@@ -318,6 +341,21 @@
     <div class="offline-bar" id="offlineBar">Connection Lost! Mining and Actions Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
+    <!-- 1. TOP BANNER AD (320x50) -->
+    <div class="ad-banner-box">
+        <script>
+          atOptions = {
+            'key' : '347789b1da1885d257b7e71a197c6c18',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
+    </div>
+
+    <!-- MAIN MINER CARD -->
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -352,19 +390,8 @@
         </button>
     </div>
 
-    <!-- Adsterra 320x50 Banner Slot (Moved Below Daily Bonus) -->
-    <div class="ad-banner-box">
-        <script>
-          atOptions = {
-            'key' : '347789b1da1885d257b7e71a197c6c18',
-            'format' : 'iframe',
-            'height' : 50,
-            'width' : 320,
-            'params' : {}
-          };
-        </script>
-        <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
-    </div>
+    <!-- 2. BOTTOM AD SLOT (FOR IN-PAGE PUSH & SOCIAL BAR ADS BELOW DAILY BONUS) -->
+    <div class="bottom-ad-container" id="bottomAdArea"></div>
 
     <!-- Modal Ad Container -->
     <div class="modal-overlay" id="adModal">
@@ -403,7 +430,7 @@
     </div>
 
     <script>
-        // ANTI-HACKING & DEVTOOLS GUARD
+        // Anti-Inspection & DevTools Guard
         (function() {
             document.addEventListener('contextmenu', e => e.preventDefault());
             document.addEventListener('keydown', e => {
@@ -423,7 +450,7 @@
             }, 1000);
         })();
 
-        // Anti-Auto Clicker Logic
+        // Anti-Auto Clicker Throttle
         let lastTapTime = 0;
         let lastX = 0;
         let lastY = 0;
@@ -445,7 +472,7 @@
             return false;
         }
 
-        // Service Worker Registration
+        // Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./service-worker.js').catch(() => {});
@@ -545,12 +572,12 @@
             }, 3500);
         }
 
-        // DIRECT LINKS POOL (Adsterra & HilltopAds)
+        // DIRECT LINKS POOL
         const directLinksPool = [
-            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb', // Adsterra Smartlink 1
-            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a', // Adsterra Smartlink 2
-            'https://plump-plastic.com/bd3AVU0NP.3/plvebXmJVuJ/ZyDt0f3/Msz-YB3mMBzqAK1gLWTkcVzkNPjcc/zVMKD/kV', // Hilltop Direct 1
-            'https://plump-plastic.com/PEwa43' // Hilltop Direct 2
+            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
+            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
+            'https://plump-plastic.com/bd3AVU0NP.3/plvebXmJVuJ/ZyDt0f3/Msz-YB3mMBzqAK1gLWTkcVzkNPjcc/zVMKD/kV',
+            'https://plump-plastic.com/PEwa43'
         ];
         
         let linkIndex = 0;
@@ -624,7 +651,7 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled) {
-                    openNextDirectLink(); // Trigger Direct Link on Continue click
+                    openNextDirectLink();
                     adModal.style.display = 'none';
                     if(onCompleteReward) onCompleteReward();
                 }
@@ -689,7 +716,6 @@
             }
         });
 
-        // Withdrawal Modal Handlers
         openWithdrawModalBtn.addEventListener('click', () => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot open withdrawal.");
             
@@ -708,7 +734,6 @@
 
         closeModalBtn.addEventListener('click', () => payoutModal.style.display = 'none');
 
-        // Submit Withdrawal Payout to Serverless Endpoint
         submitPayoutBtn.addEventListener('click', async () => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot submit payout.");
             const address = tonAddressInput.value.trim();
@@ -756,4 +781,4 @@
         });
     </script>
 </body>
-    </html>
+</html>
