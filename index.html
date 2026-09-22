@@ -83,7 +83,7 @@
 
         body {
             margin: 0;
-            padding: 12px 10px 40px 10px;
+            padding: 12px 10px 80px 10px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -109,22 +109,6 @@
             left: 0;
             z-index: 10000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-
-        .ad-banner-box {
-            width: 100%;
-            max-width: 400px;
-            min-height: 60px;
-            margin-bottom: 12px;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #161b22;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            position: relative;
         }
 
         .miner-card {
@@ -213,6 +197,23 @@
         .btn-share { background: linear-gradient(90deg, #0088cc, #3498db); }
         .btn-high-ads { background: linear-gradient(90deg, #8e44ad, #9b59b6); }
         .btn-bonus { background: linear-gradient(90deg, #d35400, #e67e22); }
+
+        /* Bottom Fixed Ad Banner Container */
+        .ad-banner-box {
+            width: 100%;
+            max-width: 400px;
+            min-height: 60px;
+            margin-top: 10px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #161b22;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            position: relative;
+        }
 
         .modal-overlay {
             position: fixed;
@@ -314,20 +315,6 @@
     <div class="offline-bar" id="offlineBar">Connection Lost! Mining and Actions Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- Adsterra 320x50 Banner Slot -->
-    <div class="ad-banner-box">
-        <script>
-          atOptions = {
-            'key' : '347789b1da1885d257b7e71a197c6c18',
-            'format' : 'iframe',
-            'height' : 50,
-            'width' : 320,
-            'params' : {}
-          };
-        </script>
-        <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
-    </div>
-
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -360,6 +347,20 @@
             <span>Daily Bonus 15s</span>
             <span id="bonusCounter">0/30 (+1~3 ALTA)</span>
         </button>
+    </div>
+
+    <!-- Adsterra 320x50 Bottom Banner Slot (Moved Below Card) -->
+    <div class="ad-banner-box">
+        <script>
+          atOptions = {
+            'key' : '347789b1da1885d257b7e71a197c6c18',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
     </div>
 
     <!-- Modal Ad Container -->
