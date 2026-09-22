@@ -111,20 +111,19 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
-        /* BUTTON STYLE BANNER CONTAINER FOR MAIN PAGE */
-        .button-banner-box {
+        .ad-banner-box {
             width: 100%;
             max-width: 400px;
-            min-height: 55px;
-            margin: 8px 0;
+            min-height: 60px;
+            margin-bottom: 12px;
             border-radius: 12px;
             overflow: hidden;
-            background: #1a222d;
-            border: 2px solid rgba(243, 156, 18, 0.4);
+            background: #161b22;
+            border: 1px solid rgba(255, 255, 255, 0.12);
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             position: relative;
         }
 
@@ -315,6 +314,20 @@
     <div class="offline-bar" id="offlineBar">Connection Lost! Mining and Actions Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
+    <!-- Adsterra 320x50 Banner Slot -->
+    <div class="ad-banner-box">
+        <script>
+          atOptions = {
+            'key' : '347789b1da1885d257b7e71a197c6c18',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
+    </div>
+
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -331,20 +344,6 @@
             <span>+0.5 ALTA</span>
         </button>
 
-        <!-- MAIN PAGE BUTTON BANNER 1 (Adsterra 320x50 Banner) -->
-        <div class="button-banner-box">
-            <script>
-              atOptions = {
-                'key' : '347789b1da1885d257b7e71a197c6c18',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-              };
-            </script>
-            <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
-        </div>
-
         <button class="action-btn btn-withdraw task-btn" id="openWithdrawModal">Withdraw Alta (Min: 150)</button>
 
         <button class="action-btn btn-share task-btn" id="shareBtn">
@@ -357,11 +356,6 @@
             <span id="highAdsCounter">0/100 (+1 ALTA)</span>
         </button>
 
-        <!-- MAIN PAGE BUTTON BANNER 2 (RichAds / Adsterra Fallback) -->
-        <div class="button-banner-box">
-            <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
-        </div>
-
         <button class="action-btn btn-bonus task-btn" id="dailyBonusBtn">
             <span>Daily Bonus 15s</span>
             <span id="bonusCounter">0/30 (+1~3 ALTA)</span>
@@ -370,7 +364,7 @@
 
     <!-- Modal Ad Container -->
     <div class="modal-overlay" id="adModal">
-        <div class="button-banner-box">
+        <div class="ad-banner-box">
             <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
         </div>
         <div class="ad-modal-content" id="modalCenterAdBox">
