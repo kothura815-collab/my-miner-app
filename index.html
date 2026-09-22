@@ -83,7 +83,7 @@
 
         body {
             margin: 0;
-            padding: 12px 10px 40px 10px;
+            padding: 12px 10px 100px 10px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -93,6 +93,7 @@
             min-height: 100vh;
             user-select: none;
             -webkit-user-select: none;
+            position: relative;
         }
 
         .offline-bar {
@@ -140,7 +141,7 @@
             border: 1px solid rgba(255,255,255,0.06);
             margin-bottom: 15px;
             position: relative;
-            z-index: 10;
+            z-index: 100;
         }
 
         .title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
@@ -168,7 +169,7 @@
             background: radial-gradient(circle, rgba(243,156,18,0.2) 0%, rgba(22,27,34,0.8) 100%);
             transition: transform 0.1s ease;
             position: relative;
-            z-index: 20;
+            z-index: 200;
         }
 
         .logo-container:active { transform: scale(0.95); }
@@ -220,24 +221,14 @@
         .btn-high-ads { background: linear-gradient(90deg, #8e44ad, #9b59b6); }
         .btn-bonus { background: linear-gradient(90deg, #d35400, #e67e22); }
 
-        /* BOTTOM IN-PAGE PUSH & SOCIAL BAR AD CONTAINER */
-        .bottom-ad-container {
-            width: 100%;
-            max-width: 400px;
-            min-height: 80px;
-            margin-top: 10px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            z-index: 5;
-        }
-
-        /* FORCE IN-PAGE PUSH / OVERLAY ADS TO STAY AT BOTTOM */
-        div[class*="rich-"], div[id*="rich"], div[class*="adsterra"], div[id*="at-"] {
+        /* FORCE ALL FLOATING / IN-PAGE PUSH ADS TO STAY BELOW THE MINER CARD AT BOTTOM */
+        div[class*="rich-"], div[id*="rich"], 
+        div[class*="adsterra"], div[id*="at-"], 
+        iframe[id*="aswift"], div[style*="position: fixed"], 
+        div[style*="position: absolute"] {
             top: auto !important;
             bottom: 0px !important;
+            margin-top: 15px !important;
             z-index: 5 !important;
         }
 
@@ -250,7 +241,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 15px;
-            z-index: 1000;
+            z-index: 100000;
         }
 
         .ad-modal-content {
@@ -329,7 +320,7 @@
             font-weight: 600;
             border: 2px solid var(--primary-gold);
             display: none;
-            z-index: 99999;
+            z-index: 999999;
             text-align: center;
             box-shadow: 0 8px 30px rgba(0,0,0,0.9);
             max-width: 85%;
@@ -341,7 +332,7 @@
     <div class="offline-bar" id="offlineBar">Connection Lost! Mining and Actions Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- 1. TOP BANNER AD (320x50) -->
+    <!-- TOP BANNER AD (320x50) -->
     <div class="ad-banner-box">
         <script>
           atOptions = {
@@ -390,9 +381,6 @@
         </button>
     </div>
 
-    <!-- 2. BOTTOM AD SLOT (FOR IN-PAGE PUSH & SOCIAL BAR ADS BELOW DAILY BONUS) -->
-    <div class="bottom-ad-container" id="bottomAdArea"></div>
-
     <!-- Modal Ad Container -->
     <div class="modal-overlay" id="adModal">
         <div class="ad-banner-box">
@@ -430,6 +418,23 @@
     </div>
 
     <script>
+        // DYNAMICALLY FORCE ALL IN-PAGE PUSH / OVERLAY ADS TO BOTTOM
+        setInterval(() => {
+            const allElements = document.querySelectorAll('body > div, body > iframe');
+            allElements.forEach(el => {
+                if (!el.classList.contains('miner-card') && 
+                    !el.classList.contains('ad-banner-box') && 
+                    !el.classList.contains('modal-overlay') && 
+                    !el.classList.contains('offline-bar') && 
+                    !el.classList.contains('toast-popup')) {
+                    
+                    el.style.setProperty('top', 'auto', 'important');
+                    el.style.setProperty('bottom', '0px', 'important');
+                    el.style.setProperty('z-index', '5', 'important');
+                }
+            });
+        }, 500);
+
         // Anti-Inspection & DevTools Guard
         (function() {
             document.addEventListener('contextmenu', e => e.preventDefault());
