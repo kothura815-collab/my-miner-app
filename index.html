@@ -28,7 +28,12 @@
     <!-- 2. Adsterra Social Bar Script -->
     <script src="https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js" async></script>
 
-    <!-- 3. HilltopAds Popunder & Push Scripts -->
+    <!-- 3. RichAds Priority Scripts (Push, In-Page, Pop) -->
+    <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406278&niche=33" async data-cfasync="false"></script>
+    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
+    <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
+
+    <!-- 4. HilltopAds Popunder & Push Scripts -->
     <script>
     (function(xhkv){
         var d = document, s = d.createElement('script'), l = d.currentScript || d.scripts[d.scripts.length - 1];
@@ -78,7 +83,7 @@
 
         body {
             margin: 0;
-            padding: 12px 10px 140px 10px; /* အောက်ခြေတွင် ကြော်ငြာမဖုံးစေရန် Margin/Padding ချန်ထားသည် */
+            padding: 12px 10px 40px 10px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -110,7 +115,8 @@
             width: 100%;
             max-width: 400px;
             min-height: 60px;
-            margin-bottom: 12px;
+            margin-top: 15px;
+            margin-bottom: 15px;
             border-radius: 12px;
             overflow: hidden;
             background: #161b22;
@@ -120,6 +126,7 @@
             align-items: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             position: relative;
+            z-index: 1;
         }
 
         .miner-card {
@@ -210,17 +217,6 @@
         .btn-share { background: linear-gradient(90deg, #0088cc, #3498db); }
         .btn-high-ads { background: linear-gradient(90deg, #8e44ad, #9b59b6); }
         .btn-bonus { background: linear-gradient(90deg, #d35400, #e67e22); }
-
-        /* အောက်ခြေတွင် Floating အဖြစ် ပေါ်စေမည့် Container */
-        .bottom-inpage-container {
-            width: 100%;
-            max-width: 400px;
-            position: relative;
-            z-index: 99;
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-        }
 
         .modal-overlay {
             position: fixed;
@@ -322,20 +318,6 @@
     <div class="offline-bar" id="offlineBar">Connection Lost! Mining and Actions Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- Banner Ad (320x50) -->
-    <div class="ad-banner-box">
-        <script>
-          atOptions = {
-            'key' : '347789b1da1885d257b7e71a197c6c18',
-            'format' : 'iframe',
-            'height' : 50,
-            'width' : 320,
-            'params' : {}
-          };
-        </script>
-        <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
-    </div>
-
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -370,16 +352,23 @@
         </button>
     </div>
 
-    <!-- Screen ၏ အောက်ခြေတွင် ပေါ်စေမည့် In-Page Push ကြော်ငြာနေရာ -->
-    <div class="bottom-inpage-container">
-        <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406278&niche=33" async data-cfasync="false"></script>
-        <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
-        <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
+    <!-- Adsterra 320x50 Banner Slot (Moved Below Daily Bonus) -->
+    <div class="ad-banner-box">
+        <script>
+          atOptions = {
+            'key' : '347789b1da1885d257b7e71a197c6c18',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
     </div>
 
     <!-- Modal Ad Container -->
     <div class="modal-overlay" id="adModal">
-        <div class="ad-banner-box" style="margin-top:0;">
+        <div class="ad-banner-box">
             <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
         </div>
         <div class="ad-modal-content" id="modalCenterAdBox">
@@ -558,10 +547,10 @@
 
         // DIRECT LINKS POOL (Adsterra & HilltopAds)
         const directLinksPool = [
-            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
-            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
-            'https://plump-plastic.com/bd3AVU0NP.3/plvebXmJVuJ/ZyDt0f3/Msz-YB3mMBzqAK1gLWTkcVzkNPjcc/zVMKD/kV',
-            'https://plump-plastic.com/PEwa43'
+            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb', // Adsterra Smartlink 1
+            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a', // Adsterra Smartlink 2
+            'https://plump-plastic.com/bd3AVU0NP.3/plvebXmJVuJ/ZyDt0f3/Msz-YB3mMBzqAK1gLWTkcVzkNPjcc/zVMKD/kV', // Hilltop Direct 1
+            'https://plump-plastic.com/PEwa43' // Hilltop Direct 2
         ];
         
         let linkIndex = 0;
@@ -635,7 +624,7 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled) {
-                    openNextDirectLink();
+                    openNextDirectLink(); // Trigger Direct Link on Continue click
                     adModal.style.display = 'none';
                     if(onCompleteReward) onCompleteReward();
                 }
@@ -719,7 +708,7 @@
 
         closeModalBtn.addEventListener('click', () => payoutModal.style.display = 'none');
 
-        // Submit Withdrawal Payout
+        // Submit Withdrawal Payout to Serverless Endpoint
         submitPayoutBtn.addEventListener('click', async () => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot submit payout.");
             const address = tonAddressInput.value.trim();
@@ -767,4 +756,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
