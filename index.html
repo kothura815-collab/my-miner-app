@@ -28,12 +28,7 @@
     <!-- 2. Adsterra Social Bar Script -->
     <script src="https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js" async></script>
 
-    <!-- 3. RichAds Priority Scripts (Push, In-Page, Pop) -->
-    <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406278&niche=33" async data-cfasync="false"></script>
-    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
-    <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
-
-    <!-- 4. HilltopAds Popunder & Push Scripts -->
+    <!-- 3. HilltopAds Popunder & Push Scripts -->
     <script>
     (function(xhkv){
         var d = document, s = d.createElement('script'), l = d.currentScript || d.scripts[d.scripts.length - 1];
@@ -115,7 +110,6 @@
             width: 100%;
             max-width: 400px;
             min-height: 60px;
-            margin-top: 10px;
             margin-bottom: 12px;
             border-radius: 12px;
             overflow: hidden;
@@ -126,6 +120,16 @@
             align-items: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             position: relative;
+        }
+
+        .inpage-ads-wrapper {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
         }
 
         .miner-card {
@@ -315,6 +319,20 @@
     <div class="offline-bar" id="offlineBar">Connection Lost! Mining and Actions Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
+    <!-- Banner Ad ကို အပေါ်ဆုံးနေရာတွင် ပြန်လည်ထားရှိပါသည် -->
+    <div class="ad-banner-box">
+        <script>
+          atOptions = {
+            'key' : '347789b1da1885d257b7e71a197c6c18',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
+    </div>
+
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -349,18 +367,11 @@
         </button>
     </div>
 
-    <!-- Adsterra 320x50 Banner Slot moved under Daily Bonus -->
-    <div class="ad-banner-box">
-        <script>
-          atOptions = {
-            'key' : '347789b1da1885d257b7e71a197c6c18',
-            'format' : 'iframe',
-            'height' : 50,
-            'width' : 320,
-            'params' : {}
-          };
-        </script>
-        <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
+    <!-- Coca-Cola အပါအဝင် In-Page Push ကြော်ငြာများကို Daily Bonus အောက်တွင် ပေါ်စေရန် အောက်ဘက်သို့ ရွှေ့ထားပါသည် -->
+    <div class="inpage-ads-wrapper">
+        <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406278&niche=33" async data-cfasync="false"></script>
+        <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
+        <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
     </div>
 
     <!-- Modal Ad Container -->
