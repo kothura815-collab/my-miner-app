@@ -22,18 +22,18 @@
     <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
 
     <!-- ================= AD NETWORKS INTEGRATION ================= -->
-    <!-- 1. Adsterra Popunder Script -->
+    <!-- Adsterra Popunder Script -->
     <script src="https://mammothsubway.com/34/ba/b0/34bab0bd185bc292ab8ee57be14abb62.js" async></script>
 
-    <!-- 2. Adsterra Social Bar Script -->
+    <!-- Adsterra Social Bar Script -->
     <script src="https://mammothsubway.com/0f/df/aa/0fdfaa442b60fb9e877e6a042482efb0.js" async></script>
 
-    <!-- 3. RichAds Priority Scripts (Push, In-Page, Pop) -->
+    <!-- RichAds Priority Scripts -->
     <script type="module" src="https://richinfo.co/richpartners/push/js/rp-cl-ob.js?pubid=1021768&siteid=406278&niche=33" async data-cfasync="false"></script>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=1021768&siteid=406187" async></script>
     <script src="https://richinfo.co/richpartners/pops/js/richads-pu-ob.js" data-pubid="1021768" data-siteid="406140" async data-cfasync="false"></script>
 
-    <!-- 4. HilltopAds Popunder & Push Scripts -->
+    <!-- HilltopAds Scripts -->
     <script>
     (function(xhkv){
         var d = document, s = d.createElement('script'), l = d.currentScript || d.scripts[d.scripts.length - 1];
@@ -111,20 +111,18 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
-        .ad-banner-box {
+        .button-banner-container {
             width: 100%;
-            max-width: 400px;
-            min-height: 60px;
-            margin-bottom: 12px;
-            border-radius: 12px;
+            max-width: 320px;
+            min-height: 50px;
+            margin: 10px auto;
+            border-radius: 10px;
             overflow: hidden;
             background: #161b22;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            position: relative;
         }
 
         .miner-card {
@@ -314,20 +312,6 @@
     <div class="offline-bar" id="offlineBar">Connection Lost! Mining and Actions Disabled.</div>
     <div class="toast-popup" id="customToast"></div>
 
-    <!-- Adsterra 320x50 Banner Slot -->
-    <div class="ad-banner-box">
-        <script>
-          atOptions = {
-            'key' : '347789b1da1885d257b7e71a197c6c18',
-            'format' : 'iframe',
-            'height' : 50,
-            'width' : 320,
-            'params' : {}
-          };
-        </script>
-        <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
-    </div>
-
     <div class="miner-card">
         <div class="title">Alta Ads Miner</div>
         <div class="balance-display" id="altaBalance">0.00</div>
@@ -338,6 +322,20 @@
         </div>
 
         <div class="tap-instruction" id="tapInstruction">Tap to mine Alta!</div>
+
+        <!-- Button Banner Slot Integration -->
+        <div class="button-banner-container">
+            <script>
+              atOptions = {
+                'key' : '347789b1da1885d257b7e71a197c6c18',
+                'format' : 'iframe',
+                'height' : 50,
+                'width' : 320,
+                'params' : {}
+              };
+            </script>
+            <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
+        </div>
 
         <button class="action-btn btn-double task-btn" id="doubleAdsBtn">
             <span>Double Ads 15s</span>
@@ -364,7 +362,7 @@
 
     <!-- Modal Ad Container -->
     <div class="modal-overlay" id="adModal">
-        <div class="ad-banner-box">
+        <div class="button-banner-container">
             <script src="https://mammothsubway.com/347789b1da1885d257b7e71a197c6c18/invoke.js"></script>
         </div>
         <div class="ad-modal-content" id="modalCenterAdBox">
@@ -399,7 +397,7 @@
     </div>
 
     <script>
-        // ANTI-HACKING & DEVTOOLS GUARD
+        // Anti-hacking and DevTools Inspection Protection
         (function() {
             document.addEventListener('contextmenu', e => e.preventDefault());
             document.addEventListener('keydown', e => {
@@ -541,12 +539,12 @@
             }, 3500);
         }
 
-        // DIRECT LINKS POOL (Adsterra & HilltopAds)
+        // Direct Smart Links Pool Rotation
         const directLinksPool = [
-            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb', // Adsterra Smartlink 1
-            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a', // Adsterra Smartlink 2
-            'https://plump-plastic.com/bd3AVU0NP.3/plvebXmJVuJ/ZyDt0f3/Msz-YB3mMBzqAK1gLWTkcVzkNPjcc/zVMKD/kV', // Hilltop Direct 1
-            'https://plump-plastic.com/PEwa43' // Hilltop Direct 2
+            'https://mammothsubway.com/rj0adayj?key=b1b9b60a34e0cd221a97d742cd97b6cb',
+            'https://mammothsubway.com/rbuwwr1xk?key=f2d3ee3d88106cf8c9baceb9d7fa460a',
+            'https://plump-plastic.com/bd3AVU0NP.3/plvebXmJVuJ/ZyDt0f3/Msz-YB3mMBzqAK1gLWTkcVzkNPjcc/zVMKD/kV',
+            'https://plump-plastic.com/PEwa43'
         ];
         
         let linkIndex = 0;
@@ -556,7 +554,7 @@
                 linkIndex = (linkIndex + 1) % directLinksPool.length;
                 window.open(targetUrl, '_blank');
             } catch (e) {
-                console.error("Direct Link Error", e);
+                console.error("Direct Link Execution Error", e);
             }
         }
 
@@ -620,7 +618,7 @@
 
             continueAdBtn.onclick = () => {
                 if (!continueAdBtn.disabled) {
-                    openNextDirectLink(); // Trigger Direct Link on Continue click
+                    openNextDirectLink();
                     adModal.style.display = 'none';
                     if(onCompleteReward) onCompleteReward();
                 }
@@ -685,7 +683,7 @@
             }
         });
 
-        // Withdrawal Modal Handlers
+        // Withdrawal Handling
         openWithdrawModalBtn.addEventListener('click', () => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot open withdrawal.");
             
@@ -704,7 +702,7 @@
 
         closeModalBtn.addEventListener('click', () => payoutModal.style.display = 'none');
 
-        // Submit Withdrawal Payout to Serverless Endpoint
+        // Submit Payout Requests
         submitPayoutBtn.addEventListener('click', async () => {
             if (!navigator.onLine) return showNotification("No Internet! Cannot submit payout.");
             const address = tonAddressInput.value.trim();
@@ -752,4 +750,4 @@
         });
     </script>
 </body>
-    </html>
+</html>
